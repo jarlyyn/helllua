@@ -7,7 +7,7 @@ _troomname=nil
 walk={}
 walk["to"]=-1
 walk["path"]=""
-walk["open"]=mushmapper.openmap(GetInfo(66).."rooms_all.h")
+walk["open"]=mushmapper.openmap(GetInfo(67).."rooms_all.h")
 
 if (walk[open]==0) then 
 	print "文件未找到，请检查设置"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈý, ËÄÔÂ 30, 2008, 1:22 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚÈý, ËÄÔÂ 30, 2008, 4:30 ÉÏÎç -->
 <!-- MuClient version 4.19 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -92,7 +92,7 @@
 <triggers
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
   <trigger
    enabled="y"
@@ -110,7 +110,7 @@
   <trigger
    enabled="y"
    group="system"
-   lines_to_match="8"
+   lines_to_match="12"
    keep_evaluating="y"
    match="^(&gt; )+[\n]{0,1}(.*)\n(([^&gt;]*\n)*)    ÕâÀï.*µÄ³ö¿ÚÊÇ(.*)\n\z"
    multi_line="y"
@@ -127,8 +127,19 @@
 <aliases
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
+  <alias
+   name="alias_to"
+   script="alias_to"
+   match="#to (.*)"
+   enabled="y"
+   group="alias"
+   regexp="y"
+   keep_evaluating="y"
+   sequence="100"
+  >
+  </alias>
 </aliases>
 
 <!-- timers -->
@@ -136,7 +147,7 @@
 <timers
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
 </timers>
 
@@ -145,7 +156,7 @@
 <macros
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
 
   <macro name="up" type="send_now" >
@@ -239,7 +250,7 @@
 <variables
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
 </variables>
 
@@ -248,7 +259,7 @@
 <colours
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
 
 <ansi>
@@ -305,7 +316,7 @@
 <keypad
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
 
   <key name="0" >
@@ -419,7 +430,7 @@
 <printing
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 01:22:50"
+   date_saved="2008-04-30 04:30:39"
   >
 
 <ansi>

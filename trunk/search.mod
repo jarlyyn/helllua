@@ -2,19 +2,18 @@ exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeas
 
 _searchdepth=6 --ËÑË÷Éî¶È
 
-
 do_search=function(fstep,ffail)
 	searchfor["init"]()
-	_stepcallback=fstep
-	_searchforcallbackfaild=ffail
+	hook_step(fstep)
+	hook_searchfrofail(ffail)
 	run("l")
 end
 
 
 searchfor={}
 searchfor["del"]=function()
-	_stepcallback=nil
-	_searchforcallbackfaild=nil
+	hook_step(nil)
+	hook_searchfrofail(nil)
 end
 
 searchfor["init"]=function()
@@ -47,7 +46,7 @@ searchfor["next"]=function(exit)
 	_searchforindex[_searchforlevel]=_searchforindex[_searchforlevel]+1	
 	if ((_searchforindex[_searchforlevel]>_searchforcount[_searchforlevel])or(_searchforlevel>_searchdepth)) then
 		if (_searchforlevel==1) then
-			if (_searchforcallbackfalid~=nil) then _searchforcallbackfalid() end
+			callhook(_hook_searchfrofail)
 			searchfor["del"]()
 			return
 		end				

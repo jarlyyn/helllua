@@ -6,7 +6,7 @@ do_search=function(fstep,ffail)
 	searchfor["init"]()
 	hook_step(fstep)
 	hook_searchfrofail(ffail)
-	run("l")
+	run("unset brief;l")
 end
 
 

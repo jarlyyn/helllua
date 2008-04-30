@@ -98,9 +98,7 @@ end
 getexitroom=function (room,dir)
 	local exits={}
 	local i=0
-	print(1)
 	exits={mushmapper.getexits(room)}
-	print(2)
 	while (i<exits[1]) do
 		i=i+1
 		if (dir==exits[i*2]) then return exits[i*2+1] end
@@ -111,9 +109,8 @@ end
 convpath=function(path)
 	local i=0
 	_convpath={}
-	re = rex.new("([^;]*)")
+	re = rex.new("([^;]+)")
 	n=re:gmatch(path,function (m, t)
-		print(m)
 		i=i+1
 		_convpath[i]=m
 	end)

@@ -4,15 +4,20 @@ _roomid=-1
 _roomname=""
 _exits=""
 _troomname=nil
+_afterwalk=nil
 walk={}
 walk["to"]=-1
 walk["path"]=""
+walk["data"]={}
+walk["index"]=0
+walk["step"]=0
 walk["open"]=mushmapper.openmap(GetInfo(67).."rooms_all.h")
-
 if (walk[open]==0) then 
 	print "文件未找到，请检查设置"
 end
-
+walk["del"]=function()
+	_stepcallback=nil
+end
 
 walk_on_room=function (name, line, wildcards)
 	_troomname=wildcards[1]
@@ -26,7 +31,7 @@ walk_on_room1=function (name, line, wildcards)
 	end
 	_exits=wildcards[5]
 	_troomname=nil
-	if (_searchforcallbackstep~=nil) then _searchforcallbackstep() end;
+	if (_stepcallback~=nil) then _stepcallback() end;
 end
 go=function (to)
 	walk["to"]=to
@@ -35,11 +40,14 @@ go=function (to)
 		do_search(walk_locate_step,walk_locate_fail)
 		return
 	end
+	_stepcallback=walk_on_step
 	run("set brief")
 	walk["path"]=mushmapper.getpath(_roomid,to,1)
-	print(_roomid..walk["path"])
-	run(walk["path"])
-	_roomid=to
+	print(walk["path"])
+	walk["index"]=0
+	walk["data"]=convpath(walk["path"])
+	walk["step"]=nil
+	walk_on_step()
 end
 
 getexits=function(exit)
@@ -68,4 +76,46 @@ end
 
 walk_locate_fail=function()
 	run("set brief")	
+end
+
+walk_on_step=function()
+	walk["index"]=walk["index"]+1
+	steptrace(walk["step"])
+	if (walk["data"][walk["index"]]==nil) then
+		if (_afterwalk) then _afterwalk() end
+		walk["del"]()
+		return
+	end
+	walk["step"]=walk["data"][walk["index"]]
+	run(walk["step"])
+end
+
+steptrace=function(dir)
+	if ((dir=="")or(dir==nil)) then return end
+	if (_roomid~=-1) then  _roomid=getexitroom(_roomid,dir) end
+end
+
+getexitroom=function (room,dir)
+	local exits={}
+	local i=0
+	print(1)
+	exits={mushmapper.getexits(room)}
+	print(2)
+	while (i<exits[1]) do
+		i=i+1
+		if (dir==exits[i*2]) then return exits[i*2+1] end
+	end
+	return room
+end
+
+convpath=function(path)
+	local i=0
+	_convpath={}
+	re = rex.new("([^;]*)")
+	n=re:gmatch(path,function (m, t)
+		print(m)
+		i=i+1
+		_convpath[i]=m
+	end)
+	return _convpath
 end

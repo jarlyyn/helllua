@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈý, ËÄÔÂ 30, 2008, 2:34 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÈý, ËÄÔÂ 30, 2008, 5:25 ÏÂÎç -->
 <!-- MuClient version 4.19 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -19,14 +19,14 @@
    mapping_failure="Alas, you cannot go that way."
    name="hell_lua"
    new_activity_sound="(No sound)"
-   output_font_name="FixedSys"
+   output_font_name="ÐÂËÎÌå"
    script_editor="notepad"
    script_filename="E:\codes\helllua\hell.lua"
    script_language="Lua"
    site="61.188.39.164"
    spam_message="look"
    speed_walk_prefix="#"
-   terminal_identification="mushclient"
+   terminal_identification="VT102"
 
    arrows_change_history="y"
    auto_pause="y"
@@ -63,6 +63,7 @@
    note_text_colour="#040000"
    output_font_height="9"
    output_font_weight="400"
+   output_font_charset="134"
    paste_delay_per_lines="1"
    pixel_offset="1"
    port="2000"
@@ -78,9 +79,7 @@
    unpause_on_send="y"
    use_custom_link_colour="y"
    use_default_input_font="y"
-   use_default_output_font="y"
    warn_if_scripting_inactive="y"
-   wrap="y"
    wrap_column="80"
    write_world_name_to_log="y"
    > <!-- end of general world attributes -->
@@ -92,8 +91,45 @@
 <triggers
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
+  <trigger
+   bold="y"
+   enabled="y"
+   group="system"
+   keep_evaluating="y"
+   match="^(([^ ]+))"
+   match_bold="y"
+   match_text_colour="y"
+   name="room"
+   regexp="y"
+   script="walk_on_room"
+   sequence="100"
+   text_colour="14"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   match="^(&gt; )*(ÄãÒÑ¾­³¬¹ý17ËêÁË£¬ÎÞ·¨ÔÙÊ¹ÓÃÕâ¸öÖ¸Áî»Øµ½¿ÍµêÁË¡£|ÄãÒªÕÙ»½Ê²Ã´ÎïÆ·£¿|Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸öÎïÆ·)"
+   name="flyfail"
+   regexp="y"
+   repeat="y"
+   script="walk_on_flyfail"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   keep_evaluating="y"
+   match="^(&gt; )*(Õâ¸ö·½ÏòÃ»ÓÐ³öÂ·|Î¤´º·¼Ò»½ÅÕýºÃÌßÖÐÄãµÄÆ¨¹É)"
+   name="stepfail"
+   regexp="y"
+   script="walk_on_stepfail"
+   sequence="100"
+  >
+  </trigger>
   <trigger
    enabled="y"
    group="system"
@@ -107,32 +143,6 @@
    sequence="100"
   >
   </trigger>
-  <trigger
-   bold="y"
-   enabled="y"
-   group="system"
-   keep_evaluating="y"
-   match="^([^ ]+)$"
-   match_bold="y"
-   match_text_colour="y"
-   name="room"
-   regexp="y"
-   script="walk_on_room"
-   sequence="100"
-   text_colour="14"
-  >
-  </trigger>
-  <trigger
-   enabled="y"
-   group="fail"
-   keep_evaluating="y"
-   match="^Õâ¸ö·½ÏòÃ»ÓÐ³öÂ·¡£$"
-   name="stepfail"
-   regexp="y"
-   script="walk_on_stepfail"
-   sequence="100"
-  >
-  </trigger>
 </triggers>
 
 <!-- aliases -->
@@ -140,7 +150,7 @@
 <aliases
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
   <alias
    name="alias_to"
@@ -160,7 +170,7 @@
 <timers
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
 </timers>
 
@@ -169,7 +179,7 @@
 <macros
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
 
   <macro name="up" type="send_now" >
@@ -263,8 +273,9 @@
 <variables
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
+  <variable name="flylist">recall back:26,</variable>
 </variables>
 
 <!-- colours -->
@@ -272,7 +283,7 @@
 <colours
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
 
 <ansi>
@@ -329,7 +340,7 @@
 <keypad
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
 
   <key name="0" >
@@ -443,7 +454,7 @@
 <printing
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-04-30 14:34:19"
+   date_saved="2008-04-30 17:25:18"
   >
 
 <ansi>

@@ -17,6 +17,7 @@ end
 walk["end"]=function(s)
 	hook_stepfail(nil)
 	hook_step(nil)
+	hook_flyfail(nil)
 	if ((s~="")and(s~=nil)) then callhook(walk[s]) end
 	walk["ok"]=nil
 	walk["fail"]=nil
@@ -27,6 +28,7 @@ walk_on_room=function (name, line, wildcards)
 end
 
 walk_on_stepfail=function (name, line, wildcards)
+	_roomid=-1
 	callhook(_hook_stepfail)
 end
 
@@ -42,17 +44,22 @@ walk_on_room1=function (name, line, wildcards)
 end
 do_walk=function (to,walk_ok,walk_fail)
 	walk["to"]=to
+	walk["ok"]=walk_ok
+	walk["fail"]=walk_fail
+	
 	if (_roomid<0) then
-		run("unset brief")
 		do_search(walk_locate_step,walk_locate_fail)
 		return
 	end
-	hook_step(walk_on_step)
-	run("set brief")
+
 	if (_roomid==walk["to"]) then 
 		walk["end"]("ok")
 		return
 	end
+	run("set brief")
+	hook_step(walk_on_step)
+	hook_stepfail(walk_on_stepfail)
+	hook_flyfail(walk["flyfail"])
 	walk["path"]=mushmapper.getpath(_roomid,to,1)
 	if (walk["path"]=="") then
 		walk["end"]("fail")
@@ -67,6 +74,21 @@ do_walk=function (to,walk_ok,walk_fail)
 end
 
 walk["stepfail"]=function()
+	do_search(walk_locate_step,walk_locate_fail)
+end
+
+walk["flyfail"]=function()
+	walk["path"]=mushmapper.getpath(_roomid,walk["to"],0)
+	if (walk["path"]=="") then
+		walk["end"]("fail")
+		return
+	end
+	print(walk["path"])
+	walk["index"]=0
+	walk["data"]=convpath(walk["path"])
+	walk["step"]=nil
+	hook_stepfail(walk["stepfail"])
+	walk_on_step()
 end
 
 getexits=function(exit)
@@ -123,6 +145,12 @@ getexitroom=function (room,dir)
 	end
 	return room
 end
+
+walk_on_flyfail=function ()
+	callhook(_hook_flyfail)
+end
+
+
 
 convpath=function(path)
 	local i=0

@@ -4,7 +4,6 @@ _roomid=-1
 _roomname=""
 _exits=""
 _troomname=nil
-_afterwalk=nil
 walk={}
 walk["to"]=-1
 walk["path"]=""
@@ -15,12 +14,20 @@ walk["open"]=mushmapper.openmap(GetInfo(67).."rooms_all.h")
 if (walk[open]==0) then 
 	print "文件未找到，请检查设置"
 end
-walk["del"]=function()
-	_stepcallback=nil
+walk["end"]=function(s)
+	hook_stepfail(nil)
+	hook_step(nil)
+	if ((s~="")and(s~=nil)) then callhook(walk[s]) end
+	walk["ok"]=nil
+	walk["fail"]=nil
 end
 
 walk_on_room=function (name, line, wildcards)
 	_troomname=wildcards[1]
+end
+
+walk_on_stepfail=function (name, line, wildcards)
+	callhook(_hook_stepfail)
 end
 
 walk_on_room1=function (name, line, wildcards)
@@ -31,23 +38,35 @@ walk_on_room1=function (name, line, wildcards)
 	end
 	_exits=wildcards[5]
 	_troomname=nil
-	if (_stepcallback~=nil) then _stepcallback() end;
+	callhook(_hook_step)
 end
-go=function (to)
+do_walk=function (to,walk_ok,walk_fail)
 	walk["to"]=to
 	if (_roomid<0) then
 		run("unset brief")
 		do_search(walk_locate_step,walk_locate_fail)
 		return
 	end
-	_stepcallback=walk_on_step
+	hook_step(walk_on_step)
 	run("set brief")
+	if (_roomid==walk["to"]) then 
+		walk["end"]("ok")
+		return
+	end
 	walk["path"]=mushmapper.getpath(_roomid,to,1)
+	if (walk["path"]=="") then
+		walk["end"]("fail")
+		return
+	end
 	print(walk["path"])
 	walk["index"]=0
 	walk["data"]=convpath(walk["path"])
 	walk["step"]=nil
+	hook_stepfail(walk["stepfail"])
 	walk_on_step()
+end
+
+walk["stepfail"]=function()
 end
 
 getexits=function(exit)
@@ -82,8 +101,7 @@ walk_on_step=function()
 	walk["index"]=walk["index"]+1
 	steptrace(walk["step"])
 	if (walk["data"][walk["index"]]==nil) then
-		if (_afterwalk) then _afterwalk() end
-		walk["del"]()
+		walk["end"]("ok")
 		return
 	end
 	walk["step"]=walk["data"][walk["index"]]

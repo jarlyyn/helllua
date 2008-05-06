@@ -46,9 +46,17 @@ walk["stopto"]=function(to,walk_ok,walk_fail)
 	walk["stop"](walk_stop_to)
 end
 
+walk_on_busy=function(name, line, wildcards)
+	if ((walk["step"]~=nil)and(_hook_step~=nil)) then
+		DoAfterSpecial(1,"run("..'"'..walk["step"]..'")',12)
+	end
+end
+
 walk_on_room=function (name, line, wildcards)
 	_troomname=wildcards[1]
 end
+
+
 
 walk_on_stepfail=function (name, line, wildcards)
 	_roomid=-1

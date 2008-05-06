@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚ¶þ, ÎåÔÂ 06, 2008, 6:38 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚ¶þ, ÎåÔÂ 06, 2008, 8:08 ÏÂÎç -->
 <!-- MuClient version 4.19 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -91,8 +91,51 @@
 <triggers
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
+  <trigger
+   enabled="y"
+   group="status"
+   keep_evaluating="y"
+   match="^ (ÄãÊÇÒ»Î»(.*)Ëê.*ÔÂµÄ(.*)ÐÔÈËÀà£¬.*Éú¡£)"
+   name="score1"
+   regexp="y"
+   script="status_on_score1"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="status"
+   match="^ (Õý|Ð°)    Æø£º\s*\d*"
+   name="score3"
+   regexp="y"
+   script="status_on_score3"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="status"
+   keep_evaluating="y"
+   match="^ Äã.*£¬ÌìÐÔ.*£¬»¹Ã»ÓÐ°ÝÊ¦¡£"
+   name="noteacher"
+   regexp="y"
+   script="status_noteacher"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="status"
+   keep_evaluating="y"
+   match="^ Äã.*£¬ÌìÐÔ.*£¬Ê¦¸¸ÊÇ(.*)¡£"
+   name="status_teacher"
+   regexp="y"
+   script="status_on_teacher"
+   sequence="100"
+  >
+  </trigger>
   <trigger
    bold="y"
    enabled="y"
@@ -133,6 +176,17 @@
   <trigger
    enabled="y"
    group="system"
+   keep_evaluating="y"
+   match="^(&gt; )*Äã(µÄ¶¯×÷»¹Ã»ÓÐÍê³É£¬²»ÄÜÒÆ¶¯|ÌÓÅÜÊ§°Ü|±»À¹×¡ÁËÈ¥Â·)¡£"
+   name="walk_busy"
+   regexp="y"
+   script="walk_on_busy"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
    lines_to_match="12"
    keep_evaluating="y"
    match="^(&gt; )+[\n]{0,1}(.*)\n(([^&gt;]*\n)*)    ÕâÀï.*µÄ³ö¿ÚÊÇ(.*)\n\z"
@@ -150,8 +204,18 @@
 <aliases
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
+  <alias
+   name="alias_stopto"
+   script="alias_stopto"
+   match="#stopto (.*)"
+   enabled="y"
+   group="alias"
+   regexp="y"
+   sequence="100"
+  >
+  </alias>
   <alias
    name="alias_to"
    script="alias_to"
@@ -181,7 +245,7 @@
 <timers
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
 </timers>
 
@@ -190,7 +254,7 @@
 <macros
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
 
   <macro name="up" type="send_now" >
@@ -284,7 +348,7 @@
 <variables
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
   <variable name="flylist"></variable>
 </variables>
@@ -294,7 +358,7 @@
 <colours
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
 
 <ansi>
@@ -351,7 +415,7 @@
 <keypad
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
 
   <key name="0" >
@@ -465,7 +529,7 @@
 <printing
    muclient_version="4.19"
    world_file_version="15"
-   date_saved="2008-05-06 18:38:28"
+   date_saved="2008-05-06 20:08:01"
   >
 
 <ansi>

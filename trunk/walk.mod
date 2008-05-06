@@ -23,6 +23,29 @@ walk["end"]=function(s)
 	walk["fail"]=nil
 end
 
+walk["stop"]=function(hook)
+	if ((_hook_step==nil)and(hook~=nil)) then
+		walk["end"]()
+		hook()
+		return
+	end
+	walk["ok"]=nil
+	walk["fail"]=nil
+	steptrace(walk["step"])
+	hook_step(hook)
+end
+
+walk_stop_to=function()
+	do_walk(walk["to"],walk["ok"],walk["fail"])
+end
+
+walk["stopto"]=function(to,walk_ok,walk_fail)
+	walk["to"]=to
+	walk["ok"]=walk_ok
+	walk["fail"]=walk_fail
+	walk["stop"](walk_stop_to)
+end
+
 walk_on_room=function (name, line, wildcards)
 	_troomname=wildcards[1]
 end
@@ -56,7 +79,7 @@ do_walk=function (to,walk_ok,walk_fail)
 		walk["end"]("ok")
 		return
 	end
-	run("set brief")
+	run("set brief 3")
 	hook_step(walk_on_step)
 	hook_stepfail(walk_on_stepfail)
 	hook_flyfail(walk["flyfail"])
@@ -108,7 +131,7 @@ walk_locate_step=function()
 	if (rm[1]~=1) then
 		searchfor["next"](getexits(_exits))
 	else
-		run("set brief")
+		run("set brief 3")
 		searchfor["del"]()
 		_roomid=rm[2]
 		go(walk["to"])
@@ -116,7 +139,7 @@ walk_locate_step=function()
 end
 
 walk_locate_fail=function()
-	run("set brief")	
+	run("set brief 3")	
 end
 
 walk_on_step=function()

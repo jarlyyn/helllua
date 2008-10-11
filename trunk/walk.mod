@@ -46,6 +46,17 @@ walk["stopto"]=function(to,walk_ok,walk_fail)
 	walk["stop"](walk_stop_to)
 end
 
+walk["npc"]=function(npc,walk_ok,walk_fail)
+	if npcs[npc]==nil then
+		print("无法找到npc "..npc ..",请检查npcs.ini")
+		return
+	end
+	walk["to"]=npcs[npc]["loc"]
+	walk["ok"]=walk_ok
+	walk["fail"]=walk_fail
+	walk["stop"](walk_stop_to)
+
+end
 walk_on_busy=function(name, line, wildcards)
 	if ((walk["step"]~=nil)and(_hook_step~=nil)) then
 		DoAfterSpecial(1,"run("..'"'..walk["step"]..'")',12)

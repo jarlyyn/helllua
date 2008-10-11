@@ -1,3 +1,4 @@
+_stop=false
 run=function(str)
 	if ((str=="")or(str==nil)) then return end
 	_cmds={}

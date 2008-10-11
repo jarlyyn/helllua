@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚ¶þ, ÎåÔÂ 06, 2008, 8:08 ÏÂÎç -->
-<!-- MuClient version 4.19 -->
+<!-- Saved on ÐÇÆÚÈÕ, Ê®ÔÂ 12, 2008, 3:12 ÉÏÎç -->
+<!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
 <muclient>
 <world
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -23,7 +23,7 @@
    script_editor="notepad"
    script_filename="E:\codes\helllua\hell.lua"
    script_language="Lua"
-   site="61.188.39.164"
+   site="219.150.131.179"
    spam_message="look"
    speed_walk_prefix="#"
    terminal_identification="VT102"
@@ -36,6 +36,7 @@
    confirm_before_replacing_typing="y"
    confirm_on_paste="y"
    confirm_on_send="y"
+   convert_ga_to_newline="y"
    detect_pueblo="y"
    display_my_input="y"
    echo_hyperlink_in_output_window="y"
@@ -49,6 +50,7 @@
    history_lines="1000"
    hyperlink_adds_to_command_history="y"
    hyperlink_colour="#0080FF"
+   ignore_mxp_colour_changes="y"
    indent_paras="y"
    input_background_colour="white"
    input_font_height="9"
@@ -66,7 +68,7 @@
    output_font_charset="134"
    paste_delay_per_lines="1"
    pixel_offset="1"
-   port="2000"
+   port="4000"
    proxy_port="1080"
    send_file_delay_per_lines="1"
    send_mxp_afk_response="y"
@@ -89,9 +91,9 @@
 <!-- triggers -->
 
 <triggers
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
   <trigger
    enabled="y"
@@ -153,6 +155,18 @@
   </trigger>
   <trigger
    enabled="y"
+   expand_variables="y"
+   group="walk"
+   match="^(&gt; )*([^&gt;]{1,120})$"
+   name="walk_test"
+   regexp="y"
+   repeat="y"
+   script="walk_test"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
    group="system"
    match="^(&gt; )*(ÄãÒÑ¾­³¬¹ý17ËêÁË£¬ÎÞ·¨ÔÙÊ¹ÓÃÕâ¸öÖ¸Áî»Øµ½¿ÍµêÁË¡£|ÄãÒªÕÙ»½Ê²Ã´ÎïÆ·£¿|Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸öÎïÆ·)"
    name="flyfail"
@@ -202,9 +216,9 @@
 <!-- aliases -->
 
 <aliases
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
   <alias
    name="alias_stopto"
@@ -243,18 +257,18 @@
 <!-- timers -->
 
 <timers
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
 </timers>
 
 <!-- macros -->
 
 <macros
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
 
   <macro name="up" type="send_now" >
@@ -346,9 +360,9 @@
 <!-- variables -->
 
 <variables
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
   <variable name="flylist"></variable>
 </variables>
@@ -356,9 +370,9 @@
 <!-- colours -->
 
 <colours
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
 
 <ansi>
@@ -413,9 +427,9 @@
 <!-- keypad -->
 
 <keypad
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
 
   <key name="0" >
@@ -527,9 +541,9 @@
 <!-- printing -->
 
 <printing
-   muclient_version="4.19"
+   muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-05-06 20:08:01"
+   date_saved="2008-10-12 03:12:30"
   >
 
 <ansi>

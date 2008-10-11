@@ -1,9 +1,9 @@
 assert  (package.loadlib ("mapper.dll","luaopen_mapper")) ()
 
+
 _roomid=-1
 _roomname=""
 _exits=""
-_troomname=nil
 walk={}
 walk["to"]=-1
 walk["path"]=""
@@ -52,8 +52,14 @@ walk_on_busy=function(name, line, wildcards)
 	end
 end
 
-walk_on_room=function (name, line, wildcards)
-	_troomname=wildcards[1]
+walk_on_room=function (name, line, wildcards,styles)
+	__textindex=1
+	if ((#wildcards[1])~=0)and((#wildcards[1])==styles[1]["length"]) then 
+		__textindex=2
+	end
+	if ((#styles)==__textindex)and(styles[__textindex]["textcolour"]==ColourNameToRGB("Cyan")) then
+		_roomname=((styles[__textindex]["text"]))
+	end
 end
 
 
@@ -64,13 +70,7 @@ walk_on_stepfail=function (name, line, wildcards)
 end
 
 walk_on_room1=function (name, line, wildcards)
-	if (_troomname) then
-		_roomname=_troomname
-	else
-		_roomname=wildcards[2]
-	end
-	_exits=wildcards[5]
-	_troomname=nil
+	_exits=wildcards[2]
 	callhook(_hook_step)
 end
 do_walk=function (to,walk_ok,walk_fail)

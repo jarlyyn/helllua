@@ -10,5 +10,9 @@ walk["stop"]()
 end
 
 alias_stopto=function(n,l,w)
-	walk["stopto"](w[1]-0)
+	go(w[1]-0)
+end
+
+alias_gonpc=function(n,l,w)
+	walk["npc"](w[1])
 end

@@ -43,7 +43,6 @@ item["get"]=function()
 	else
 		num=itemlist[item["item"]]
 	end
-	print(num)
 	if item["num"]>num then
 		busytest(item[items[item["item"]]["type"]])
 	else
@@ -52,8 +51,14 @@ item["get"]=function()
 end
 
 item["buy"]=function()
-	print("buy")
-	run("buy "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"]..";i")
+	num=getnum(items[item["item"]]["buymax"])
+	if (num <2) then
+		run("buy "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"]..";i")
+	else
+		num2=item["num"]-itemsnum(item["item"])
+		if num>num2 then num=num2 end
+		run("buy "..tostring(num).." "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"]..";i")
+	end
 	busytest(item["get"])
 end
 itemsnum=function(name)

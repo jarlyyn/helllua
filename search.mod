@@ -14,6 +14,7 @@ searchfor={}
 searchfor["del"]=function()
 	hook_step(nil)
 	hook_searchfrofail(nil)
+	EnableTriggerGroup("search",false)
 end
 
 searchfor["init"]=function()
@@ -30,6 +31,7 @@ searchfor["init"]=function()
 	_searchforlevel=1 --µ±Ç°²ãÊý
 	_stepcallback=nil
 	_searchforcallbackfaild=nil
+	EnableTriggerGroup("search",true)
 end
 searchfor["next"]=function(exit)
 	if (_searchfordata[_searchforlevel]==nil) then
@@ -59,4 +61,9 @@ searchfor["next"]=function(exit)
 		_searchforback[_searchforlevel]=exitback[searchfor["step"]]
 	end
 	run(searchfor["step"])		
+end
+
+xiaoerguard=function(name, line, wildcards)
+	_searchforlevel=_searchforlevel-1	
+	searchfor["next"](nil)
 end

@@ -18,10 +18,13 @@ walk["end"]=function(s)
 	hook_stepfail(nil)
 	hook_step(nil)
 	hook_flyfail(nil)
-	if ((s~="")and(s~=nil)) then callhook(walk[s]) end
+	if ((s~="")and(s~=nil)) then 
+		callhook(walk[s])
+	end
 	walk["ok"]=nil
 	walk["fail"]=nil
 end
+
 
 walk["stop"]=function(hook)
 	if ((_hook_step==nil)and(hook~=nil)) then

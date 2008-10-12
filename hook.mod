@@ -1,4 +1,5 @@
-_hooklist={hook_step,hook_searchfrofail,hook_stepfail,hook_flyfail}
+_hooklist={hook_step,hook_searchfrofail,hook_stepfail,hook_flyfail,hook_isbusy}
+
 
 unhook=function()
 	for i, h in pairs (_hooklist) do
@@ -15,6 +16,11 @@ end
 -- 得到房间出口的钩子，已得到确切的房间名
 hook_step=function(hook)
 	_hook_step=hook
+end
+
+
+hook_isbusy=function(hook)
+	_hook_isbusy=hook
 end
 
 hook_searchfrofail=function(hook)

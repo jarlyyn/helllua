@@ -21,7 +21,7 @@ run=function(str)
 	if ((str=="")or(str==nil)) then return end
 	_cmds={}
 	local i=0
-	re=rex.new("([^;¡£¡¢]+)")
+	re=rex.new("([^;.\]+)")
 	n=re:gmatch(str,function (m, t)
 		i=i+1
 		_cmds[i]=m

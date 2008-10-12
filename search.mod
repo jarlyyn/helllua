@@ -1,9 +1,12 @@
 exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeast="nw",se="nw",southwest="ne",sw="ne",northeast="sw",ne="sw",northwest="se",nw="se",eastup="wd",eu="wd",eastdown="wu",ed="wu",southup="nd",su="nd",southdown="nu",sd="nu",westup="ed",wu="ed",westdown="eu",wd="eu",northup="sd",nu="sd",northdown="su",nd="su",up="d",u="d",down="u",d="u",enter="out",out="enter",cross="cross"}
+dofile("paths.ini")
 
 _searchdepth=6 --ËÑË÷Éî¶È
 
-do_search=function(fstep,ffail)
+do_search=function(fstep,ffail,search_ok,search_fail)
 	searchfor["init"]()
+	searchfor["ok"]=search_ok
+	searchfor["fail"]=search_fail
 	hook_step(fstep)
 	hook_searchfrofail(ffail)
 	run("unset brief;l")
@@ -15,6 +18,14 @@ searchfor["del"]=function()
 	hook_step(nil)
 	hook_searchfrofail(nil)
 	EnableTriggerGroup("search",false)
+end
+searchfor["end"]=function(s)
+	searchfor["del"]()
+	if ((s~="")and(s~=nil)) then 
+		searchfor(item[s]) 
+	end
+	searchfor["ok"]=nil
+	searchfor["fail"]=nil
 end
 
 searchfor["init"]=function()
@@ -49,7 +60,7 @@ searchfor["next"]=function(exit)
 	if ((_searchforindex[_searchforlevel]>_searchforcount[_searchforlevel])or(_searchforlevel>_searchdepth)) then
 		if (_searchforlevel==1) then
 			callhook(_hook_searchfrofail)
-			searchfor["del"]()
+			searchfor["end"]("fail")
 			return
 		end				
 		searchfor["step"]=_searchforback[_searchforlevel]
@@ -67,3 +78,41 @@ xiaoerguard=function(name, line, wildcards)
 	_searchforlevel=_searchforlevel-1	
 	searchfor["next"](nil)
 end
+
+steppath={}
+do_steppath=function(path,pstep,pfail,path_ok,path_fail)
+	steppath["path"]=path
+	steppath["ok"]=path_ok
+	steppath["fail"]=path_fail
+	steppath["pstep"]=pstep
+	steppath["pfail"]=pfail
+	steppath["index"]=0
+	do_walk(path[1]["loc"],steppath["arrive"],path_fail)
+end
+steppath["arrive"]=function()
+	hook_step(steppath["pstep"])
+	hook_searchfrofail(steppath["pfail"])
+	steppath["pstep"]()
+end
+steppath["end"]=function(s)
+	if ((s~="")and(s~=nil)) then 
+		callhook(steppath[s]) 
+	end
+	steppath["ok"]=nil
+	steppath["fail"]=nil
+	hook_step(nil)
+	hook_searchfrofail(nil)
+end
+
+steppath["next"]=function()
+	steppath["index"]=steppath["index"]+1
+	steptrace(steppath["step"])
+	if (steppath["index"]>#steppath["path"]) then
+		steppath["end"]("ok")
+		return
+	end
+	steppath["step"]=steppath["path"][steppath["index"]]["step"]
+	print(steppath["step"])
+	run(steppath["step"])		
+end
+

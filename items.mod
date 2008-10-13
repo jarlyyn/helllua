@@ -27,12 +27,16 @@ item["go"]=function(itemname,itemnum,item_ok,item_fail)
 		item["end"]("fail")
 		return
 	end
-	do_walk(items[item["item"]]["loc"],item["get"],item["end"]("fail"))
+	do_walk(items[item["item"]]["loc"],item["get"],itemendfail)
+end
+itemendfail=function()
+	item["end"]("fail")
 end
 item["end"]=function(s)
 	if ((s~="")and(s~=nil)) then 
 		callhook(item[s]) 
 	end
+	print(s)
 	item["ok"]=nil
 	item["fail"]=nil
 end
@@ -46,6 +50,7 @@ item["get"]=function()
 	if item["num"]>num then
 		busytest(item[items[item["item"]]["type"]])
 	else
+		print(item["ok"])
 		item["end"]("ok")
 	end
 end

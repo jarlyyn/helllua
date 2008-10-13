@@ -88,13 +88,14 @@ do_steppath=function(path,pstep,pfail,path_ok,path_fail)
 	walkend=steppath["end"]
 	steppath["pstep"]=pstep
 	steppath["pfail"]=pfail
-	steppath["index"]=0
 	do_walk(path[1]["loc"],steppath["arrive"],path_fail)
 end
 steppath["arrive"]=function()
 	hook_step(steppath["pstep"])
 	hook_searchfrofail(steppath["pfail"])
-	steppath["pstep"]()
+	steppath["index"]=0
+	steppath["step"]=nil
+	steppath["next"]()
 end
 steppath["end"]=function(s)
 	if ((s~="")and(s~=nil)) then 

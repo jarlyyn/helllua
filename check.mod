@@ -4,7 +4,8 @@ _check=function()
 	run("i;hp;score")
 	busytest(_check)
 end
-check=function(checkcallback)
+check={}
+do_check=function(checkcallback)
 	check["callback"]=checkcallback
 	if itemsnum("Gold")>(tonumber(GetVariable("goldmin"))*3) then
 		busytest(c_cungold)

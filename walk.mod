@@ -159,10 +159,10 @@ walk_locate_step=function()
 	else
 		run("set brief 3")
 		walk["ok"]=searchfor["ok"]
-		walk["fail"]=searchfor["end"]
+		walk["fail"]=searchfor["fail"]
 		searchfor["end"]()
 		_roomid=rm[2]
-		do_walk(walk["to"],walk["ok"],walk["end"])
+		do_walk(walk["to"],walk["ok"],walk["fail"])
 	end
 end
 

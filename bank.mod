@@ -5,9 +5,11 @@ do_bank=function(action,num,type,bank_ok,bank_fail)
 	bank["num"]=num
 	bank["ok"]=bank_ok
 	bank["fail"]=bank_fail
-	do_walk(23,bank["arrive"],bank["end"]("fail"))
+	do_walk(23,bank["arrive"],bankendfail)
 end
-
+bankendfail=function()
+	bank["end"]("fail")
+end
 bank_ok=function()
 	bank["end"]("ok")
 end

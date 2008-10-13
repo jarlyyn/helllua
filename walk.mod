@@ -1,4 +1,3 @@
-assert  (package.loadlib ("mapper.dll","luaopen_mapper")) ()
 walkend=nil
 
 _roomid=-1
@@ -10,10 +9,7 @@ walk["path"]=""
 walk["data"]={}
 walk["index"]=0
 walk["step"]=0
-walk["open"]=mushmapper.openmap(GetInfo(67).."rooms_all.h")
-if (walk[open]==0) then 
-	print "文件未找到，请检查设置"
-end
+
 walk["end"]=function(s)
 	hook_stepfail(nil)
 	hook_step(nil)

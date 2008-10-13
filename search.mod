@@ -1,5 +1,5 @@
 exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeast="nw",se="nw",southwest="ne",sw="ne",northeast="sw",ne="sw",northwest="se",nw="se",eastup="wd",eu="wd",eastdown="wu",ed="wu",southup="nd",su="nd",southdown="nu",sd="nu",westup="ed",wu="ed",westdown="eu",wd="eu",northup="sd",nu="sd",northdown="su",nd="su",up="d",u="d",down="u",d="u",enter="out",out="enter",cross="cross"}
-dofile("paths.ini")
+include("paths.ini")
 
 _searchdepth=3 --ËÑË÷Éî¶È
 
@@ -95,6 +95,7 @@ steppath["arrive"]=function()
 	hook_searchfrofail(steppath["pfail"])
 	steppath["index"]=0
 	steppath["step"]=nil
+	steppath["nextroom"]=_roomid
 	steppath["next"]()
 end
 steppath["end"]=function(s)
@@ -109,13 +110,13 @@ end
 
 steppath["next"]=function()
 	steppath["index"]=steppath["index"]+1
-	steptrace(steppath["step"])
+	_roomid=steppath["nextroom"]
 	if (steppath["index"]>#steppath["path"]) then
 		steppath["end"]("ok")
 		return
 	end
 	steppath["step"]=steppath["path"][steppath["index"]]["step"]
-	print(steppath["step"])
+	steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
 	run(steppath["step"])		
 end
 

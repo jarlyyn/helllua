@@ -1,4 +1,4 @@
-dofile("items.ini")
+include("items.ini")
 itemlist={}
 on_itemsstart=function(name, line, wildcards)
 	titemlist={}

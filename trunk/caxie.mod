@@ -1,9 +1,9 @@
 caxie={}
-caxie["blacklist"]={}
 caxie["inv"]={}
 caxie["inv"]["к╒вс"]={max=1,min=1}
 caxie["inv"]["п╛см"]={max=7,min=4}
 caxie["index"]=1
+caxie["finished"]={}
 do_caxie=function(caxie_ok,caxie_fail)
 
 end
@@ -25,7 +25,7 @@ makecaxielist=function()
 	caxie["list"]={}
 	for i,v in pairs(room_obj) do
 		strfind=makecaxielistre:exec(i)
-		if (strfind~=nil)and(caxie["blacklist"]["i"]~=true) then
+		if (strfind~=nil)and(caxie["blacklist"]["i"]~=true)and(v["num"]<10) then
 			for t = 1,v["num"],1 do
 				caxie["list"][(#caxie["list"]+1)]=i.." "..tostring(t)
 			end
@@ -34,6 +34,7 @@ makecaxielist=function()
 	caxienpc()
 end
 caxiebegin=function(_cxpath)
+	caxie["finished"]={}
 	do_steppath(_cxpath,caxiestep,caxie["fail"],caxie["main"],caxie["fail"])
 end
 caxienpc=function()
@@ -47,7 +48,17 @@ caxienpc=function()
 end
 
 caxiestep=function()
-	
-	caxie["index"]=0
-	busytest(makecaxielist)
+	if caxie["finished"][tostring(steppath["nextroom"])]==true then
+		steppath["next"]()
+	else
+		caxie["finished"][tostring(steppath["nextroom"])]=true
+		caxie["index"]=0
+		busytest(makecaxielist)
+	end
 end
+
+
+
+caxie["blacklist"]={}
+caxie["Yufeng zhen"]=true
+caxie["Tie lianzi"]=true

@@ -1,5 +1,5 @@
-dofile("bank.mod")
-dofile("config.ini")
+include("bank.mod")
+include("config.ini")
 _check=function()
 	run("i;hp;score")
 	busytest(_check)

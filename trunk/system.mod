@@ -78,7 +78,7 @@ end
 
 getitemnum=function(str)
 	num=1
-	re=rex.new("(((一|二|三|四|五|六|七|八|九|十|百|千|万)*)(支|个|把|只|粒|张|枚|件|柄|根|块|文|两)){0,1}(.*)")
+	re=rex.new("(((一|二|三|四|五|六|七|八|九|十|百|千|万)*)(位|支|个|把|只|粒|张|枚|件|柄|根|块|文|两)){0,1}(.*)")
 	a,b,matchs=re:match(str)
 	if matchs~=nil then
 		if matchs[2]~=false then

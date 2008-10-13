@@ -9,5 +9,7 @@ dofile(GetInfo(67).."status.mod")
 dofile(GetInfo(67).."alias.mod")
 dofile(GetInfo(67).."search.mod")
 dofile(GetInfo(67).."npcs.ini")
+
+dofile(GetInfo(67).."caxie.mod")
 mushmapper.settags("")
 mushmapper.setflylist(GetVariable("flylist"))

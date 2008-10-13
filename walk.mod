@@ -1,5 +1,5 @@
 assert  (package.loadlib ("mapper.dll","luaopen_mapper")) ()
-
+walkend=nil
 
 _roomid=-1
 _roomname=""
@@ -32,6 +32,8 @@ walk["stop"]=function(hook)
 		hook()
 		return
 	end
+	callhook(walkend)
+	walkend=nil
 	walk["ok"]=nil
 	walk["fail"]=nil
 	steptrace(walk["step"])
@@ -65,7 +67,7 @@ walk_on_busy=function(name, line, wildcards)
 		DoAfterSpecial(1,"run("..'"'..walk["step"]..'")',12)
 	end
 end
-
+room_obj={}
 walk_on_room=function (name, line, wildcards,styles)
 	__textindex=1
 	if ((#wildcards[1])~=0)and((#wildcards[1])==styles[1]["length"]) then 
@@ -86,11 +88,14 @@ end
 walk_on_room1=function (name, line, wildcards)
 	_exits=wildcards[2]
 	callhook(_hook_step)
+	room_obj={}
+	EnableTriggerGroup("roomobj",true)
 end
 do_walk=function (to,walk_ok,walk_fail)
 	walk["to"]=to
 	walk["ok"]=walk_ok
 	walk["fail"]=walk_fail
+	walkend=walk["end"]
 	if (_roomid<0) then
 		do_search(walk_locate_step,walk_locate_fail,walk_ok,walk_fail)
 		return
@@ -207,4 +212,17 @@ convpath=function(path)
 		_convpath[i]=m
 	end)
 	return _convpath
+end
+
+on_obj=function(name, line, wildcards)
+	_item,num=getitemnum(wildcards[1])
+	if room_obj[wildcards[2]]~=nil then
+		room_obj[wildcards[2]]["num"]=room_obj[wildcards[2]]["num"]+num
+	else
+		room_obj[wildcards[2]]={num=num,id=wildcards[2]}
+	end
+	room_obj[_item]=room_obj[wildcards[2]]
+end
+on_objend=function(name, line, wildcards)
+	EnableTriggerGroup("roomobj",false)
 end

@@ -1,12 +1,13 @@
 exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeast="nw",se="nw",southwest="ne",sw="ne",northeast="sw",ne="sw",northwest="se",nw="se",eastup="wd",eu="wd",eastdown="wu",ed="wu",southup="nd",su="nd",southdown="nu",sd="nu",westup="ed",wu="ed",westdown="eu",wd="eu",northup="sd",nu="sd",northdown="su",nd="su",up="d",u="d",down="u",d="u",enter="out",out="enter",cross="cross"}
 dofile("paths.ini")
 
-_searchdepth=6 --搜索深度
+_searchdepth=3 --搜索深度
 
 do_search=function(fstep,ffail,search_ok,search_fail)
 	searchfor["init"]()
 	searchfor["ok"]=search_ok
 	searchfor["fail"]=search_fail
+	walkend=searchfor["end"]
 	hook_step(fstep)
 	hook_searchfrofail(ffail)
 	run("unset brief;l")
@@ -84,6 +85,7 @@ do_steppath=function(path,pstep,pfail,path_ok,path_fail)
 	steppath["path"]=path
 	steppath["ok"]=path_ok
 	steppath["fail"]=path_fail
+	walkend=steppath["end"]
 	steppath["pstep"]=pstep
 	steppath["pfail"]=pfail
 	steppath["index"]=0

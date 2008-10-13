@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈÕ, Ê®ÔÂ 12, 2008, 9:54 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÒ», Ê®ÔÂ 13, 2008, 1:52 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -95,8 +95,17 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
+  <trigger
+   group="roomobj"
+   match="^  ([^a-z!@#$%\^&amp;*()\\/.,&lt;&gt; ]+)\((\w*\s{0,1}\w+)\)$"
+   name="on_obj"
+   regexp="y"
+   script="on_obj"
+   sequence="100"
+  >
+  </trigger>
   <trigger
    enabled="y"
    group="status"
@@ -137,6 +146,16 @@
    name="status_teacher"
    regexp="y"
    script="status_on_teacher"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="roomobj"
+   keep_evaluating="y"
+   match="^(&gt; )*"
+   name="on_objend"
+   regexp="y"
+   script="on_objend"
    sequence="100"
   >
   </trigger>
@@ -256,7 +275,7 @@
   <trigger
    group="items"
    keep_evaluating="y"
-   match="^(¡õ|  ){0,1}([^a-z!@#$%\^&amp;*()\\/.,&lt;&gt; ]+)\((\w*\s{0,1}\w+)\)$"
+   match="^(¡õ|  )([^a-z!@#$%\^&amp;*()\\/.,&lt;&gt; ]+)\((\w*\s{0,1}\w+)\)$"
    name="on_items"
    regexp="y"
    script="on_items"
@@ -270,7 +289,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
   <alias
    name="alias_gonpc"
@@ -320,7 +339,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
 </timers>
 
@@ -329,7 +348,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
 
   <macro name="up" type="send_now" >
@@ -423,7 +442,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
@@ -434,7 +453,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
 
 <ansi>
@@ -491,7 +510,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
 
   <key name="0" >
@@ -605,7 +624,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-12 21:54:47"
+   date_saved="2008-10-13 13:52:25"
   >
 
 <ansi>

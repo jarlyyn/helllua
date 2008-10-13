@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÒ», Ê®ÔÂ 13, 2008, 1:52 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÒ», Ê®ÔÂ 13, 2008, 6:51 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -95,11 +95,11 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
   <trigger
    group="roomobj"
-   match="^  ([^a-z!@#$%\^&amp;*()\\/.,&lt;&gt; ]+)\((\w*\s{0,1}\w+)\)$"
+   match="^  ([^a-z!@#$%\^&amp;*()\\/.,&lt;&gt;]+)\((\w*\s{0,1}\w+)\)$"
    name="on_obj"
    regexp="y"
    script="on_obj"
@@ -289,7 +289,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
   <alias
    name="alias_gonpc"
@@ -339,7 +339,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
 </timers>
 
@@ -348,7 +348,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
 
   <macro name="up" type="send_now" >
@@ -442,7 +442,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
@@ -453,7 +453,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
 
 <ansi>
@@ -510,7 +510,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
 
   <key name="0" >
@@ -624,7 +624,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-13 13:52:25"
+   date_saved="2008-10-13 18:51:24"
   >
 
 <ansi>

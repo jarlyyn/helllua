@@ -1,3 +1,6 @@
+eatdrink=function()
+	run("eat "..food..";drink "..drink)
+end
 busytest=function(busyhook)
 	hook_isbusy(busyhook)
 	run("guard")

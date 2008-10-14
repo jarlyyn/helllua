@@ -15,7 +15,7 @@ bank_ok=function()
 end
 bank["end"]=function(s)
 	if ((s~="")and(s~=nil)) then 
-		callhook(bank[s]) 
+		call(bank[s]) 
 	end
 	bank["ok"]=nil
 	bank["fail"]=nil

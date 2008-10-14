@@ -34,7 +34,7 @@ itemendfail=function()
 end
 item["end"]=function(s)
 	if ((s~="")and(s~=nil)) then 
-		callhook(item[s]) 
+		call(item[s]) 
 	end
 	print(s)
 	item["ok"]=nil

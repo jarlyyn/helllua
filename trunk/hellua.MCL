@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚ¶þ, Ê®ÔÂ 14, 2008, 4:12 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚÈý, Ê®ÔÂ 15, 2008, 2:12 ÉÏÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -95,7 +95,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
   <trigger
    group="roomobj"
@@ -107,8 +107,7 @@
   >
   </trigger>
   <trigger
-   enabled="y"
-   group="status"
+   group="charinfo"
    keep_evaluating="y"
    match="^ (ÄãÊÇÒ»Î»(.*)Ëê.*ÔÂµÄ(.*)ÐÔÈËÀà£¬.*Éú¡£)"
    name="score1"
@@ -118,9 +117,8 @@
   >
   </trigger>
   <trigger
-   enabled="y"
-   group="status"
-   match="^ (Õý|Ð°)    Æø£º\s*\d*"
+   group="charinfo"
+   match="^ (Õý|Ð°)    Æø£º\s*(\d+)"
    name="score3"
    regexp="y"
    script="status_on_score3"
@@ -128,10 +126,18 @@
   >
   </trigger>
   <trigger
-   enabled="y"
-   group="status"
+   group="charinfo"
+   match="^ ½­ºþÔÄÀú£º\s*(\d+)\s*½­ºþÍþÍû£º\s*(\d+)\s*$"
+   name="status_onyueli"
+   regexp="y"
+   script="status_onyueli"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="charinfo"
    keep_evaluating="y"
-   match="^ Äã.*£¬ÌìÐÔ.*£¬»¹Ã»ÓÐ°ÝÊ¦¡£"
+   match="^ Äã.*£¬ÌìÐÔ(.*)£¬»¹Ã»ÓÐ°ÝÊ¦¡£"
    name="noteacher"
    regexp="y"
    script="status_noteacher"
@@ -139,10 +145,9 @@
   >
   </trigger>
   <trigger
-   enabled="y"
-   group="status"
+   group="charinfo"
    keep_evaluating="y"
-   match="^ Äã.*£¬ÌìÐÔ.*£¬Ê¦¸¸ÊÇ(.*)¡£"
+   match="^ Äã.*£¬ÌìÐÔ(.*)£¬Ê¦¸¸ÊÇ(.*)¡£"
    name="status_teacher"
    regexp="y"
    script="status_on_teacher"
@@ -172,6 +177,15 @@
   >
   </trigger>
   <trigger
+   group="whofam"
+   match="^(&gt; )*(.*)ÏÖÔÚµÄÊ±¼äÊÇ"
+   name="statue_mudname"
+   regexp="y"
+   script="status_mudname"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    bold="y"
    enabled="y"
    group="system"
@@ -197,12 +211,31 @@
   </trigger>
   <trigger
    enabled="y"
+   group="special"
+   match="^(&gt; )*(Èç¹íËÆ÷È|ÌìÉñ½µÊÀ|É±Æø|Ð¡ÖÜÌìÔË×ª|¹í»°Á¬Æª|Ðþ»Æ¾ÛÄÉ)\((.*)\)$"
+   name="status_onspecial"
+   regexp="y"
+   script="status_onspecial"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
    group="system"
    keep_evaluating="y"
    match="^(&gt; )*(Õâ¸ö·½ÏòÃ»ÓÐ³öÂ·|Î¤´º·¼Ò»½ÅÕýºÃÌßÖÐÄãµÄÆ¨¹É)"
    name="stepfail"
    regexp="y"
    script="walk_on_stepfail"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="whofam"
+   match="^(&gt; )*¡òÖÕ¼«µØÓü¡ò  Ä¿Ç°½­ºþÖÐµÄ \((.*)\) Íæ¼ÒÓÐ£º"
+   name="status_onfamily"
+   regexp="y"
+   script="status_onfamily"
    sequence="100"
   >
   </trigger>
@@ -263,6 +296,40 @@
   <trigger
    enabled="y"
    group="system"
+   match="^(&gt; )*Éè¶¨»·¾³±äÊý£ºno_more = &quot;infoend&quot;$"
+   name="system_infoend"
+   omit_from_output="y"
+   regexp="y"
+   script="system_infoend"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   keep_evaluating="y"
+   match="^(&gt; )*Éè¶¨»·¾³±äÊý£ºno_more = &quot;trigrpoff (.*)&quot;$"
+   name="system_trigrpoff"
+   omit_from_output="y"
+   regexp="y"
+   script="system_trigrpoff"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   match="^(&gt; )*Éè¶¨»·¾³±äÊý£ºno_more = &quot;trigrpon (.*)&quot;$"
+   name="system_trigrpon"
+   omit_from_output="y"
+   regexp="y"
+   script="system_trigrpon"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
    keep_evaluating="y"
    match="^(&gt; )*Ö¸Áî¸ñÊ½£ºguard"
    name="system_nobusy"
@@ -282,6 +349,43 @@
    sequence="100"
   >
   </trigger>
+  <trigger
+   group="hp"
+   match="^¡¾ ¾« Æø ¡¿\s*(\d+)\s*/\s*(\d+)\s*\((\d+)%\)\s*¡¾ ¾« Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\+(\d+)\)"
+   name="status_onhpjinqi"
+   regexp="y"
+   script="status_onhpjinqi"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="hp"
+   match="^¡¾ Æø Ñª ¡¿\s*(\d+)\s*/\s*(\d+)\s*\((\d+)%\)\s*¡¾ ÄÚ Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\+(\d+)\)"
+   name="status_onhpqixue"
+   regexp="y"
+   script="status_onhpqixue"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="hp"
+   match="^¡¾ Ê³ Îï ¡¿\s*(\d+)/\s*(\d+)\s*¡¾ Ç± ÄÜ ¡¿\s*(\d+)$"
+   name="status_onhpfood"
+   regexp="y"
+   script="status_onhpfood"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="hp"
+   keep_evaluating="y"
+   match="^¡¾ Òû Ë® ¡¿\s*(\d+)/\s*(\d+)\s*¡¾ ¾­ Ñé ¡¿\s*(\d+)$"
+   name="status_onhpwater"
+   regexp="y"
+   script="status_onhpwater"
+   sequence="100"
+  >
+  </trigger>
 </triggers>
 
 <!-- aliases -->
@@ -289,7 +393,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
   <alias
    name="alias_gonpc"
@@ -339,7 +443,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
 </timers>
 
@@ -348,7 +452,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
 
   <macro name="up" type="send_now" >
@@ -442,7 +546,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
   <variable name="flylist">recall back:26,</variable>
   <variable name="goldmin">4</variable>
@@ -453,7 +557,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
 
 <ansi>
@@ -510,7 +614,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
 
   <key name="0" >
@@ -624,7 +728,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-14 04:12:27"
+   date_saved="2008-10-15 02:12:59"
   >
 
 <ansi>

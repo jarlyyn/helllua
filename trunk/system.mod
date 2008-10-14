@@ -1,23 +1,45 @@
 eatdrink=function()
 	run("eat "..food..";drink "..drink)
 end
+
+
+
+catch=function(trigrp)
+	EnableTriggerGroup(trigrp,true)
+	trigrpoff(trigrp)
+end
+
 busytest=function(busyhook)
-	hook_isbusy(busyhook)
+	hook(hooks.isbusy,busyhook)
 	run("guard")
 end
 
+system_trigrpoff=function(name, line, wildcards)
+		EnableTriggerGroup(wildcards[2],false)
+end
+
+trigrpoff=function(str)
+	run("set no_more trigrpoff "..str)
+end
+system_trigrpon=function(name, line, wildcards)
+		EnableTriggerGroup(wildcards[2],true)
+end
+trigrpon=function(str)
+	run("set no_more trigrpon "..str)
+end
 system_isbusy=function(name, line, wildcards)
-	if _hook_isbusy~=nil then
+	if hooks.isbusy~=nil then
 		DoAfter(1,"guard")
 	end
 end
 
 system_nobusy=function(name, line, wildcards)
-	thook=_hook_isbusy
-	_hook_isbusy=nil
-	callhook(thook)
+	callhook(hooks.isbusy,true)
 end
 
+system_infoend=function(name, line, wildcards)
+	callhook(hooks.infoend,true)
+end
 
 _stop=false
 run=function(str)
@@ -93,7 +115,7 @@ getitemnum=function(str)
 end
 
 
-systemtri={system=true,status=true}
+systemtri={system=true,user=true}
 inittri=function()
 	tri=GetTriggerList()
 	for k,v in ipairs(tri) do

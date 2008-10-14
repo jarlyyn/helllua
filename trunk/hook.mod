@@ -1,36 +1,46 @@
-_hooklist={hook_step,hook_searchfrofail,hook_stepfail,hook_flyfail,hook_isbusy}
+hooks={}
+hooks.step="step"
+--每进入一个新房间的hook
+hooks.searchfrofail="searchfrofail"
+--search失败的hook
+hooks.isbusy="isbusy"
+--是否busy的hook
+hooks.infoend="infoend"
+--信息结束的hook
+hooks.stepfail="stepfail"
+--步近失败的hook
+hooks.flyfail="flyfail"
+--fly失败的hook
 
 
-unhook=function()
-	for i, h in pairs (_hooklist) do
-		h(nil)
-	end 
-end
+_hooklist={}
 
-callhook=function(hook)
-	if (hook~=nil) then 
-		hook() 
+hashook=function(str)
+	if _hooklist[str] ==nil then
+		return false
+	else
+		return true
 	end
 end
 
--- 得到房间出口的钩子，已得到确切的房间名
-hook_step=function(hook)
-	_hook_step=hook
+hook=function(str,callback)
+	_hooklist[str]=callback
 end
 
-
-hook_isbusy=function(hook)
-	_hook_isbusy=hook
+unhookall=function()
+	_hooklist={}
 end
 
-hook_searchfrofail=function(hook)
-	_hook_searchfrofail=hook
+callhook=function(str,removehook)
+	thook=_hooklist[str]
+	if removehook==true then
+		_hooklist[str]=nil
+	end
+	call(thook)
 end
 
-hook_stepfail=function(hook)
-	_hook_stepfail=hook
-end
-
-hook_flyfail=function(hook)
-	_hook_flyfail=hook
+call=function(func)
+	if (func~=nil) then 
+		func() 
+	end
 end

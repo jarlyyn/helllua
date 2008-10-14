@@ -11,29 +11,29 @@ walk["index"]=0
 walk["step"]=0
 
 walk["end"]=function(s)
-	hook_stepfail(nil)
-	hook_step(nil)
-	hook_flyfail(nil)
+	hook(hooks.stepfail,nil)
+	hook(hooks.step,nil)
+	hook(hooks.flyfail,nil)
 	if ((s~="")and(s~=nil)) then 
-		callhook(walk[s])
+		call(walk[s])
 	end
 	walk["ok"]=nil
 	walk["fail"]=nil
 end
 
 
-walk["stop"]=function(hook)
-	if ((_hook_step==nil)and(hook~=nil)) then
+walk["stop"]=function(thook)
+	if (not(hashook(hooks.step))and(thook~=nil)) then
 		walk["end"]()
-		hook()
+		thook()
 		return
 	end
-	callhook(walkend)
+	call(walkend)
 	walkend=nil
 	walk["ok"]=nil
 	walk["fail"]=nil
 	steptrace(walk["step"])
-	hook_step(hook)
+	hook(hooks.step,thook)
 end
 
 walk_stop_to=function()
@@ -59,7 +59,7 @@ walk["npc"]=function(npc,walk_ok,walk_fail)
 
 end
 walk_on_busy=function(name, line, wildcards)
-	if ((walk["step"]~=nil)and(_hook_step~=nil)) then
+	if ((walk["step"]~=nil)and(hooks.step~=nil)) then
 		DoAfterSpecial(1,"run("..'"'..walk["step"]..'")',12)
 	end
 end
@@ -78,12 +78,12 @@ end
 
 walk_on_stepfail=function (name, line, wildcards)
 	_roomid=-1
-	callhook(_hook_stepfail)
+	callhook(hooks.stepfail)
 end
 
 walk_on_room1=function (name, line, wildcards)
 	_exits=wildcards[2]
-	callhook(_hook_step)
+	callhook(hooks.step)
 	room_obj={}
 	EnableTriggerGroup("roomobj",true)
 end
@@ -102,9 +102,9 @@ do_walk=function (to,walk_ok,walk_fail)
 		return
 	end
 	run("set brief 3")
-	hook_step(walk_on_step)
-	hook_stepfail(walk_on_stepfail)
-	hook_flyfail(walk["flyfail"])
+	hook(hooks.step,walk_on_step)
+	hook(hooks.stepfail,walk_on_stepfail)
+	hook(hooks.flyfail,walk["flyfail"])
 	walk["path"]=mushmapper.getpath(_roomid,to,1)
 	if (walk["path"]=="") then
 		walk["end"]("fail")
@@ -114,7 +114,7 @@ do_walk=function (to,walk_ok,walk_fail)
 	walk["index"]=0
 	walk["data"]=convpath(walk["path"])
 	walk["step"]=nil
-	hook_stepfail(walk["stepfail"])
+	hook(hooks.stepfail,walk["stepfail"])
 	walk_on_step()
 end
 
@@ -132,7 +132,7 @@ walk["flyfail"]=function()
 	walk["index"]=0
 	walk["data"]=convpath(walk["path"])
 	walk["step"]=nil
-	hook_stepfail(walk["stepfail"])
+	hook(hooks.stepfail,walk["stepfail"])
 	walk_on_step()
 end
 
@@ -194,7 +194,7 @@ getexitroom=function (room,dir)
 end
 
 walk_on_flyfail=function ()
-	callhook(_hook_flyfail)
+	callhook(hooks.flyfail)
 end
 
 

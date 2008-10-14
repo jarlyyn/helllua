@@ -8,16 +8,16 @@ do_search=function(fstep,ffail,search_ok,search_fail)
 	searchfor["ok"]=search_ok
 	searchfor["fail"]=search_fail
 	walkend=searchfor["end"]
-	hook_step(fstep)
-	hook_searchfrofail(ffail)
+	hook(hooks.step,fstep)
+	hook(hooks.searchfrofail,ffail)
 	run("unset brief;l")
 end
 
 
 searchfor={}
 searchfor["del"]=function()
-	hook_step(nil)
-	hook_searchfrofail(nil)
+	hook(hooks.step,nil)
+	hook(hooks.searchfrofail,nil)
 	EnableTriggerGroup("search",false)
 end
 searchfor["end"]=function(s)
@@ -60,7 +60,7 @@ searchfor["next"]=function(exit)
 	_searchforindex[_searchforlevel]=_searchforindex[_searchforlevel]+1	
 	if ((_searchforindex[_searchforlevel]>_searchforcount[_searchforlevel])or(_searchforlevel>_searchdepth)) then
 		if (_searchforlevel==1) then
-			callhook(_hook_searchfrofail)
+			callhook(hooks.searchfrofail)
 			searchfor["end"]("fail")
 			return
 		end				
@@ -91,8 +91,8 @@ do_steppath=function(path,pstep,pfail,path_ok,path_fail)
 	do_walk(path[1]["loc"],steppath["arrive"],path_fail)
 end
 steppath["arrive"]=function()
-	hook_step(steppath["pstep"])
-	hook_searchfrofail(steppath["pfail"])
+	hook(hooks.step,steppath["pstep"])
+	hook(hooks.searchfrofail,steppath["pfail"])
 	steppath["index"]=0
 	steppath["step"]=nil
 	steppath["nextroom"]=_roomid
@@ -100,12 +100,12 @@ steppath["arrive"]=function()
 end
 steppath["end"]=function(s)
 	if ((s~="")and(s~=nil)) then 
-		callhook(steppath[s]) 
+		call(steppath[s]) 
 	end
 	steppath["ok"]=nil
 	steppath["fail"]=nil
-	hook_step(nil)
-	hook_searchfrofail(nil)
+	hook(hooks.step,nil)
+	hook(hooks.searchfrofail,nil)
 end
 
 steppath["next"]=function()

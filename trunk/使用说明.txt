@@ -1,7 +1,8 @@
+主页：http://code.google.com/p/helllua/
 mushclient适用版本：4.27
 
 文件列表:
-helllia.mcl:mushclient文件
+helllia.mcl:mushclient文件,可以放置在任何位置。其他文件必须和hell.lua放在同一目录下
 hell.lua:lua主程序，mushclient中指定为脚本
 .mod文件：模块文件
 config.ini:对于机器的一些设置

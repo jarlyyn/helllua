@@ -8,8 +8,7 @@ end
 
 score=function()
 	me.score={}
-	EnableTriggerGroup("charinfo",true)
-	run("score")
+	catch("charinfo","score")
 end
 
 status_on_score1=function (name, line, wildcards)
@@ -22,7 +21,6 @@ status_on_score3=function (name, line, wildcards)
 	if (wildcards[1])=="¸º" then
 		me.score["zhengqi"]=-me.score["zhengqi"]
 	end
-	EnableTriggerGroup("charinfo",false)
 end
 
 status_on_teacher=function (name, line, wildcards)
@@ -131,18 +129,40 @@ getstatus=function()
 hp()
 end
 
-getinfo=function()
+getinfo=function(func)
 	score()
 	getjifa()
 	cha()
 	getspe()
 	getfam()
+	infoend(setting)
+	busytest(func)
 end
 
+
+setting=function()
+	settags()
+	setflylist()
+end
 settags=function()
 	tags=""
 	if me.fam~=nil then
-		tags=tags..me.fam
+		if familys[me.fam]~=nil then
+			tags=familys[me.fam].family
+		end
 	end
-		mushmapper.settags(tags)
+	mushmapper.settags(tags)
 end
+
+setflylist=function()
+	flist=""
+	if me.score.age<18 then
+		flist="recall back:26,"
+	end
+	wvflylist=GetVariable("flylist")
+	if wvflylist~=nil then
+		flist=flist..wvflylist
+	end
+	mushmapper.setflylist(flist)
+end
+

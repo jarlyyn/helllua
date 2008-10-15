@@ -16,4 +16,3 @@ include("npcs.ini")
 
 include("caxie.mod")
 mushmapper.settags("")
-mushmapper.setflylist(GetVariable("flylist"))

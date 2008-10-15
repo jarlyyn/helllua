@@ -28,9 +28,10 @@ end
 trigrpon=function(str)
 	run("set no_more trigrpon "..str)
 end
+
 system_isbusy=function(name, line, wildcards)
 	if hooks.isbusy~=nil then
-		DoAfter(1,"guard")
+		DoAfterSpecial(1,'run(\"guard\")',12)
 	end
 end
 
@@ -59,7 +60,7 @@ run=function(str)
 	end)
 	if (_cmds==nil) then return end
 	for i, cmd in pairs (_cmds) do
-		Queue(cmd,true)
+		Queue(cmd,walkecho)
 	end 
 end
 

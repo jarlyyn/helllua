@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈý, Ê®ÔÂ 15, 2008, 2:12 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚÈý, Ê®ÔÂ 15, 2008, 3:11 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -95,7 +95,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
   <trigger
    group="roomobj"
@@ -103,6 +103,15 @@
    name="on_obj"
    regexp="y"
    script="on_obj"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="jifa"
+   match="^  (\S+)\s*\(([a-zA-Z-]+)\)\s*£º\s*(\S+)\s*ÓÐÐ§µÈ¼¶£º\s*(\d+)$"
+   name="status_onjifa"
+   regexp="y"
+   script="status_onjifa"
    sequence="100"
   >
   </trigger>
@@ -210,7 +219,6 @@
   >
   </trigger>
   <trigger
-   enabled="y"
    group="special"
    match="^(&gt; )*(Èç¹íËÆ÷È|ÌìÉñ½µÊÀ|É±Æø|Ð¡ÖÜÌìÔË×ª|¹í»°Á¬Æª|Ðþ»Æ¾ÛÄÉ)\((.*)\)$"
    name="status_onspecial"
@@ -340,6 +348,24 @@
   >
   </trigger>
   <trigger
+   group="hp"
+   match="^(¡¾ Æ½ ºÍ ¡¿|¡¾ ·ß Å­ ¡¿)(.*)¡¾ Ìå »á ¡¿(.*)$"
+   name="status_onhptihui"
+   regexp="y"
+   script="status_onhptihui"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="cha"
+   match="^(¡õ|  )(.+)\s*\(([a-z-]+)\)\s*-\s*(\d+)/\s*(\d+)%"
+   name="status_oncha"
+   regexp="y"
+   script="status_oncha"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    group="items"
    keep_evaluating="y"
    match="^(¡õ|  )([^a-z!@#$%\^&amp;*()\\/.,&lt;&gt; ]+)\((\w*\s{0,1}\w+)\)$"
@@ -393,7 +419,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
   <alias
    name="alias_gonpc"
@@ -443,7 +469,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
 </timers>
 
@@ -452,7 +478,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
 
   <macro name="up" type="send_now" >
@@ -546,7 +572,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
   <variable name="flylist">recall back:26,</variable>
   <variable name="goldmin">4</variable>
@@ -557,7 +583,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
 
 <ansi>
@@ -614,7 +640,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
 
   <key name="0" >
@@ -728,7 +754,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-15 02:12:59"
+   date_saved="2008-10-15 15:11:49"
   >
 
 <ansi>

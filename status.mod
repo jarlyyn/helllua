@@ -106,3 +106,43 @@ getspe=function()
 	run("special")
 	trigrpoff("special")
 end
+
+cha=function()
+	me.skills={}
+	trigrpon("cha")
+	run("cha")
+	trigrpoff("cha")
+end
+
+status_oncha=function(name, line, wildcards)
+	me.skills[wildcards[3]]={name=wildcards[2],lv=tonumber(wildcards[4]),per=tonumber(wildcards[5])}
+end
+
+getjifa=function()
+	me.jifa={}
+	catch("jifa","jifa")
+end
+
+status_onjifa=function(name, line, wildcards)
+	me.jifa[wildcards[2]]={name=wildcards[1],lv=tonumber(wildcards[4]),skillname=wildcards[3]}
+end
+
+getstatus=function()
+hp()
+end
+
+getinfo=function()
+	score()
+	getjifa()
+	cha()
+	getspe()
+	getfam()
+end
+
+settags=function()
+	tags=""
+	if me.fam~=nil then
+		tags=tags..me.fam
+	end
+		mushmapper.settags(tags)
+end

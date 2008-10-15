@@ -4,8 +4,9 @@ end
 
 
 
-catch=function(trigrp)
-	EnableTriggerGroup(trigrp,true)
+catch=function(trigrp,command)
+	trigrpon(trigrp)
+	run(command)
 	trigrpoff(trigrp)
 end
 

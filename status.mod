@@ -145,6 +145,7 @@ setting=function()
 	setflylist()
 end
 settags=function()
+	mushmapper.settags("")
 	tags=""
 	if me.fam~=nil then
 		if familys[me.fam]~=nil then
@@ -156,8 +157,10 @@ end
 
 setflylist=function()
 	flist=""
-	if me.score.age<18 then
-		flist="recall back:26,"
+	if me.score.age~=nil then
+		if me.score.age<18 then
+			flist="recall back:26,"
+		end
 	end
 	wvflylist=GetVariable("flylist")
 	if wvflylist~=nil then

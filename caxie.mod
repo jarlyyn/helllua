@@ -4,11 +4,28 @@ caxie["inv"]["к╒вс"]={max=1,min=1}
 caxie["inv"]["п╛см"]={max=7,min=4}
 caxie["index"]=1
 caxie["finished"]={}
+caxie["ok"]=nil
+caxie["fail"]=fail
 do_caxie=function(caxie_ok,caxie_fail)
-
+	caxie["ok"]=caxie_ok
+	caxie["fail"]=caxie_fail
+	caxie["main"]()
+end
+caxie["end"]=function(s)
+	if ((s~="")and(s~=nil)) then 
+		call(caxie[s]) 
+	end
+	caxie["ok"]=nil
+	caxie["fail"]=nil
 end
 caxie["main"]=function()
-	run("i;hp;score")
+	if quest.stop then
+		caxie["end"]()
+		return
+	end
+	run("i")
+	hp()
+	score()
 	busytest(caxie["check"])
 end
 
@@ -19,13 +36,14 @@ caxie["check"]=function()
 		caxiebegin(cxpath[caxpathlist[math.random(1,#caxpathlist)]])
 	end
 end
+
 makecaxielistre=rex.new ("(\\w+\\s\\w+)")
 makecaxielist=function()
 	eatdrink()
 	caxie["list"]={}
 	for i,v in pairs(room_obj) do
 		strfind=makecaxielistre:exec(i)
-		if (strfind~=nil)and(caxie["blacklist"]["i"]~=true)and(v["num"]<10) then
+		if (strfind~=nil)and(caxie["blacklist"][i]~=true)and(v["num"]<10) then
 			for t = 1,v["num"],1 do
 				caxie["list"][(#caxie["list"]+1)]=i.." "..tostring(t)
 			end
@@ -33,9 +51,10 @@ makecaxielist=function()
 	end
 	caxienpc()
 end
+
 caxiebegin=function(_cxpath)
 	caxie["finished"]={}
-	do_steppath(_cxpath,caxiestep,caxie["fail"],caxie["main"],caxie["fail"])
+	do_steppath(_cxpath,caxiestep,caxie["fail"],caxie["ok"],caxie["fail"])
 end
 caxienpc=function()
 	caxie["index"]=caxie["index"]+1
@@ -60,5 +79,7 @@ end
 
 
 caxie["blacklist"]={}
-caxie["Yufeng zhen"]=true
-caxie["Tie lianzi"]=true
+caxie.blacklist["Yufeng zhen"]=true
+caxie.blacklist["Tie lianzi"]=true
+caxie.blacklist["iron blade"]=true
+caxie.blacklist["long sword"]=true

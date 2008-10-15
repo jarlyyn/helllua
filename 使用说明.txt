@@ -1,0 +1,49 @@
+mushclient适用版本：4.27
+
+文件列表:
+helllia.mcl:mushclient文件
+hell.lua:lua主程序，mushclient中指定为脚本
+.mod文件：模块文件
+config.ini:对于机器的一些设置
+其他.ini文件：机器模块的配置文件
+
+mapper.dll  地图路径程序。可在http://code.google.com/p/mushluamapper/得到最新源代码，用vc toolkit 2003自行编译
+room_all.h 地图文件。与老版本mapper.exe的格式略有不同.
+
+第一次使用说明:
+mushclient设置:
+1.允许lua使用mapper.dll文件:
+   按住ctrl+alt+g,选择lua选项卡
+   勾上Allow dll to be loaded
+   按 Edit按钮
+   把第一行的trust_all_worlds = false 改成trust_all_worlds = true
+   点ok确认.
+   只需要设置一次
+
+2.设置lua文件
+   按住shift+ctrl+6，出现scripts设置页面。
+   确定scripting后的选项是 lua
+   点击Browes... 按钮,选择hell.lua
+   点 确定 按钮保存设定.
+   如果你使用多个mcl文件，每个都需要这样设定.
+
+
+
+指令列表:
+
+1.任务命令:
+#caxie 擦鞋机器人
+#stop 停止任务
+
+2.其他命令:
+#to loc 到达某个地点,loc请参考rooms_all.
+#npc (.*) 到达某个npc处.支持npc 中文名/id.具体信息储存在npcs.ini
+spwk 强制停止.
+
+
+
+变量列表:
+goldmin:  数字,最少带多少黄金
+flylist: miss的列表,格式为:  命令%当成多少步计算:位置, 比如 miss sword%5:26,指miss sword可以到达26,同时这个动作在计算路径时当5步计算. 可以使用多个命令,每个都必须带 , 号.
+
+

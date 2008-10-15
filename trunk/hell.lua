@@ -1,5 +1,6 @@
+luapath=string.match(GetInfo(35),"^.*\\")
 include=function(str)
-	dofile(GetInfo(67)..str)
+	dofile(luapath..str)
 end
 print("‘ÿ»Î÷–")
 include("walk.mod")
@@ -13,6 +14,5 @@ include("status.mod")
 include("alias.mod")
 include("search.mod")
 include("npcs.ini")
-
-include("caxie.mod")
+include("quest.mod")
 mushmapper.settags("")

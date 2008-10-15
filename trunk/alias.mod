@@ -6,7 +6,7 @@ alias_to=function(n,l,w)
 end
 
 alias_spwk=function(n,l,w)
-walk["stop"]()
+	walk["stop"]()
 end
 
 alias_stopto=function(n,l,w)
@@ -15,4 +15,12 @@ end
 
 alias_gonpc=function(n,l,w)
 	walk["npc"](w[1])
+end
+	
+alias_caxie=function(m,l,w)
+	do_quest("caxie")
+end
+
+alias_stop=function(m,l,w)
+	quest.stop=true
 end

@@ -173,6 +173,10 @@ walk_on_step=function()
 		walk["end"]("ok")
 		return
 	end
+	if string.sub(walk["data"][walk["index"]],1,4)=="#loc" then
+			walk["end"]("ok")
+			return
+	end
 	walk["step"]=walk["data"][walk["index"]]
 	run(walk["step"])
 end
@@ -193,7 +197,11 @@ getexitroom=function (room,dir)
 	return room
 end
 
-walk_on_flyfail=function ()
+walk_on_flyfail=function (n,w,l)
+	if w[2] =="你已经超过17岁了，无法再使用这个指令回到客店了。" then
+		me.age=18
+		setflylist()
+	end
 	callhook(hooks.flyfail)
 end
 

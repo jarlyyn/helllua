@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚËÄ, Ê®ÔÂ 16, 2008, 2:26 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 12:17 ÉÏÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,17 +8,18 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
    chat_name="Name-not-set"
    command_stack_character=";"
-   id="e8a33707f1176a548537e1b0"
+   id="28f3edb824adbb155bdd51cc"
    input_font_name="FixedSys"
    mapping_failure="Alas, you cannot go that way."
    name="hell_lua"
    new_activity_sound="(No sound)"
+   on_world_disconnect="on_disconnect"
    output_font_name="ÐÂËÎÌå"
    script_editor="notepad"
    script_filename="E:\codes\helllua\hell.lua"
@@ -78,6 +79,7 @@
    show_italic="y"
    show_underline="y"
    spam_line_count="20"
+   speed_walk_delay="27"
    tab_completion_lines="200"
    underline_hyperlinks="y"
    unpause_on_send="y"
@@ -95,7 +97,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
   <trigger
    group="roomobj"
@@ -251,6 +253,39 @@
   >
   </trigger>
   <trigger
+   enabled="y"
+   group="system"
+   keep_evaluating="y"
+   match="^(&gt; )*\( Äã(¶¯×÷ËÆºõ¿ªÊ¼ÓÐµã²»Ì«Áé¹â£¬µ«ÊÇÈÔÈ»ÓÐÌõ²»ÎÉ¡£|¿´ÆðÀ´³äÂú»îÁ¦£¬Ò»µãÒ²²»ÀÛ¡£|¿´ÆðÀ´¿ÉÄÜÓÐÐ©ÀÛÁË¡£|Æø´­ÐêÐê£¬¿´ÆðÀ´×´¿ö²¢²»Ì«ºÃ¡£|ËÆºõÊ®·ÖÆ£±¹£¬¿´À´ÐèÒªºÃºÃÐÝÏ¢ÁË¡£|ËÆºõÓÐÐ©Æ£±¹£¬µ«ÊÇÈÔÈ»Ê®·ÖÓÐ»îÁ¦¡£|ÒÑ¾­Ò»¸±Í·ÖØ½ÅÇáµÄÄ£Ñù£¬ÕýÔÚÃãÁ¦Ö§³ÅÖø²»µ¹ÏÂÈ¥¡£|¿´ÆðÀ´ÒÑ¾­Á¦²»´ÓÐÄÁË¡£|Ò¡Í·»ÎÄÔ¡¢ÍáÍáÐ±Ð±µØÕ¾¶¼Õ¾²»ÎÈ£¬ÑÛ¿´¾ÍÒªµ¹ÔÚµØÉÏ¡£)\)"
+   name="on_hurt"
+   regexp="y"
+   script="on_hurt"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   keep_evaluating="y"
+   match="^(&gt; )*\( Äã(¿´ÆðÀ´ÒÑ¾­Á¦²»´ÓÐÄÁË¡£|Ò¡Í·»ÎÄÔ¡¢ÍáÍáÐ±Ð±µØÕ¾¶¼Õ¾²»ÎÈ£¬ÑÛ¿´¾ÍÒª)"
+   name="on_faint"
+   regexp="y"
+   script="on_faint"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   keep_evaluating="y"
+   match="^(&gt; )*\( ÄãÒÑ¾­ÏÝÈë°ë»èÃÔ×´Ì¬£¬ËæÊ±¶¼¿ÉÄÜË¤µ¹ÔÎÈ¥¡£\)|^(&gt; )*ÄãµÄÑÛÇ°Ò»ºÚ£¬½ÓÖøÊ²Ã´Ò²²»ÖªµÀÁË...."
+   name="on_faint1"
+   regexp="y"
+   script="on_faint1"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    group="whofam"
    match="^(&gt; )*¡òÖÕ¼«µØÓü¡ò  Ä¿Ç°½­ºþÖÐµÄ \((.*)\) Íæ¼ÒÓÐ£º"
    name="status_onfamily"
@@ -388,6 +423,15 @@
   >
   </trigger>
   <trigger
+   group="log"
+   match="^(ÖØÐÂÁ¬ÏßÍê±Ï¡£|ÄãÁ¬Ïß½øÈë.*¡£)$"
+   name="system_logok"
+   regexp="y"
+   script="system_logok"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    group="hp"
    match="^¡¾ ¾« Æø ¡¿\s*(\d+)\s*/\s*(\d+)\s*\((\d+)%\)\s*¡¾ ¾« Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\+(\d+)\)"
    name="status_onhpjinqi"
@@ -424,6 +468,16 @@
    sequence="100"
   >
   </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   match="^±¾ÄàÌ¶¹²ÓÐ \d+ Î»Íæ¼ÒÔÚÓÎÏ·ÖÐ¡£$"
+   name="system_login"
+   regexp="y"
+   script="system_login"
+   sequence="100"
+  >
+  </trigger>
 </triggers>
 
 <!-- aliases -->
@@ -431,7 +485,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
   <alias
    name="alias_caxie"
@@ -499,7 +553,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
 </timers>
 
@@ -508,7 +562,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
 
   <macro name="up" type="send_now" >
@@ -602,10 +656,11 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
+  <variable name="passwd"></variable>
 </variables>
 
 <!-- colours -->
@@ -613,7 +668,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
 
 <ansi>
@@ -670,7 +725,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
 
   <key name="0" >
@@ -784,7 +839,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-16 02:26:48"
+   date_saved="2008-10-17 00:17:12"
   >
 
 <ansi>

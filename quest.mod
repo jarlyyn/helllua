@@ -1,23 +1,34 @@
 quest={}
-questend={}
+quest["end"]={}
 quest.stop=true
-
+quest.resume=nil
+quest["main"]={}
 include("caxie.mod")
-quest["caxie"]=function()
+quest.main["caxie"]=function()
 	do_caxie(caxie.main)
+	quest.resume=quest.main["caxie"]
 end
-questend["caxie"]=function()
+quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
 do_quest=function(name)
 	initmud()
-	if quest[name]~=nil then
+	if quest.main[name]~=nil then
 		quest.stop=false
 		getinfo()
-		quest[name]()
+		quest["main"][name]()
 	end
 end
 
 initmud=function()
 	run(mudsettings)
+end
+
+resume=function()
+	if quest.stop==false then
+		walk["stop"]()
+		_roomid=-1
+		inittri()
+		call(quest["resume"])
+	end
 end

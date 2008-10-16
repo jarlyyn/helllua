@@ -11,7 +11,14 @@ hooks.stepfail="stepfail"
 --步近失败的hook
 hooks.flyfail="flyfail"
 --fly失败的hook
-
+hooks.logok="logok"
+--登陆成功后的hook
+hooks.hurt="hurt"
+--轻伤
+hooks.faint="faint"
+--重伤
+hooks.faint1="faint1"
+--昏迷
 
 _hooklist={}
 

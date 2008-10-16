@@ -1,5 +1,76 @@
+logable=true
 eatdrink=function()
 	run("eat "..food..";drink "..drink)
+end
+on_disconnect=function()
+	DeleteTemporaryTimers()
+	if (logable)and(_hooklist[hooks.logok]==nil) then
+		Connect()
+	end
+end
+idre=rex.new("^.*\\\\(?<id>[^-.]+)(-(?<passwd>[^-.]+)){0,1}")
+getidpass=function()
+	if me.id==nil then
+		s,e,t=idre:match(GetInfo(54))
+		me.id=t.id
+		if t.passwd then me.passwd=t.passwd end
+	end
+end
+login=function()
+	_passwd=GetVariable("passwd")
+	if (_passwd==nil)or(_passwd=="") then
+		if me.passwd ~=nil then
+			_passwd=me.passwd
+		else
+			print("无法找到密码设置.\n注意,请修改mcl文件为 你的帐号名.mcl 或者 你的帐号-你的密码.mcl\n比如bao.mcl或者 bao-123456.mcl.\n如果文件名中没有密码信息,请在变量passwd中设置.")
+			return
+		end
+	end
+	run(me.id)
+	run(_passwd)
+	run("y")
+end
+
+system_login=function(name, line, wildcards)
+	getidpass()
+	EnableTriggerGroup("log",true)
+	if not logable then return end
+		print("十秒后登陆,请稍等")
+		DoAfterSpecial(11,'login()',12)
+end
+
+system_logok=function(name,line,wildcards)
+
+	logable=true
+	EnableTriggerGroup("log",false)
+	print("检测自动运行状态")
+	if _hooklist[hooks.logok]~=nil then
+		callhook(hooks.logok,true)
+	else
+		resume()
+	end
+
+end
+
+on_hurt=function(name,line,wildcards)
+	callhook(hooks.hurt) 
+end
+
+on_faint=function(name,line,wildcards)
+	if hashook(hooks.faint) then 
+		callhook(hooks.faint) 
+	else
+		Disconnect()
+		Connect()
+	end
+end
+
+on_faint1=function(name,line,wildcards)
+	if hashook(hooks.faint1) then 
+		callhook(hooks.faint1) 
+	else
+		Disconnect()
+	end
 end
 
 
@@ -52,6 +123,7 @@ _stop=false
 runre=rex.new("([^;.\\\\]+)")
 run=function(str)
 	if ((str=="")or(str==nil)) then return end
+	SetSpeedWalkDelay(math.floor(1000/cmd_limit))
 	_cmds={}
 	local i=0
 	n=runre:gmatch(str,function (m, t)
@@ -124,6 +196,7 @@ end
 
 systemtri={system=true,user=true}
 inittri=function()
+print("初始化触发器...")
 	tri=GetTriggerList()
 	for k,v in ipairs(tri) do
 		if systemtri[GetTriggerInfo(v,26)]==true then
@@ -133,7 +206,6 @@ inittri=function()
 		end
 	end
 end
-print("初始化触发器...")
 inittri()
 
 
@@ -141,3 +213,4 @@ getnum=function(num)
 	if (num==nil) then num=0 end
 	return num
 end
+

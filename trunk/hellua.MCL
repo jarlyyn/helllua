@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 12:17 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 1:55 ÉÏÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -97,7 +97,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
   <trigger
    group="roomobj"
@@ -485,7 +485,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
   <alias
    name="alias_caxie"
@@ -553,7 +553,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
 </timers>
 
@@ -562,7 +562,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
 
   <macro name="up" type="send_now" >
@@ -656,7 +656,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
@@ -668,7 +668,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
 
 <ansi>
@@ -725,7 +725,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
 
   <key name="0" >
@@ -839,7 +839,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 00:17:12"
+   date_saved="2008-10-17 01:55:53"
   >
 
 <ansi>

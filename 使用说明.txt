@@ -4,9 +4,9 @@ mushclient适用版本：4.27
 文件列表:
 helllia.mcl:mushclient文件,可以放置在任何位置。其他文件必须和hell.lua放在同一目录下
 hell.lua:lua主程序，mushclient中指定为脚本
-.mod文件：模块文件
+mods目录下的.mod文件：模块文件
 config.ini:对于机器的一些设置
-其他.ini文件：机器模块的配置文件
+configs目录下的.ini文件：机器模块的配置文件
 
 mapper.dll  地图路径程序。可在http://code.google.com/p/mushluamapper/得到最新源代码，用vc toolkit 2003自行编译
 room_all.h 地图文件。与老版本mapper.exe的格式略有不同.

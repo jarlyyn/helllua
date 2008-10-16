@@ -51,7 +51,23 @@ spwk 强制停止.
 
 
 变量列表:
-goldmin:  数字,最少带多少黄金
-flylist: miss的列表,格式为:  命令%当成多少步计算:位置, 比如 miss sword%5:26,指miss sword可以到达26,同时这个动作在计算路径时当5步计算. 可以使用多个命令,每个都必须带 , 号.
+1.skilllist:技能列表，具体格式如下:
+技能(学习指令-npc名字-位置)
+其中除了 技能 都可以省略
+学习指令在80w exp前默认为xue,80w以后默认为yanjiu
+范例：
+literate(xue-zhu xi) 朱熹处学习liteate
+force   80w前师傅那里学force/80w后研究force
+higgling(xue-戚长发-26)在26(客店) 向戚长发学习 higgling
+dodge(yanjiu) 研究dodge
+
+目前支持的学习指令包括:
+xue,yanjiu
+
+
+
+
+2.goldmin:  数字,最少带多少黄金
+3.flylist: miss的列表,格式为:  命令%当成多少步计算:位置, 比如 miss sword%5:26,指miss sword可以到达26,同时这个动作在计算路径时当5步计算. 可以使用多个命令,每个都必须带 , 号.
 
 

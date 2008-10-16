@@ -1,5 +1,4 @@
-include("bank.mod")
-include("config.ini")
+loadmod("bank.mod")
 _check=function()
 	run("i;hp;score")
 	busytest(_check)

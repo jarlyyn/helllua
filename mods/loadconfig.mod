@@ -1,14 +1,16 @@
 assert  (package.loadlib (luapath.."mapper.dll","luaopen_mapper")) ()
-
+loadconfigfile=function(str)
+	include("configs\\"..str)
+end
 loadconfig=function()
-	include("npcs.ini")
-	include("items.ini")
+	loadconfigfile("npcs.ini")
+	loadconfigfile("items.ini")
 	include("config.ini")
-	include("paths.ini")
-	include("family.ini")
+	loadconfigfile("paths.ini")
+	loadconfigfile("family.ini")
 	walk["open"]=mushmapper.openmap(luapath.."rooms_all.h")
 	if (walk[open]==0) then 
-		print "文件未找到，请检查设置"
+		print "地图文件未找到，请检查设置"
 	end
 end
 loadconfig()

@@ -3,7 +3,7 @@ quest["end"]={}
 quest.stop=true
 quest.resume=nil
 quest["main"]={}
-include("caxie.mod")
+loadmod("caxie.mod")
 quest.main["caxie"]=function()
 	do_caxie(caxie.main)
 	quest.resume=quest.main["caxie"]

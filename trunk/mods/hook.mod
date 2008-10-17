@@ -19,6 +19,8 @@ hooks.faint="faint"
 --重伤
 hooks.faint1="faint1"
 --昏迷
+hooks.fight="onfight"
+--战斗时触发.如果需要战斗必须使用此hook,不然将reconnect
 
 _hooklist={}
 

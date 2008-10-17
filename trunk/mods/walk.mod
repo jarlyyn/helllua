@@ -37,13 +37,16 @@ walk["stop"]=function(thook)
 end
 
 walk_stop_to=function()
-	do_walk(walk["to"],walk["ok"],walk["fail"])
+	do_walk(walk["to"],walkstoptook,walkstoptofail)
+	walkstoptook=nil
+	walkstoptofail=nil
 end
-
+walkstoptook=nil
+walkstoptofail=nil
 walk["stopto"]=function(to,walk_ok,walk_fail)
 	walk["to"]=to
-	walk["ok"]=walk_ok
-	walk["fail"]=walk_fail
+	walkstoptook=walk_ok
+	walkstoptofail=walk_fail
 	walk["stop"](walk_stop_to)
 end
 
@@ -92,8 +95,12 @@ do_walk=function (to,walk_ok,walk_fail)
 	walk["ok"]=walk_ok
 	walk["fail"]=walk_fail
 	walkend=walk["end"]
-	if (_roomid<0) then
+	if (_roomid==-1) then
 		do_search(walk_locate_step,walk_locate_fail,walk_ok,walk_fail)
+		return
+	end
+	if (to==-2) then
+		do_nosafe(walk_ok,walk_fail)
 		return
 	end
 
@@ -230,3 +237,39 @@ end
 on_objend=function(name, line, wildcards)
 	EnableTriggerGroup("roomobj",false)
 end
+
+
+nosafe={}
+nosafe.ok=nil
+nosafe.fail=nil
+do_nosafe=function(nosafe_ok,nosafe_fail)
+	nosafe.ok=nosafe_ok
+	nosafe.fail=nosafe_fail
+	EnableTriggerGroup("nosafe",true)
+	do_search(nosafe.step,nosafe_end_fail,nosafe_end_ok,nosafe_end_fail)
+end
+nosafe["end"]=function(s)
+	if ((s~="")and(s~=nil)) then 
+		call(nosafe[s]) 
+	end
+	EnableTriggerGroup("nosafe",false)
+	nosafe["ok"]=nil
+	nosafe["fail"]=nil
+end
+nosafe_end_fail=function()
+	nosafe["end"]("fail")
+end
+nosafe_end_ok=function()
+	searchfor["end"]("ok")
+end
+nosafe.step=function()
+	run("attack")
+end
+
+nosafe_onok=function(n,l,w)
+	nosafe["end"]("ok")
+end
+nosafe_onfail=function(n,l,w)
+	searchfor["next"](getexits(_exits))
+end
+go=walk["stopto"]

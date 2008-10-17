@@ -1,6 +1,6 @@
 exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeast="nw",se="nw",southwest="ne",sw="ne",northeast="sw",ne="sw",northwest="se",nw="se",eastup="wd",eu="wd",eastdown="wu",ed="wu",southup="nd",su="nd",southdown="nu",sd="nu",westup="ed",wu="ed",westdown="eu",wd="eu",northup="sd",nu="sd",northdown="su",nd="su",up="d",u="d",down="u",d="u",enter="out",out="enter",cross="cross"}
 
-_searchdepth=3 --搜索深度
+_searchdepth=5 --搜索深度
 
 do_search=function(fstep,ffail,search_ok,search_fail)
 	searchfor["init"]()
@@ -9,11 +9,12 @@ do_search=function(fstep,ffail,search_ok,search_fail)
 	walkend=searchfor["end"]
 	hook(hooks.step,fstep)
 	hook(hooks.searchfrofail,ffail)
+	searchfor["nextroom"]=_roomid
 	run("unset brief;l")
 end
 
-
 searchfor={}
+searchfor["nextroom"]=0
 searchfor["del"]=function()
 	hook(hooks.step,nil)
 	hook(hooks.searchfrofail,nil)
@@ -22,7 +23,7 @@ end
 searchfor["end"]=function(s)
 	searchfor["del"]()
 	if ((s~="")and(s~=nil)) then 
-		searchfor(item[s]) 
+		call(item[s]) 
 	end
 	searchfor["ok"]=nil
 	searchfor["fail"]=nil
@@ -45,6 +46,7 @@ searchfor["init"]=function()
 	EnableTriggerGroup("search",true)
 end
 searchfor["next"]=function(exit)
+	if searchfor["nextroom"]~=-1 then _roomid=searchfor["nextroom"] end
 	if (_searchfordata[_searchforlevel]==nil) then
 		_searchfordata[_searchforlevel]={}
 		_searchforindex[_searchforlevel]=0
@@ -70,6 +72,11 @@ searchfor["next"]=function(exit)
 		_searchforlevel=_searchforlevel+1
 		_searchfordata[_searchforlevel]=nil
 		_searchforback[_searchforlevel]=exitback[searchfor["step"]]
+	end
+	if _roomid~=-1 then
+		searchfor["nextroom"]=getexitroom(_roomid,searchfor["step"])
+	else
+		searchfor["nextroom"]=-1
 	end
 	run(searchfor["step"])		
 end

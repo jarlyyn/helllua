@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 1:21 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 8:25 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -97,7 +97,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
   <trigger
    group="roomobj"
@@ -295,6 +295,7 @@
   >
   </trigger>
   <trigger
+   enabled="y"
    group="search"
    match="^(&gt; )*µêÐ¡¶þÒ»ÏÂµ²ÔÚÂ¥ÌÝÇ°£¬°×ÑÛÒ»·­£ºÔõ÷á×Å£¬Ïë°××¡°¡£¡"
    name="xiaoerguard"
@@ -326,6 +327,18 @@
   >
   </trigger>
   <trigger
+   group="nosafe"
+   keep_evaluating="y"
+   match="^(&gt; )*ÄãµÄÔ¦ÊÞÊõ»¹²»´¿Êì£¬ÎÞ·¨ÈÃÒ°ÊÞ°ïÄãÒ§ÈË£¡"
+   name="nosafe_onok"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   script="nosafe_onok"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    enabled="y"
    group="system"
    keep_evaluating="y"
@@ -340,11 +353,22 @@
    enabled="y"
    group="system"
    keep_evaluating="y"
-   match="^(&gt; )*ÄãÏÖÔÚÃ»ÓÐ°ì·¨·ÖÐÄÈ¥×öÕâÀàÊÂ£¡$"
-   name="system_isbusy"
+   match="^(&gt; )*ÄãÏÖÔÚÕýÔÚ´ò¼Ü£¬Ã»Ê±¼ä×öÕâÐ©ÊÂÇé¡£$"
+   name="system_onfight"
+   regexp="y"
+   script="system_onfight"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   keep_evaluating="y"
+   match="^(&gt; )*ÄãÒªÍùÕâÉÏÃæÏâÇ¶Ê²Ã´ÎïÆ·£¿$"
+   name="system_nobusy"
    omit_from_output="y"
    regexp="y"
-   script="system_isbusy"
+   script="system_nobusy"
    sequence="100"
   >
   </trigger>
@@ -386,11 +410,23 @@
    enabled="y"
    group="system"
    keep_evaluating="y"
-   match="^(&gt; )*Ö¸Áî¸ñÊ½£ºguard"
-   name="system_nobusy"
+   match="^(&gt; )*ÏÈÃ¦ÍêÁËÄãµÄÊÂÇéÔÙ×öÕâ¼þÊÂÇé°É£¡$"
+   name="system_isbusy"
    omit_from_output="y"
    regexp="y"
-   script="system_nobusy"
+   script="system_isbusy"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="nosafe"
+   keep_evaluating="y"
+   match="^(&gt; )*ÕâÀï²»Ðí´ò¶·£¡$"
+   name="nosafe_onfail"
+   omit_from_log="y"
+   omit_from_output="y"
+   regexp="y"
+   script="nosafe_onfail"
    sequence="100"
   >
   </trigger>
@@ -485,7 +521,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
   <alias
    name="alias_caxie"
@@ -553,7 +589,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
 </timers>
 
@@ -562,7 +598,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
 
   <macro name="up" type="send_now" >
@@ -656,11 +692,13 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
   <variable name="passwd"></variable>
+  <variable name="potmax">50</variable>
+  <variable name="skilllist">force,jiaohua-neigong</variable>
 </variables>
 
 <!-- colours -->
@@ -668,7 +706,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
 
 <ansi>
@@ -725,7 +763,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
 
   <key name="0" >
@@ -839,7 +877,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 13:21:11"
+   date_saved="2008-10-17 20:25:11"
   >
 
 <ansi>

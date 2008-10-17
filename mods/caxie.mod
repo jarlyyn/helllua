@@ -25,13 +25,13 @@ caxie["main"]=function()
 	end
 	run("i")
 	hp()
-	score()
 	busytest(caxie["check"])
 end
 
 caxie["check"]=function()
 	if do_check(caxie["main"]) then
 	elseif checkitems(caxie["inv"],caxie["main"]) then
+	elseif checkstudy(caxie["main"]) then
 	else
 		caxiebegin(cxpath[caxpathlist[math.random(1,#caxpathlist)]])
 	end

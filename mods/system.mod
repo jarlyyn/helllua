@@ -56,12 +56,16 @@ on_hurt=function(name,line,wildcards)
 	callhook(hooks.hurt) 
 end
 
+recon=function()
+	Disconnect()
+	on_disconnect()
+end
+
 on_faint=function(name,line,wildcards)
 	if hashook(hooks.faint) then 
 		callhook(hooks.faint) 
 	else
-		Disconnect()
-		Connect()
+		recon()
 	end
 end
 
@@ -83,7 +87,12 @@ end
 
 busytest=function(busyhook)
 	hook(hooks.isbusy,busyhook)
-	run("guard")
+	run("enchase bao")
+end
+
+delay=function(t,busyhook)
+	hook(hooks.isbusy,busyhook)
+	DoAfterSpecial(t,'run(\"enchase bao\")',12)
 end
 
 system_trigrpoff=function(name, line, wildcards)
@@ -102,7 +111,18 @@ end
 
 system_isbusy=function(name, line, wildcards)
 	if hooks.isbusy~=nil then
-		DoAfterSpecial(1,'run(\"guard\")',12)
+		DoAfterSpecial(1,'run(\"enchase bao\")',12)
+	end
+end
+
+system_onfight=function(name, line, wildcards)
+	if hooks.isbusy~=nil then
+		DoAfterSpecial(1,'run(\"enchase bao\")',12)
+	end
+	if hooks.fight~=nil then
+		callhook(hooks.fight)
+	else
+		recon()
 	end
 end
 

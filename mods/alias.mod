@@ -1,5 +1,3 @@
-go=walk["stopto"]
-
 alias_to=function(n,l,w)
 	print("go"..mushmapper.getroomname(w[1]))
 	go(w[1]-0)

@@ -96,6 +96,7 @@ do_walk=function (to,walk_ok,walk_fail)
 	walk["fail"]=walk_fail
 	walkend=walk["end"]
 	if (_roomid==-1) then
+		run("unset brief")
 		do_search(walk_locate_step,walk_locate_fail,walk_ok,walk_fail)
 		return
 	end
@@ -196,12 +197,26 @@ end
 getexitroom=function (room,dir)
 	local exits={}
 	local i=0
+	if room<0 then return -1 end
 	exits={mushmapper.getexits(room)}
 	while (i<exits[1]) do
 		i=i+1
 		if (dir==exits[i*2]) then return exits[i*2+1] end
 	end
-	return room
+	return -1
+end
+
+getroomexits=function (room)
+	local exits={}
+	local i=0
+	local roomexits={}
+	if room<0 then return nil end
+	exits={mushmapper.getexits(room)}
+	while (i<exits[1]) do
+		i=i+1
+		roomexits[i]=exits[i+i]
+	end
+	return roomexits
 end
 
 walk_on_flyfail=function (n,w,l)
@@ -243,8 +258,8 @@ nosafe={}
 nosafe.ok=nil
 nosafe.fail=nil
 do_nosafe=function(nosafe_ok,nosafe_fail)
-	nosafe.ok=nosafe_ok
-	nosafe.fail=nosafe_fail
+	nosafe["ok"]=nosafe_ok
+	nosafe["fail"]=nosafe_fail
 	EnableTriggerGroup("nosafe",true)
 	do_search(nosafe.step,nosafe_end_fail,nosafe_end_ok,nosafe_end_fail)
 end
@@ -260,16 +275,17 @@ nosafe_end_fail=function()
 	nosafe["end"]("fail")
 end
 nosafe_end_ok=function()
-	searchfor["end"]("ok")
+	nosafe["end"]("ok")
 end
 nosafe.step=function()
 	run("attack")
 end
 
 nosafe_onok=function(n,l,w)
-	nosafe["end"]("ok")
+	_roomid=searchfor["nextroom"]
+	searchfor["end"]("ok")
 end
 nosafe_onfail=function(n,l,w)
-	searchfor["next"](getexits(_exits))
+	searchfor["next"](getroomexits(searchfor["nextroom"]))
 end
 go=walk["stopto"]

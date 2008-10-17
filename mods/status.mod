@@ -138,7 +138,13 @@ getinfo=function(func)
 	infoend(setting)
 	busytest(func)
 end
-
+getstatus=function(func)
+	eatdrink()
+	run("yun recover;yun regenerate;i")
+	getjifa()		
+	hp()
+	busytest(func)
+end
 
 setting=function()
 	settags()

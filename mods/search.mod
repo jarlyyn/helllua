@@ -10,20 +10,18 @@ do_search=function(fstep,ffail,search_ok,search_fail)
 	hook(hooks.step,fstep)
 	hook(hooks.searchfrofail,ffail)
 	searchfor["nextroom"]=_roomid
-	run("unset brief;l")
+	run("l")
 end
 
 searchfor={}
 searchfor["nextroom"]=0
-searchfor["del"]=function()
+
+searchfor["end"]=function(s)
 	hook(hooks.step,nil)
 	hook(hooks.searchfrofail,nil)
 	EnableTriggerGroup("search",false)
-end
-searchfor["end"]=function(s)
-	searchfor["del"]()
 	if ((s~="")and(s~=nil)) then 
-		call(item[s]) 
+		call(searchfor[s]) 
 	end
 	searchfor["ok"]=nil
 	searchfor["fail"]=nil
@@ -42,6 +40,7 @@ searchfor["init"]=function()
 	_searchforindex={}--每层的当前出口，一个数字，以层为参数
 	_searchforlevel=1 --当前层数
 	_stepcallback=nil
+	searchfor["step"]=0
 	_searchforcallbackfaild=nil
 	EnableTriggerGroup("search",true)
 end
@@ -52,7 +51,7 @@ searchfor["next"]=function(exit)
 		_searchforindex[_searchforlevel]=0
 		_searchforcount[_searchforlevel]=0
 		for k,v in pairs(exit) do
-			if (exitback[v]~=nil) then
+			if (exitback[v]~=nil) and (exitback[v]~=searchfor["step"]) then
 				_searchforcount[_searchforlevel]=_searchforcount[_searchforlevel]+1
 				_searchfordata[_searchforlevel][_searchforcount[_searchforlevel]]=v
 			end
@@ -82,6 +81,7 @@ searchfor["next"]=function(exit)
 end
 
 xiaoerguard=function(name, line, wildcards)
+	searchfor["nextroom"]=getexitroom(searchfor["nextroom"],exitback[searchfor["step"]])
 	_searchforlevel=_searchforlevel-1	
 	searchfor["next"](nil)
 end

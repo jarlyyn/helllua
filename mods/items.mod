@@ -35,7 +35,6 @@ item["end"]=function(s)
 	if ((s~="")and(s~=nil)) then 
 		call(item[s]) 
 	end
-	print(s)
 	item["ok"]=nil
 	item["fail"]=nil
 end

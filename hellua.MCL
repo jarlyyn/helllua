@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 1:55 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 1:21 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,13 +8,13 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
    chat_name="Name-not-set"
    command_stack_character=";"
-   id="28f3edb824adbb155bdd51cc"
+   id="87b82ad4f2b47d8b0e3384e7"
    input_font_name="FixedSys"
    mapping_failure="Alas, you cannot go that way."
    name="hell_lua"
@@ -97,7 +97,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
   <trigger
    group="roomobj"
@@ -433,7 +433,7 @@
   </trigger>
   <trigger
    group="hp"
-   match="^¡¾ ¾« Æø ¡¿\s*(\d+)\s*/\s*(\d+)\s*\((\d+)%\)\s*¡¾ ¾« Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\+(\d+)\)"
+   match="^¡¾ ¾« Æø ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\s*(\d+)%\)\s*¡¾ ¾« Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\s*\+(\d+)\)"
    name="status_onhpjinqi"
    regexp="y"
    script="status_onhpjinqi"
@@ -442,7 +442,7 @@
   </trigger>
   <trigger
    group="hp"
-   match="^¡¾ Æø Ñª ¡¿\s*(\d+)\s*/\s*(\d+)\s*\((\d+)%\)\s*¡¾ ÄÚ Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\+(\d+)\)"
+   match="^¡¾ Æø Ñª ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\s*(\d+)%\)\s*¡¾ ÄÚ Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\s*\+(\d+)\)"
    name="status_onhpqixue"
    regexp="y"
    script="status_onhpqixue"
@@ -485,7 +485,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
   <alias
    name="alias_caxie"
@@ -553,7 +553,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
 </timers>
 
@@ -562,7 +562,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
 
   <macro name="up" type="send_now" >
@@ -656,7 +656,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
@@ -668,7 +668,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
 
 <ansi>
@@ -725,7 +725,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
 
   <key name="0" >
@@ -839,7 +839,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 01:55:53"
+   date_saved="2008-10-17 13:21:11"
   >
 
 <ansi>

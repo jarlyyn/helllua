@@ -59,7 +59,7 @@ end
 caxienpc=function()
 	caxie["index"]=caxie["index"]+1
 	if caxie["index"]<=(#caxie["list"]) then
-		run("caxie "..caxie["list"][caxie["index"]])
+		run("swab "..caxie["list"][caxie["index"]])
 		busytest(caxienpc)
 	else
 		steppath["next"]()

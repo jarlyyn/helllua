@@ -4,7 +4,7 @@ eatdrink=function()
 end
 on_disconnect=function()
 	DeleteTemporaryTimers()
-	if (logable)and(_hooklist[hooks.logok]==nil) then
+	if (logable)and(_hooklist[hooks.logok]==nil)and not(quest.stop) then
 		Connect()
 	end
 end
@@ -34,7 +34,7 @@ end
 system_login=function(name, line, wildcards)
 	getidpass()
 	EnableTriggerGroup("log",true)
-	if not logable then return end
+	if (not logable) then return end
 		print(" Æ√Î∫Ûµ«¬Ω,«Î…‘µ»")
 		DoAfterSpecial(11,'login()',12)
 end

@@ -23,9 +23,7 @@ caxie["main"]=function()
 		caxie["end"]()
 		return
 	end
-	run("i")
-	hp()
-	busytest(caxie["check"])
+	getstatus(caxie["check"])
 end
 
 caxie["check"]=function()

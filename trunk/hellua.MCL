@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 17, 2008, 8:25 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÁù, Ê®ÔÂ 18, 2008, 2:29 ÉÏÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,13 +8,13 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
    chat_name="Name-not-set"
    command_stack_character=";"
-   id="87b82ad4f2b47d8b0e3384e7"
+   id="85ec66851739f0767f5e71cb"
    input_font_name="FixedSys"
    mapping_failure="Alas, you cannot go that way."
    name="hell_lua"
@@ -97,7 +97,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
   <trigger
    group="roomobj"
@@ -295,7 +295,6 @@
   >
   </trigger>
   <trigger
-   enabled="y"
    group="search"
    match="^(&gt; )*µêÐ¡¶þÒ»ÏÂµ²ÔÚÂ¥ÌÝÇ°£¬°×ÑÛÒ»·­£ºÔõ÷á×Å£¬Ïë°××¡°¡£¡"
    name="xiaoerguard"
@@ -521,7 +520,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
   <alias
    name="alias_caxie"
@@ -589,7 +588,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
 </timers>
 
@@ -598,7 +597,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
 
   <macro name="up" type="send_now" >
@@ -692,7 +691,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
@@ -706,7 +705,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
 
 <ansi>
@@ -763,7 +762,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
 
   <key name="0" >
@@ -877,7 +876,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-17 20:25:11"
+   date_saved="2008-10-18 02:29:12"
   >
 
 <ansi>

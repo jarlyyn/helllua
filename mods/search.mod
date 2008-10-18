@@ -3,6 +3,7 @@ exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeas
 _searchdepth=5 --ËÑË÷Éî¶È
 
 do_search=function(fstep,ffail,search_ok,search_fail)
+	hook(hooks.steptimeout,searchfor["steptimeout"])
 	searchfor["init"]()
 	searchfor["ok"]=search_ok
 	searchfor["fail"]=search_fail
@@ -15,8 +16,13 @@ end
 
 searchfor={}
 searchfor["nextroom"]=0
-
+searchfor["steptimeout"]=function()
+	if hashook(hooks.steptimeout) then
+		searchfor["guarded"]()
+	end
+end
 searchfor["end"]=function(s)
+	hook(hooks.steptimeout,nil)
 	hook(hooks.step,nil)
 	hook(hooks.searchfrofail,nil)
 	EnableTriggerGroup("search",false)
@@ -51,7 +57,7 @@ searchfor["next"]=function(exit)
 		_searchforindex[_searchforlevel]=0
 		_searchforcount[_searchforlevel]=0
 		for k,v in pairs(exit) do
-			if (exitback[v]~=nil) and (exitback[v]~=searchfor["step"]) then
+			if (exitback[v]~=nil) and (exitback[exitback[searchfor["step"]]]~=exitback[v]) then
 				_searchforcount[_searchforlevel]=_searchforcount[_searchforlevel]+1
 				_searchfordata[_searchforlevel][_searchforcount[_searchforlevel]]=v
 			end
@@ -79,11 +85,14 @@ searchfor["next"]=function(exit)
 	end
 	run(searchfor["step"])		
 end
-
-xiaoerguard=function(name, line, wildcards)
+searchfor["guarded"]=function()
+	ResetTimer("on_steptimeout")
 	searchfor["nextroom"]=getexitroom(searchfor["nextroom"],exitback[searchfor["step"]])
 	_searchforlevel=_searchforlevel-1	
 	searchfor["next"](nil)
+end
+xiaoerguard=function(name, line, wildcards)
+	searchfor["guarded"]()
 end
 
 steppath={}

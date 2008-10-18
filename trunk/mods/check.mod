@@ -14,6 +14,8 @@ do_check=function(checkcallback)
 		busytest(c_duihuancoin)
 	elseif itemsnum("Gold")<(tonumber(GetVariable("goldmin"))) then
 		busytest(c_qugold)
+	elseif checkrest(check["callback"],check["callback"]) then
+	elseif checkheal(check["callback"],check["callback"]) then
 	elseif checkitems(inv,check["callback"]) then
 	else
 		return false

@@ -118,6 +118,7 @@ end
 
 getjifa=function()
 	me.jifa={}
+	mejifa=me.jifa
 	catch("jifa","jifa")
 end
 
@@ -125,9 +126,6 @@ status_onjifa=function(name, line, wildcards)
 	me.jifa[wildcards[2]]={name=wildcards[1],lv=tonumber(wildcards[4]),skillname=wildcards[3]}
 end
 
-getstatus=function()
-hp()
-end
 
 getinfo=function(func)
 	score()
@@ -175,3 +173,13 @@ setflylist=function()
 	mushmapper.setflylist(flist)
 end
 
+mejifa=me.jifa
+
+mejifaforcelv=function()
+	if me.jifa~=nil then
+		if me.jifa.force~=nil then
+			return me.jifa.force.lv
+		end
+	end
+	return 0
+end

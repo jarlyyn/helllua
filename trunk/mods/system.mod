@@ -52,6 +52,10 @@ system_logok=function(name,line,wildcards)
 
 end
 
+on_steptimeout=function()
+	callhook(hooks.steptimeout)
+end
+
 on_hurt=function(name,line,wildcards)
 	callhook(hooks.hurt) 
 end
@@ -142,6 +146,7 @@ end
 _stop=false
 runre=rex.new("([^;.\\\\]+)")
 run=function(str)
+	ResetTimer("on_steptimeout")
 	if ((str=="")or(str==nil)) then return end
 	SetSpeedWalkDelay(math.floor(1000/cmd_limit))
 	_cmds={}

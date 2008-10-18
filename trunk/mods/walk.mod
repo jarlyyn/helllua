@@ -23,6 +23,7 @@ end
 
 
 walk["stop"]=function(thook)
+	hook(hooks.steptimeout,nil)
 	if (not(hashook(hooks.step))and(thook~=nil)) then
 		walk["end"]()
 		thook()

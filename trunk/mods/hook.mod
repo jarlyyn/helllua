@@ -21,6 +21,9 @@ hooks.faint1="faint1"
 --昏迷
 hooks.fight="onfight"
 --战斗时触发.如果需要战斗必须使用此hook,不然将reconnect
+hooks.steptimeout="steptimeout"
+--发送上一个指令4秒后触发。一般用于search之类的step超时
+
 
 _hooklist={}
 

@@ -140,7 +140,7 @@ end
 steppath_fail=function(n,l,w)
 	local nextsameroom=getnextsameroom(_roomid)
 	if nextsameroom>-1 then
-		steppath["index"]=v
+		steppath["index"]=nextsameroom
 		if (steppath["index"]==#steppath["path"]) then
 			steppath["end"]("ok")
 			return

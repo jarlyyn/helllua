@@ -12,6 +12,14 @@ end
 quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
+loadmod("beiqi.mod")
+quest.main["beiqi"]=function()
+	beiqi["main"]()
+	quest.resume=quest.main["beiqi"]
+end
+quest["end"]["beiqi"]=function()
+	beiqi["end"]()
+end
 
 do_quest=function(name)
 	quest.name=name

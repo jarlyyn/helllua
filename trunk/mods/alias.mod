@@ -19,6 +19,10 @@ alias_caxie=function(m,l,w)
 	do_quest("caxie")
 end
 
+alias_beiqi=function(m,l,w)
+	do_quest("beiqi")
+end
+
 alias_stop=function(m,l,w)
 	quest.stop=true
 end

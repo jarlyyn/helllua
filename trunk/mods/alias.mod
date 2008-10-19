@@ -22,6 +22,9 @@ end
 alias_beiqi=function(m,l,w)
 	do_quest("beiqi")
 end
+alias_letter=function(m,l,w)
+	do_quest("letter")
+end
 
 alias_stop=function(m,l,w)
 	quest.stop=true

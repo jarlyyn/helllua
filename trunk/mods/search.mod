@@ -103,6 +103,7 @@ do_steppath=function(path,pstep,pfail,path_ok,path_fail)
 	walkend=steppath["end"]
 	steppath["pstep"]=pstep
 	steppath["pfail"]=pfail
+	EnableTriggerGroup("steppath",true)
 	do_walk(path[1]["loc"],steppath["arrive"],path_fail)
 end
 steppath["arrive"]=function()
@@ -114,6 +115,7 @@ steppath["arrive"]=function()
 	steppath["next"]()
 end
 steppath["end"]=function(s)
+	EnableTriggerGroup("steppath",false)
 	if ((s~="")and(s~=nil)) then 
 		call(steppath[s]) 
 	end
@@ -135,3 +137,25 @@ steppath["next"]=function()
 	run(steppath["step"])		
 end
 
+steppath_fail=function(n,l,w)
+	local nextsameroom=getnextsameroom(_roomid)
+	if nextsameroom>-1 then
+		steppath["index"]=v
+		if (steppath["index"]==#steppath["path"]) then
+			steppath["end"]("ok")
+			return
+			end
+		steppath["step"]=steppath["path"][steppath["index"]]["step"]
+		steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
+		run(steppath["step"])		
+	else
+		steppath["end"]("fail")
+	end
+end
+
+getnextsameroom=function(thisloc)
+	for v=steppath["index"],#steppath["path"],1 do
+		if steppath["path"][v]["loc"]==thisloc then return v end
+	end
+	return -1
+end

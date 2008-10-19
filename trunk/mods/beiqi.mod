@@ -107,10 +107,10 @@ end
 beiqi["ask"]=function()
 	setbeiqiname()
 	EnableTrigger("beiqi_infook",true)
+	print("test")
 	beiqi["item"]=""
-	print("test1")
-	askinfo(beiqi.info.info,beiqi.info.npc.."的事")
 	print("test2")
+	askinfo(beiqi.info.info,beiqi.info.npc.."的事")
 	infoend(beiqi["askend"])	
 end
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈÕ, Ê®ÔÂ 19, 2008, 7:21 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÈÕ, Ê®ÔÂ 19, 2008, 11:18 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -73,6 +73,7 @@
    pixel_offset="1"
    port="6000"
    proxy_port="1080"
+   script_errors_to_output_window="y"
    send_file_delay_per_lines="1"
    send_mxp_afk_response="y"
    show_connect_disconnect="y"
@@ -97,7 +98,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
   <trigger
    group="roomobj"
@@ -239,7 +240,7 @@
   <trigger
    enabled="y"
    group="system"
-   match="^(&gt; )*(ÄãÒÑ¾­³¬¹ý17ËêÁË£¬ÎÞ·¨ÔÙÊ¹ÓÃÕâ¸öÖ¸Áî»Øµ½¿ÍµêÁË¡£|ÄãÒªÕÙ»½Ê²Ã´ÎïÆ·£¿|Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸öÎïÆ·|ÄãÒÑ¾­ÔÚÑïÖÝ¿ÍµêÁË¡£)"
+   match="^(&gt; )*(ÄãÒÑ¾­³¬¹ý17ËêÁË£¬ÎÞ·¨ÔÙÊ¹ÓÃÕâ¸öÖ¸Áî»Øµ½¿ÍµêÁË¡£|ÄãÉíÉÏ´øÖøÃÜº¯£¬²»ÄÜÊ©Õ¹¡£|ÄãÒªÕÙ»½Ê²Ã´ÎïÆ·£¿|Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸öÎïÆ·|ÄãÒÑ¾­ÔÚÑïÖÝ¿ÍµêÁË¡£)"
    name="flyfail"
    regexp="y"
    repeat="y"
@@ -276,6 +277,15 @@
    name="stepfail"
    regexp="y"
    script="walk_on_stepfail"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="nobody"
+   match="^(&gt; )*(ÕâÀïÃ»ÓÐÕâ¸öÈË¡£|ÄãÒªÏòË­Çó½Ì£¿|¸øÄãÏÂÈÎÎñµÄÄÇ¸öÈËÏÖÔÚ²»ÔÚÕâÀï°É£¿)$"
+   name="npc_nobody"
+   regexp="y"
+   script="npc_nobody"
    sequence="100"
   >
   </trigger>
@@ -322,12 +332,22 @@
   >
   </trigger>
   <trigger
-   enabled="y"
    group="beiqi"
    match="^(&gt; )*µêÐ¡¶þËµµÀ£º¾ÝËµ(.*)µÄ¹Ü¼Ò¼±ÐèÒ»Åú(.*)¡£ºÙ£¡ÄãËµËûÏë¸ÉÊ²Ã´£¿$"
    name="beiqi_infook"
    regexp="y"
    script="beiqi_infook"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="letter"
+   lines_to_match="2"
+   match="^(&gt; )*ºéÆß¹«·Ô¸ÀÄãÔÚ¶þÔÂÆßÈÕÖ®Ç°°ÑÐÅ¼þËÍµ½(.*)ÊÖÖÐ£¬È¡»ØÖ´½»²î¡£\n¾ÝÎÅ²»¾ÃÇ°´ËÈËÔø¾­ÔÚ(.*)¡£$"
+   multi_line="y"
+   name="letter_quest"
+   regexp="y"
+   script="letter_quest"
    sequence="100"
   >
   </trigger>
@@ -384,6 +404,15 @@
    name="system_onfight"
    regexp="y"
    script="system_onfight"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="nobody"
+   match="^(&gt; )*ÄãÏëÊÕË­×÷µÜ×Ó£¿$"
+   name="npc_nobody2"
+   regexp="y"
+   script="npc_nobody2"
    sequence="100"
   >
   </trigger>
@@ -557,7 +586,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
   <alias
    name="alias_beiqi"
@@ -572,6 +601,15 @@
    name="alias_caxie"
    script="alias_caxie"
    match="#caxie"
+   enabled="y"
+   group="alias"
+   sequence="100"
+  >
+  </alias>
+  <alias
+   name="alias_letter"
+   script="alias_letter"
+   match="#letter"
    enabled="y"
    group="alias"
    sequence="100"
@@ -634,7 +672,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
   <timer name="on_steptimeout" script="on_steptimeout" enabled="y" second="4.00" offset_second="0.00" group="timeout" >
 
@@ -646,7 +684,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
 
   <macro name="up" type="send_now" >
@@ -740,7 +778,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
@@ -756,7 +794,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
 
 <ansi>
@@ -813,7 +851,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
 
   <key name="0" >
@@ -927,7 +965,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 19:21:20"
+   date_saved="2008-10-19 23:18:33"
   >
 
 <ansi>

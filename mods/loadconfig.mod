@@ -8,6 +8,7 @@ loadconfig=function()
 	include("config.ini")
 	loadconfigfile("paths.ini")
 	loadconfigfile("family.ini")
+	loadconfigfile("info.ini")
 	walk["open"]=mushmapper.openmap(luapath.."rooms_all.h")
 	if (walk[open]==0) then 
 		print "地图文件未找到，请检查设置"

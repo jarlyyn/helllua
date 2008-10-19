@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÁù, Ê®ÔÂ 18, 2008, 1:52 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÈÕ, Ê®ÔÂ 19, 2008, 7:21 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -97,7 +97,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
   <trigger
    group="roomobj"
@@ -210,6 +210,33 @@
   >
   </trigger>
   <trigger
+   group="info"
+   match="^(&gt; )*(µêÐ¡¶þ)(Ò¡Ò¡Í·£¬ËµµÀ£ºÃ»ÌýËµ¹ý¡£|ÒÉ»óµØ¿´×ÅÄã£¬Ò¡ÁËÒ¡Í·¡£|Õö´óÑÛ¾¦Íû×ÅÄã£¬ÏÔÈ»²»ÖªµÀÄãÔÚËµÊ²Ã´¡£|ËÊÁËËÊ¼ç£¬ºÜ±§Ç¸µØËµ£ºÎÞ¿É·î¸æ¡£|ËµµÀ£ºàÅ....ÕâÎÒ¿É²»Çå³þ£¬Äã×îºÃÎÊÎÊ±ðÈË°É¡£|ÏëÁËÒ»»á¶ù£¬ËµµÀ£º¶Ô²»Æð£¬ÄãÎÊµÄÊÂÎÒÊµÔÚÃ»ÓÐÓ¡Ïó¡£)"
+   name="info_fail"
+   regexp="y"
+   script="info_fail"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="search"
+   match="^(&gt; )*(µêÐ¡¶þ|ÌÆéª)(ÑÛ¾¦Ò»·­£¬µÀ£º¸ÉÊ²Ã´À´ÁË£¬ÏëÍµ¶«Î÷°¡£¿|Ò»ÏÂµ²ÔÚÂ¥ÌÝÇ°£¬°×ÑÛÒ»·­£ºÔõ÷á×Å£¬Ïë°××¡°¡£¡)"
+   name="xiaoerguard"
+   regexp="y"
+   script="xiaoerguard"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="rest"
+   match="^(&gt; )*(ÄãÒ»¾õÐÑÀ´£¬Ö»¾õ¾«Á¦³äÅæ¡£¸Ã»î¶¯Ò»ÏÂÁË¡£|ÄãÃÔÃÔºýºýµÄÕö¿ªË«ÑÛ£¬ÅÀÁËÆðÀ´¡£|Éè¶¨»·¾³±äÊý£ºno_more = &quot;sleepok&quot;)$"
+   name="rest_sleepok"
+   regexp="y"
+   script="rest_sleepok"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    enabled="y"
    group="system"
    match="^(&gt; )*(ÄãÒÑ¾­³¬¹ý17ËêÁË£¬ÎÞ·¨ÔÙÊ¹ÓÃÕâ¸öÖ¸Áî»Øµ½¿ÍµêÁË¡£|ÄãÒªÕÙ»½Ê²Ã´ÎïÆ·£¿|Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸öÎïÆ·|ÄãÒÑ¾­ÔÚÑïÖÝ¿ÍµêÁË¡£)"
@@ -295,11 +322,12 @@
   >
   </trigger>
   <trigger
-   group="search"
-   match="^(&gt; )*µêÐ¡¶þÒ»ÏÂµ²ÔÚÂ¥ÌÝÇ°£¬°×ÑÛÒ»·­£ºÔõ÷á×Å£¬Ïë°××¡°¡£¡"
-   name="xiaoerguard"
+   enabled="y"
+   group="beiqi"
+   match="^(&gt; )*µêÐ¡¶þËµµÀ£º¾ÝËµ(.*)µÄ¹Ü¼Ò¼±ÐèÒ»Åú(.*)¡£ºÙ£¡ÄãËµËûÏë¸ÉÊ²Ã´£¿$"
+   name="beiqi_infook"
    regexp="y"
-   script="xiaoerguard"
+   script="beiqi_infook"
    sequence="100"
   >
   </trigger>
@@ -467,6 +495,15 @@
   >
   </trigger>
   <trigger
+   group="info"
+   match="^^(&gt; )*(µêÐ¡¶þ)ËµµÀ£º(°¢Ìç£¡ÓÐµã¸ÐÃ°£¬²»ºÃÒâË¼¡£|µÈ...µÈµÈ£¬ÄãËµÊ²Ã´£¿Ã»ÌýÇå³þ¡£|àÅ£¬ÉÔµÈ°¡£¬¾ÍºÃ... ºÃÁË£¬Äã¸Õ²ÅËµÉ¶£¿|Õâ¸ö... Õâ¸ö... Å¶£¬ºÃÁË£¬°¡£¿ÄãÎÊÎÒÄØ£¿|°¦ßÏ£¡... ²»ºÃÒâË¼£¬ÊÇÄãÎÊÎÒÃ´£¿|¾ÍºÃ... ¾ÍºÃ... ºÃÁË£¬ÄãËµÉ¶£¿|Äã¸ÉÉ¶£¿Ã»¿´ÎÒÃ¦×ÅÄØÃ´£¿|!)"
+   name="info_retry"
+   regexp="y"
+   script="info_retry"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    group="hp"
    match="^¡¾ ¾« Æø ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\s*(\d+)%\)\s*¡¾ ¾« Á¦ ¡¿\s*(\d+)\s*/\s*(\d+)\s*\(\s*\+(\d+)\)"
    name="status_onhpjinqi"
@@ -520,8 +557,17 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
+  <alias
+   name="alias_beiqi"
+   script="alias_beiqi"
+   match="#beiqi"
+   enabled="y"
+   group="alias"
+   sequence="100"
+  >
+  </alias>
   <alias
    name="alias_caxie"
    script="alias_caxie"
@@ -588,8 +634,11 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
+  <timer name="on_steptimeout" script="on_steptimeout" enabled="y" second="4.00" offset_second="0.00" group="timeout" >
+
+  </timer>
 </timers>
 
 <!-- macros -->
@@ -597,7 +646,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
 
   <macro name="up" type="send_now" >
@@ -691,12 +740,14 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
+  <variable name="neilimin">100</variable>
   <variable name="passwd"></variable>
   <variable name="potmax">50</variable>
+  <variable name="qixuemin">75</variable>
   <variable name="skilllist">force,jiaohua-neigong</variable>
 </variables>
 
@@ -705,7 +756,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
 
 <ansi>
@@ -762,7 +813,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
 
   <key name="0" >
@@ -876,7 +927,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-18 13:52:06"
+   date_saved="2008-10-19 19:21:20"
   >
 
 <ansi>

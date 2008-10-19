@@ -120,10 +120,10 @@ system_isbusy=function(name, line, wildcards)
 end
 
 system_onfight=function(name, line, wildcards)
-	if hooks.isbusy~=nil then
+	if hashook(hooks.isbusy) then
 		DoAfterSpecial(1,'run(\"enchase bao\")',12)
 	end
-	if hooks.fight~=nil then
+	if hashook(hooks.fight) then
 		callhook(hooks.fight)
 	else
 		recon()

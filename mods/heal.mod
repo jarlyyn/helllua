@@ -48,6 +48,7 @@ end
 heal["arrive"]=function()
 	if me.hp["qixue%"]==100 then
 		heal["end"]("ok")
+		return
 	end
 	if me.hp["qixue%"]==heal["hp"] then
 		if getnum(itemlist[healyao])>0 then

@@ -6,7 +6,7 @@ quest["main"]={}
 quest.name=""
 loadmod("caxie.mod")
 quest.main["caxie"]=function()
-	do_caxie(caxie.main)
+	do_caxie(caxie.main,caxie.main)
 	quest.resume=quest.main["caxie"]
 end
 quest["end"]["caxie"]=function()
@@ -19,6 +19,14 @@ quest.main["beiqi"]=function()
 end
 quest["end"]["beiqi"]=function()
 	beiqi["end"]()
+end
+loadmod("letter.mod")
+quest.main["letter"]=function()
+	do_letter(letter.loop,letter.loop)
+	letter.resume=quest.main["letter"]
+end
+quest["end"]["caxie"]=function()
+	caxie["end"]()
 end
 
 do_quest=function(name)
@@ -40,7 +48,7 @@ end
 resume=function()
 	if quest.stop==false then
 		walk["stop"]()
-		unhook()
+		unhookall()
 		_roomid=-1
 		inittri()
 		call(quest["resume"])

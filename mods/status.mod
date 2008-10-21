@@ -149,14 +149,13 @@ setting=function()
 	setflylist()
 end
 settags=function()
-	mushmapper.settags("")
 	tags=""
 	if me.fam~=nil then
 		if familys[me.fam]~=nil then
 			tags=familys[me.fam].family
 		end
 	end
-	mushmapper.settags(tags)
+	mapper.settags(tags)
 end
 
 setflylist=function()
@@ -170,7 +169,7 @@ setflylist=function()
 	if wvflylist~=nil then
 		flist=flist..wvflylist
 	end
-	mushmapper.setflylist(flist)
+	mapper.setflylist(flist)
 end
 
 mejifa=me.jifa

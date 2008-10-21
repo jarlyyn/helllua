@@ -1,29 +1,3 @@
-test=[[
-mapping rcv_npcs = ([
-        "/d/city3/bingqidian"     : "tang huai",
-        "/d/city3/wuguan"         : "ma wude",
-        "/d/dali/bingying"        : "wei shi",
-        "/d/dali/tusifu"          : "da tusi",
-        "/d/changan/xunbufang"    : "bu tou",
-        "/d/changan/biaoju-damen" : "biaoshi",
-        "/d/changan/qunyulou"     : "da shou",
-        "/d/city/wuguan"          : "chen youde",
-        "/d/city/dongmen"         : "wu jiang",
-        "/d/beijing/xichang"      : "tai jian",
-        "/d/beijing/xichengmen"   : "du cha",
-        "/d/shaolin/ruzhou"       : "wu jiang",
-        "/d/shaolin/shanmen"      : "xu ming",
-        "/d/suzhou/bingying"      : "wu jiang",
-        "/d/suzhou/toumenshan"    : "jian ke",
-        "/d/hangzhou/liuzhuang"   : "guan jia",
-        "/d/hangzhou/yuhuangsd"   : "yu yutong",
-        "/d/fuzhou/biaoju"        : "bai er",
-        "/d/quanzhou/jiaxinggang" : "lao chuanfu",
-        "/d/lingzhou/xiaoxiaochang" : "xixia bing",
-        "/d/lingzhou/jiangjungate"  : "xiao wei",
-]);
-]]
-
 
 beiqiinfo={}
 beiqiinfo["list"]={"yzcyd","yzwj","hzyyt","hzgj","bjtj","bjdc","rzwj","cdmwd","cdth","dlts","dlws","cabt","cabs","cads","szwj","szjk","fzbe","lzxxb","lzxw"}
@@ -34,7 +8,7 @@ beiqiinfo["yzwj"]["东门"]=67
 beiqiinfo["yzwj"]["南门"]=54
 beiqiinfo["yzwj"]["西门"]=13
 beiqiinfo["yzwj"]["北门"]=34
-beiqiinfo["hzyyt"]={info="08",npc="余鱼同",npcid="chen youde"}
+beiqiinfo["hzyyt"]={info="08",npc="余鱼同",npcid="yu yutong"}
 beiqiinfo["hzyyt"]["玉皇山顶"]=831
 beiqiinfo["hzgj"]={info="08",npc="管家",npcid="guan jia"}
 beiqiinfo["hzgj"]["刘庄"]=874
@@ -46,7 +20,7 @@ beiqiinfo["rzwj"]={info="29",npc="武将",npcid="wu jiang"}
 beiqiinfo["rzwj"]["汝州城"]=1356
 beiqiinfo["cdmwd"]={info="39",npc="马武德",npcid="ma wude"}
 beiqiinfo["cdmwd"]["金牛武馆"]=690
-beiqiinfo["cdth"]={info="39",npc="唐槐",npcid="ma wude"}
+beiqiinfo["cdth"]={info="39",npc="唐槐",npcid="tang huai"}
 beiqiinfo["cdth"]["兵器铺"]=682
 beiqiinfo["dlts"]={info="32",npc="大土司",npcid="da tusi"}
 beiqiinfo["dlts"]["土司府"]=452

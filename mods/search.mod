@@ -51,6 +51,9 @@ searchfor["init"]=function()
 	EnableTriggerGroup("search",true)
 end
 searchfor["next"]=function(exit)
+	print("searching...")
+	print(_roomid)
+	print(searchfor["nextroom"])
 	if searchfor["nextroom"]~=-1 then _roomid=searchfor["nextroom"] end
 	if (_searchfordata[_searchforlevel]==nil) then
 		_searchfordata[_searchforlevel]={}
@@ -154,7 +157,7 @@ steppath_fail=function(n,l,w)
 end
 
 getnextsameroom=function(thisloc)
-	for v=steppath["index"],#steppath["path"],1 do
+	for v=steppath["index"]+1,#steppath["path"],1 do
 		if steppath["path"][v]["loc"]==thisloc then return v end
 	end
 	return -1

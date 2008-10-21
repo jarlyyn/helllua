@@ -49,6 +49,8 @@ end
 searchnpc.test=function()
 	if room_obj[npc.name]~=nil then
 		npc.id=room_obj[npc.name].id
+		_roomid=searchfor["nextroom"]
+		print(_roomid)
 		searchfor["end"]("ok")
 	else
 		searchfor["next"](getroomexits(searchfor["nextroom"]))
@@ -83,6 +85,8 @@ npcinpath_end_fail=function()
 	npcinpath["end"]("fail")
 end
 npcinpath.step=function()
+	print(_roomid)
+	print(steppath["nextroom"])
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
 		npc.id=room_obj[npc.name].id

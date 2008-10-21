@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈÕ, Ê®ÔÂ 19, 2008, 11:18 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚ¶þ, Ê®ÔÂ 21, 2008, 6:38 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,13 +8,13 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
    chat_name="Name-not-set"
    command_stack_character=";"
-   id="85ec66851739f0767f5e71cb"
+   id="76a02032cf1833e0b5a09bd4"
    input_font_name="FixedSys"
    mapping_failure="Alas, you cannot go that way."
    name="hell_lua"
@@ -62,7 +62,7 @@
    keypad_enable="y"
    line_information="y"
    log_output="y"
-   max_output_lines="5000"
+   max_output_lines="4000"
    mud_can_change_link_colour="y"
    mud_can_change_options="y"
    note_text_colour="#040000"
@@ -98,7 +98,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
   <trigger
    group="roomobj"
@@ -220,11 +220,29 @@
   >
   </trigger>
   <trigger
+   group="info"
+   match="^(&gt; )*(µêÐ¡¶þ)ËµµÀ£º(°¢Ìç£¡ÓÐµã¸ÐÃ°£¬²»ºÃÒâË¼¡£|µÈ...µÈµÈ£¬ÄãËµÊ²Ã´£¿Ã»ÌýÇå³þ¡£|àÅ£¬ÉÔµÈ°¡£¬¾ÍºÃ... ºÃÁË£¬Äã¸Õ²ÅËµÉ¶£¿|Õâ¸ö... Õâ¸ö... Å¶£¬ºÃÁË£¬°¡£¿ÄãÎÊÎÒÄØ£¿|°¦ßÏ£¡... ²»ºÃÒâË¼£¬ÊÇÄãÎÊÎÒÃ´£¿|¾ÍºÃ... ¾ÍºÃ... ºÃÁË£¬ÄãËµÉ¶£¿|Äã¸ÉÉ¶£¿Ã»¿´ÎÒÃ¦×ÅÄØÃ´£¿|!)"
+   name="info_retry"
+   regexp="y"
+   script="info_retry"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    group="search"
-   match="^(&gt; )*(µêÐ¡¶þ|ÌÆéª)(ÑÛ¾¦Ò»·­£¬µÀ£º¸ÉÊ²Ã´À´ÁË£¬ÏëÍµ¶«Î÷°¡£¿|Ò»ÏÂµ²ÔÚÂ¥ÌÝÇ°£¬°×ÑÛÒ»·­£ºÔõ÷á×Å£¬Ïë°××¡°¡£¡)"
+   match="^(&gt; )*(µêÐ¡¶þ|ÌÆéª|ÄãÌ«ÀÛÁË)(ÑÛ¾¦Ò»·­£¬µÀ£º¸ÉÊ²Ã´À´ÁË£¬ÏëÍµ¶«Î÷°¡£¿|Ò»ÏÂµ²ÔÚÂ¥ÌÝÇ°£¬°×ÑÛÒ»·­£ºÔõ÷á×Å£¬Ïë°××¡°¡£¡|£¬»¹ÊÇÐÝÏ¢Ò»»á¶ù°É¡£)"
    name="xiaoerguard"
    regexp="y"
    script="xiaoerguard"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="steppath"
+   match="^(&gt; )*(ÄãÌ«ÀÛÁË£¬»¹ÊÇÐÝÏ¢Ò»»á¶ù°É¡£|Äã¿´×ÅºÆå«µÄÌ«ºþ£¬ÐÄÀï²»½û´òÁË¸öÍ»£¬Ã»¸ÒÂÒÀ´¡£|Äã¾õµÃºþÃæÌ«¿í£¬Ã»ÓÐÊ®×ãµÄ°ÑÎÕÔ¾¹ýÈ¥¡£|´òÊÖÒ»°Ñ×¥×¡ÁËÄã£¬ËµµÀ:¡°ÕâÀï²»ÊÇÅ®ÈË¸ÃÀ´µÄµØ·½£¬Äã±ð½øÈ¥¡£¡±)"
+   name="steppath_fail"
+   regexp="y"
+   script="steppath_fail"
    sequence="100"
   >
   </trigger>
@@ -333,7 +351,7 @@
   </trigger>
   <trigger
    group="beiqi"
-   match="^(&gt; )*µêÐ¡¶þËµµÀ£º¾ÝËµ(.*)µÄ¹Ü¼Ò¼±ÐèÒ»Åú(.*)¡£ºÙ£¡ÄãËµËûÏë¸ÉÊ²Ã´£¿$"
+   match="^(&gt; )*µêÐ¡¶þËµµÀ£º¾ÝËµ(.*)µÄ´òÊÖ¼±ÐèÒ»Åú(.*)¡£ºÙ£¡ÄãËµËûÏë¸ÉÊ²Ã´£¿$"
    name="beiqi_infook"
    regexp="y"
    script="beiqi_infook"
@@ -343,7 +361,7 @@
   <trigger
    group="letter"
    lines_to_match="2"
-   match="^(&gt; )*ºéÆß¹«·Ô¸ÀÄãÔÚ¶þÔÂÆßÈÕÖ®Ç°°ÑÐÅ¼þËÍµ½(.*)ÊÖÖÐ£¬È¡»ØÖ´½»²î¡£\n¾ÝÎÅ²»¾ÃÇ°´ËÈËÔø¾­ÔÚ(.*)¡£$"
+   match="^(&gt; )*ºéÆß¹«·Ô¸ÀÄãÔÚ.*Ö®Ç°°ÑÐÅ¼þËÍµ½(.*)ÊÖÖÐ£¬È¡»ØÖ´½»²î¡£\n¾ÝÎÅ²»¾ÃÇ°´ËÈËÔø¾­ÔÚ(.*)¡£$"
    multi_line="y"
    name="letter_quest"
    regexp="y"
@@ -419,7 +437,6 @@
   <trigger
    enabled="y"
    group="system"
-   keep_evaluating="y"
    match="^(&gt; )*ÄãÒªÍùÕâÉÏÃæÏâÇ¶Ê²Ã´ÎïÆ·£¿$"
    name="system_nobusy"
    omit_from_output="y"
@@ -515,20 +532,21 @@
   >
   </trigger>
   <trigger
+   enabled="y"
+   group="fish"
+   match="^(ÄãµÄ¸¡×ÓÃÍÈ»ÏòÏÂÒ»´Ü£¬È»ºóÓÖÌø³öË®Ãæ¡£|ÄãµÄ¸¡×ÓºöÈ»¾çÁÒµÄÕðµ´ÆðÀ´¡£|ÄãµÄ¸¡×Óºö×óºöÓÒÒ¡°Ú¸ö²»Í£¡£)$"
+   name="fish_ondraw"
+   regexp="y"
+   script="fish_ondraw"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    group="log"
    match="^(ÖØÐÂÁ¬ÏßÍê±Ï¡£|ÄãÁ¬Ïß½øÈë.*¡£)$"
    name="system_logok"
    regexp="y"
    script="system_logok"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="info"
-   match="^^(&gt; )*(µêÐ¡¶þ)ËµµÀ£º(°¢Ìç£¡ÓÐµã¸ÐÃ°£¬²»ºÃÒâË¼¡£|µÈ...µÈµÈ£¬ÄãËµÊ²Ã´£¿Ã»ÌýÇå³þ¡£|àÅ£¬ÉÔµÈ°¡£¬¾ÍºÃ... ºÃÁË£¬Äã¸Õ²ÅËµÉ¶£¿|Õâ¸ö... Õâ¸ö... Å¶£¬ºÃÁË£¬°¡£¿ÄãÎÊÎÒÄØ£¿|°¦ßÏ£¡... ²»ºÃÒâË¼£¬ÊÇÄãÎÊÎÒÃ´£¿|¾ÍºÃ... ¾ÍºÃ... ºÃÁË£¬ÄãËµÉ¶£¿|Äã¸ÉÉ¶£¿Ã»¿´ÎÒÃ¦×ÅÄØÃ´£¿|!)"
-   name="info_retry"
-   regexp="y"
-   script="info_retry"
    sequence="100"
   >
   </trigger>
@@ -586,7 +604,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
   <alias
    name="alias_beiqi"
@@ -601,6 +619,15 @@
    name="alias_caxie"
    script="alias_caxie"
    match="#caxie"
+   enabled="y"
+   group="alias"
+   sequence="100"
+  >
+  </alias>
+  <alias
+   name="alias_fish"
+   script="alias_fish"
+   match="#fish"
    enabled="y"
    group="alias"
    sequence="100"
@@ -672,7 +699,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
   <timer name="on_steptimeout" script="on_steptimeout" enabled="y" second="4.00" offset_second="0.00" group="timeout" >
 
@@ -684,7 +711,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
 
   <macro name="up" type="send_now" >
@@ -778,7 +805,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
@@ -794,7 +821,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
 
 <ansi>
@@ -851,7 +878,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
 
   <key name="0" >
@@ -965,7 +992,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-19 23:18:33"
+   date_saved="2008-10-21 18:38:09"
   >
 
 <ansi>

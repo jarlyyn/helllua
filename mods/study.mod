@@ -1,4 +1,4 @@
-skilllistre=rex.new("^(?<skill>.+?)(\\((?<study>[[:alpha:]]+){0,1}(-{0,1}(?<npc>[[:alpha:]]+\\s+[[:alpha:]]+)){0,1}(-{0,1}(?<npcname>[^a-zA-Z1-9 ]+)){0,1}(-{0,1}(?<loc>\\d+)){0,1}\\)){0,1}$")
+skilllistre=rex.new("^(?<skill>.+?)(\\((?<study>[[:alpha:]]+){0,1}?(-{0,1}(?<npc>[[:alpha:]]+\\s+[[:alpha:]]+)){0,1}(-{0,1}(?<npcname>[^a-zA-Z1-9 ]+)){0,1}(-{0,1}(?<loc>\\d+)){0,1}\\)){0,1}$")
 study={}
 study["skill"]={}
 study["ok"]=nil
@@ -58,13 +58,13 @@ study["end"]=function(s)
 end
 
 study["xue"]=function()
-	if (me.hp.pot==0)or(me.hp.neili==0)or(lastpotcount>7) then
+	if (me.hp.pot==0)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>7) then
 		study["end"]("ok")
 	else
 		if me.hp.pot==lastpot then
 			lastpotcount=lastpotcount+1
 		else
-			laspot=me.hp.pot
+			lastpot=me.hp.pot
 			lastpotcount=1
 		end
 		if me.hp.pot<100 then
@@ -117,8 +117,13 @@ setupskill=function()
 	if i==0 then study.skill=nil end
 	study["skill"]=getskill(_skills[math.random(1,i)])
 	if study["skill"]~=nil then
+		if study.skill.npc~=false then
+			if npcs[study.skill.npc]==nil then
+				study.skill.npc=false
+			end	
+		end
 		if study.skill.loc==false then study.skill.loc=0 end
-		if study.skill.npcname==false then
+		if study.skill.npc==false then
 			if npcs[study.skill.npcname]~=nil then
 				study.skill.npc=npcs[study.skill.npcname].id
 			end

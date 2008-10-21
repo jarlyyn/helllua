@@ -23,12 +23,19 @@ end
 loadmod("letter.mod")
 quest.main["letter"]=function()
 	do_letter(letter.loop,letter.loop)
-	letter.resume=quest.main["letter"]
+	quest.resume=quest.main["letter"]
 end
 quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
-
+loadmod("fish.mod")
+quest.main["fish"]=function()
+	do_fish(fish.loop,fish.loop)
+	quest.resume=quest.main["fish"]
+end
+quest["end"]["fish"]=function()
+	fish["end"]()
+end
 do_quest=function(name)
 	quest.name=name
 	initmud()

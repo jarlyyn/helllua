@@ -92,6 +92,7 @@ walk_on_room1=function(name, line, wildcards)
 	EnableTriggerGroup("roomobj",true)
 end
 do_walk=function (to,walk_ok,walk_fail)
+	initmaze()
 	walk["to"]=to
 	walk["ok"]=walk_ok
 	walk["fail"]=walk_fail
@@ -176,6 +177,19 @@ walk_locate_fail=function()
 end
 
 walk_on_step=function()
+	if _roomname~=nil and _roomname~="" then
+		if maze[_roomname]~=nil then
+			if _roomname~=mazename then
+				mazename=_roomname
+				walk["index"]=walk["index"]+1
+				steptrace(walk["step"])
+			end
+			mazestep=walk["data"][walk["index"]]
+			maze[_roomname]()
+			return
+		end
+	end
+	initmaze()
 	walk["index"]=walk["index"]+1
 	steptrace(walk["step"])
 	if (walk["data"][walk["index"]]==nil) then
@@ -290,3 +304,80 @@ nosafe_onfail=function(n,l,w)
 	searchfor["next"](getroomexits(searchfor["nextroom"]))
 end
 go=walk["stopto"]
+
+initmaze=function()
+	mazename=""
+	mazecount=0
+end
+maze={}
+mazetest={}
+mazestep=""
+mazename=""
+maze["É³Ä®"]=function()
+	eatdrink()
+	hp()
+	mazestep="s"
+	busytest(mazetest["É³Ä®"])
+end
+mazetest["É³Ä®"]=function()
+	if testneili() then
+		dazuo(maze["É³Ä®"])
+	else
+		run(mazestep)
+	end
+end
+maze["´óÉ³Ä®"]=function()
+	eatdrink()
+	hp()
+	if mazestep=="w" or mazestep=="w." then
+		mazestep="w."
+	elseif mazestep=="home" or mazestep=="home." then
+		mazestep="home."
+	else
+		mazestep="e."
+	end
+	busytest(mazetest["´óÉ³Ä®"])
+end
+mazetest["´óÉ³Ä®"]=function()
+	if testneili() then
+		dazuo(maze["´óÉ³Ä®"])
+	else
+		run(mazestep)
+	end
+end
+maze["ÄÏ½®É³Ä®"]=function()
+	
+	if ((mazestep=="sw")or(mazestep=="sw.")) then
+		mazestep="sw"
+	else
+		mazestep="ne."
+	end
+	if (mazestep=="sw")and(mazecount<8) then
+		run("sw")
+		mazecount=mazecount+1
+	else
+		run("ne")
+	end
+end
+maze["¸ê±ÚÌ²"]=function()
+	if(mazestep=="w")or(mazestep=="w.") then
+		mazestep="w."
+		if(mazecount<2) then
+			 run("w")
+		elseif (mazecount%2)==0 then
+			run("n")
+		else
+			run("w")
+		end
+	else
+		mazestep="e."
+		if(mazecount<2) then
+			 run("s")
+		elseif (mazecount%2)==0 then
+			run("e")
+		else
+			run("s")
+		end
+	end
+		mazecount=mazecount+1
+end

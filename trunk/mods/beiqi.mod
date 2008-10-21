@@ -43,6 +43,23 @@ beiqiinfo["lzxxb"]["Ð¡Ð£³¡"]=1199
 beiqiinfo["lzxw"]={info="37",npc="Ð£Î¾",npcid="xiao wei"}
 beiqiinfo["lzxw"]["´ó½«¾ü¸®"]=1187
 
+beiqisells={}
+beiqisells["Ìú´¸"]={name="Ìú´¸",id="hammer"}
+beiqisells["Ìú¹÷"]={name="Ìú¹÷",id="tiegun"}
+beiqisells["Ìú¼×"]={name="Ìú¼×",id="armor"}
+beiqisells["ÆÕÍ¨Ø°Ê×"]={name="ÆÕÍ¨Ø°Ê×",id="dagger"}
+beiqisells["Öñ°ô"]={name="Öñ°ô",id="zhubang"}
+beiqisells["Öñ½£"]={name="Öñ½£",id="zhujian"}
+beiqisells["·É»ÈÊ¯"]={name="·É»ÈÊ¯",id="feihuang shi",sellmax=100}
+beiqisells["ÌúÁ«×Ó"]={name="ÌúÁ«×Ó",id="tie lianzi",sellmax=100}
+beiqisells["Ä¾½£"]={name="Ä¾½£",id="mu jian"}
+beiqisells["Ä¾µ¶"]={name="Ä¾µ¶",id="mu dao"}
+beiqisells["Ä¾¹÷"]={name="Ä¾¹÷",id="mu dao"}
+
+
+
+
+
 beiqi={}
 beiqi["ok"]=nil
 beiqi["fail"]=nil
@@ -142,6 +159,7 @@ beiqi["checkcmd"]=function()
 end
 beiqi.check=function()
 	if do_check(beiqi["main"]) then
+	elseif checksell(beiqisells,beiqi["main"],beiqi["main"]) then
 	elseif checkstudy(beiqi["main"]) then
 	else
 		do_beiqi(beiqi["main"],beiqi["main"])

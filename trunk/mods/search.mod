@@ -50,10 +50,7 @@ searchfor["init"]=function()
 	_searchforcallbackfaild=nil
 	EnableTriggerGroup("search",true)
 end
-searchfor["next"]=function(exit)
-	print("searching...")
-	print(_roomid)
-	print(searchfor["nextroom"])
+searchfor["nextcmd"]=function(exit)
 	if searchfor["nextroom"]~=-1 then _roomid=searchfor["nextroom"] end
 	if (_searchfordata[_searchforlevel]==nil) then
 		_searchfordata[_searchforlevel]={}
@@ -86,12 +83,27 @@ searchfor["next"]=function(exit)
 	else
 		searchfor["nextroom"]=-1
 	end
-	run(searchfor["step"])		
+end
+searchfor["next"]=function(exit)
+	if _roomname~=nil and _roomname~="" then
+		if maze[_roomname]~=nil then
+			if _roomname~=mazename then
+				mazename=_roomname
+				searchfor["nextcmd"](exit)
+			end
+			mazestep=searchfor["step"]
+			maze[_roomname]()
+			return
+		end
+	end
+	initmaze()
+	searchfor["nextcmd"](exit)
+	run(searchfor["step"])	
 end
 searchfor["guarded"]=function()
 	ResetTimer("on_steptimeout")
 	searchfor["nextroom"]=getexitroom(searchfor["nextroom"],exitback[searchfor["step"]])
-	_searchforlevel=_searchforlevel-1	
+	_searchforlevel=_searchforlevel-1
 	searchfor["next"](nil)
 end
 xiaoerguard=function(name, line, wildcards)
@@ -129,6 +141,19 @@ steppath["end"]=function(s)
 end
 
 steppath["next"]=function()
+	if _roomname~=nil and _roomname~="" then
+		if maze[_roomname]~=nil then
+			if _roomname~=mazename then
+				mazename=_roomname
+				steppath["index"]=steppath["index"]+1
+				_roomid=steppath["nextroom"]
+			end
+			mazestep=steppath["path"][steppath["index"]]["step"]
+			maze[_roomname]()
+			return
+		end
+	end
+	initmaze()
 	steppath["index"]=steppath["index"]+1
 	_roomid=steppath["nextroom"]
 	if (steppath["index"]>#steppath["path"]) then

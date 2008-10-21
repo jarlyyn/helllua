@@ -80,3 +80,5 @@ checkitems=function(_items,check_ok,check_fail)
 	end
 	return false
 end
+
+loadmod("drop.mod")

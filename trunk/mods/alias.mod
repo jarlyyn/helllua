@@ -1,5 +1,5 @@
 alias_to=function(n,l,w)
-	print("go"..mushmapper.getroomname(w[1]))
+	print("go"..mapper.getroomname(w[1]))
 	go(w[1]-0)
 end
 
@@ -25,7 +25,9 @@ end
 alias_letter=function(m,l,w)
 	do_quest("letter")
 end
-
+alias_fish=function(m,l,w)
+	do_quest("fish")
+end
 alias_stop=function(m,l,w)
 	quest.stop=true
 end

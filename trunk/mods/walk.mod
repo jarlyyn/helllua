@@ -85,7 +85,7 @@ walk_on_stepfail=function (name, line, wildcards)
 	callhook(hooks.stepfail)
 end
 
-walk_on_room1=function (name, line, wildcards)
+walk_on_room1=function(name, line, wildcards)
 	_exits=wildcards[2]
 	callhook(hooks.step)
 	room_obj={}
@@ -114,7 +114,7 @@ do_walk=function (to,walk_ok,walk_fail)
 	hook(hooks.step,walk_on_step)
 	hook(hooks.stepfail,walk_on_stepfail)
 	hook(hooks.flyfail,walk["flyfail"])
-	walk["path"]=mushmapper.getpath(_roomid,to,1)
+	walk["path"]=mapper.getpath(_roomid,to,1)
 	if (walk["path"]=="") then
 		walk["end"]("fail")
 		return
@@ -132,7 +132,7 @@ walk["stepfail"]=function()
 end
 
 walk["flyfail"]=function()
-	walk["path"]=mushmapper.getpath(_roomid,walk["to"],0)
+	walk["path"]=mapper.getpath(_roomid,walk["to"],0)
 	if (walk["path"]=="") then
 		walk["end"]("fail")
 		return
@@ -158,7 +158,7 @@ getexits=function(exit)
 end
 
 walk_locate_step=function()
-	local rm={mushmapper.getroomid(_roomname)}
+	local rm={mapper.getroomid(_roomname)}
 	if (rm[1]~=1) then
 		searchfor["next"](getexits(_exits))
 	else
@@ -199,7 +199,7 @@ getexitroom=function (room,dir)
 	local exits={}
 	local i=0
 	if room<0 then return -1 end
-	exits={mushmapper.getexits(room)}
+	exits={mapper.getexits(room)}
 	while (i<exits[1]) do
 		i=i+1
 		if (dir==exits[i*2]) then return exits[i*2+1] end
@@ -212,7 +212,7 @@ getroomexits=function (room)
 	local i=0
 	local roomexits={}
 	if room<0 then return nil end
-	exits={mushmapper.getexits(room)}
+	exits={mapper.getexits(room)}
 	while (i<exits[1]) do
 		i=i+1
 		roomexits[i]=exits[i+i]

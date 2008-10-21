@@ -40,7 +40,7 @@ end
 hp=function()
 	me.hp={}
 	trigrpon("hp")
-	run("hp")
+	run("yun recover;yun regenerate;hp")
 	trigrpoff("hp")
 end
 

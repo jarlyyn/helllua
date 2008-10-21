@@ -3,15 +3,18 @@ sleepdelay=100
 
 
 rest={}
-checkrest=function(crest_ok,crest_fail)
+testneili=function()
 	neilimin=GetVariable("neilimin")
 	if neilimin=="" or neilimin ==nil then
 		neilimin=0
 	else
 		neilimin=tonumber(neilimin)
-	end
-	print (me.hp.neili)
-	if me.hp.neili< neilimin then
+	end	
+	return (me.hp.neili< neilimin)
+end
+
+checkrest=function(crest_ok,crest_fail)
+	if testneili() then
 		do_rest(crest_ok,crest_fail)
 		return true
 	else

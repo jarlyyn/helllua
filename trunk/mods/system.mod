@@ -144,7 +144,7 @@ infoend=function(func)
 end
 
 _stop=false
-runre=rex.new("([^;.\\\\]+)")
+runre=rex.new("([^;*\\\\]+)")
 run=function(str)
 	ResetTimer("on_steptimeout")
 	if ((str=="")or(str==nil)) then return end

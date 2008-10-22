@@ -125,6 +125,7 @@ do_steppath=function(path,pstep,pfail,path_ok,path_fail)
 end
 steppath["arrive"]=function()
 	walking=steppath
+	hook(hooks.steptimeout,steppath_fail)
 	hook(hooks.step,steppath["pstep"])
 	hook(hooks.searchfrofail,steppath["pfail"])
 	steppath["index"]=0
@@ -133,6 +134,7 @@ steppath["arrive"]=function()
 	steppath["next"]()
 end
 steppath["end"]=function(s)
+	hook(hooks.steptimeout,nil)
 	walking=nil
 	EnableTriggerGroup("steppath",false)
 	if ((s~="")and(s~=nil)) then 

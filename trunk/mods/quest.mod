@@ -36,6 +36,14 @@ end
 quest["end"]["fish"]=function()
 	fish["end"]()
 end
+loadmod("masterquest.mod")
+quest.main["mq"]=function()
+	do_masterquest(masterquest.loop,masterquest.loop)
+	quest.resume=quest.main["mq"]
+end
+quest["end"]["mq"]=function()
+	masterquest["end"]()
+end
 do_quest=function(name)
 	quest.name=name
 	initmud()

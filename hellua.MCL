@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈý, Ê®ÔÂ 22, 2008, 11:48 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚÈý, Ê®ÔÂ 22, 2008, 6:00 ÏÂÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -98,7 +98,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
   <trigger
    group="roomobj"
@@ -189,6 +189,16 @@
   >
   </trigger>
   <trigger
+   enabled="y"
+   group="system"
+   match="^(&gt; )*(.*)(ºÈµÀ£ºÕâÎ».*ÐÝ×ß£¡|ÉÏÇ°µ²×¡Äã£¬ÀÊÉùËµµÀ£ºÕâÎ»|ºÈµÀ£º¡°Íþ¡­¡­Îä¡­¡­¡£¡±|µ²×¡ÁË|ÉìÊÖÀ¹×¡Äã°×ÑÛÒ»·­ËµµÀ£ºÇ§ÄêÒÔÀ´|À¹×¡ÄãËµµÀ£º|Âõ²½µ²ÔÚÄãÉíÇ°£¬Ë«ÊÖºÏÊ²ËµµÀ£º)"
+   name="block_onnpc"
+   regexp="y"
+   script="block_onnpc"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    group="whofam"
    match="^(&gt; )*(.*)ÏÖÔÚµÄÊ±¼äÊÇ"
    name="statue_mudname"
@@ -248,7 +258,7 @@
   </trigger>
   <trigger
    group="steppath"
-   match="^(&gt; )*(ÄãÌ«ÀÛÁË£¬»¹ÊÇÐÝÏ¢Ò»»á¶ù°É¡£|Äã¿´×ÅºÆå«µÄÌ«ºþ£¬ÐÄÀï²»½û´òÁË¸öÍ»£¬Ã»¸ÒÂÒÀ´¡£|Äã¾õµÃºþÃæÌ«¿í£¬Ã»ÓÐÊ®×ãµÄ°ÑÎÕÔ¾¹ýÈ¥¡£|´òÊÖÒ»°Ñ×¥×¡ÁËÄã£¬ËµµÀ:¡°ÕâÀï²»ÊÇÅ®ÈË¸ÃÀ´µÄµØ·½£¬Äã±ð½øÈ¥¡£¡±)"
+   match="^(&gt; )*(ÄãÌ«ÀÛÁË£¬»¹ÊÇÐÝÏ¢Ò»»á¶ù°É¡£|Äã¿´×ÅºÆå«µÄÌ«ºþ£¬ÐÄÀï²»½û´òÁË¸öÍ»£¬Ã»¸ÒÂÒÀ´¡£|Äã¾õµÃºþÃæÌ«¿í£¬Ã»ÓÐÊ®×ãµÄ°ÑÎÕÔ¾¹ýÈ¥¡£|´òÊÖÒ»°Ñ×¥×¡ÁËÄã£¬ËµµÀ:¡°ÕâÀï²»ÊÇÅ®ÈË¸ÃÀ´µÄµØ·½£¬Äã±ð½øÈ¥¡£¡±|ÄãÒ»Ì§×ã£¬·¢ÏÖµØÉÏÓÐ¶¾£¬Ã¦³éÍÈÍË»Ø¡£)"
    name="steppath_fail"
    regexp="y"
    script="steppath_fail"
@@ -603,7 +613,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
   <alias
    name="alias_beiqi"
@@ -698,7 +708,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
   <timer name="on_steptimeout" script="on_steptimeout" enabled="y" second="4.00" offset_second="0.00" group="timeout" >
 
@@ -710,7 +720,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
 
   <macro name="up" type="send_now" >
@@ -804,12 +814,13 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
   <variable name="flylist"></variable>
   <variable name="goldmin">4</variable>
   <variable name="neilimin">100</variable>
   <variable name="passwd"></variable>
+  <variable name="pfm">yong sword.po</variable>
   <variable name="potmax">50</variable>
   <variable name="qixuemin">75</variable>
   <variable name="skilllist">force,jiaohua-neigong</variable>
@@ -820,7 +831,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
 
 <ansi>
@@ -877,7 +888,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
 
   <key name="0" >
@@ -991,7 +1002,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-22 11:48:38"
+   date_saved="2008-10-22 18:00:29"
   >
 
 <ansi>

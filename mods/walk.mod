@@ -1,3 +1,4 @@
+loadmod("blocker.mod")
 walkend=nil
 walking={}
 
@@ -22,7 +23,9 @@ walk["end"]=function(s)
 	walk["ok"]=nil
 	walk["fail"]=nil
 end
-
+walk_end_fail=function()
+	walk["end"]("fail")
+end
 
 walk["stop"]=function(thook)
 	hook(hooks.steptimeout,nil)
@@ -232,9 +235,9 @@ getexitroom=function (room,dir)
 		tdir=dir
 		texit=exits[i*2]
 		if #tdir > #texit then
-			texit=texit.."."
+			texit=texit.."*"
 		elseif #tdir < #texit then
-			tdir=tdir.."."
+			tdir=tdir.."*"
 		end
 		if (tdir==texit) then return exits[i*2+1] end
 	end

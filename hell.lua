@@ -24,3 +24,5 @@ loadmod("heal.mod")
 loadmod("rest.mod")
 loadmod("info.mod")
 loadmod("npc.mod")
+loadmod("kill.mod")
+

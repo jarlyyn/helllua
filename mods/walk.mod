@@ -1,4 +1,5 @@
 walkend=nil
+walking={}
 
 _roomid=-1
 _roomname=""
@@ -11,6 +12,7 @@ walk["index"]=0
 walk["step"]=0
 
 walk["end"]=function(s)
+	walking=nil
 	hook(hooks.stepfail,nil)
 	hook(hooks.step,nil)
 	hook(hooks.flyfail,nil)
@@ -63,8 +65,12 @@ walk["npc"]=function(npc,walk_ok,walk_fail)
 
 end
 walk_on_busy=function(name, line, wildcards)
-	if ((walk["step"]~=nil)and(hooks.step~=nil)) then
-		DoAfterSpecial(1,"run("..'"'..walk["step"]..'")',12)
+	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
+		if wildcards[2]~="突然发现眼前的景象有些迷乱" then
+			DoAfterSpecial(1,"run("..'"'..walking["step"]..'")',12)
+		else
+			run(walking["step"])
+		end
 	end
 end
 room_obj={}
@@ -92,6 +98,7 @@ walk_on_room1=function(name, line, wildcards)
 	EnableTriggerGroup("roomobj",true)
 end
 do_walk=function (to,walk_ok,walk_fail)
+	walking=walk
 	initmaze()
 	walk["to"]=to
 	walk["ok"]=walk_ok
@@ -189,9 +196,13 @@ walk_on_step=function()
 			return
 		end
 	end
-	initmaze()
 	walk["index"]=walk["index"]+1
-	steptrace(walk["step"])
+	if mazestep~="" and mazestep~=nil then
+		steptrace(mazestep)
+	else
+		steptrace(walk["step"])
+	end
+	initmaze()
 	if (walk["data"][walk["index"]]==nil) then
 		walk["end"]("ok")
 		return
@@ -212,11 +223,20 @@ end
 getexitroom=function (room,dir)
 	local exits={}
 	local i=0
+	local tdir=""
+	local texit=""
 	if room<0 then return -1 end
 	exits={mapper.getexits(room)}
 	while (i<exits[1]) do
 		i=i+1
-		if (dir==exits[i*2]) then return exits[i*2+1] end
+		tdir=dir
+		texit=exits[i*2]
+		if #tdir > #texit then
+			texit=texit.."."
+		elseif #tdir < #texit then
+			tdir=tdir.."."
+		end
+		if (tdir==texit) then return exits[i*2+1] end
 	end
 	return -1
 end
@@ -308,6 +328,7 @@ go=walk["stopto"]
 initmaze=function()
 	mazename=""
 	mazecount=0
+	mazestep=""
 end
 maze={}
 mazetest={}
@@ -346,7 +367,7 @@ mazetest["大沙漠"]=function()
 	end
 end
 maze["南疆沙漠"]=function()
-	
+	eatdrink()	
 	if ((mazestep=="sw")or(mazestep=="sw.")) then
 		mazestep="sw"
 	else
@@ -360,6 +381,7 @@ maze["南疆沙漠"]=function()
 	end
 end
 maze["戈壁滩"]=function()
+	eatdrink()
 	if(mazestep=="w")or(mazestep=="w.") then
 		mazestep="w."
 		if(mazecount<2) then

@@ -3,6 +3,7 @@ exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeas
 _searchdepth=5 --ËÑË÷Éî¶È
 
 do_search=function(fstep,ffail,search_ok,search_fail)
+	walking=searchfor
 	hook(hooks.steptimeout,searchfor["steptimeout"])
 	searchfor["init"]()
 	searchfor["ok"]=search_ok
@@ -25,6 +26,7 @@ searchfor["end"]=function(s)
 	hook(hooks.steptimeout,nil)
 	hook(hooks.step,nil)
 	hook(hooks.searchfrofail,nil)
+	walking=nil
 	EnableTriggerGroup("search",false)
 	if ((s~="")and(s~=nil)) then 
 		call(searchfor[s]) 
@@ -122,6 +124,7 @@ do_steppath=function(path,pstep,pfail,path_ok,path_fail)
 	do_walk(path[1]["loc"],steppath["arrive"],path_fail)
 end
 steppath["arrive"]=function()
+	walking=steppath
 	hook(hooks.step,steppath["pstep"])
 	hook(hooks.searchfrofail,steppath["pfail"])
 	steppath["index"]=0
@@ -130,6 +133,7 @@ steppath["arrive"]=function()
 	steppath["next"]()
 end
 steppath["end"]=function(s)
+	walking=nil
 	EnableTriggerGroup("steppath",false)
 	if ((s~="")and(s~=nil)) then 
 		call(steppath[s]) 
@@ -147,8 +151,10 @@ steppath["next"]=function()
 				mazename=_roomname
 				steppath["index"]=steppath["index"]+1
 				_roomid=steppath["nextroom"]
+				steppath["step"]=steppath["path"][steppath["index"]]["step"]
+				steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
 			end
-			mazestep=steppath["path"][steppath["index"]]["step"]
+			mazestep=steppath["step"]
 			maze[_roomname]()
 			return
 		end

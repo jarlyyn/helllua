@@ -33,15 +33,17 @@ askinfolist["fail"]=nil
 askinfolist["content"]=""
 askinfolist["list"]={}
 askinfolist.hook=nil
+askinfolist.ailsettri=nil
 askinfolist["index"]=0
 ailre=rex.new("([0-9]+)")
-do_askinfolist=function(content,aillist,ailtest,askinfolist_ok,askinfolist_fail)
+do_askinfolist=function(content,aillist,ailsettri,ailtest,askinfolist_ok,askinfolist_fail)
 	askinfolist["ok"]=askinfolist_ok
 	askinfolist["fail"]=askinfolist_fail
 	askinfolist["content"]=content
 	askinfolist["list"]={}
 	askinfolist["index"]=0
 	askinfolist.hook=ailtest
+	askinfolist.ailsettri=ailsettri
 	local i=0
 	n=ailre:gmatch(aillist,function (m, t)
 		i=i+1
@@ -68,6 +70,10 @@ askinfolist.arrive=function()
 end
 
 askinfolist.askcmd=function()
+	print("Ñ¯ÎÊ"..askinfolist["list"][askinfolist["index"]].."ºÅÎÔµ×")
+	if askinfolist.ailsettri~=nil then
+		askinfolist.ailsettri(askinfolist["list"][askinfolist["index"]].name)
+	end	
 	askinfo(askinfolist["list"][askinfolist["index"]],askinfolist["content"])
 	infoend(askinfolist.asktest)
 end
@@ -88,6 +94,8 @@ askinfolist["end"]=function(s)
 	end
 	askinfolist["ok"]=nil
 	askinfolist["fail"]=nil
+	askinfolist.alisettri=nil
+	askinfolist.hook=nil
 end
 
 askinfolist_end_ok=function()

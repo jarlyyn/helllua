@@ -1,3 +1,4 @@
+
 alias_to=function(n,l,w)
 	print("go"..mapper.getroomname(w[1]))
 	go(w[1]-0)
@@ -30,4 +31,13 @@ alias_fish=function(m,l,w)
 end
 alias_stop=function(m,l,w)
 	quest.stop=true
+end
+alias_kl=function(m,l,w)
+	if w[2]~=nil then
+		if city[w[2]]~=nil then
+			print("ȥ"..w[2].."ɱ"..w[1])
+			masterquest.npc=w[1]
+			do_mqkill(w[2],1)
+		end
+	end
 end

@@ -6,9 +6,10 @@ askinfo=function(npc,content)
 	info.answer=3
 	if infolist[npc]~=nil then
 		setinfoname(infolist[npc]["name"])
-		catch("info","ask "..infolist[npc]["id"].." about "..content)
+		trigrpon("info")
+		npchere(infolist[npc]["id"],"yun regenerate;ask "..infolist[npc]["id"].." about "..content)
+		trigrpoff("info")
 	end
-
 end
 
 setinfoname=function(str)
@@ -23,4 +24,79 @@ end
 info_retry=function()
 	info.answer=info.retry
 end
+
+-------------------------------
+
+askinfolist={}
+askinfolist["ok"]=nil
+askinfolist["fail"]=nil
+askinfolist["content"]=""
+askinfolist["list"]={}
+askinfolist.hook=nil
+askinfolist["index"]=0
+ailre=rex.new("([0-9]+)")
+do_askinfolist=function(content,aillist,ailtest,askinfolist_ok,askinfolist_fail)
+	askinfolist["ok"]=askinfolist_ok
+	askinfolist["fail"]=askinfolist_fail
+	askinfolist["content"]=content
+	askinfolist["list"]={}
+	askinfolist["index"]=0
+	askinfolist.hook=ailtest
+	local i=0
+	n=ailre:gmatch(aillist,function (m, t)
+		i=i+1
+		askinfolist["list"][i]=m
+	end)
+	busytest(askinfolist.main)	
+end
+
+askinfolist.main=function()
+	askinfolist["index"]=askinfolist["index"]+1
+	if #askinfolist["list"]<askinfolist["index"] then
+		busytest(doaskinfo_end_fail)
+	else
+		if infolist[askinfolist["list"][askinfolist["index"]]]~=nil then
+			go(infolist[askinfolist["list"][askinfolist["index"]]].loc,askinfolist.arrive,askinfolist.main)
+		else
+			askinfolist.main()
+		end
+	end
+end
+
+askinfolist.arrive=function()
+	busytest(askinfolist.askcmd)
+end
+
+askinfolist.askcmd=function()
+	askinfo(askinfolist["list"][askinfolist["index"]],askinfolist["content"])
+	infoend(askinfolist.asktest)
+end
+
+askinfolist.asktest=function()
+	if npc.nobody==1 or info.answer==2 then
+		 askinfolist.main()
+	elseif info.answer==1 then 
+		askinfolist.arrive()
+	else
+		call(askinfolist.hook)
+	end
+end
+
+askinfolist["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(askinfolist[s])
+	end
+	askinfolist["ok"]=nil
+	askinfolist["fail"]=nil
+end
+
+askinfolist_end_ok=function()
+	askinfolist["end"]("ok")
+end
+
+askinfolist_end_fail=function()
+	askinfolist["end"]("fail")
+end
+
+
 

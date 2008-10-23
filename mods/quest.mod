@@ -36,6 +36,14 @@ end
 quest["end"]["fish"]=function()
 	fish["end"]()
 end
+loadmod("liandan.mod")
+quest.main["liandan"]=function()
+	do_liandan(liandan.loop,liandan.loop)
+	quest.resume=quest.main["liandan"]
+end
+quest["end"]["liandan"]=function()
+	liandan["end"]()
+end
 loadmod("masterquest.mod")
 quest.main["mq"]=function()
 	do_masterquest(masterquest.loop,masterquest.loop)

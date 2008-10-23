@@ -34,25 +34,56 @@ masterquest.go=function(mqnpc,mqcity,mqflee)
 	busytest(masterquest.main)
 end
 mq=masterquest.go
+
+masterquest.askquest=function()
+	go(familys[me.fam].masterloc,masterquest.arrive,masterquest_end_fail)
+end
+masterquest.arrive=function()
+	busytest(masterquest.questgive)
+end
+masterquest.questgive=function()
+	initmq()
+	run("give head to "..familys[me.fam].masterid..";drop head;quest cancel")
+	busytest(masterquest.questcmd)
+end
+
+masterquest.questcmd=function()
+	trigrpon("mqinfo")
+	npchere(familys[me.fam].masterid,"quest "..familys[me.fam].masterid)
+	trigrpoff("mqinfo")
+	infoend(masterquest.questok)
+end
+masterquest.questok=function()
+	if masterquest.npc~="" and  masterquest.npc~=nil then
+		busytest(masterquest.main)
+	else
+		masterquest_end_fail()
+	end
+end
 masterquest.main=function()
 	if masterquest.die==false then
-		if masterquest.city==far then
-			mqfar.main()
+		if masterquest.city=="很远" then
+			busytest(mqfar.main)
 		elseif masterquest.flee==true then
-			do_mqask(masterquest.killnpc,masterquest.findfar)
+			do_mqask(masterquest.maincmd,masterquest.findfar)
 		else
 			do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
 		end
 	else
 	end
 end
+masterquest.maincmd=function()
+	busytest(masterquest.main)
+end
+
 masterquest.asknpc=function()
-	do_mqask(masterquest.killnpc,masterquest.findfar)
+	do_mqask(masterquest.maincmd,masterquest.findfar)
 end
 masterquest.killnpc=function()
 	do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
 end
 masterquest.findfar=function()
+	print("未得到npc信息，开始全地图通缉")
 	do_mqfar(masterquest.main,masterquest.main)
 end
 masterquest["end"]=function(s)
@@ -73,8 +104,14 @@ end
 masterquest_end_fail=function()
 	masterquest["end"]("fail")
 end
+
+mqinfo=function(n,l,w)
+	masterquest["npc"]=w[2]
+	masterquest["city"]=string.sub(w[3],1,4)
+end
 setmqmastertri=function()
---	SetTriggerOption ("letter_quest", "match", "^(> )*"..familys[me.fam].mastername.."吩咐你在.*之前把信件送到(.*)手中，取回执交差。\\n据闻不久前此人曾经在(.*)。$")
+	SetTriggerOption ("mqinfo", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“我早就看(.*)不顺眼，听说他最近在(.*)，你去做了他，带他的人头来交差！”")
+	SetTriggerOption ("mqinfo1", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“(.*)(这个败类打家劫舍，无恶不作，听说他最近在|这个所谓大侠屡次和我派作对，听说他最近在)")
 end
 --------------------------------
 
@@ -84,7 +121,7 @@ mqfar["fail"]=nil
 mqfar.max=0
 mqfar.index=1
 do_mqfar=function(mqfar_ok,mqfar_fail)
-	masterquest["city"]="far"
+	masterquest["city"]="很远"
 	mqfar["ok"]=mqfar_ok
 	mqfar["fail"]=mqfar_fail
 	mqfar.max=#farlist
@@ -101,12 +138,14 @@ mqfar.main=function()
 	if mqfar.index>mqfar.max then
 		busytest(mqfar_end_fail)
 	else
+		print("全图通缉----"..farlist[mqfar.index])
 		do_mqkill(farlist[mqfar.index],1,mqfar.ok,mqfar.searchend)
 	end
 end
 mqfar.searchend=function()
+	print(farlist[mqfar.index].."搜索完毕，去下一个城市")
 	mqfar.index=mqfar.index+1
-	mqfar.main()
+	busytest(mqfar.main)
 end
 mqfar["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
@@ -147,7 +186,13 @@ mq_asktest=function(n,l,w)
 	if mqask.info~="" then
 		masterquest["city"]=mqask.info
 		masterquest.flee=false
-		askinfolist_end_ok()
+		if masterquest["city"]~="很远" then
+			askinfolist_end_ok()
+		else
+			askinfolist["end"]()
+			mqask["end"]()
+			busytest(masterquest.findfar)
+		end
 	else
 		askinfolist.askcmd()
 	end
@@ -181,7 +226,7 @@ do_mqkill=function(mqkcity,mqkmax,mqkill_ok,mqkill_fail)
 	mqkill["fail"]=mqkill_fail
 	mqkill["city"]=mqkcity
 	mqkill["searchmax"]=mqkmax
-	mqkill["searchcount"]=0
+	mqkill["searchcount"]=1
 	npc.name=masterquest.npc
 	setmqkilltri()
 	mqkill.main()
@@ -201,14 +246,16 @@ mqkill_end_ok=function()
 end
 
 mqkill_end_fail=function()
+	print("敌人狡猾狡猾滴，没找到")
 	mqkill["end"]("fail")
 end
 mqkill.main=function()
 	if mqkill["searchmax"]<mqkill["searchcount"] then
-		mqkill_end_ok()
+		mqkill_end_fail()
 	else
 		mqkill["searchcount"]=mqkill["searchcount"]+1
 		fightpreper()
+		eatdrink()
 		busytest(mqkill.search)
 	end
 end

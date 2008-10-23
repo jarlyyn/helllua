@@ -93,10 +93,13 @@ sell["sellcmd"]=function()
 	busytest(sell_end_ok)
 end
 
-checksell=function(_selllist,sell_ok,sell_fail)
+checksell=function(_selllist,sell_ok,sell_fail,sell_loc)
+	if sell_loc==nil then
+		sell_loc=48
+	end
 	for i,v in pairs(_selllist) do
 		if itemsnum(i)>0 then
-			do_sell(v,sell_ok,sell_fail)
+			do_sell(v,sell_ok,sell_fail,sell_loc)
 			return true
 		end
 	end

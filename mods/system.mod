@@ -77,11 +77,16 @@ on_faint1=function(name,line,wildcards)
 	if hashook(hooks.faint1) then 
 		callhook(hooks.faint1) 
 	else
-		Disconnect()
+		discon()
 	end
 end
 
-
+discon=function()
+	if posioned then
+		logable=false
+	end
+	Disconnect()
+end
 
 catch=function(trigrp,command)
 	trigrpon(trigrp)

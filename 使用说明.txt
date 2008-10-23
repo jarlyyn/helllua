@@ -43,12 +43,15 @@ mushclient设置:
 #caxie 擦鞋机器人
 #beiqi 做备齐任务
 #letter 送信
+#fish 钓鱼
+#liandan 炼丹
 #stop 停止任务
 
 2.其他命令:
 #to loc 到达某个地点,loc请参考rooms_all.
 #npc (.*) 到达某个npc处.支持npc 中文名/id.具体信息储存在npcs.ini
 spwk 强制停止.
+#kl npc名 城市名 在xx城市杀xx npc
 
 
 

@@ -1926,7 +1926,7 @@
 1925=菩提院|sd:1870,
 1926=大雄宝殿|sd:1849,
 1927=树洞内部|out:0,gb>say 天堂有路你不走呀\d:1928,
-1928=树洞下|d:1931,u:1927,w:1929,gb>goto 1:2310%4,gb>goto 2:2313%4,gb>goto 4:2316%4,gb>goto 4:2319%4,gb>goto 5:2322%4,gb>goto 6:2325%4,gb>goto 7:2328%4,gb>goto 8:2331%4,gb>goto 4:2334%4,gb>goto a:2338%4,gb>goto b:2341%4,gb>goto c:2344%4,gb>goto d:2347%4,gb>goto e:2350%4,gb>goto f:2353%4,
+1928=树洞下|d:1931,u:1927,w:1929,gb>goto 1:2310%4,gb>goto 2:2313%4,gb>goto 3:2316%4,gb>goto 4:2319%4,gb>goto 5:2322%4,gb>goto 6:2325%4,gb>goto 7:2328%4,gb>goto 8:2331%4,gb>goto 4:2334%4,gb>goto a:2338%4,gb>goto b:2341%4,gb>goto c:2344%4,gb>goto d:2347%4,gb>goto e:2350%4,gb>goto f:2353%4,
 1929=林间小屋|e:1928,out:-1,w:1930,
 1930=暗道|e:1929,gb>#loc 1930:2500,
 1931=储藏室|u:1928,w:1932,

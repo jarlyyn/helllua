@@ -5,6 +5,8 @@ blocker["校尉"]={id="xiao wei",exp=50000}
 blocker["采花子"]={id="caihua zi",exp=50000}
 blocker["衙役"]={id="ya yi",exp=50000}
 blocker["摘星子"]={id="zhaixing zi",exp=800000}
+blocker["鳌府侍卫"]={id="ya yi",exp=50000}
+blocker["鳌拜"]={id="ya yi",exp=200000}
 
 
 

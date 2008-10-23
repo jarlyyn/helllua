@@ -7,6 +7,10 @@ check={}
 do_check=function(checkcallback)
 	check["callback"]=checkcallback
 	if check_dispel(checkcallback,checkcallback) then
+	elseif GetVariable("pfm")=="shot" and itemsnum("ÀÇÑÀ¼ý")<10 then
+		item["go"]("ÀÇÑÀ¼ý",30,checkcallback,checkcallback)
+	elseif GetVariable("pfm")=="shot" and itemsnum("µã¾¦ÅÌÁú¹­")==0 and itemsnum("³¤¹­")==0 and itemsnum("¶Ì¹­")==0 then
+		item["go"]("³¤¹­",1,checkcallback,checkcallback)
 	elseif itemsnum("Gold")>(tonumber(GetVariable("goldmin"))*3) then
 		busytest(c_cungold)
 	elseif itemsnum("Silver")>(silvermax) then

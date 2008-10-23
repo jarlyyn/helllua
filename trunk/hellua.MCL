@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚËÄ, Ê®ÔÂ 23, 2008, 8:06 ÏÂÎç -->
+<!-- Saved on ÐÇÆÚÎå, Ê®ÔÂ 24, 2008, 1:11 ÉÏÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,13 +8,13 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
    chat_name="Name-not-set"
    command_stack_character=";"
-   id="a3f3ed3cad908f52f8de6cca"
+   id="b7ef30baa3922a088c0d4238"
    input_font_name="FixedSys"
    mapping_failure="Alas, you cannot go that way."
    name="hell_lua"
@@ -98,7 +98,7 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
   <trigger
    group="roomobj"
@@ -191,7 +191,7 @@
   <trigger
    enabled="y"
    group="system"
-   match="^(&gt; )*(.*)(ºÈµÀ£ºÕâÎ».*ÐÝ×ß£¡|ÉÏÇ°µ²×¡Äã£¬ÀÊÉùËµµÀ£ºÕâÎ»|ºÈµÀ£º¡°Íþ¡­¡­Îä¡­¡­¡£¡±|µ²×¡ÁË|ÉìÊÖÀ¹×¡Äã°×ÑÛÒ»·­ËµµÀ£ºÇ§ÄêÒÔÀ´|À¹×¡ÄãËµµÀ£º|Âõ²½µ²ÔÚÄãÉíÇ°£¬Ë«ÊÖºÏÊ²ËµµÀ£º)"
+   match="^(&gt; )*(.*)(ºÈµÀ£ºÕâÎ».*ÐÝ×ß£¡|ÉÏÇ°µ²×¡Äã£¬ÀÊÉùËµµÀ£ºÕâÎ»|ºÈµÀ£º¡°Íþ¡­¡­Îä¡­¡­¡£¡±|µ²×¡ÁË|ÉìÊÖÀ¹×¡Äã°×ÑÛÒ»·­ËµµÀ£ºÇ§ÄêÒÔÀ´|À¹×¡ÄãËµµÀ£º|Âõ²½µ²ÔÚÄãÉíÇ°£¬Ë«ÊÖºÏÊ²ËµµÀ£º|´óÉùºÈµÀ£ºËûÄÌÄÌµÄ£¬ÄãÒª¸ÉÂï£¿|À¹×¡ÄãµÀ£ºÃ»ÓÐÍõÒ¯µÄ·Ô¸À£¬Ë­Ò²²»ÄÜ½øÈ¥¡£)"
    name="block_onnpc"
    regexp="y"
    script="block_onnpc"
@@ -222,7 +222,7 @@
   </trigger>
   <trigger
    group="info"
-   match="^(&gt; )*(µêÐ¡¶þ)(Ò¡Ò¡Í·£¬ËµµÀ£ºÃ»ÌýËµ¹ý¡£|ÒÉ»óµØ¿´×ÅÄã£¬Ò¡ÁËÒ¡Í·¡£|Õö´óÑÛ¾¦Íû×ÅÄã£¬ÏÔÈ»²»ÖªµÀÄãÔÚËµÊ²Ã´¡£|ËÊÁËËÊ¼ç£¬ºÜ±§Ç¸µØËµ£ºÎÞ¿É·î¸æ¡£|ËµµÀ£ºàÅ....ÕâÎÒ¿É²»Çå³þ£¬Äã×îºÃÎÊÎÊ±ðÈË°É¡£|ÏëÁËÒ»»á¶ù£¬ËµµÀ£º¶Ô²»Æð£¬ÄãÎÊµÄÊÂÎÒÊµÔÚÃ»ÓÐÓ¡Ïó¡£)"
+   match="^(&gt; )*(´¬·ò)(Ò¡Ò¡Í·£¬ËµµÀ£ºÃ»ÌýËµ¹ý¡£|ÒÉ»óµØ¿´×ÅÄã£¬Ò¡ÁËÒ¡Í·¡£|Õö´óÑÛ¾¦Íû×ÅÄã£¬ÏÔÈ»²»ÖªµÀÄãÔÚËµÊ²Ã´¡£|ËÊÁËËÊ¼ç£¬ºÜ±§Ç¸µØËµ£ºÎÞ¿É·î¸æ¡£|ËµµÀ£ºàÅ....ÕâÎÒ¿É²»Çå³þ£¬Äã×îºÃÎÊÎÊ±ðÈË°É¡£|ÏëÁËÒ»»á¶ù£¬ËµµÀ£º¶Ô²»Æð£¬ÄãÎÊµÄÊÂÎÒÊµÔÚÃ»ÓÐÓ¡Ïó¡£)"
    name="info_fail"
    regexp="y"
    script="info_fail"
@@ -231,7 +231,7 @@
   </trigger>
   <trigger
    group="info"
-   match="^(&gt; )*(µêÐ¡¶þ)ËµµÀ£º(°¢Ìç£¡ÓÐµã¸ÐÃ°£¬²»ºÃÒâË¼¡£|µÈ...µÈµÈ£¬ÄãËµÊ²Ã´£¿Ã»ÌýÇå³þ¡£|àÅ£¬ÉÔµÈ°¡£¬¾ÍºÃ... ºÃÁË£¬Äã¸Õ²ÅËµÉ¶£¿|Õâ¸ö... Õâ¸ö... Å¶£¬ºÃÁË£¬°¡£¿ÄãÎÊÎÒÄØ£¿|°¦ßÏ£¡... ²»ºÃÒâË¼£¬ÊÇÄãÎÊÎÒÃ´£¿|¾ÍºÃ... ¾ÍºÃ... ºÃÁË£¬ÄãËµÉ¶£¿|Äã¸ÉÉ¶£¿Ã»¿´ÎÒÃ¦×ÅÄØÃ´£¿|!)"
+   match="^(&gt; )*(´¬·ò)ËµµÀ£º(°¢Ìç£¡ÓÐµã¸ÐÃ°£¬²»ºÃÒâË¼¡£|µÈ...µÈµÈ£¬ÄãËµÊ²Ã´£¿Ã»ÌýÇå³þ¡£|àÅ£¬ÉÔµÈ°¡£¬¾ÍºÃ... ºÃÁË£¬Äã¸Õ²ÅËµÉ¶£¿|Õâ¸ö... Õâ¸ö... Å¶£¬ºÃÁË£¬°¡£¿ÄãÎÊÎÒÄØ£¿|°¦ßÏ£¡... ²»ºÃÒâË¼£¬ÊÇÄãÎÊÎÒÃ´£¿|¾ÍºÃ... ¾ÍºÃ... ºÃÁË£¬ÄãËµÉ¶£¿|Äã¸ÉÉ¶£¿Ã»¿´ÎÒÃ¦×ÅÄØÃ´£¿|!)"
    name="info_retry"
    regexp="y"
    script="info_retry"
@@ -380,7 +380,7 @@
   </trigger>
   <trigger
    group="info"
-   match="^(&gt; )*µêÐ¡¶þËµµÀ£º.*(ºÃÏñÌýÈËËµ¹ýÊÇÔÚ|Ëû²»ÊÇÔÚ|¾ÝËµÊÇ¶ãµ½|ºÃÏñÈ¥ÁË|ÒÑ¾­¶ãµ½|ºÃÏñÊÇÈ¥ÁË|µ«ÊÇÒ²ÓÐÈËËµËûÔÚ|ÓÐÈËËµÔÚ|²»¹ýÌýÈËËµÔÚ|ÌýËµÊÇÔÚ|²»¹ýÌýËµËûºÃÏñÔÚ|ÏÖÔÚÓ¦¸ÃÊÇÈ¥ÁË)(.*)"
+   match="^(&gt; )*´¬·òËµµÀ£º.*(ºÃÏñÌýÈËËµ¹ýÊÇÔÚ|Ëû²»ÊÇÔÚ|¾ÝËµÊÇ¶ãµ½|ºÃÏñÈ¥ÁË|ÒÑ¾­¶ãµ½|ºÃÏñÊÇÈ¥ÁË|µ«ÊÇÒ²ÓÐÈËËµËûÔÚ|ÓÐÈËËµÔÚ|²»¹ýÌýÈËËµÔÚ|ÌýËµÊÇÔÚ|²»¹ýÌýËµËûºÃÏñÔÚ|ÏÖÔÚÓ¦¸ÃÊÇÈ¥ÁË)(.*)"
    name="mq_asknpc"
    regexp="y"
    script="mq_asknpc"
@@ -393,24 +393,6 @@
    name="beiqi_infook"
    regexp="y"
    script="beiqi_infook"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="masterquestkill"
-   match="^(&gt; )*¸£ê¬ÚÏ½ÅÏÂÒ»¸ö²»ÎÈ£¬µøÔÚµØÉÏÒ»¶¯Ò²²»¶¯ÁË¡£"
-   name="masterquest_npcfaint"
-   regexp="y"
-   script="masterquest_npcfaint"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="masterquestkill"
-   match="^(&gt; )*¸£ê¬ÚÏÆËÔÚµØÉÏÕõÔúÁË¼¸ÏÂ£¬ÍÈÒ»Éì£¬¿ÚÖÐÅç³ö¼¸¿ÚÏÊÑª£¬ËÀÁË£¡"
-   name="masterquest_npcdie"
-   regexp="y"
-   script="masterquest_npcdie"
    sequence="100"
   >
   </trigger>
@@ -494,6 +476,7 @@
    group="nobody"
    match="^(&gt; )*ÄãÏëÊÕË­×÷µÜ×Ó£¿$"
    name="npc_nobody2"
+   omit_from_output="y"
    regexp="y"
    script="npc_nobody2"
    sequence="100"
@@ -507,6 +490,24 @@
    omit_from_output="y"
    regexp="y"
    script="system_nobusy"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="masterquestkill"
+   match="^(&gt; )*ÉÌ×ó¸ß½ÅÏÂÒ»¸ö²»ÎÈ£¬µøÔÚµØÉÏÒ»¶¯Ò²²»¶¯ÁË¡£"
+   name="masterquest_npcfaint"
+   regexp="y"
+   script="masterquest_npcfaint"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="masterquestkill"
+   match="^(&gt; )*ÉÌ×ó¸ßÆËÔÚµØÉÏÕõÔúÁË¼¸ÏÂ£¬ÍÈÒ»Éì£¬¿ÚÖÐÅç³ö¼¸¿ÚÏÊÑª£¬ËÀÁË£¡"
+   name="masterquest_npcdie"
+   regexp="y"
+   script="masterquest_npcdie"
    sequence="100"
   >
   </trigger>
@@ -563,6 +564,15 @@
   >
   </trigger>
   <trigger
+   group="mqinfo"
+   match="^(&gt; )*ËÕÐÇºÓ»°Òô¸ÕÂä£¬Í»È»Ò»ÈË¼±¼±Ã¦Ã¦µÄ¸ÏÁË¹ýÀ´"
+   name="masterflee"
+   regexp="y"
+   script="masterflee"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    enabled="y"
    group="system"
    keep_evaluating="y"
@@ -575,7 +585,6 @@
   >
   </trigger>
   <trigger
-   enabled="y"
    group="liandan"
    match="^(&gt; )*Ð¡Í¯(¶ÔÄãËµµÀ|ËµµÀ£º½ÐÄãÈ¥²ÉÒ©)"
    name="liandan_tongcai"
@@ -585,7 +594,6 @@
   >
   </trigger>
   <trigger
-   enabled="y"
    group="liandan"
    match="^(&gt; )*Ð¡Í¯ËµµÀ£ºÒ©²ÄÒÑ¾­×¼±¸ºÃ£¬¿ÉÒÔÈ¥ÁË¡£"
    name="liandan_tonglian"
@@ -595,7 +603,6 @@
   >
   </trigger>
   <trigger
-   enabled="y"
    group="liandan"
    match="^(&gt; )*Ò¦´º¶ÔÄãÎ¢Ð¦µÀ"
    name="liandan_yaook"
@@ -707,7 +714,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
   <alias
    name="alias_beiqi"
@@ -821,7 +828,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
   <timer name="on_steptimeout" script="on_steptimeout" enabled="y" second="4.00" offset_second="0.00" group="timeout" >
 
@@ -833,7 +840,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
 
   <macro name="up" type="send_now" >
@@ -927,16 +934,16 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
   <variable name="flylist"></variable>
-  <variable name="goldmin">4</variable>
+  <variable name="goldmin">5</variable>
   <variable name="neilimin">100</variable>
   <variable name="passwd"></variable>
-  <variable name="pfm">yong finger.qiankun</variable>
-  <variable name="potmax">0</variable>
+  <variable name="pfm">shot</variable>
+  <variable name="potmax">200</variable>
   <variable name="qixuemin">75</variable>
-  <variable name="skilllist">force(xue)</variable>
+  <variable name="skilllist">xiaoyao-xinfa;force;dodge;feiyan-zoubi</variable>
 </variables>
 
 <!-- colours -->
@@ -944,7 +951,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
 
 <ansi>
@@ -1001,7 +1008,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
 
   <key name="0" >
@@ -1115,7 +1122,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-23 20:06:15"
+   date_saved="2008-10-24 01:11:51"
   >
 
 <ansi>

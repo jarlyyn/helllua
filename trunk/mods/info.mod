@@ -55,7 +55,7 @@ end
 askinfolist.main=function()
 	askinfolist["index"]=askinfolist["index"]+1
 	if #askinfolist["list"]<askinfolist["index"] then
-		busytest(doaskinfo_end_fail)
+		busytest(askinfolist_end_fail)
 	else
 		if infolist[askinfolist["list"][askinfolist["index"]]]~=nil then
 			go(infolist[askinfolist["list"][askinfolist["index"]]].loc,askinfolist.arrive,askinfolist.main)
@@ -72,7 +72,7 @@ end
 askinfolist.askcmd=function()
 	print("Ñ¯ÎÊ"..askinfolist["list"][askinfolist["index"]].."ºÅÎÔµ×")
 	if askinfolist.ailsettri~=nil then
-		askinfolist.ailsettri(askinfolist["list"][askinfolist["index"]].name)
+		askinfolist.ailsettri(infolist[askinfolist["list"][askinfolist["index"]]].name)
 	end	
 	askinfo(askinfolist["list"][askinfolist["index"]],askinfolist["content"])
 	infoend(askinfolist.asktest)

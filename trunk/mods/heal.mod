@@ -80,3 +80,64 @@ heal["eatyao"]=function()
 	run("eat "..healyao)
 	busytest(heal_end_ok)
 end
+posioned=false
+
+-------------------------------------------------------
+
+dispel={}
+dispel["ok"]=nil
+dispel["fail"]=nil
+
+do_dispel=function(dispel_ok,dispel_fail)
+	dispel["ok"]=dispel_ok
+	dispel["fail"]=dispel_fail
+	go(-2,dispel.arrive,dispel_end_fail)
+end
+dispel.arrive=function()
+	busytest(dispel.cmd)
+end
+dispel.cmd=function()
+	run("yun recover;yun dispel")
+	busytest(dispel.test)
+end
+
+dispel.test=function()
+	if posioned then
+		busytest(dispel.cmd)
+	else
+		busy_end_ok()
+	end	
+end
+
+dispel["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(dispel[s])
+	end
+	dispel["ok"]=nil
+	dispel["fail"]=nil
+end
+
+dispel_end_ok=function()
+	dispel["end"]("ok")
+end
+
+dispel_end_fail=function()
+	dispel["end"]("fail")
+end
+
+dispel_posioned=function()
+	posioned=true
+end
+
+dispel_ok=function()
+	posioned=false
+end
+
+check_dispel=function(dispel_ok,dispel_fail)
+	if posioned then
+		do_dispel(dispel_ok,dispel_fail)
+		return true
+	else
+		return false
+	end
+end

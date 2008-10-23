@@ -6,7 +6,8 @@ end
 check={}
 do_check=function(checkcallback)
 	check["callback"]=checkcallback
-	if itemsnum("Gold")>(tonumber(GetVariable("goldmin"))*3) then
+	if check_dispel(checkcallback,checkcallback) then
+	elseif itemsnum("Gold")>(tonumber(GetVariable("goldmin"))*3) then
 		busytest(c_cungold)
 	elseif itemsnum("Silver")>(silvermax) then
 		busytest(c_duihuansilver)

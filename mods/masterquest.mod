@@ -22,6 +22,29 @@ do_masterquest=function(masterquest_ok,masterquest_fail)
 	masterquest["fail"]=masterquest_fail
 	setmqmastertri()
 	initmq()
+	masterquest.main()
+end
+masterquest.loop=function()
+	busytest(masterquest.loopcmd)
+end
+masterquest.loopcmd=function()
+	do_masterquest(masterquest.loop,masterquest.loop)
+end
+
+masterquest.main=function()
+	if quest.stop then
+		masterquest["end"]()
+		return
+	end
+	getstatus(masterquest["check"])
+end
+
+masterquest.check=function()
+	if do_check(masterquest["main"],masterquest["main"]) then
+	elseif checkstudy(masterquest["main"],masterquest["main"]) then
+	else
+		busytest(masterquest.case)
+	end
 end
 
 masterquest.go=function(mqnpc,mqcity,mqflee)
@@ -60,8 +83,8 @@ masterquest.questok=function()
 		masterquest_end_fail()
 	end
 end
-masterquest.main=function()
-	if masterquest.die==false then
+masterquest.case=function()
+	if masterquest.die==false and masterquest.npc~="" then
 		if masterquest.city=="很远" then
 			busytest(mqfar.main)
 		elseif masterquest.flee==true then
@@ -70,6 +93,7 @@ masterquest.main=function()
 			do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
 		end
 	else
+		masterquest.askquest()
 	end
 end
 masterquest.maincmd=function()
@@ -109,9 +133,13 @@ mqinfo=function(n,l,w)
 	masterquest["npc"]=w[2]
 	masterquest["city"]=string.sub(w[3],1,4)
 end
+masterflee=function()
+	masterquest.flee=true
+end
 setmqmastertri=function()
 	SetTriggerOption ("mqinfo", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“我早就看(.*)不顺眼，听说他最近在(.*)，你去做了他，带他的人头来交差！”")
 	SetTriggerOption ("mqinfo1", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“(.*)(这个败类打家劫舍，无恶不作，听说他最近在|这个所谓大侠屡次和我派作对，听说他最近在)")
+	SetTriggerOption ("masterflee", "match", "^(> )*"..familys[me.fam].mastername.."话音刚落，突然一人急急忙忙的赶了过来")
 end
 --------------------------------
 
@@ -184,6 +212,7 @@ mq_asknpc=function(n,l,w)
 end
 mq_asktest=function(n,l,w)
 	if mqask.info~="" then
+		masterquest.flee=false
 		masterquest["city"]=mqask.info
 		masterquest.flee=false
 		if masterquest["city"]~="很远" then
@@ -264,8 +293,19 @@ mqkill.search=function()
 end
 
 mqkill.npcfind=function()
+	masterquest.city=mqkill["city"]
 	EnableTriggerGroup("masterquestkill",true)
-	do_kill(npc.id,mqkill_end_ok,mqkill.search)
+	do_kill(npc.id,mqkill.killend,mqkill.search)
+end
+
+mqkill.killend=function()
+	if masterquest.die==true then
+		mqkill_end_ok()
+	else
+		masterquest.flee=true
+		mqkill["end"]()
+		masterquest.main()
+	end
 end
 
 mqkill.testyou=function()

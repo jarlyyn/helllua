@@ -56,6 +56,7 @@ do_quest=function(name)
 	quest.name=name
 	initmud()
 	if quest.main[name]~=nil then
+		unhookall()
 		quest.stop=false
 		getinfo(quest_begin)
 	end

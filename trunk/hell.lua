@@ -25,4 +25,6 @@ loadmod("rest.mod")
 loadmod("info.mod")
 loadmod("npc.mod")
 loadmod("kill.mod")
+loadmod("fangqi.mod")
+loadmod("weapon.mod")
 

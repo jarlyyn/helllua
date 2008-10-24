@@ -46,6 +46,7 @@ kill_end_fail=function()
 end
 kill.cmd=function()
 	run("yun recover")
+	weapon(1)
 	npchere(kill.npc,"kill "..kill.npc)
 	busytest(kill.test)
 end

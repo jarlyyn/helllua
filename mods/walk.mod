@@ -69,12 +69,20 @@ walk["npc"]=function(npc,walk_ok,walk_fail)
 end
 walk_on_busy=function(name, line, wildcards)
 	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
-		if wildcards[2]~="突然发现眼前的景象有些迷乱" then
-			DoAfterSpecial(1,"run("..'"'..walking["step"]..'")',12)
+		if wildcards[2]=="突然发现眼前的景象有些迷乱" then
+			run(walking["step"])			
+		elseif wildcards[2]=="太累了，还是休息一会儿吧" then
+			DoAfterSpecial(1,"run('yun recover;'.."..'"'..walking["step"]..'")',12)
 		else
-			run(walking["step"])
+			DoAfterSpecial(1,"run("..'"'..walking["step"]..'")',12)
 		end
 	end
+end
+walk_onnoweapon=function(n,l,w)
+	weapon(0)
+	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
+			run(walking["step"])
+	end	
 end
 room_obj={}
 walk_on_room=function (name, line, wildcards,styles)
@@ -290,6 +298,16 @@ end
 on_objend=function(name, line, wildcards)
 	EnableTriggerGroup("roomobj",false)
 end
+
+
+walk_wdfail=function(n,l,w)
+	familys[me.fam].family="wd2"
+	settags()
+	callhook(hooks.flyfail)
+end
+----------------------------------
+
+
 
 
 nosafe={}

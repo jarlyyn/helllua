@@ -26,6 +26,8 @@ hooks.steptimeout="steptimeout"
 hooks.blocked="blocked"
 --step 被拦住的hook
 
+hooks.killme="killme"
+---被npc下kill的hook,函数第一个参数是下kill的npc的名字
 _hooklist={}
 
 hashook=function(str)

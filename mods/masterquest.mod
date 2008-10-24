@@ -32,16 +32,16 @@ masterquest.loopcmd=function()
 end
 
 masterquest.main=function()
-	if quest.stop then
-		masterquest["end"]()
-		return
-	end
 	getstatus(masterquest["check"])
 end
 
 masterquest.check=function()
 	if do_check(masterquest["main"],masterquest["main"]) then
 	elseif checkstudy(masterquest["main"],masterquest["main"]) then
+	elseif checkfangqi(masterquest["main"],masterquest["main"]) then
+	elseif quest.stop and masterquest.die==true then
+		masterquest["end"]()
+		return
 	else
 		busytest(masterquest.case)
 	end
@@ -122,7 +122,11 @@ end
 
 
 masterquest_end_ok=function()
-	masterquest["end"]("ok")
+	if quest.stop and masterquest.die==true then
+		masterquest["end"]()
+	else
+		masterquest["end"]("ok")
+	end
 end
 
 masterquest_end_fail=function()
@@ -131,14 +135,14 @@ end
 
 mqinfo=function(n,l,w)
 	masterquest["npc"]=w[2]
-	masterquest["city"]=string.sub(w[3],1,4)
+	masterquest["city"]=string.sub(w[4],1,4)
 end
 masterflee=function()
 	masterquest.flee=true
 end
 setmqmastertri=function()
-	SetTriggerOption ("mqinfo", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“我早就看(.*)不顺眼，听说他最近在(.*)，你去做了他，带他的人头来交差！”")
-	SetTriggerOption ("mqinfo1", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“(.*)(这个败类打家劫舍，无恶不作，听说他最近在|这个所谓大侠屡次和我派作对，听说他最近在)")
+	SetTriggerOption ("mqinfo", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“我早就看(.*)不顺眼，听说(他|她)最近在(.*)，你去做了他，带他的人头来交差！”")
+	SetTriggerOption ("mqinfo1", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“(.*)(这个败类打家劫舍，无恶不作，听说他最近在|这个所谓大侠屡次和我派作对，听说他最近在)(.*)")
 	SetTriggerOption ("masterflee", "match", "^(> )*"..familys[me.fam].mastername.."话音刚落，突然一人急急忙忙的赶了过来")
 end
 --------------------------------
@@ -256,6 +260,7 @@ do_mqkill=function(mqkcity,mqkmax,mqkill_ok,mqkill_fail)
 	mqkill["city"]=mqkcity
 	mqkill["searchmax"]=mqkmax
 	mqkill["searchcount"]=1
+	hook(hooks.killme,mqkill.onkillme)
 	npc.name=masterquest.npc
 	setmqkilltri()
 	mqkill.main()
@@ -265,6 +270,7 @@ mqkill["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
 		call(mqkill[s])
 	end
+	hook(hooks.killme,nil)
 	EnableTriggerGroup("masterquestkill",false)
 	mqkill["ok"]=nil
 	mqkill["fail"]=nil
@@ -293,11 +299,24 @@ mqkill.search=function()
 end
 
 mqkill.npcfind=function()
+	mqkill["searchcount"]=1
 	masterquest.city=mqkill["city"]
 	EnableTriggerGroup("masterquestkill",true)
-	do_kill(npc.id,mqkill.killend,mqkill.search)
+	do_kill(npc.id,mqkill.heal,mqkill.search)
 end
 
+mqkill.heal=function()
+	hp()
+	busytest(mqkill.healcmd)
+end
+mqkill.healcmd=function()
+	if checkdispel(mqkill.heal,mqkill.heal) then
+	elseif masterquest.flee==true and (me.hp["qixue%"]<getvbquemin()) then
+		do_heal(mqkill.heal,mqkill.heal,true) 
+	else
+		busytest(mqkill.killend)
+	end
+end
 mqkill.killend=function()
 	if masterquest.die==true then
 		mqkill_end_ok()
@@ -309,6 +328,23 @@ mqkill.killend=function()
 end
 
 mqkill.testyou=function()
+	
+end
+	killmeloc=0
+mqkill.onkillme=function(npcname)
+	killmeloc=_roomid
+	if npcname==masterquest.npc then
+		infoend(mqkill.npckillme)
+	end
+end
+mqkill.npckillme=function()
+	if _roomid~=killmeloc then
+		go(npc.loc,mqkill.npcfind,mqkill.main)	
+	else
+		mq.npcfind()
+	end
+	steppath["end"]()
+	npcinpath["end"]()
 end
 
 masterquest_npcfaint=function()
@@ -323,4 +359,5 @@ setmqkilltri=function()
 	SetTriggerOption ("masterquest_npcfaint", "match", "^(> )*"..masterquest["npc"].."脚下一个不稳，跌在地上一动也不动了。")
 	SetTriggerOption ("masterquest_npcdie", "match", "^(> )*"..masterquest["npc"].."扑在地上挣扎了几下，腿一伸，口中喷出几口鲜血，死了！")
 end
+
 -------------------------------------

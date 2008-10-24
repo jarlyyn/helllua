@@ -3,27 +3,29 @@ heal={}
 heal["ok"]=nil
 heal["loc"]=0
 heal["hp"]=0
-checkheal=function(cheal_ok,cheal_fail)
-	qixuemin=GetVariable("qixuemin")
-	if qixuemin=="" or qixuemin ==nil then
-		qixuemin=75
+getvbquemin=function()
+	vbqixuemin=GetVariable("qixuemin")
+	if vbqixuemin=="" or vbqixuemin ==nil then
+		return 75
 	else
-		qixuemin=tonumber(qixuemin)
+		return tonumber(vbqixuemin)
 	end
-	if me.hp["qixue%"]<qixuemin then
-		do_heal(cheal_ok,cheal_fail)
+end
+checkheal=function(cheal_ok,cheal_fail,forceheal)
+	if me.hp["qixue%"]<getvbquemin() then
+		do_heal(cheal_ok,cheal_fail,forceheal)
 		return true
 	else
 		return false
 	end
 end
 
-do_heal=function(heal_ok,heal_fail)
+do_heal=function(heal_ok,heal_fail,forceheal)
 	heal["ok"]=heal_ok
 	heal.fail=heal_fail
 	heal.loc=-2
 	heal.cmd="yun heal"
-	if familys[me.fam]~=nil then
+	if familys[me.fam]~=nil and forceheal~=true then
 		if familys[me.fam].healcmd~=nil then
 			heal.loc=familys[me.fam].dazuoloc
 			heal.cmd=familys[me.fam].cmd
@@ -133,7 +135,7 @@ dispel_ok=function()
 	posioned=false
 end
 
-check_dispel=function(dispel_ok,dispel_fail)
+checkdispel=function(dispel_ok,dispel_fail)
 	if posioned then
 		do_dispel(dispel_ok,dispel_fail)
 		return true

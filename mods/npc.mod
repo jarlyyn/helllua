@@ -99,3 +99,9 @@ npcinpath.step=function()
 		steppath["next"]()
 	end
 end
+
+npc_killme=function(n,l,w)
+	if _hooklist[hooks.killme]~= nil then
+		_hooklist[hooks.killme](w[2])
+	end
+end

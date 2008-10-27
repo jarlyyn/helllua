@@ -17,7 +17,7 @@ block_onnpc=function(n,l,w)
 	if blocker[w[2]].exp>getnum(me.hp.exp) then return end
 	if GetVariable("pfm")==nil or GetVariable("pfm")=="" then return end
 	fightpreper()
-	do_kill(blocker[w[2]].id,block_step,hooks.steptimeout)
+	do_kill(blocker[w[2]].id,block_step,_hooklist[hooks.steptimeout])
 end
 block_step=function()
 	run(walking.step)

@@ -12,6 +12,7 @@ initmq=function()
 	masterquest.die=false
 	mqfar.index=1
 	mqfar.max=0
+	npc.id=nil
 	mqkill["searchcount"]=0
 	mqkill["city"]=""
 	mqkill["searchmax"]=1
@@ -168,10 +169,11 @@ end
 
 mqfar.main=function()
 	if mqfar.index>mqfar.max then
+		initmq()
 		busytest(mqfar_end_fail)
 	else
 		print("È«Í¼Í¨¼©----"..farlist[mqfar.index])
-		do_mqkill(farlist[mqfar.index],1,mqfar.ok,mqfar.searchend)
+		do_mqkill(farlist[mqfar.index],3,mqfar.ok,mqfar.searchend)
 	end
 end
 mqfar.searchend=function()
@@ -260,7 +262,7 @@ do_mqkill=function(mqkcity,mqkmax,mqkill_ok,mqkill_fail)
 	mqkill["city"]=mqkcity
 	mqkill["searchmax"]=mqkmax
 	mqkill["searchcount"]=1
-	hook(hooks.killme,mqkill.onkillme)
+--	hook(hooks.killme,mqkill.onkillme)
 	npc.name=masterquest.npc
 	setmqkilltri()
 	mqkill.main()

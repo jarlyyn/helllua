@@ -67,7 +67,7 @@ study["xue"]=function()
 			lastpot=me.hp.pot
 			lastpotcount=1
 		end
-		if me.hp.pot<100 then
+		if getnum(me.hp.pot)<100 then
 			pots=me.hp.pot
 		else
 			pots=100

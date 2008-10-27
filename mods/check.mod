@@ -22,6 +22,7 @@ do_check=function(checkcallback)
 	elseif checkrest(check["callback"],check["callback"]) then
 	elseif checkheal(check["callback"],check["callback"]) then
 	elseif checkitems(inv,check["callback"]) then
+	elseif checkrepair(check["callback"],check["callback"]) then
 	else
 		return false
 	end

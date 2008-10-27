@@ -3,6 +3,7 @@ kill["ok"]=nil
 kill["fail"]=nil
 kill.npc=""
 pfm=function()
+	if me.special["self"] then run("yun recover") end
 	pfm_skill=GetVariable("pfm")
 	if pfm_skill=="" or pfm ==nil then return end
 	if pfm_skill=="shot" then
@@ -15,7 +16,10 @@ fightpreper=function()
 	if GetVariable("pfm")=="shot" then
 		run("hand bow")
 	end
-	run("yun powerup;yun shield")
+	if me.special["power"] then run("power") end
+	if me.special["agile"] then run("agile") end
+	
+	run("yun recover;yun powerup;yun shield")
 end
 
 do_kill=function(npc,kill_ok,kill_fail)
@@ -48,6 +52,7 @@ kill.cmd=function()
 	run("yun recover")
 	weapon(1)
 	npchere(kill.npc,"kill "..kill.npc)
+	pfm()
 	busytest(kill.test)
 end
 

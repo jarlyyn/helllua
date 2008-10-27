@@ -49,6 +49,7 @@ end
 searchnpc.test=function()
 	if room_obj[npc.name]~=nil then
 		npc.id=room_obj[npc.name].id
+		testnpcid()
 		_roomid=searchfor["nextroom"]
 		print(_roomid)
 		searchfor["end"]("ok")
@@ -90,6 +91,7 @@ npcinpath.step=function()
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
 		npc.id=room_obj[npc.name].id
+		testnpcid()
 		print("find"..npc.name.."@"..tostring(_roomid))
 		_roomid=steppath["nextroom"]
 		steppath["end"]()
@@ -103,5 +105,11 @@ end
 npc_killme=function(n,l,w)
 	if _hooklist[hooks.killme]~= nil then
 		_hooklist[hooks.killme](w[2])
+	end
+end
+
+testnpcid=function(obj)
+	if npc.id==nil then
+		npc.id=getcnname(npc.name)
 	end
 end

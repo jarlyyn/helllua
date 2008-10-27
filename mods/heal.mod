@@ -28,7 +28,7 @@ do_heal=function(heal_ok,heal_fail,forceheal)
 	if familys[me.fam]~=nil and forceheal~=true then
 		if familys[me.fam].healcmd~=nil then
 			heal.loc=familys[me.fam].dazuoloc
-			heal.cmd=familys[me.fam].cmd
+			heal.cmd=familys[me.fam].healcmd
 		end
 	end
 	go(heal.loc,heal.arrive,heal_end_fail)

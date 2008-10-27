@@ -139,6 +139,7 @@ end
 getstatus=function(func)
 	eatdrink()
 	run("yun recover;yun regenerate;i")
+	weapondru()
 	getjifa()		
 	hp()
 	busytest(func)

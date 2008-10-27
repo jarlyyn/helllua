@@ -298,7 +298,9 @@ end
 on_objend=function(name, line, wildcards)
 	EnableTriggerGroup("roomobj",false)
 end
-
+walk_npc=function(n,l,w)
+	room_obj[w[2]]={num=1,id=nil}	
+end
 
 walk_wdfail=function(n,l,w)
 	familys[me.fam].family="wd2"

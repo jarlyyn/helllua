@@ -39,6 +39,7 @@ heal["end"]=function(s)
 	end
 	heal["ok"]=nil
 	heal.fail=nil
+	heal.hp=0
 end
 heal_end_fail=function()
 	heal["end"]("fail")

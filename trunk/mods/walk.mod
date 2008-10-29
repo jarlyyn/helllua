@@ -68,6 +68,7 @@ walk["npc"]=function(npc,walk_ok,walk_fail)
 
 end
 walk_on_busy=function(name, line, wildcards)
+	if walking==nil then return end
 	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
 		if wildcards[2]=="突然发现眼前的景象有些迷乱" then
 			run(walking["step"])			

@@ -2,6 +2,7 @@ me={}
 me.score={}
 me.hp={}
 me.fam={"None"}
+me.special={}
 checkstatus=function()
 run("special;who -n -fam;score;league;")
 end

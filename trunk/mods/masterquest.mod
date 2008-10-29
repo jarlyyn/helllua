@@ -146,6 +146,13 @@ setmqmastertri=function()
 	SetTriggerOption ("mqinfo1", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“(.*)(这个败类打家劫舍，无恶不作，听说他最近在|这个所谓大侠屡次和我派作对，听说他最近在)(.*)")
 	SetTriggerOption ("masterflee", "match", "^(> )*"..familys[me.fam].mastername.."话音刚落，突然一人急急忙忙的赶了过来")
 end
+masterquest.givehead=function()
+	go(familys[me.fam].masterloc,masterquest.giveheadcmd,masterquest_end_fail)
+end
+masterquest.giveheadcmd=function()
+	run("give head to "..familys[me.fam].masterid..";drop head;quest cancel")
+	busytest(masterquest.main)
+end
 --------------------------------
 
 
@@ -159,9 +166,9 @@ do_mqfar=function(mqfar_ok,mqfar_fail)
 	mqfar["fail"]=mqfar_fail
 	mqfar.max=#farlist
 	if getnum(me.hp.exp)<400000 then
-		mqfar.max=mqfar.max-4
-	elseif getnum(me.hp.exp)<700000 then
 		mqfar.max=mqfar.max-3
+	elseif getnum(me.hp.exp)<700000 then
+		mqfar.max=mqfar.max-2
 	end
 	mqfar.index=1
 	mqfar.main()
@@ -321,7 +328,7 @@ mqkill.healcmd=function()
 end
 mqkill.killend=function()
 	if masterquest.die==true then
-		mqkill_end_ok()
+		masterquest.givehead()
 	else
 		masterquest.flee=true
 		mqkill["end"]()

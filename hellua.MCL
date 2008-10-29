@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚÈÕ, Ê®ÔÂ 26, 2008, 2:54 ÉÏÎç -->
+<!-- Saved on ÐÇÆÚËÄ, Ê®ÔÂ 30, 2008, 12:42 ÉÏÎç -->
 <!-- MuClient version 4.27 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -62,7 +62,7 @@
    keypad_enable="y"
    line_information="y"
    log_output="y"
-   max_output_lines="4000"
+   max_output_lines="40000"
    mud_can_change_link_colour="y"
    mud_can_change_options="y"
    note_text_colour="#040000"
@@ -98,11 +98,11 @@
 <triggers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
   <trigger
    group="roomobj"
-   match="^  ([^a-z!@#$%\^&amp;*()\\/.,&lt;&gt;]+)\((\w*\s{0,1}\w+)\)$"
+   match="^  (.+)\((\w*\s{0,1}\w+)\)"
    name="on_obj"
    regexp="y"
    script="on_obj"
@@ -191,6 +191,16 @@
   <trigger
    enabled="y"
    group="system"
+   match="^(&gt; )*  (.{2,8})Õý×øÔÚµØÏÂ"
+   name="walk_npc2"
+   regexp="y"
+   script="walk_npc"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
    match="^(&gt; )*(.*)(ºÈµÀ£ºÕâÎ».*ÐÝ×ß£¡|ÉÏÇ°µ²×¡Äã£¬ÀÊÉùËµµÀ£ºÕâÎ»|ºÈµÀ£º¡°Íþ¡­¡­Îä¡­¡­¡£¡±|µ²×¡ÁË|ÉìÊÖÀ¹×¡Äã°×ÑÛÒ»·­ËµµÀ£ºÇ§ÄêÒÔÀ´|À¹×¡ÄãËµµÀ£º|Âõ²½µ²ÔÚÄãÉíÇ°£¬Ë«ÊÖºÏÊ²ËµµÀ£º|´óÉùºÈµÀ£ºËûÄÌÄÌµÄ£¬ÄãÒª¸ÉÂï£¿|À¹×¡ÄãµÀ£ºÃ»ÓÐÍõÒ¯µÄ·Ô¸À£¬Ë­Ò²²»ÄÜ½øÈ¥¡£)"
    name="block_onnpc"
    regexp="y"
@@ -213,6 +223,16 @@
    match="^(&gt; )*(.{1,8})(Ò»¼ûµ½Äã|ºÍÄãÒ»ÅöÃæ|¶ÔÖøÄã´óºÈ£º¡¸¿É¶ñ|ºÈµÀ£º¡¸Äã|Ò»ÑÛÆ³¼ûÄã|ºÍÄã³ðÈËÏà¼û·ÖÍâÑÛºì)"
    name="npc_killme"
    script="npc_killme"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   enabled="y"
+   group="system"
+   match="^(&gt; )*(.{2,8})(Ò»Ë¿²»¹ÒµÄ|Éí×Å.*){0,1}(ÊÖÖ´.*){0,1}×ßÁË¹ýÀ´¡£"
+   name="walk_npc"
+   regexp="y"
+   script="walk_npc"
    sequence="100"
   >
   </trigger>
@@ -245,24 +265,6 @@
    name="dispel_posioned"
    regexp="y"
    script="dispel_posioned"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="info"
-   match="^(&gt; )*(ÀÏ´¬·ò)(Ò¡Ò¡Í·£¬ËµµÀ£ºÃ»ÌýËµ¹ý¡£|ÒÉ»óµØ¿´×ÅÄã£¬Ò¡ÁËÒ¡Í·¡£|Õö´óÑÛ¾¦Íû×ÅÄã£¬ÏÔÈ»²»ÖªµÀÄãÔÚËµÊ²Ã´¡£|ËÊÁËËÊ¼ç£¬ºÜ±§Ç¸µØËµ£ºÎÞ¿É·î¸æ¡£|ËµµÀ£ºàÅ....ÕâÎÒ¿É²»Çå³þ£¬Äã×îºÃÎÊÎÊ±ðÈË°É¡£|ÏëÁËÒ»»á¶ù£¬ËµµÀ£º¶Ô²»Æð£¬ÄãÎÊµÄÊÂÎÒÊµÔÚÃ»ÓÐÓ¡Ïó¡£)"
-   name="info_fail"
-   regexp="y"
-   script="info_fail"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="info"
-   match="^(&gt; )*(ÀÏ´¬·ò)ËµµÀ£º(°¢Ìç£¡ÓÐµã¸ÐÃ°£¬²»ºÃÒâË¼¡£|µÈ...µÈµÈ£¬ÄãËµÊ²Ã´£¿Ã»ÌýÇå³þ¡£|àÅ£¬ÉÔµÈ°¡£¬¾ÍºÃ... ºÃÁË£¬Äã¸Õ²ÅËµÉ¶£¿|Õâ¸ö... Õâ¸ö... Å¶£¬ºÃÁË£¬°¡£¿ÄãÎÊÎÒÄØ£¿|°¦ßÏ£¡... ²»ºÃÒâË¼£¬ÊÇÄãÎÊÎÒÃ´£¿|¾ÍºÃ... ¾ÍºÃ... ºÃÁË£¬ÄãËµÉ¶£¿|Äã¸ÉÉ¶£¿Ã»¿´ÎÒÃ¦×ÅÄØÃ´£¿|!)"
-   name="info_retry"
-   regexp="y"
-   script="info_retry"
    sequence="100"
   >
   </trigger>
@@ -326,6 +328,24 @@
   >
   </trigger>
   <trigger
+   group="info"
+   match="^(&gt; )*(Óæ·ò)(Ò¡Ò¡Í·£¬ËµµÀ£ºÃ»ÌýËµ¹ý¡£|ÒÉ»óµØ¿´×ÅÄã£¬Ò¡ÁËÒ¡Í·¡£|Õö´óÑÛ¾¦Íû×ÅÄã£¬ÏÔÈ»²»ÖªµÀÄãÔÚËµÊ²Ã´¡£|ËÊÁËËÊ¼ç£¬ºÜ±§Ç¸µØËµ£ºÎÞ¿É·î¸æ¡£|ËµµÀ£ºàÅ....ÕâÎÒ¿É²»Çå³þ£¬Äã×îºÃÎÊÎÊ±ðÈË°É¡£|ÏëÁËÒ»»á¶ù£¬ËµµÀ£º¶Ô²»Æð£¬ÄãÎÊµÄÊÂÎÒÊµÔÚÃ»ÓÐÓ¡Ïó¡£)"
+   name="info_fail"
+   regexp="y"
+   script="info_fail"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="info"
+   match="^(&gt; )*(Óæ·ò)ËµµÀ£º(°¢Ìç£¡ÓÐµã¸ÐÃ°£¬²»ºÃÒâË¼¡£|µÈ...µÈµÈ£¬ÄãËµÊ²Ã´£¿Ã»ÌýÇå³þ¡£|àÅ£¬ÉÔµÈ°¡£¬¾ÍºÃ... ºÃÁË£¬Äã¸Õ²ÅËµÉ¶£¿|Õâ¸ö... Õâ¸ö... Å¶£¬ºÃÁË£¬°¡£¿ÄãÎÊÎÒÄØ£¿|°¦ßÏ£¡... ²»ºÃÒâË¼£¬ÊÇÄãÎÊÎÒÃ´£¿|¾ÍºÃ... ¾ÍºÃ... ºÃÁË£¬ÄãËµÉ¶£¿|Äã¸ÉÉ¶£¿Ã»¿´ÎÒÃ¦×ÅÄØÃ´£¿|!)"
+   name="info_retry"
+   regexp="y"
+   script="info_retry"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
    enabled="y"
    group="system"
    keep_evaluating="y"
@@ -349,7 +369,7 @@
    enabled="y"
    group="system"
    keep_evaluating="y"
-   match="^(&gt; )*\( Äã(¶¯×÷ËÆºõ¿ªÊ¼ÓÐµã²»Ì«Áé¹â£¬µ«ÊÇÈÔÈ»ÓÐÌõ²»ÎÉ¡£|¿´ÆðÀ´³äÂú»îÁ¦£¬Ò»µãÒ²²»ÀÛ¡£|¿´ÆðÀ´¿ÉÄÜÓÐÐ©ÀÛÁË¡£|Æø´­ÐêÐê£¬¿´ÆðÀ´×´¿ö²¢²»Ì«ºÃ¡£|ËÆºõÊ®·ÖÆ£±¹£¬¿´À´ÐèÒªºÃºÃÐÝÏ¢ÁË¡£|ËÆºõÓÐÐ©Æ£±¹£¬µ«ÊÇÈÔÈ»Ê®·ÖÓÐ»îÁ¦¡£|ÒÑ¾­Ò»¸±Í·ÖØ½ÅÇáµÄÄ£Ñù£¬ÕýÔÚÃãÁ¦Ö§³ÅÖø²»µ¹ÏÂÈ¥¡£|¿´ÆðÀ´ÒÑ¾­Á¦²»´ÓÐÄÁË¡£|Ò¡Í·»ÎÄÔ¡¢ÍáÍáÐ±Ð±µØÕ¾¶¼Õ¾²»ÎÈ£¬ÑÛ¿´¾ÍÒªµ¹ÔÚµØÉÏ¡£)\)"
+   match="^(&gt; )*\( Äã(¶¯×÷ËÆºõ¿ªÊ¼ÓÐµã²»Ì«Áé¹â£¬µ«ÊÇÈÔÈ»ÓÐÌõ²»ÎÉ¡£|¿´ÆðÀ´³äÂú»îÁ¦£¬Ò»µãÒ²²»ÀÛ¡£|¿´ÆðÀ´¿ÉÄÜÓÐÐ©ÀÛÁË¡£|Æø´­ÐêÐê£¬¿´ÆðÀ´×´¿ö²¢²»Ì«ºÃ¡£|ËÆºõÊ®·ÖÆ£±¹£¬¿´À´ÐèÒªºÃºÃÐÝÏ¢ÁË¡£|ËÆºõÓÐÐ©Æ£±¹£¬µ«ÊÇÈÔÈ»Ê®·ÖÓÐ»îÁ¦¡£|ÒÑ¾­Ò»¸±Í·ÖØ½ÅÇáµÄÄ£Ñù£¬ÕýÔÚÃãÁ¦Ö§³ÅÖø²»µ¹ÏÂÈ¥¡£|¿´ÆðÀ´ÒÑ¾­Á¦²»´ÓÐÄÁË¡£|Ò¡Í·»ÎÄÔ¡¢ÍáÍáÐ±Ð±µØÕ¾¶¼Õ¾²»ÎÈ£¬ÑÛ¿´¾ÍÒªµ¹ÔÚµØÉÏ¡£|ËÆºõÊ®·ÖÆ£±¹£¬¿´À´ÐèÒªºÃºÃÐÝÏ¢ÁË¡£)\)"
    name="on_hurt"
    regexp="y"
    script="on_hurt"
@@ -417,11 +437,20 @@
   >
   </trigger>
   <trigger
-   group="info"
-   match="^(&gt; )*ÀÏ´¬·òËµµÀ£º.*(ºÃÏñÌýÈËËµ¹ýÊÇÔÚ|Ëû²»ÊÇÔÚ|¾ÝËµÊÇ¶ãµ½|ºÃÏñÈ¥ÁË|ÒÑ¾­¶ãµ½|ºÃÏñÊÇÈ¥ÁË|µ«ÊÇÒ²ÓÐÈËËµËûÔÚ|ÓÐÈËËµÔÚ|²»¹ýÌýÈËËµÔÚ|ÌýËµÊÇÔÚ|²»¹ýÌýËµËûºÃÏñÔÚ|ÏÖÔÚÓ¦¸ÃÊÇÈ¥ÁË)(.*)"
-   name="mq_asknpc"
+   group="masterquestkill"
+   match="^(&gt; )*ÁÖ°½×Ê½ÅÏÂÒ»¸ö²»ÎÈ£¬µøÔÚµØÉÏÒ»¶¯Ò²²»¶¯ÁË¡£"
+   name="masterquest_npcfaint"
    regexp="y"
-   script="mq_asknpc"
+   script="masterquest_npcfaint"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="masterquestkill"
+   match="^(&gt; )*ÁÖ°½×ÊÆËÔÚµØÉÏÕõÔúÁË¼¸ÏÂ£¬ÍÈÒ»Éì£¬¿ÚÖÐÅç³ö¼¸¿ÚÏÊÑª£¬ËÀÁË£¡"
+   name="masterquest_npcdie"
+   regexp="y"
+   script="masterquest_npcdie"
    sequence="100"
   >
   </trigger>
@@ -440,7 +469,7 @@
    enabled="y"
    group="system"
    keep_evaluating="y"
-   match="^(&gt; )*Äã(µÄ¶¯×÷»¹Ã»ÓÐÍê³É£¬²»ÄÜÒÆ¶¯|ÌÓÅÜÊ§°Ü|±»À¹×¡ÁËÈ¥Â·|Í»È»·¢ÏÖÑÛÇ°µÄ¾°ÏóÓÐÐ©ÃÔÂÒ|Ì«ÀÛÁË£¬»¹ÊÇÐÝÏ¢Ò»»á¶ù°É)¡£"
+   match="^(&gt; )*Äã(µÄ¶¯×÷»¹Ã»ÓÐÍê³É£¬²»ÄÜÒÆ¶¯|ÌÓÅÜÊ§°Ü|±»À¹×¡ÁËÈ¥Â·|Í»È»·¢ÏÖÑÛÇ°µÄ¾°ÏóÓÐÐ©ÃÔÂÒ|Ì«ÀÛÁË£¬»¹ÊÇÐÝÏ¢Ò»»á¶ù°É|µÄÄÚÁ¦²»¹»£¬»¹ÊÇÐÝÏ¢Ò»ÏÂÔÙËµ°É¡£)¡£"
    name="walk_busy"
    regexp="y"
    script="walk_on_busy"
@@ -547,33 +576,6 @@
   >
   </trigger>
   <trigger
-   group="mqinfo"
-   match="^(&gt; )*ËÕÐÇºÓ¶ÔÄãµÀ£º¡°(.*)(Õâ¸ö°ÜÀà´ò¼Ò½ÙÉá£¬ÎÞ¶ñ²»×÷£¬ÌýËµËû×î½üÔÚ|Õâ¸öËùÎ½´óÏÀÂÅ´ÎºÍÎÒÅÉ×÷¶Ô£¬ÌýËµËû×î½üÔÚ)(.*)"
-   name="mqinfo1"
-   regexp="y"
-   script="mqinfo"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="mqinfo"
-   match="^(&gt; )*ËÕÐÇºÓ¶ÔÄãµÀ£º¡°ÎÒÔç¾Í¿´(.*)²»Ë³ÑÛ£¬ÌýËµ(Ëû|Ëý)×î½üÔÚ(.*)£¬ÄãÈ¥×öÁËËû£¬´øËûµÄÈËÍ·À´½»²î£¡¡±"
-   name="mqinfo"
-   regexp="y"
-   script="mqinfo"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="mqinfo"
-   match="^(&gt; )*ËÕÐÇºÓ»°Òô¸ÕÂä£¬Í»È»Ò»ÈË¼±¼±Ã¦Ã¦µÄ¸ÏÁË¹ýÀ´"
-   name="masterflee"
-   regexp="y"
-   script="masterflee"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
    enabled="y"
    group="system"
    keep_evaluating="y"
@@ -604,29 +606,20 @@
   >
   </trigger>
   <trigger
-   group="masterquestkill"
-   match="^(&gt; )*Ðì·Ã·¢½ÅÏÂÒ»¸ö²»ÎÈ£¬µøÔÚµØÉÏÒ»¶¯Ò²²»¶¯ÁË¡£"
-   name="masterquest_npcfaint"
-   regexp="y"
-   script="masterquest_npcfaint"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
-   group="masterquestkill"
-   match="^(&gt; )*Ðì·Ã·¢ÆËÔÚµØÉÏÕõÔúÁË¼¸ÏÂ£¬ÍÈÒ»Éì£¬¿ÚÖÐÅç³ö¼¸¿ÚÏÊÑª£¬ËÀÁË£¡"
-   name="masterquest_npcdie"
-   regexp="y"
-   script="masterquest_npcdie"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
    group="liandan"
    match="^(&gt; )*Ò¦´º¶ÔÄãÎ¢Ð¦µÀ"
    name="liandan_yaook"
    regexp="y"
    script="liandan_yaook"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="info"
+   match="^(&gt; )*Óæ·òËµµÀ£º.*(ºÃÏñÌýÈËËµ¹ýÊÇÔÚ|Ëû²»ÊÇÔÚ|¾ÝËµÊÇ¶ãµ½|ºÃÏñÈ¥ÁË|ÒÑ¾­¶ãµ½|ºÃÏñÊÇÈ¥ÁË|µ«ÊÇÒ²ÓÐÈËËµËûÔÚ|ÓÐÈËËµÔÚ|²»¹ýÌýÈËËµÔÚ|ÌýËµÊÇÔÚ|²»¹ýÌýËµËûºÃÏñÔÚ|ÏÖÔÚÓ¦¸ÃÊÇÈ¥ÁË)(.*)"
+   name="mq_asknpc"
+   regexp="y"
+   script="mq_asknpc"
    sequence="100"
   >
   </trigger>
@@ -637,6 +630,33 @@
    name="walk_onnoweapon"
    regexp="y"
    script="walk_onnoweapon"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="mqinfo"
+   match="^(&gt; )*ÕÅÈý·á¶ÔÄãµÀ£º¡°(.*)(Õâ¸ö°ÜÀà´ò¼Ò½ÙÉá£¬ÎÞ¶ñ²»×÷£¬ÌýËµËû×î½üÔÚ|Õâ¸öËùÎ½´óÏÀÂÅ´ÎºÍÎÒÅÉ×÷¶Ô£¬ÌýËµËû×î½üÔÚ)(.*)"
+   name="mqinfo1"
+   regexp="y"
+   script="mqinfo"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="mqinfo"
+   match="^(&gt; )*ÕÅÈý·á¶ÔÄãµÀ£º¡°ÎÒÔç¾Í¿´(.*)²»Ë³ÑÛ£¬ÌýËµ(Ëû|Ëý)×î½üÔÚ(.*)£¬ÄãÈ¥×öÁËËû£¬´øËûµÄÈËÍ·À´½»²î£¡¡±"
+   name="mqinfo"
+   regexp="y"
+   script="mqinfo"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="mqinfo"
+   match="^(&gt; )*ÕÅÈý·á»°Òô¸ÕÂä£¬Í»È»Ò»ÈË¼±¼±Ã¦Ã¦µÄ¸ÏÁË¹ýÀ´"
+   name="masterflee"
+   regexp="y"
+   script="masterflee"
    sequence="100"
   >
   </trigger>
@@ -737,20 +757,20 @@
   >
   </trigger>
   <trigger
-   group="weapon1dru"
-   match="^ÄÍ¾Ã¶È£º(\d*)%"
-   name="weapon1_dru"
-   regexp="y"
-   script="weapon1_dru"
-   sequence="100"
-  >
-  </trigger>
-  <trigger
    group="weapon2dru"
    match="^ÄÍ¾Ã¶È£º(\d*)%"
    name="weapon2_dru"
    regexp="y"
    script="weapon2_dru"
+   sequence="100"
+  >
+  </trigger>
+  <trigger
+   group="weapon1dru"
+   match="^ÄÍ¾Ã¶È£º(\d*)%"
+   name="weapon1_dru"
+   regexp="y"
+   script="weapon1_dru"
    sequence="100"
   >
   </trigger>
@@ -761,7 +781,7 @@
 <aliases
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
   <alias
    name="alias_beiqi"
@@ -875,7 +895,7 @@
 <timers
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
   <timer name="on_steptimeout" script="on_steptimeout" enabled="y" second="4.00" offset_second="0.00" group="timeout" >
 
@@ -887,7 +907,7 @@
 <macros
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
 
   <macro name="up" type="send_now" >
@@ -981,7 +1001,7 @@
 <variables
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
   <variable name="expmax">99400</variable>
   <variable name="flylist"></variable>
@@ -991,8 +1011,8 @@
   <variable name="pfm">shot</variable>
   <variable name="potmax">200</variable>
   <variable name="qixuemin">75</variable>
-  <variable name="skilllist">xiaoyao-xinfa,dodge,feiyan-zoubi,literate,parry,blade,ruyi-dao,strike</variable>
-  <variable name="weapon">blade</variable>
+  <variable name="skilllist">literate(yideng dashi),taoism,unarmed</variable>
+  <variable name="weapon">sword</variable>
   <variable name="weapon2"></variable>
 </variables>
 
@@ -1001,7 +1021,7 @@
 <colours
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
 
 <ansi>
@@ -1058,7 +1078,7 @@
 <keypad
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
 
   <key name="0" >
@@ -1172,7 +1192,7 @@
 <printing
    muclient_version="4.27"
    world_file_version="15"
-   date_saved="2008-10-26 02:54:30"
+   date_saved="2008-10-30 00:42:41"
   >
 
 <ansi>

@@ -134,7 +134,7 @@ getinfo=function(func)
 	cha()
 	getspe()
 	getfam()
-	infoend(setting)
+	infoend(stsetting)
 	busytest(func)
 end
 getstatus=function(func)
@@ -146,7 +146,7 @@ getstatus=function(func)
 	busytest(func)
 end
 
-setting=function()
+stsetting=function()
 	settags()
 	setflylist()
 end

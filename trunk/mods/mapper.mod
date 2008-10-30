@@ -15,6 +15,7 @@ mapper.getexits=function(r)
 	return mushmapper.getexits(mapper.id,r)
 end
 mapper.settags=function(t)
+	print(t)
 	return mushmapper.settags(mapper.id,t)
 end
 mapper.setflylist=function(f)

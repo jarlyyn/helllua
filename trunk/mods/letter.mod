@@ -11,8 +11,8 @@ do_letter=function(letter_ok,letter_fail)
 	letter.main()
 end
 letter["check"]=function()
-	if do_check(letter["main"]) then
-	elseif checkstudy(letter["main"]) then
+	if do_check(letter["main"],letter["main"]) then
+	elseif checkstudy(letter["main"],letter["main"]) then
 	else
 		go(familys[me.fam].masterloc,letter["questarrive"],letter_end_fail)
 	end

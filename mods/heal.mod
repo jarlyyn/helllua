@@ -108,7 +108,7 @@ dispel.test=function()
 	if posioned then
 		busytest(dispel.cmd)
 	else
-		busy_end_ok()
+		dispel_end_ok()
 	end	
 end
 

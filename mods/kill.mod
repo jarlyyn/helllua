@@ -28,7 +28,7 @@ do_kill=function(npc,kill_ok,kill_fail)
 	kill.npc=npc
 	hook(hooks.fight,pfm)
 	hook(hooks.hurt,pfm)
-	busytest(kill.cmd)
+	kill.cmd()
 end
 
 kill["end"]=function(s)

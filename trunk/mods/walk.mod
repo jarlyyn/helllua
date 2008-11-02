@@ -374,12 +374,12 @@ end
 maze["´óÉ³Ä®"]=function()
 	eatdrink()
 	hp()
-	if mazestep=="w" or mazestep=="w." then
-		mazestep="w."
-	elseif mazestep=="home" or mazestep=="home." then
-		mazestep="home."
+	if mazestep=="w" or mazestep=="w*" then
+		mazestep="w*"
+	elseif mazestep=="home" or mazestep=="home*" then
+		mazestep="home*"
 	else
-		mazestep="e."
+		mazestep="e*"
 	end
 	busytest(mazetest["´óÉ³Ä®"])
 end
@@ -392,10 +392,10 @@ mazetest["´óÉ³Ä®"]=function()
 end
 maze["ÄÏ½®É³Ä®"]=function()
 	eatdrink()	
-	if ((mazestep=="sw")or(mazestep=="sw.")) then
+	if ((mazestep=="sw")or(mazestep=="sw*")) then
 		mazestep="sw"
 	else
-		mazestep="ne."
+		mazestep="ne*"
 	end
 	if (mazestep=="sw")and(mazecount<8) then
 		run("sw")
@@ -406,8 +406,8 @@ maze["ÄÏ½®É³Ä®"]=function()
 end
 maze["¸ê±ÚÌ²"]=function()
 	eatdrink()
-	if(mazestep=="w")or(mazestep=="w.") then
-		mazestep="w."
+	if(mazestep=="w")or(mazestep=="w*") then
+		mazestep="w*"
 		if(mazecount<2) then
 			 run("w")
 		elseif (mazecount%2)==0 then
@@ -416,7 +416,7 @@ maze["¸ê±ÚÌ²"]=function()
 			run("w")
 		end
 	else
-		mazestep="e."
+		mazestep="e*"
 		if(mazecount<2) then
 			 run("s")
 		elseif (mazecount%2)==0 then

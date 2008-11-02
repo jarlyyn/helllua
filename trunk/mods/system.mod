@@ -3,10 +3,10 @@ eatdrink=function()
 	run("eat "..food..";drink "..drink)
 end
 on_disconnect=function()
-	DeleteTemporaryTimers()
-	if (logable)and(_hooklist[hooks.logok]==nil)and not(quest.stop) then
+	if (logable)and not(quest.stop) then
 		Connect()
 	end
+	DeleteTemporaryTimers()
 end
 idre=rex.new("^.*\\\\(?<id>[^-.]+)(-(?<passwd>[^-.]+)){0,1}")
 getidpass=function()
@@ -61,6 +61,7 @@ on_hurt=function(name,line,wildcards)
 end
 
 recon=function()
+	DiscardQueue()
 	Disconnect()
 	on_disconnect()
 end

@@ -17,7 +17,7 @@ do_check=function(checkcallback)
 		busytest(c_qugold)
 	elseif GetVariable("pfm")=="shot" and itemsnum("ÀÇÑÀ¼ý")<10 then
 		item["go"]("ÀÇÑÀ¼ý",30,checkcallback,checkcallback)
-	elseif GetVariable("pfm")=="shot" and itemsnum("µã¾¦ÅÌÁú¹­")==0 and itemsnum("³¤¹­")==0 and itemsnum("¶Ì¹­")==0 then
+	elseif GetVariable("pfm")=="shot" and itemsnum("µã½ðÅÌÁú¹­")==0 and itemsnum("³¤¹­")==0 and itemsnum("¶Ì¹­")==0 then
 		item["go"]("³¤¹­",1,checkcallback,checkcallback)
 	elseif checkrest(check["callback"],check["callback"]) then
 	elseif checkheal(check["callback"],check["callback"]) then

@@ -32,6 +32,9 @@ end
 alias_liandan=function(m,l,w)
 	do_quest("liandan")
 end
+alias_start=function(m,l,w)
+	do_quest("mq")
+end
 alias_stop=function(m,l,w)
 	quest.stop=true
 end

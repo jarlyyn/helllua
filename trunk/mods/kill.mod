@@ -49,7 +49,7 @@ kill_end_fail=function()
 	kill["end"]("fail")
 end
 kill.cmd=function()
-	run("yun recover")
+	run("yun recover;yun regenerate")
 	weapon(1)
 	npchere(kill.npc,"kill "..kill.npc)
 	pfm()

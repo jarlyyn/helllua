@@ -76,6 +76,7 @@ masterquest.questcmd=function()
 	trigrpon("mqinfo")
 	npchere(familys[me.fam].masterid,"quest "..familys[me.fam].masterid)
 	trigrpoff("mqinfo")
+	trigrpoff("mqinfo2")
 	infoend(masterquest.questok)
 end
 masterquest.questok=function()
@@ -138,6 +139,7 @@ end
 mqinfo=function(n,l,w)
 	masterquest["npc"]=w[2]
 	masterquest["city"]=string.sub(w[4],1,4)
+	EnableTriggerGroup("mqinfo2",true)
 end
 masterflee=function()
 	masterquest.flee=true

@@ -134,6 +134,7 @@ getinfo=function(func)
 	cha()
 	getspe()
 	getfam()
+	getmudvar()
 	infoend(stsetting)
 	busytest(func)
 end

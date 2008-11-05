@@ -18,6 +18,7 @@ liandan.sells["Ğ¡½ğµ¤"]={name="Ğ¡½ğµ¤",id="gold dan"}
 liandan.sells["Ğ¡ÔÆµ¤"]={name="Ğ¡ÔÆµ¤",id="xiaoyun dan"}
 liandan.sells["Ğî¾«µ¤"]={name="Ğî¾«µ¤",id="xujing dan"}
 liandan.sells["±ÌÈªµ¤"]={name="±ÌÈªµ¤",id="biquan dan"}
+liandan.sells["»ÃÁéµ¤"]={name="»ÃÁéµ¤",id="huanling dan"}
 liandan.pack={}
 liandan.pack["Guiling dan"]="guiling dan"
 liandan.pack["Ñª÷èµ¤"]="xueqi dan"
@@ -28,6 +29,16 @@ liandan.pack["»ØÑôÎŞ¼«µ¤"]="huiyang dan"
 liandan.pack["²¹¾«µ¤"]="bujing dan"
 liandan.pack["»¹»êµ¤"]="huanhun dan"
 liandan.pack["ÁúÏÑµ¤"]="longxian dan"
+liandan.pack["ÑûÔÂµ¤"]="yaoyue dan"
+liandan.pack["ĞùÔ¯²¹ĞÄµ¤"]="xuanyuan dan"
+liandan.pack["×ÓÎçÁú¼×µ¤"]="longjia dan"
+liandan.eat={}
+liandan.eat["Wanshou dan"]="wanshou dan"
+liandan.eat["Zhuque dan"]="zhuque dan"
+liandan.eat["Baihu dan"]="baihu dan"
+liandan.eat["Qinglong dan"]="qinglong dan"
+liandan.eat["Xuanwu dan"]="xuanwu dan"
+liandan.eat["Yinyang dan"]="yinyang dan"
 liandan.yaoanswer=0
 liandan.tonganswer=0
 liandan.loc={1397,1398,1399,1400,1401}
@@ -61,6 +72,7 @@ liandan.check=function()
 	elseif checkitems(liandan.items,liandan["main"],liandan["main"]) then
 	elseif checksell(liandan.sells,liandan["main"],liandan["main"],1291) then
 	elseif checkpack(liandan.pack,"baoguo",liandan["main"],liandan["main"],1291) then
+	elseif check_eatdan(liandan.eat,liandan["main"]) then
 	elseif checkstudy(liandan["main"]) then
 	elseif itemsnum("cao yao")>0 then
 		busytest(liandan.caiyaogive)
@@ -179,3 +191,13 @@ liandan_end_fail=function()
 	liandan["end"]("fail")
 end
 
+check_eatdan=function(eatdan_list,eatdan_ok,eatdan_fail)
+	for i,v in pairs(eatdan_list) do
+		if itemsnum(i)>0 then
+			run("eat "..v)
+			busytest(eatdan_ok)
+			return true
+		end
+	end
+	return false
+end

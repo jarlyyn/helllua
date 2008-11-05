@@ -3,7 +3,13 @@ mqfar={}
 mqkill={}
 masterquest["ok"]=nil
 masterquest["fail"]=nil
-
+mqcount="0"
+mqletter={}
+initmqletter=function()
+	mqletter.city=""
+	mqletter.npc=""
+	mqletter.arrive=0
+end
 initmq=function()
 	masterquest["npc"]=""
 	masterquest["npcid"]=""
@@ -11,16 +17,19 @@ initmq=function()
 	masterquest.flee=false
 	masterquest.die=false
 	mqfar.index=1
+	masterquest.waitletter=false
 	mqfar.max=0
 	npc.id=nil
 	mqkill["searchcount"]=0
 	mqkill["city"]=""
 	mqkill["searchmax"]=1
+	initmqletter()
 end
 initmq()
 do_masterquest=function(masterquest_ok,masterquest_fail)
 	masterquest["ok"]=masterquest_ok
 	masterquest["fail"]=masterquest_fail
+	EnableTriggerGroup("masterquest",true)
 	setmqmastertri()
 	initmq()
 	masterquest.main()
@@ -118,6 +127,7 @@ masterquest["end"]=function(s)
 		call(masterquest[s])
 	end
 	EnableTriggerGroup("masterquestkill",false)
+	EnableTriggerGroup("masterquest",false)
 	masterquest["ok"]=nil
 	masterquest["fail"]=nil
 end
@@ -148,8 +158,10 @@ setmqmastertri=function()
 	SetTriggerOption ("mqinfo", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“我早就看(.*)不顺眼，听说(他|她)最近在(.*)，你去做了他，带他的人头来交差！”")
 	SetTriggerOption ("mqinfo1", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“(.*)(这个败类打家劫舍，无恶不作，听说他最近在|这个所谓大侠屡次和我派作对，听说他最近在)(.*)")
 	SetTriggerOption ("masterflee", "match", "^(> )*"..familys[me.fam].mastername.."话音刚落，突然一人急急忙忙的赶了过来")
+	SetTriggerOption ("mqletterquest", "match", "^(> )*"..familys[me.fam].mastername.."吩咐你在(.*)之前割下(.*)的人头，回(.*)交差。\\n据说此人前不久曾经在(.*)出没。")
 end
 masterquest.givehead=function()
+	masterquest.waitletter=false
 	go(familys[me.fam].masterloc,masterquest.giveheadcmd,masterquest_end_fail)
 end
 masterquest.giveheadcmd=function()
@@ -331,12 +343,24 @@ mqkill.healcmd=function()
 end
 mqkill.killend=function()
 	if masterquest.die==true then
-		masterquest.givehead()
+		mqkill.questend()
 	else
 		masterquest.flee=true
 		mqkill["end"]()
 		masterquest.main()
 	end
+end
+
+mqkill.questend=function()
+	masterquest.waitletter=true
+	if letteraccept()==true then
+		if mqletter.arrive==1 then
+			mqlookletter()
+		end
+	else
+		masterquest.givehead()		
+	end
+
 end
 
 mqkill.testyou=function()
@@ -366,6 +390,8 @@ end
 masterquest_npcdie=function()
 	masterquest.die=true
 	run("cut head from corpse;get head")
+	mqcount="0"
+	catch("mqquestnum","quest")
 end
 setmqkilltri=function()
 	SetTriggerOption ("masterquest_npcfaint", "match", "^(> )*"..masterquest["npc"].."脚下一个不稳，跌在地上一动也不动了。")
@@ -373,3 +399,61 @@ setmqkilltri=function()
 end
 
 -------------------------------------
+
+letteraccept=function()
+	if mqletter.arrive ==2 then
+	elseif giftquest[mqcount] ==true then
+	elseif quest.stop==true then
+	else
+		return true
+	end
+	return false
+end
+mqletterattive=function(n,l,w)
+	mqletter.arrive=1
+	if masterquest.waitletter and letteraccept()==true then
+		mqlookletter()
+	end
+end
+
+mqlookletter=function()
+	masterquest.waitletter=false
+	initmqletter()
+	catch("mqletter","l letter")
+	infoend(mqletterlooked)
+end
+
+mqlettercontent=function(n,l,w)
+	mqletter.city=w[6]..w[7]
+end
+
+mqletterlooked=function()
+	if string.find(mqletter.city,"西域",1,true)==nil and string.find(mqletter.city,"大理",1,true)==nil then
+		catch("mqletterquest","accept quest;quest")
+	else
+		busytest(masterquest.givehead)
+	end
+end
+
+mqletterquest=function(n,l,w)
+	if masterquest.npc==w[3] then
+		busytest(masterquest.givehead)		
+	else
+		initmq()
+		initmqletter()
+		masterquest.npc=w[3]
+		masterquest.city=string.sub(w[5],1,4)
+		masterquest.questok()
+	end
+end
+
+mqquestnum=function(n,l,w)
+	mqcount=w[1]
+end
+
+mqlettertimeout=function(n,l,w)
+	mqletter.arrive=2
+	if masterquest.waitletter==true then
+		busytest(masterquest.givehead)
+	end
+end

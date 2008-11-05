@@ -18,7 +18,6 @@ liandan.sells["Ð¡½ðµ¤"]={name="Ð¡½ðµ¤",id="gold dan"}
 liandan.sells["Ð¡ÔÆµ¤"]={name="Ð¡ÔÆµ¤",id="xiaoyun dan"}
 liandan.sells["Ðî¾«µ¤"]={name="Ðî¾«µ¤",id="xujing dan"}
 liandan.sells["±ÌÈªµ¤"]={name="±ÌÈªµ¤",id="biquan dan"}
-liandan.sells["Wanshou dan"]={name="Wanshou dan",id="wanshou dan"}
 liandan.pack={}
 liandan.pack["Guiling dan"]="guiling dan"
 liandan.pack["Ñª÷èµ¤"]="xueqi dan"

@@ -80,3 +80,10 @@ xue,yanjiu
 6.neilinmin:低与多少内力去休息
 
 
+
+遥控：
+把遥控者的id设为can_tell
+
+命令为do xxxx
+
+比如 tell bao do #fish

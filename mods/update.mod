@@ -1,10 +1,8 @@
-version=1
-mclversion=GetVariable("version")
+version=3
+mclversion=tonumber(GetVariable("version"))
+
 if mclversion==nil then 
 	mclversion=0
-	SetVariable("version","0")
-else
-	mclversion=tonumber(mclversion)
 end
 
 addtri=function(triname,trimatch,trigroup,triscript)
@@ -13,10 +11,13 @@ addtri=function(triname,trimatch,trigroup,triscript)
 end
 
 flag_base=1064
+flag_base_enable=1065
 
 updateversion=function()
 	print("升级mcl文件")
 	addtri("remote","^(> )*[^~].{1,7}\\((.*)\\)告诉你：do (.+)","system","remote_called")
+	addtri("cantell",'^can_tell\\s*"(.+)"',"mudvar","mudvar_teller")
+	AddAlias("alias_start","start","",flag_base_enable,"alias_start")
 end
 
 

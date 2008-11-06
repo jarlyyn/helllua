@@ -245,3 +245,6 @@ getnum=function(num)
 	return num
 end
 
+on_unwield=function(n,l,w)
+	weapon(0)
+end

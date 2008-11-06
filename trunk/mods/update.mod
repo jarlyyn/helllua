@@ -18,7 +18,7 @@ updateversion=function()
 	addtri("remote","^(> )*[^~].{1,7}\\((.*)\\)告诉你：do (.+)","system","remote_called")
 	addtri("cantell",'^can_tell\\s*"(.+)"',"mudvar","mudvar_teller")
 	addtri("mqletter","^(> )*(突然一位|忽听“嗖”的一声|你转身一看|你一回头|你正欲离开|只见你刚想离开|只听扑倏扑倏几声)(.*)(弟子急急忙忙地跑了上来，拍拍你的肩膀|一件暗器从你背后飞来|竟见到一只灰点信鸽飞至身旁，你赶紧|只见一位同门装束的弟子满头大汗地跑了过来|忽然发现不远处的地上一块石头上刻着些什么|一位同门装束的弟子追了上来|一只白鸽飞了过来，落在你肩头)","masterquest","mqletterattive")
-	addtri("block_onnpc","^(> )*(.*)(喝道：这位.*休走！|上前挡住你，朗声说道：这位|喝道：“威……武……。”|挡住了你：|伸手拦住你白眼一翻说道：千年以来|拦住你说道：|迈步挡在你身前，双手合什说道：|大声喝道：他奶奶的，你要干嘛？|拦住你道：没有王爷的吩咐，谁也不能进去。)","system","block_onnpc")
+	addtri("block_onnpc","^(> )*(.*)(喝道：这位.*休走！|上前挡住你，朗声说道：这位|喝道：“威……武……。”|挡住了你：|伸手拦住你白眼一翻说道：千年以来|拦住你|迈步挡在你身前，双手合什说道：|大声喝道：他奶奶的，你要干嘛？|拦住你道：没有王爷的吩咐，谁也不能进去。|挡住你)","system","block_onnpc")
 	addtri("mqlettercontent","^(> )*“字谕弟子(.*?)：(得闻恶贼|武林人士|得闻所谓大侠)(.*?)(屡次和我派作对|打家劫舍|所为甚是讨厌)(.*)\\n(.*)出没，正是大好机会将他除去","mqletter","mqlettercontent")
 	SetTriggerOption("mqlettercontent","multi_line","1")
 	SetTriggerOption("mqlettercontent","lines_to_match","2")
@@ -28,6 +28,7 @@ updateversion=function()
 	SetTriggerOption("mqletterquest","lines_to_match","2")
 	addtri("mqquestnum","^师长交给你的任务，你已经连续完成了\\s*(\\d*)\\s*个。","mqquestnum","mqquestnum")
 	addtri("mqlettertimeout","^(> )*你(皱了皱眉，道：“我还是不去了，你让师傅|摇了摇头，将信函随手一撕。)","masterquest","mqlettertimeout")
+	addtri("unwield","^(> )*练.*必须空手。","system","on_unwield")
 
 end
 

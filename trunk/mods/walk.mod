@@ -238,6 +238,7 @@ getexitroom=function (room,dir)
 	local tdir=""
 	local texit=""
 	if room<0 then return -1 end
+	if dir==nil then return room end
 	exits={mapper.getexits(room)}
 	while (i<exits[1]) do
 		i=i+1
@@ -253,15 +254,22 @@ getexitroom=function (room,dir)
 	return -1
 end
 
-getroomexits=function (room)
+getroomexits=function (room,enterable)
 	local exits={}
 	local i=0
+	local exitcount=0
 	local roomexits={}
 	if room<0 then return nil end
 	exits={mapper.getexits(room)}
 	while (i<exits[1]) do
 		i=i+1
-		roomexits[i]=exits[i+i]
+		if enterable==true then
+			if getexitroom(_roomid,exits[i+i])==-1 then
+				break
+			end
+		end
+		exitcount=exitcount+1
+		roomexits[exitcount]=exits[i+i]
 	end
 	return roomexits
 end

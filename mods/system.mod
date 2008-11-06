@@ -163,6 +163,11 @@ run=function(str)
 	end)
 	if (_cmds==nil) then return end
 	for i, cmd in pairs (_cmds) do
+		if cmd=="#gift" then
+			if chatroom~=nil then
+				cmd="enter "..chatroom
+			end
+		end
 		Queue(cmd,walkecho)
 	end 
 end
@@ -213,7 +218,7 @@ end
 
 getitemnum=function(str)
 	num=1
-	re=rex.new("(((零|一|二|三|四|五|六|七|八|九|十|百|千|万)*)(位|支|个|把|只|粒|张|枚|件|柄|根|块|文|两)){0,1}(.*)")
+	re=rex.new("(((零|一|二|三|四|五|六|七|八|九|十|百|千|万)*)(位|支|颗|个|把|只|粒|张|枚|件|柄|根|块|文|两)){0,1}(.*)")
 	a,b,matchs=re:match(str)
 	if matchs~=nil then
 		if matchs[2]~=false then
@@ -247,4 +252,12 @@ end
 
 on_unwield=function(n,l,w)
 	weapon(0)
+end
+
+kanbush=function(n,l,w)
+	weapon(3)
+	if walking==nil then return end
+	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
+		run(walking["step"])	
+	end
 end

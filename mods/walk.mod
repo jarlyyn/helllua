@@ -435,3 +435,6 @@ maze["¸ê±ÚÌ²"]=function()
 	end
 		mazecount=mazecount+1
 end
+gwriver=function(n,l,w)
+	run("give 1 silver to chuan")
+end

@@ -39,6 +39,7 @@ liandan.eat["Baihu dan"]="baihu dan"
 liandan.eat["Qinglong dan"]="qinglong dan"
 liandan.eat["Xuanwu dan"]="xuanwu dan"
 liandan.eat["Yinyang dan"]="yinyang dan"
+liandan.eat["Longwang dan"]="longwang dan"
 liandan.yaoanswer=0
 liandan.tonganswer=0
 liandan.loc={1397,1398,1399,1400,1401}

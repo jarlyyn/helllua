@@ -77,7 +77,7 @@ masterquest.arrive=function()
 end
 masterquest.questgive=function()
 	initmq()
-	run("give head to "..familys[me.fam].masterid..";drop head;quest cancel")
+	run("give head to "..familys[me.fam].masterid..";quest cancel")
 	busytest(masterquest.questcmd)
 end
 
@@ -90,6 +90,7 @@ masterquest.questcmd=function()
 end
 masterquest.questok=function()
 	if masterquest.npc~="" and  masterquest.npc~=nil then
+		run("drop head")
 		busytest(masterquest.main)
 	else
 		masterquest_end_fail()
@@ -321,13 +322,19 @@ end
 mqkill.search=function()
 		do_npcinpath(city[mqkill["city"]].path,mqkill.npcfind,mqkill.main)
 end
+mqkill.search2=function()
+		do_searchnpc(mqkill.npcfind,mqkill.search)
+end
+
 
 mqkill.npcfind=function()
 	mqkill["searchcount"]=1
 	masterquest.city=mqkill["city"]
 	EnableTriggerGroup("masterquestkill",true)
-	do_kill(npc.id,mqkill.heal,mqkill.search)
+	do_kill(npc.id,mqkill.heal,mqkill.search2)
 end
+
+
 
 mqkill.heal=function()
 	hp()

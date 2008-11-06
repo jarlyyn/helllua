@@ -54,7 +54,7 @@ searchnpc.test=function()
 		print(_roomid)
 		searchfor["end"]("ok")
 	else
-		searchfor["next"](getroomexits(searchfor["nextroom"]))
+		searchfor["next"](getroomexits(searchfor["nextroom"],true))
 	end
 end
 

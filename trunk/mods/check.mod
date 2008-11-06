@@ -21,9 +21,10 @@ do_check=function(checkcallback)
 		item["go"]("³¤¹­",1,checkcallback,checkcallback)
 	elseif checkrest(check["callback"],check["callback"]) then
 	elseif checkheal(check["callback"],check["callback"]) then
-	elseif checkitems(inv,check["callback"]) then
+	elseif checkitems(inv,check["callback"],check["callback"]) then
 	elseif checkrepair(check["callback"],check["callback"]) then
 	elseif checksell(invsells,check["callback"],check["callback"]) then
+	elseif checkgiftdrop(gifttodrop,check["callback"],check["callback"]) then
 	else
 		return false
 	end

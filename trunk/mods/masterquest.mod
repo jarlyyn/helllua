@@ -5,6 +5,7 @@ masterquest["ok"]=nil
 masterquest["fail"]=nil
 mqcount="0"
 mqletter={}
+mqletterflee=false
 initmqletter=function()
 	mqletter.city=""
 	mqletter.npc=""
@@ -89,6 +90,7 @@ masterquest.questcmd=function()
 	infoend(masterquest.questok)
 end
 masterquest.questok=function()
+	mqletterflee=false
 	if masterquest.npc~="" and  masterquest.npc~=nil then
 		run("drop head")
 		busytest(masterquest.main)
@@ -450,6 +452,8 @@ mqletterquest=function(n,l,w)
 		initmqletter()
 		masterquest.npc=w[3]
 		masterquest.city=string.sub(w[5],1,4)
+		masterquest.flee=mqletterflee
+		mqletterflee=false
 		masterquest.questok()
 	end
 end
@@ -463,4 +467,8 @@ mqlettertimeout=function(n,l,w)
 	if masterquest.waitletter==true then
 		busytest(masterquest.givehead)
 	end
+end
+
+letterflee=function(n,l,w)
+	mqletterflee=true
 end

@@ -34,12 +34,17 @@ mushclient设置:
  比如 bao-123456.mcl 或者 bao.mcl
  如果文件名不含密码，请设置在mcl文件的passwd变量中
 
+4.一些mud中的设置：
+alias chatroom 你的聊天室名字，比如alias chatroom bao,决定了gift丢在哪里
+set can_tell 你的遥控id的名字，比如set can_tell bao,决定了你的遥控大米
+
 4.设置config.ini文件
 一般来说，只需要设置cmd_limit,根据的网速设置每秒命令数
 
 指令列表:
 
 1.任务命令:
+start 师门任务
 #caxie 擦鞋机器人
 #beiqi 做备齐任务
 #letter 送信
@@ -78,7 +83,9 @@ xue,yanjiu
 4.potmax: 多少pot去学习.0为不学习
 5.qixuemin:多少气血%去治疗
 6.neilinmin:低与多少内力去休息
-
+7.tihuimax多少体会去汲取
+8.weapon 使用的武器
+9.weapon2 要磨的武器
 
 
 遥控：

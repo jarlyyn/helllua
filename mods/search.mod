@@ -104,6 +104,8 @@ searchfor["next"]=function(exit)
 end
 searchfor["guarded"]=function()
 	ResetTimer("on_steptimeout")
+	if not(hashook(hooks.steptimeout)) then return end
+	if not(hashook(hooks.step)) then return end
 	searchfor["nextroom"]=getexitroom(searchfor["nextroom"],exitback[searchfor["step"]])
 	_searchforlevel=_searchforlevel-1
 	searchfor["next"](nil)

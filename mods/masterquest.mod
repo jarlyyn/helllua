@@ -330,9 +330,11 @@ mqkill.search=function()
 		do_npcinpath(city[mqkill["city"]].path,mqkill.npcfind,mqkill.main)
 end
 mqkill.search2=function()
-		do_searchnpc(mqkill.npcfind,mqkill.search)
+		do_searchnpc(mqkill.npcfind,mqkill.search2fail)
 end
-
+mqkill.search2fail=function()
+	busytest(mqkill.search)
+end
 
 mqkill.npcfind=function()
 	mqkill["searchcount"]=1

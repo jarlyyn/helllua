@@ -47,7 +47,7 @@ end
 loadmod("masterquest.mod")
 quest.main["mq"]=function()
 	do_masterquest(masterquest.loop,masterquest.loop)
-	quest.resume=masterquest.main
+	quest.resume=masterquest.resume
 end
 quest["end"]["mq"]=function()
 	masterquest["end"]()

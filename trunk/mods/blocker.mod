@@ -11,7 +11,7 @@ blocker["÷¡°İ"]={id="ya yi",exp=200000}
 
 
 block_onnpc=function(n,l,w)
-	if not(hashook(hooks.steptimeout)) then return end
+--	if not(hashook(hooks.steptimeout)) then return end
 	if not(hashook(hooks.step)) then return end
 	if blocker[w[2]]==nil then return end
 	if blocker[w[2]].exp>getnum(me.hp.exp) then return end

@@ -1,4 +1,4 @@
-version=10
+version=11
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then 
@@ -30,11 +30,13 @@ updateversion=function()
 	addtri("mqlettertimeout","^(> )*你(皱了皱眉，道：“我还是不去了，你让师傅|摇了摇头，将信函随手一撕。)","masterquest","mqlettertimeout")
 	addtri("unwield","^(> )*练.*必须空手。","system","on_unwield")
 	addtri("kanbush","^(> )*不用武器恐怕不行吧","system","kanbush")
-	addtri("walk_gwriver","	^(> )*(你看着奔腾不息的白河，心里有点紧张，不敢乱来。|船厂里走出一个船夫，瞪着眼看着你|船夫在旁边拿眼瞪着你看)","system","gwriver")
+	addtri("walk_gwriver","^(> )*(你看着奔腾不息的白河，心里有点紧张，不敢乱来。|船厂里走出一个船夫，瞪着眼看着你|船夫在旁边拿眼瞪着你看)","system","gwriver")
 	addtri("mqletterflee","^(不好了，(.*)在|你刚想离开，突然(.*)喊道)","mqletterquest","letterflee")
 	addtri("giftbaoguofail","^(> )*包裹里面的东西实在是太多了，你先好好整理整理吧。","giftbaoguofail","giftbaoguofail")
 	addtri("enterchatfail","^(> )*(没有这个聊天室。|人家不欢迎你，你还是别去扫兴了。)","enterchatfail","dropgift_enterchatfail")
 	addtri("mudvar_chatroom","^chatroom\\s*=\\s*(.+)","mudvar","mudvar_chatroom")
+	addtri("mqhelper1","^(> )*bao(大声喝道：“好一个|忽然撮舌吹哨，你听了不禁微微一愣。|一声长啸，声音绵泊不绝，远远的传了开去。)","masterquestkill","mqhelper1")
+	addtri("mqhelper","^(> )*说时迟，那时快！突然转出(.*)个人，一起冲上前来，看来是早有防备！$","mqhelper","mqhelper")
 end
 
 

@@ -292,7 +292,7 @@ do_mqkill=function(mqkcity,mqkmax,mqkill_ok,mqkill_fail)
 	mqkill["city"]=mqkcity
 	mqkill["searchmax"]=mqkmax
 	mqkill["searchcount"]=1
---	hook(hooks.killme,mqkill.onkillme)
+	hook(hooks.killme,mqkill.onkillme)
 	npc.name=masterquest.npc
 	setmqkilltri()
 	mqkill.main()
@@ -346,6 +346,7 @@ end
 
 
 mqkill.heal=function()
+	EnableTriggerGroup("mqhelper",false)
 	hp()
 	busytest(mqkill.healcmd)
 end
@@ -382,13 +383,7 @@ end
 mqkill.testyou=function()
 	
 end
-	killmeloc=0
-mqkill.onkillme=function(npcname)
-	killmeloc=_roomid
-	if npcname==masterquest.npc then
-		infoend(mqkill.npckillme)
-	end
-end
+
 mqkill.npckillme=function()
 	if _roomid~=killmeloc then
 		go(npc.loc,mqkill.npcfind,mqkill.main)	
@@ -412,6 +407,7 @@ end
 setmqkilltri=function()
 	SetTriggerOption ("masterquest_npcfaint", "match", "^(> )*"..masterquest["npc"].."脚下一个不稳，跌在地上一动也不动了。")
 	SetTriggerOption ("masterquest_npcdie", "match", "^(> )*"..masterquest["npc"].."扑在地上挣扎了几下，腿一伸，口中喷出几口鲜血，死了！")
+	SetTriggerOption ("mqhelper1", "match", "^(> )*"..masterquest["npc"].."(大声喝道：“好一个|忽然撮舌吹哨，你听了不禁微微一愣。|一声长啸，声音绵泊不绝，远远的传了开去。)")
 end
 
 -------------------------------------
@@ -479,3 +475,32 @@ end
 letterflee=function(n,l,w)
 	mqletterflee=true
 end
+
+----------------------------
+mqhelploc=0
+mqhelperrecon=function()
+	mqhelploc=_roomid
+	hook(hooks.logok,mqhelperlogok)
+	recon()
+end
+
+mqhelper1=function(n,l,w)
+	EnableTriggerGroup("mqhelper",true)
+end
+mqhelper=function(n,l,w)
+	EnableTriggerGroup("mqhelper",false)
+	mqhelperrecon()
+end
+
+mqkill.onkillme=function(npcname)
+	if hashook(hooks.fight())~=true then return end
+	if npcname~=masterquest.npc then
+		mqhelperrecon()		
+	end
+end
+
+mqhelperlogok=function()
+	_roomid=mqhelploc
+	busytest(mqkill.npcfind)
+end
+

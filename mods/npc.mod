@@ -87,19 +87,34 @@ npcinpath_end_fail=function()
 end
 npcinpath.step=function()
 	print(steppath["nextroom"])
+	if _roomname~=nil and _roomname~="" then
+		if maze[_roomname]~=nil then
+			busytest(npcinpath.testnpc)
+			return
+		end
+	end
+	npcinpath.testnpc()
+end
+npcinpath.testnpc=function()
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
 		npc.id=room_obj[npc.name].id
 		testnpcid()
 		print("find"..npc.name.."@"..tostring(_roomid))
-		_roomid=steppath["nextroom"]
+		if _roomname~=nil and _roomname~="" then
+			if maze[_roomname]==nil then
+				_roomid=steppath["nextroom"]
+			end
+		end
 		steppath["end"]()
 		go(npc.loc,npcinpath["ok"],npcinpath["fail"])
+
 		npcinpath["end"]()
 	else
 		steppath["next"]()
 	end
 end
+
 
 npc_killme=function(n,l,w)
 	if _hooklist[hooks.killme]~= nil then

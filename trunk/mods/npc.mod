@@ -86,7 +86,6 @@ npcinpath_end_fail=function()
 	npcinpath["end"]("fail")
 end
 npcinpath.step=function()
-	print(_roomid)
 	print(steppath["nextroom"])
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid

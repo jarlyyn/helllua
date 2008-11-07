@@ -95,11 +95,16 @@ dropgift.putgiftok=function()
 end
 
 dropgift.buybaoguo=function()
-	item["go"]("baoguo",2,dropgift.putbaoguo,dropgift_end_fail)
+	run("drop baoguo")
+	item["go"]("baoguo",itemsnum("baoguo")+1,dropgift.putbaoguo,dropgift_end_fail)
 end
 
 dropgift.putbaoguo=function()
-	run("put baoguo 2 in baoguo")
+	go(2046,dropgift.putbaoguocmd,dropgfit_end_fail)
+end
+
+dropgift.putbaoguocmd=function()
+	run("get baoguo;put baoguo in baoguo 2")
 	busytest(dropgift.testdropbaoguo)
 end
 

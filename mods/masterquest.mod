@@ -38,6 +38,11 @@ end
 masterquest.loop=function()
 	busytest(masterquest.loopcmd)
 end
+masterquest.resume=function()
+	
+	EnableTriggerGroup("masterquest",true)
+	busytest(masterquest.main)
+end
 masterquest.loopcmd=function()
 	do_masterquest(masterquest.loop,masterquest.loop)
 end

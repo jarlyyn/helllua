@@ -75,6 +75,6 @@ resume=function()
 		unhookall()
 		_roomid=-1
 		inittri()
-		call(quest["resume"])
+		getinfo(quest["resume"])
 	end
 end

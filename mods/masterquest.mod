@@ -492,12 +492,16 @@ mqhelper=function(n,l,w)
 	mqhelperrecon()
 end
 
+
 mqkill.onkillme=function(npcname)
-	if hashook(hooks.fight())~=true then return end
-	if npcname~=masterquest.npc then
-		mqhelperrecon()		
-	end
-end
+    if npcname~=masterquest.npc then
+        if hashook(hooks.fight())==true then
+            mqhelperrecon()
+        else
+            run("halt")    
+        end
+    end
+end 
 
 mqhelperlogok=function()
 	_roomid=mqhelploc

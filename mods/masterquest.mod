@@ -4,6 +4,9 @@ mqkill={}
 masterquest["ok"]=nil
 masterquest["fail"]=nil
 mqcount="0"
+mqquests=0
+mqstarttime=0
+mqquestperh=0
 mqletter={}
 mqletterflee=false
 initmqletter=function()
@@ -401,6 +404,12 @@ end
 masterquest_npcdie=function()
 	masterquest.die=true
 	run("cut head from corpse;get head")
+	mqquests=mqquests+1
+	mqlasttime=os.time()-mqstarttime
+	if mqlasttime>0 and mqstarttime~=0 then
+		mqquestperh=math.floor(mqquests*3600/mqlasttime)
+		print("平均每小时Quest数："..tostring(mqquestperh))
+	end
 	mqcount="0"
 	catch("mqquestnum","quest")
 end
@@ -505,6 +514,12 @@ end
 
 mqhelperlogok=function()
 	_roomid=mqhelploc
-	busytest(mqkill.npcfind)
+	busytest(mqkill.reconkill)
 end
 
+mqkill.reconkill=function()
+	mqkill["searchcount"]=1
+	masterquest.city=mqkill["city"]
+	EnableTriggerGroup("masterquestkill",true)
+	do_kill(npc.id,mqkill.heal,masterquest.main)
+end

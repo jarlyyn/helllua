@@ -18,7 +18,8 @@ fightpreper=function()
 	end
 	if me.special["power"] then run("power") end
 	if me.special["agile"] then run("agile") end
-	
+	if me.special["	hatred"] then run("hatred") end
+
 	run("yun recover;yun powerup;yun shield")
 end
 

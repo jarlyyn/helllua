@@ -258,6 +258,11 @@ kanbush=function(n,l,w)
 	weapon(3)
 	if walking==nil then return end
 	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
-		run(walking["step"])	
+		busytest(kanbushcmd)
 	end
+end
+
+kanbushcmd=function()
+	_roomid=2367
+	run(walking["step"])		
 end

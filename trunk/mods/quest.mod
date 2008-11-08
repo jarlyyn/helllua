@@ -46,6 +46,8 @@ quest["end"]["liandan"]=function()
 end
 loadmod("masterquest.mod")
 quest.main["mq"]=function()
+	mqquests=0
+	mqstarttime=os.time()
 	do_masterquest(masterquest.loop,masterquest.loop)
 	quest.resume=masterquest.resume
 end

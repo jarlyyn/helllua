@@ -17,7 +17,7 @@ walk["end"]=function(s)
 	hook(hooks.stepfail,nil)
 	hook(hooks.step,nil)
 	hook(hooks.flyfail,nil)
-	if ((s~="")and(s~=nil)) then 
+	if ((s~="")and(s~=nil)) then
 		call(walk[s])
 	end
 	walk["ok"]=nil
@@ -71,7 +71,7 @@ walk_on_busy=function(name, line, wildcards)
 	if walking==nil then return end
 	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
 		if wildcards[2]=="突然发现眼前的景象有些迷乱" then
-			run(walking["step"])			
+			run(walking["step"])
 		elseif wildcards[2]=="太累了，还是休息一会儿吧" then
 			DoAfterSpecial(1,"run('yun recover;'.."..'"'..walking["step"]..'")',12)
 		else
@@ -83,12 +83,12 @@ walk_onnoweapon=function(n,l,w)
 	weapon(0)
 	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
 			run(walking["step"])
-	end	
+	end
 end
 room_obj={}
 walk_on_room=function (name, line, wildcards,styles)
 	__textindex=1
-	if ((#wildcards[1])~=0)and((#wildcards[1])==styles[1]["length"]) then 
+	if ((#wildcards[1])~=0)and((#wildcards[1])==styles[1]["length"]) then
 		__textindex=2
 	end
 	if ((#styles)==__textindex)and(styles[__textindex]["textcolour"]==ColourNameToRGB("Cyan")) then
@@ -118,6 +118,7 @@ do_walk=function (to,walk_ok,walk_fail)
 	walkend=walk["end"]
 	if (_roomid==-1) then
 		run("unset brief")
+		EnableTriggerGroup("locate",true)
 		do_search(walk_locate_step,walk_locate_fail,walk_ok,walk_fail)
 		return
 	end
@@ -126,7 +127,7 @@ do_walk=function (to,walk_ok,walk_fail)
 		return
 	end
 
-	if (_roomid==walk["to"]) then 
+	if (_roomid==walk["to"]) then
 		walk["end"]("ok")
 		return
 	end
@@ -179,9 +180,14 @@ end
 
 walk_locate_step=function()
 	local rm={mapper.getroomid(_roomname)}
+	if getnum(_roomid)>-1 then
+		rm[1]=1
+		rm[2]=_roomid
+	end
 	if (rm[1]~=1) then
 		searchfor["next"](getexits(_exits))
 	else
+		EnableTriggerGroup("locate",false)
 		run("set brief 3")
 		walk["ok"]=searchfor["ok"]
 		walk["fail"]=searchfor["fail"]
@@ -192,7 +198,7 @@ walk_locate_step=function()
 end
 
 walk_locate_fail=function()
-	run("set brief 3")	
+	run("set brief 3")
 end
 
 walk_on_step=function()
@@ -308,7 +314,7 @@ on_objend=function(name, line, wildcards)
 	EnableTriggerGroup("roomobj",false)
 end
 walk_npc=function(n,l,w)
-	room_obj[w[2]]={num=1,id=nil}	
+	room_obj[w[2]]={num=1,id=nil}
 end
 
 walk_wdfail=function(n,l,w)
@@ -331,8 +337,8 @@ do_nosafe=function(nosafe_ok,nosafe_fail)
 	do_search(nosafe.step,nosafe_end_fail,nosafe_end_ok,nosafe_end_fail)
 end
 nosafe["end"]=function(s)
-	if ((s~="")and(s~=nil)) then 
-		call(nosafe[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(nosafe[s])
 	end
 	EnableTriggerGroup("nosafe",false)
 	nosafe["ok"]=nil
@@ -399,7 +405,7 @@ mazetest["大沙漠"]=function()
 	end
 end
 maze["南疆沙漠"]=function()
-	eatdrink()	
+	eatdrink()
 	if ((mazestep=="sw")or(mazestep=="sw*")) then
 		mazestep="sw"
 	else
@@ -436,5 +442,13 @@ maze["戈壁滩"]=function()
 		mazecount=mazecount+1
 end
 gwriver=function(n,l,w)
-	run("give 1 silver to chuan")
+	run("give 1 silver to chuan fu")
+end
+
+on_locate=function(n,l,w)
+	if #n<3 then return end
+	local rid=tonumber(string.sub(n,3,#n))
+	if rid~= nil then
+		_roomid=rid
+	end
 end

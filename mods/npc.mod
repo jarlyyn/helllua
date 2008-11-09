@@ -96,6 +96,13 @@ npcinpath.step=function()
 	npcinpath.testnpc()
 end
 npcinpath.testnpc=function()
+	if quest.name=="mq" then
+		for i,v in pairs(helpfindnpc) do
+			if room_obj[v.name]~=nil then
+				helpfindnpcfound(i,_roomid,masterquest.city)
+			end
+		end
+	end
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
 		npc.id=room_obj[npc.name].id

@@ -6,6 +6,7 @@ loadmod=function(str)
 	include("mods\\"..str)
 end
 print("‘ÿ»Î÷–")
+loadmod("encrypt.mod")
 loadmod("mapper.mod")
 loadmod("mudvar.mod")
 loadmod("walk.mod")

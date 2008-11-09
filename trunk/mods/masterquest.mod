@@ -42,7 +42,7 @@ masterquest.loop=function()
 	busytest(masterquest.loopcmd)
 end
 masterquest.resume=function()
-	
+
 	EnableTriggerGroup("masterquest",true)
 	busytest(masterquest.main)
 end
@@ -170,6 +170,8 @@ setmqmastertri=function()
 	SetTriggerOption ("mqinfo1", "match", "^(> )*"..familys[me.fam].mastername.."对你道：“(.*)(这个败类打家劫舍，无恶不作，听说他最近在|这个所谓大侠屡次和我派作对，听说他最近在)(.*)")
 	SetTriggerOption ("masterflee", "match", "^(> )*"..familys[me.fam].mastername.."话音刚落，突然一人急急忙忙的赶了过来")
 	SetTriggerOption ("mqletterquest", "match", "^(> )*"..familys[me.fam].mastername.."吩咐你在(.*)之前割下(.*)的人头，回(.*)交差。\\n据说此人前不久曾经在(.*)出没。")
+	if helpfindid==nil then helpfindid="" end
+	SetTriggerOption ("mqinfo", "on_partyfind", "^(> )*【(明教|天地会)】.{2,8}\\[.*\\]：helllua.find-(|"..helpfindid..")-(.*)-(.*)-(.*)")
 end
 masterquest.givehead=function()
 	masterquest.waitletter=false
@@ -206,13 +208,14 @@ mqfar.main=function()
 		busytest(mqfar_end_fail)
 	else
 		print("全图通缉----"..farlist[mqfar.index])
+		masterquest.city=farlist[mqfar.index]
 		do_mqkill(farlist[mqfar.index],3,mqfar.ok,mqfar.searchend)
 	end
 end
 mqfar.searchend=function()
 	print(farlist[mqfar.index].."搜索完毕，去下一个城市")
 	mqfar.index=mqfar.index+1
-	busytest(mqfar.main)
+	busytest(masterquest.main)
 end
 mqfar["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
@@ -343,6 +346,7 @@ mqkill.npcfind=function()
 	mqkill["searchcount"]=1
 	masterquest.city=mqkill["city"]
 	EnableTriggerGroup("masterquestkill",true)
+	if npc.id==nil then npc.id=masterquest.npc end
 	do_kill(npc.id,mqkill.heal,mqkill.search2)
 end
 
@@ -356,7 +360,7 @@ end
 mqkill.healcmd=function()
 	if checkdispel(mqkill.heal,mqkill.heal) then
 	elseif masterquest.flee==true and (me.hp["qixue%"]<getvbquemin()) then
-		do_heal(mqkill.heal,mqkill.heal,true) 
+		do_heal(mqkill.heal,mqkill.heal,true)
 	else
 		busytest(mqkill.killend)
 	end
@@ -365,6 +369,7 @@ mqkill.killend=function()
 	if masterquest.die==true then
 		mqkill.questend()
 	else
+		partyhelp(masterquest.npc)
 		masterquest.flee=true
 		mqkill["end"]()
 		masterquest.main()
@@ -378,18 +383,18 @@ mqkill.questend=function()
 			mqlookletter()
 		end
 	else
-		masterquest.givehead()		
+		masterquest.givehead()
 	end
 
 end
 
 mqkill.testyou=function()
-	
+
 end
 
 mqkill.npckillme=function()
 	if _roomid~=killmeloc then
-		go(npc.loc,mqkill.npcfind,mqkill.main)	
+		go(npc.loc,mqkill.npcfind,mqkill.main)
 	else
 		mq.npcfind()
 	end
@@ -458,7 +463,7 @@ end
 
 mqletterquest=function(n,l,w)
 	if masterquest.npc==w[3] then
-		busytest(masterquest.givehead)		
+		busytest(masterquest.givehead)
 	else
 		initmq()
 		initmqletter()
@@ -507,10 +512,10 @@ mqkill.onkillme=function(npcname)
         if hashook(hooks.fight())==true then
             mqhelperrecon()
         else
-            run("halt")    
+            run("halt")
         end
     end
-end 
+end
 
 mqhelperlogok=function()
 	_roomid=mqhelploc
@@ -523,3 +528,70 @@ mqkill.reconkill=function()
 	EnableTriggerGroup("masterquestkill",true)
 	do_kill(npc.id,mqkill.heal,masterquest.main)
 end
+
+---------------------
+
+helpfindnpc={}
+
+partyhelp=function(name)
+	if helpfindid==nil then helpfindid="" end
+	if helpfindid~="" then
+		name=encrypt(name,helpfindpassword)
+	end
+	run("party helllua-help-"..helpfindid.."-"..name)
+end
+
+on_partyhelp=function(n,l,w)
+	if w[4]~="" and w[4]~=helpfindid then
+		return
+	end
+	if blacklist[w3]==true then
+		return
+	end
+	if w[4]==helpfiindid then
+		w[5]=decrypt(w[5],helpfindpassword)
+	end
+	helpfindnpc[w[3]]={}
+	helpfindnpc[w[3]].name=w[5]
+	if w[4]=="" then
+		helpfindnpc[w[3]].encrypt=false
+	else
+		helpfindnpc[w[3]].encrypt=true
+	end
+end
+
+helpfindnpcfound=function(finder,loc,city)
+	if loc<0 then return end
+	if helpfindnpc[finder]==nil then return end
+	loc=tostring(loc)
+	local id=""
+	if helpfindnpc[finder].encrypt==true then
+		helpfindnpc[finder].name=encrypt(helpfindnpc[finder].name,helpfindpassword)
+		loc=encrypt(loc,helpfindpassword)
+		city=encrypt(city,helpfindpassword)
+		id=helpfindid
+	end
+	run("party helllua.find-"..id.."-"..helpfindnpc[finder].name.."-"..loc.."-"..city)
+	helpfindnpc[finder]=nil
+end
+
+on_partyfind=function(n,l,w)
+	if w[4]~="" then
+		w[5]=decrypt(w[5],helpfindpassword)
+		w[6]=decrypt(w[6],helpfindpassword)
+		w[7]=decrypt(w[7],helpfindpassword)
+	end
+	if w[5]~=masterquest.npc then return end
+	if city[w[7]]==nil then return end
+	if city[w[7]]==masterquest.city then return end
+	local loc=tonumber(w[6])
+	if loc==nil then return end
+	if loc<0 then return end
+	masterquest.city=w[7]
+	masterquest.flee=false
+	mqkill.city=w[7]
+	mqkill["searchcount"]=1
+	go(loc,mqkill.npcfind,masterquest.main)
+end
+
+

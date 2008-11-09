@@ -28,8 +28,8 @@ searchfor["end"]=function(s)
 	hook(hooks.searchfrofail,nil)
 	walking=nil
 	EnableTriggerGroup("search",false)
-	if ((s~="")and(s~=nil)) then 
-		call(searchfor[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(searchfor[s])
 	end
 	searchfor["ok"]=nil
 	searchfor["fail"]=nil
@@ -58,6 +58,7 @@ searchfor["nextcmd"]=function(exit)
 		_searchfordata[_searchforlevel]={}
 		_searchforindex[_searchforlevel]=0
 		_searchforcount[_searchforlevel]=0
+		if exit==nil then exit={} end
 		for k,v in pairs(exit) do
 			if (exitback[v]~=nil) and (exitback[exitback[searchfor["step"]]]~=exitback[v]) then
 				_searchforcount[_searchforlevel]=_searchforcount[_searchforlevel]+1
@@ -65,15 +66,15 @@ searchfor["nextcmd"]=function(exit)
 			end
 		end
 	end
-	_searchforindex[_searchforlevel]=_searchforindex[_searchforlevel]+1	
+	_searchforindex[_searchforlevel]=_searchforindex[_searchforlevel]+1
 	if ((_searchforindex[_searchforlevel]>_searchforcount[_searchforlevel])or(_searchforlevel>_searchdepth)) then
 		if (_searchforlevel==1) then
 			callhook(hooks.searchfrofail)
 			searchfor["end"]("fail")
 			return
-		end				
+		end
 		searchfor["step"]=_searchforback[_searchforlevel]
-		_searchforlevel=_searchforlevel-1	
+		_searchforlevel=_searchforlevel-1
 	else
 		searchfor["step"]=_searchfordata[_searchforlevel][_searchforindex[_searchforlevel]]
 		_searchforlevel=_searchforlevel+1
@@ -100,7 +101,7 @@ searchfor["next"]=function(exit)
 	end
 	initmaze()
 	searchfor["nextcmd"](exit)
-	run(searchfor["step"])	
+	run(searchfor["step"])
 end
 searchfor["guarded"]=function()
 	ResetTimer("on_steptimeout")
@@ -139,8 +140,8 @@ steppath["end"]=function(s)
 	hook(hooks.steptimeout,nil)
 	walking=nil
 	EnableTriggerGroup("steppath",false)
-	if ((s~="")and(s~=nil)) then 
-		call(steppath[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(steppath[s])
 	end
 	steppath["ok"]=nil
 	steppath["fail"]=nil
@@ -172,7 +173,7 @@ steppath["next"]=function()
 	end
 	steppath["step"]=steppath["path"][steppath["index"]]["step"]
 	steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
-	run(steppath["step"])		
+	run(steppath["step"])
 end
 
 steppath_fail=function(n,l,w)
@@ -185,7 +186,7 @@ steppath_fail=function(n,l,w)
 			end
 		steppath["step"]=steppath["path"][steppath["index"]]["step"]
 		steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
-		run(steppath["step"])		
+		run(steppath["step"])
 	else
 		steppath["end"]("fail")
 	end

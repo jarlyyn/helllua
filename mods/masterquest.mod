@@ -18,6 +18,7 @@ initmq=function()
 	masterquest["npc"]=""
 	masterquest["npcid"]=""
 	masterquest["city"]=""
+	masterquest.far=false
 	masterquest.flee=false
 	masterquest.die=false
 	mqfar.index=1
@@ -59,6 +60,7 @@ masterquest.check=function()
 	elseif checkstudy(masterquest["main"],masterquest["main"]) then
 	elseif checkfangqi(masterquest["main"],masterquest["main"]) then
 	elseif checkjiqu(masterquest["main"],masterquest["main"]) then
+	elseif checknuqi(masterquest["main"],masterquest["main"]) then
 	elseif quest.stop and masterquest.die==true then
 		masterquest["end"]()
 		return
@@ -108,7 +110,7 @@ masterquest.questok=function()
 end
 masterquest.case=function()
 	if masterquest.die==false and masterquest.npc~="" then
-		if masterquest.city=="很远" then
+		if masterquest.far==true then
 			busytest(mqfar.main)
 		elseif masterquest.flee==true then
 			do_mqask(masterquest.maincmd,masterquest.findfar)
@@ -131,6 +133,7 @@ masterquest.killnpc=function()
 end
 masterquest.findfar=function()
 	print("未得到npc信息，开始全地图通缉")
+	mqfar.new()
 	do_mqfar(masterquest.main,masterquest.main)
 end
 masterquest["end"]=function(s)
@@ -189,9 +192,12 @@ mqfar["fail"]=nil
 mqfar.max=0
 mqfar.index=1
 do_mqfar=function(mqfar_ok,mqfar_fail)
-	masterquest["city"]="很远"
 	mqfar["ok"]=mqfar_ok
 	mqfar["fail"]=mqfar_fail
+	mqfar.main()
+end
+mqfar.new=function()
+	masterquest.far=true
 	mqfar.max=#farlist
 	if getnum(me.hp.exp)<400000 then
 		mqfar.max=mqfar.max-3
@@ -199,9 +205,7 @@ do_mqfar=function(mqfar_ok,mqfar_fail)
 		mqfar.max=mqfar.max-2
 	end
 	mqfar.index=1
-	mqfar.main()
 end
-
 mqfar.main=function()
 	if mqfar.index>mqfar.max then
 		initmq()
@@ -263,6 +267,7 @@ mq_asktest=function(n,l,w)
 			askinfolist["end"]()
 			mqask["end"]()
 			busytest(masterquest.findfar)
+			partyhelp(masterquest.npc)
 		end
 	else
 		askinfolist.askcmd()
@@ -282,6 +287,7 @@ mqask_end_ok=function()
 end
 
 mqask_end_fail=function()
+	partyhelp(masterquest.npc)
 	mqask["end"]("fail")
 end
 
@@ -345,6 +351,7 @@ end
 mqkill.npcfind=function()
 	mqkill["searchcount"]=1
 	masterquest.city=mqkill["city"]
+	masterquest.far=false
 	EnableTriggerGroup("masterquestkill",true)
 	if npc.id==nil then npc.id=masterquest.npc end
 	do_kill(npc.id,mqkill.heal,mqkill.search2)
@@ -369,7 +376,6 @@ mqkill.killend=function()
 	if masterquest.die==true then
 		mqkill.questend()
 	else
-		partyhelp(masterquest.npc)
 		masterquest.flee=true
 		mqkill["end"]()
 		masterquest.main()
@@ -518,6 +524,7 @@ mqkill.onkillme=function(npcname)
 end
 
 mqhelperlogok=function()
+	unhookall()
 	_roomid=mqhelploc
 	busytest(mqkill.reconkill)
 end
@@ -581,13 +588,14 @@ on_partyfind=function(n,l,w)
 		w[6]=decrypt(w[6],helpfindpassword)
 		w[7]=decrypt(w[7],helpfindpassword)
 	end
-	if w[5]~=masterquest.npc then return end
+	if w[5]~=masterquest.npc or masterquest.far==false then return end
 	if city[w[7]]==nil then return end
 	if city[w[7]]==masterquest.city then return end
 	local loc=tonumber(w[6])
 	if loc==nil then return end
 	if loc<0 then return end
 	masterquest.city=w[7]
+	masterquest.far=false
 	masterquest.flee=false
 	mqkill.city=w[7]
 	mqkill["searchcount"]=1

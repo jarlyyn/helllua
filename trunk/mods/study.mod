@@ -49,8 +49,8 @@ study["arrive"]=function()
 end
 
 study["end"]=function(s)
-	if ((s~="")and(s~=nil)) then 
-		call(study[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(study[s])
 	end
 	setupskill()
 	study["ok"]=nil
@@ -72,7 +72,7 @@ study["xue"]=function()
 		else
 			pots=100
 		end
-		run("xue "..study.skill.npc.." about "..study.skill.skill.." "..tostring(pots))
+		catch("study","xue "..study.skill.npc.." about "..study.skill.skill.." "..tostring(pots))
 		hp()
 		infoend(studypots)
 	end
@@ -120,7 +120,7 @@ setupskill=function()
 		if study.skill.npc~=false then
 			if npcs[study.skill.npc]==nil then
 				study.skill.npc=false
-			end	
+			end
 		end
 		if study.skill.loc==false then study.skill.loc=0 end
 		if study.skill.npc==false then
@@ -136,10 +136,14 @@ setupskill=function()
 				end
 			end
 		end
-		if study.skill.npc==false then 
+		if study.skill.npc==false then
 			study.skill.npc=""
 		else
 			study.skill.loc=npcs[study.skill.npc]["loc"]
 		end
 	end
+end
+
+study_fail=function(n,l,w)
+	lastpotcount=8
 end

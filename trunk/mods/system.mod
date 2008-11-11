@@ -96,13 +96,21 @@ catch=function(trigrp,command)
 end
 
 busytest=function(busyhook)
-	hook(hooks.isbusy,busyhook)
-	run("enchase bao")
+	if hashook(hooks.isbusy) then
+		hook(hooks.isbusy,busyhook)
+	else
+		hook(hooks.isbusy,busyhook)
+		run("enchase bao")
+	end
 end
 
 delay=function(t,busyhook)
-	hook(hooks.isbusy,busyhook)
-	DoAfterSpecial(t,'run(\"enchase bao\")',12)
+	if hashook(hooks.isbusy) then
+		hook(hooks.isbusy,busyhook)
+	else
+		hook(hooks.isbusy,busyhook)
+		DoAfterSpecial(t,'run(\"enchase bao\")',12)
+	end
 end
 
 system_trigrpoff=function(name, line, wildcards)

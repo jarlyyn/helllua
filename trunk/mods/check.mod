@@ -43,3 +43,12 @@ end
 c_duihuancoin=function()
 	do_bank("duihuan",(math.floor(itemsnum("Coin")/100))*100,"coin",check["callback"])
 end
+
+checknuqi=function(nuqiok,nuqifial)
+	if ((me.score.xingge=="心狠手辣")or(me.score.xingge=="光明磊落"))and(tonumber(GetVariable("neilimin"))>1000)and(me.hp.nuqi~="怒火中烧") then
+		run("baofa")
+		busytest(nuqiok)
+		return true
+	end
+	return false
+end

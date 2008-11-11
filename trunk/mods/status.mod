@@ -76,6 +76,7 @@ status_onhpwater=function(name, line, wildcards)
 end
 
 status_onhptihui=function(name, line, wildcards)
+	me.hp.nuqi=wildcards[2]
 	me.hp["tihui"]=tonumber(wildcards[3])
 end
 
@@ -142,7 +143,7 @@ getstatus=function(func)
 	eatdrink()
 	run("yun recover;yun regenerate;i")
 	weapondru()
-	getjifa()		
+	getjifa()
 	hp()
 	busytest(func)
 end

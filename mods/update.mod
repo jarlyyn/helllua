@@ -1,4 +1,4 @@
-version=18
+version=19
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -12,6 +12,12 @@ end
 
 flag_base=1064
 flag_base_enable=1065
+
+addvar=function(varname,def_value)
+	if GetVariable(varname)==nil then
+		SetVariable(varname,def_value)
+	end
+end
 
 updateversion=function()
 	print("升级mcl文件")
@@ -45,6 +51,7 @@ updateversion=function()
 	addtri("status_onhptihui","^(【 平 和 】|【 愤 怒 】)\\s*(.*?)\\s*【 体 会 】(.*)$","hp","status_onhptihui")
 	addtri("study_fail","^(> )*(你今天太累了，结果什么也没有研究成。|然而你今天太累了|也许是缺乏实战经验|你要向谁求教？|你的.*火候不够|你的.*水平有限|这项技能你的程度已经不输你师父了。|这项技能你恐怕必须找别人学了|[^a-zA-Z0-9、 ()【】.。,，:：;；?？!！]+说：嗯.... 你的.*功力已经是非同凡响了，我就不再教你，你自己多研究吧。|你对.*的掌握程度还未到研究的程度。)","study","study_fail")
 	SetOption("wrap_column",400)
+	addvar("fightcuff","")
 end
 
 

@@ -117,6 +117,7 @@ end
 
 steppath={}
 do_steppath=function(path,pstep,pfail,path_ok,path_fail)
+	walking=steppath
 	steppath["path"]=path
 	steppath["ok"]=path_ok
 	steppath["fail"]=path_fail

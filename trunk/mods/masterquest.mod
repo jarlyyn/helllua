@@ -433,9 +433,13 @@ end
 -------------------------------------
 
 letteraccept=function()
+	tpath,tdelay=mapper.getpath(_roomid,familys[me.fam].masterloc,1)
+	local potmax=getnum(tonumber(GetVariable("potmax")))
 	if mqletter.arrive ==2 then
 	elseif giftquest[mqcount] ==true then
 	elseif quest.stop==true then
+	elseif tdelay>-1 and tdelay<=acceptmaxstep then
+	elseif potmax>0 and me.hp.pot>potmax and study.skill.study~="yanjiu" then
 	else
 		return true
 	end

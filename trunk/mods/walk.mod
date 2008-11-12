@@ -28,19 +28,28 @@ walk_end_fail=function()
 end
 
 walk["stop"]=function(thook)
-	hook(hooks.steptimeout,nil)
-	if (not(hashook(hooks.step))and(thook~=nil)) then
+	if (not(hashook(hooks.step))) then
 		walk["end"]()
-		thook()
+		call(thook)
 		return
 	end
+	walkstopstep=walking.step
 	call(walkend)
-	walkend=nil
 	walk["ok"]=nil
 	walk["fail"]=nil
-	steptrace(walk["step"])
-	hook(hooks.step,thook)
+	hook(hooks.step,walk_stop_hook)
+	if hashook(hooks.steptimeout) then
+		hook(hooks.steptimeout,walk_stop_to)
+	end
 end
+
+walk_stop_hook=function()
+	if walkstopstep~=nil then
+		steptrace(walkstopstep)
+	end
+	call(walk_stop_to)
+end
+
 
 walk_stop_to=function()
 	do_walk(walk["to"],walkstoptook,walkstoptofail)

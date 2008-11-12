@@ -57,7 +57,7 @@ on_steptimeout=function()
 end
 
 on_hurt=function(name,line,wildcards)
-	callhook(hooks.hurt) 
+	callhook(hooks.hurt)
 end
 
 recon=function()
@@ -67,16 +67,16 @@ recon=function()
 end
 
 on_faint=function(name,line,wildcards)
-	if hashook(hooks.faint) then 
-		callhook(hooks.faint) 
+	if hashook(hooks.faint) then
+		callhook(hooks.faint)
 	else
 		recon()
 	end
 end
 
 on_faint1=function(name,line,wildcards)
-	if hashook(hooks.faint1) then 
-		callhook(hooks.faint1) 
+	if hashook(hooks.faint1) then
+		callhook(hooks.faint1)
 	else
 		discon()
 	end
@@ -177,7 +177,7 @@ run=function(str)
 			end
 		end
 		Queue(cmd,walkecho)
-	end 
+	end
 end
 
 _nums={}
@@ -220,7 +220,7 @@ ctonum=function(str)
 				result=result+_nums[char]*unit
 			end
 		end
-	end		
+	end
 	return result
 end
 
@@ -271,6 +271,5 @@ kanbush=function(n,l,w)
 end
 
 kanbushcmd=function()
-	_roomid=2367
-	run(walking["step"])		
+	weapon(1)
 end

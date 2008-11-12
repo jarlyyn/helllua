@@ -158,7 +158,7 @@ do_walk=function (to,walk_ok,walk_fail)
 end
 
 walk["stepfail"]=function()
-	do_search(walk_locate_step,walk_locate_fail,walk["ok"],walk["fail"])
+	go(walk["to"],walk["ok"],walk["fail"])
 end
 
 walk["flyfail"]=function()
@@ -202,7 +202,7 @@ walk_locate_step=function()
 		walk["fail"]=searchfor["fail"]
 		searchfor["end"]()
 		_roomid=rm[2]
-		do_walk(walk["to"],walk["ok"],walk["fail"])
+		go(walk["to"],walk["ok"],walk["fail"])
 	end
 end
 

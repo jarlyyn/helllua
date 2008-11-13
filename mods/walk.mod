@@ -1,6 +1,6 @@
 loadmod("blocker.mod")
 walkend=nil
-walking={}
+walking=nil
 
 _roomid=-1
 _roomname=""
@@ -29,7 +29,6 @@ end
 
 walk["stop"]=function(thook)
 	if (not(hashook(hooks.step))) then
-		walk["end"]()
 		call(thook)
 		return
 	end
@@ -37,7 +36,7 @@ walk["stop"]=function(thook)
 	walkstopthook=thook
 	walk["ok"]=nil
 	walk["fail"]=nil
-	hook(hooks.step,walkstopthook)
+	hook(hooks.step,walk_stop_hook)
 	if hashook(hooks.steptimeout) then
 		hook(hooks.steptimeout,walkstopthook)
 	end
@@ -52,14 +51,14 @@ end
 
 
 walk_stop_to=function()
-	do_walk(walk["to"],walkstoptook,walkstoptofail)
+	do_walk(walkstoptoto,walkstoptook,walkstoptofail)
 	walkstoptook=nil
 	walkstoptofail=nil
 end
 walkstoptook=nil
 walkstoptofail=nil
 walk["stopto"]=function(to,walk_ok,walk_fail)
-	walk["to"]=to
+	walkstoptoto=to
 	walkstoptook=walk_ok
 	walkstoptofail=walk_fail
 	walk["stop"](walk_stop_to)
@@ -70,11 +69,7 @@ walk["npc"]=function(npc,walk_ok,walk_fail)
 		print("ÎŞ·¨ÕÒµ½npc "..npc ..",Çë¼ì²énpcs.ini")
 		return
 	end
-	walk["to"]=npcs[npc]["loc"]
-	walk["ok"]=walk_ok
-	walk["fail"]=walk_fail
-	walk["stop"](walk_stop_to)
-
+	go(npcs[npc]["loc"],walk_ok,walk_fail)
 end
 walk_on_busy=function(name, line, wildcards)
 	if walking==nil then return end
@@ -118,6 +113,9 @@ walk_on_room1=function(name, line, wildcards)
 	room_obj={}
 	EnableTriggerGroup("roomobj",true)
 end
+walklocateto=0
+walklocateok=nil
+walklocatefail=nil
 do_walk=function (to,walk_ok,walk_fail)
 	walking=walk
 	initmaze()
@@ -127,6 +125,9 @@ do_walk=function (to,walk_ok,walk_fail)
 	walkend=walk["end"]
 	if (_roomid==-1) then
 		run("unset brief")
+		walklocateto=to
+		walklocateok=walk_ok
+		walklocatefail=walk_fail
 		EnableTriggerGroup("locate",true)
 		do_search(walk_locate_step,walk_locate_fail,walk_ok,walk_fail)
 		return
@@ -142,8 +143,9 @@ do_walk=function (to,walk_ok,walk_fail)
 	end
 	run("set brief 3")
 	hook(hooks.step,walk_on_step)
-	hook(hooks.stepfail,walk_on_stepfail)
+	hook(hooks.stepfail,walk.stepfail)
 	hook(hooks.flyfail,walk["flyfail"])
+	hook(hooks.steptimeout,nil)
 	walk["path"]=mapper.getpath(_roomid,to,1)
 	if (walk["path"]=="") then
 		walk["end"]("fail")
@@ -202,7 +204,7 @@ walk_locate_step=function()
 		walk["fail"]=searchfor["fail"]
 		searchfor["end"]()
 		_roomid=rm[2]
-		go(walk["to"],walk["ok"],walk["fail"])
+		go(walklocateto,walklocateok,walklocatefail)
 	end
 end
 
@@ -451,7 +453,23 @@ maze["¸ê±ÚÌ²"]=function()
 		mazecount=mazecount+1
 end
 gwriver=function(n,l,w)
-	run("give 1 silver to chuan fu")
+	if walking==walk then
+		run("give 1 silver to chuan fu")
+		walk["index"]=walk["index"]+1
+		steptrace(walk["step"])
+	else
+		if walking==steppath then
+			steppath["index"]=steppath["index"]+1
+			_roomid=steppath["nextroom"]
+			if (steppath["index"]>#steppath["path"]) then
+				steppath["end"]("ok")
+				return
+			end
+			steppath["step"]=steppath["path"][steppath["index"]]["step"]
+			steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
+			run("cross")
+		end
+	end
 end
 
 on_locate=function(n,l,w)

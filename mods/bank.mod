@@ -5,7 +5,7 @@ do_bank=function(action,num,type,bank_ok,bank_fail)
 	bank["num"]=num
 	bank["ok"]=bank_ok
 	bank["fail"]=bank_fail
-	do_walk(23,bank["arrive"],bankendfail)
+	go(23,bank["arrive"],bankendfail)
 end
 bankendfail=function()
 	bank["end"]("fail")
@@ -14,8 +14,8 @@ bank_ok=function()
 	bank["end"]("ok")
 end
 bank["end"]=function(s)
-	if ((s~="")and(s~=nil)) then 
-		call(bank[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(bank[s])
 	end
 	bank["ok"]=nil
 	bank["fail"]=nil

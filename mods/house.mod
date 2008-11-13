@@ -49,6 +49,6 @@ panlong=function(housename)
 	mapper.readroom(baseloc+16,tostring(baseloc+16).."=¾ÓËù|open door\\e:"..tostring(baseloc+14)..",u:"..tostring(baseloc+17)..",w:"..tostring(baseloc+18)..",")
 	mapper.readroom(baseloc+17,tostring(baseloc+17).."=ÎÔÊÒ|d:"..tostring(baseloc+16)..",")
 	mapper.readroom(baseloc+18,tostring(baseloc+18).."=Êé·¿|e:"..tostring(baseloc+16)..",")
-	mapper.readroom(baseloc+19,tostring(baseloc+19).."=ÌýÌÎ¸ó|w:"..tostring(baseloc+15)..",".."pass-"..housename..">#loc :2501,")
+	mapper.readroom(baseloc+19,tostring(baseloc+19).."=ÌýÌÎ¸ó|w:"..tostring(baseloc+15)..",".."pass-"..housename..">#loc :2501,pass-"..housename..">#loc :2500,")
 	mapper.addpath(houses[housename].loc,"pass-"..housename..">"..houses[housename].id..":"..tostring(baseloc)..",")
 end

@@ -34,12 +34,12 @@ walk["stop"]=function(thook)
 		return
 	end
 	walkstopstep=walking.step
-	call(walkend)
+	walkstopthook=thook
 	walk["ok"]=nil
 	walk["fail"]=nil
-	hook(hooks.step,walk_stop_hook)
+	hook(hooks.step,walkstopthook)
 	if hashook(hooks.steptimeout) then
-		hook(hooks.steptimeout,walk_stop_to)
+		hook(hooks.steptimeout,walkstopthook)
 	end
 end
 
@@ -47,7 +47,7 @@ walk_stop_hook=function()
 	if walkstopstep~=nil then
 		steptrace(walkstopstep)
 	end
-	call(walk_stop_to)
+	call(walkstopthook)
 end
 
 
@@ -158,7 +158,7 @@ do_walk=function (to,walk_ok,walk_fail)
 end
 
 walk["stepfail"]=function()
-	go(walk["to"],walk["ok"],walk["fail"])
+	do_walk(walk["to"],walk["ok"],walk["fail"])
 end
 
 walk["flyfail"]=function()

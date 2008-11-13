@@ -64,7 +64,6 @@ do_quest=function(name)
 	end
 end
 quest_begin=function()
-	setupskill()
 	quest["main"][quest.name]()
 end
 initmud=function()

@@ -1,8 +1,4 @@
 loadmod("bank.mod")
-_check=function()
-	run("i;hp;score")
-	busytest(_check)
-end
 check={}
 do_check=function(checkcallback)
 	check["callback"]=checkcallback

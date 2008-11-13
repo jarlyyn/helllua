@@ -1,6 +1,6 @@
 skilllistre=rex.new("^(?<skill>.+?)(\\((?<study>[[:alpha:]]+){0,1}?(-{0,1}(?<npc>[[:alpha:]]+\\s+[[:alpha:]]+)){0,1}(-{0,1}(?<npcname>[^a-zA-Z1-9 ]+)){0,1}(-{0,1}(?<loc>\\d+)){0,1}\\)){0,1}$")
 study={}
-study["skill"]={}
+study["skill"]=nil
 study["ok"]=nil
 study["fail"]=nil
 checkstudy=function(checkok)
@@ -28,19 +28,11 @@ do_study=function(study_ok,study_fail)
 	study["ok"]=study_ok
 	study["fail"]=study_fail
 	if study.skill==nil then
-		study["end"]("fail")
+		study_end_fail()
 		return
 	end
 	lastpot=0
 	lastpotcount=0
-	go(study.skill.loc,study["arrive"],study_go_gail)
-end
-
-study_go_gail=function()
-	study["end"]("fail")
-end
-
-study["arrive"]=function()
 	if study[study.skill.study]~=nil then
 		study[study.skill.study]()
 	else
@@ -48,16 +40,28 @@ study["arrive"]=function()
 	end
 end
 
+study_end_fail=function()
+	study["end"]("fail")
+end
+
+study["arrive"]=function()
+
+end
+
 study["end"]=function(s)
+	setupskill()
 	if ((s~="")and(s~=nil)) then
 		call(study[s])
 	end
-	setupskill()
 	study["ok"]=nil
 	study["fail"]=nil
 end
 
 study["xue"]=function()
+	go(study.skill.loc,study["xuecmd"],study_end_fail)
+end
+
+study["xuecmd"]=function()
 	if (me.hp.pot==0)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>7) then
 		study["end"]("ok")
 	else
@@ -74,22 +78,48 @@ study["xue"]=function()
 		end
 		catch("study","xue "..study.skill.npc.." about "..study.skill.skill.." "..tostring(pots))
 		hp()
-		infoend(studypots)
+		delay(1,study["xuecmd"])
 	end
 end
 
-studypots=function()
-	delay(1,study["arrive"])
+study["yanjiu"]=function()
+	settags()
+	go(2501,study.yanjiucmd,study.yanjiufail)
+end
+
+study["yanjiucmd"]=function()
+	if (me.hp.pot==0)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>7) then
+		study["end"]("ok")
+	else
+		if me.hp.pot==lastpot then
+			lastpotcount=lastpotcount+1
+		else
+			lastpot=me.hp.pot
+			lastpotcount=1
+		end
+		if getnum(me.hp.pot)<100 then
+			pots=me.hp.pot
+		else
+			pots=100
+		end
+		catch("study","yanjiu "..study.skill.skill.." "..tostring(pots))
+		hp()
+		delay(1,study["yanjiucmd"])
+	end
+
+end
+study["yanjiufail"]=function()
+	go(-2,study.yanjiucmd,study_end_fail)
 end
 
 getdefalutstudy=function()
-	if study.skill.npc~=false then
+	if study.skill.npc~=false or study.skill.npcname~=false then
 		return "xue"
 	else
 		if getnum(me.hp.exp)<800000 then
 			return "xue"
 		else
-			return "yan jiu"
+			return "yanjiu"
 		end
 	end
 end
@@ -117,6 +147,7 @@ setupskill=function()
 	if i==0 then study.skill=nil end
 	study["skill"]=getskill(_skills[math.random(1,i)])
 	if study["skill"]~=nil then
+		if study.skill.study==false then study.skill.study=getdefalutstudy() end
 		if study.skill.npc~=false then
 			if npcs[study.skill.npc]==nil then
 				study.skill.npc=false
@@ -128,7 +159,6 @@ setupskill=function()
 				study.skill.npc=npcs[study.skill.npcname].id
 			end
 		end
-		if study.skill.study==false then study.skill.study=getdefalutstudy() end
 		if study.skill.npc==false then
 			if me.fam~=nil then
 				if me.score.teacher~="none" and me.score.teacher~=nil then

@@ -130,6 +130,7 @@ end
 
 
 getinfo=function(func)
+	gettitle()
 	score()
 	getjifa()
 	cha()
@@ -159,6 +160,12 @@ settags=function()
 			tags=familys[me.fam].family
 		end
 	end
+	if housepass[me.name.."ÊÖÚÍ"]~=nil then
+		mypass[housepass[me.name.."ÊÖÚÍ"].name]=true
+	end
+	for i,v in pairs(mypass) do
+		tags=tags.."|pass-"..i
+	end
 	mapper.settags(tags)
 end
 
@@ -185,4 +192,17 @@ mejifaforcelv=function()
 		end
 	end
 	return 0
+end
+me.name=""
+status_onname=function(n,l,w)
+	me.name=(w[3])
+end
+
+status_onrank=function(n,l,w)
+	SetTriggerOption("status_onname","match","^(> )*"..w[2]..".*( |¡¹)((..){1,4})\\(\\w+\\)$")
+end
+
+gettitle=function()
+	me.name=""
+	catch("rank","rank")
 end

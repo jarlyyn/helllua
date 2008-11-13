@@ -25,3 +25,14 @@ end
 mapper.getroomname=function(r)
 	return mushmapper.getroomname(mapper.id,r)
 end
+
+mapper.addpath=function(r,p)
+	mushmapper.addpath(mapper.id,r,p)
+end
+
+mapper.newarea=function(i)
+	return mushmapper.newarea(mapper.id,i)
+end
+mapper.readroom=function(r,s)
+	mushmapper.readroom(mapper.id,r,s)
+end

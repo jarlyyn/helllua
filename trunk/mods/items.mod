@@ -1,5 +1,6 @@
 itemlist={}
 on_itemsstart=function(name, line, wildcards)
+	mypass={}
 	titemlist={}
 	EnableTrigger("on_items",true)
 end
@@ -7,10 +8,19 @@ on_itemsend=function(name, line, wildcards)
 	itemlist=titemlist
 	EnableTrigger("on_items",false)
 end
+mypass={}
 on_items=function(name, line, wildcards)
 	_item,num=getitemnum(wildcards[2])
 	titemlist[_item]=num
 	titemlist[wildcards[3]]=num
+	if wildcards[3]=="pass" then
+		if housepass[_item]~=nil then
+			mypass[housepass[_item].name]=true
+			print("找到:"..housepass[_item].name.."的pass")
+		else
+			print("没有找到--".._item.."对应的pass,请检查house.ini")
+		end
+	end
 end
 on_itemsground=function(name, line, wildcards)
 end
@@ -35,8 +45,8 @@ itemendok=function()
 	item["end"]("ok")
 end
 item["end"]=function(s)
-	if ((s~="")and(s~=nil)) then 
-		call(item[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(item[s])
 	end
 	item["ok"]=nil
 	item["fail"]=nil

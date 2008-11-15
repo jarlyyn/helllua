@@ -3,7 +3,7 @@ kill["ok"]=nil
 kill["fail"]=nil
 kill.npc=""
 pfm=function()
-	if me.special["self"] then run("yun recover") end
+	if me.special["小周天运转"] then run("yun recover") end
 	pfm_skill=GetVariable("pfm")
 	if pfm_skill=="" or pfm ==nil then return end
 	if pfm_skill=="shot" then
@@ -16,9 +16,9 @@ fightpreper=function()
 	if GetVariable("pfm")=="shot" then
 		run("hand bow")
 	end
-	if me.special["power"] then run("power") end
-	if me.special["agile"] then run("agile") end
-	if me.special["	hatred"] then run("hatred") end
+	if me.special["天神降世"] then run("power") end
+	if me.special["如鬼似魅"] then run("agile") end
+	if me.special["杀气"] then run("hatred") end
 
 	run("yun recover;yun powerup;yun shield")
 end

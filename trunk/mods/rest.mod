@@ -9,13 +9,16 @@ testneili=function()
 		neilimin=0
 	else
 		neilimin=tonumber(neilimin)
-	end	
+	end
 	return (me.hp.neili< neilimin)
 end
 
 checkrest=function(crest_ok,crest_fail)
 	if testneili() then
 		do_rest(crest_ok,crest_fail)
+		return true
+	elseif me.hp.jinli<getnum(tonumber(GetVariable("jinlimin"))) then
+		do_tuna(crest_ok,crest_fail)
 		return true
 	else
 		return false
@@ -24,7 +27,13 @@ end
 do_rest=function(rest_ok,rest_fail)
 	rest["ok"]=rest_ok
 	rest["fail"]=rest_fail
-	if ((lastsleep+sleepdelay)<os.time())or(mejifaforcelv()<100) then
+	meforce=me.skills.force
+	if meforce==nil then
+		meforce=0
+	else
+		meforce=meforce.lv
+	end
+	if ((lastsleep+sleepdelay)<os.time())or(meforce<75) then
 		rest.sleep()
 	else
 		rest.dazuo()
@@ -33,8 +42,8 @@ end
 
 rest["end"]=function(s)
 	EnableTriggerGroup("rest",false)
-	if ((s~="")and(s~=nil)) then 
-		call(rest[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(rest[s])
 	end
 	rest["ok"]=nil
 	rest.fail=nil
@@ -84,3 +93,41 @@ end
 rest["dazuocmd"]=function()
 	dazuo(rest_end_ok)
 end
+
+
+tuna={}
+tuna["ok"]=nil
+tuna["fail"]=nil
+
+do_tuna=function(tuna_ok,tuna_fail)
+	tuna["ok"]=tuna_ok
+	tuna["fail"]=tuna_fail
+	go(-2,tuna.arrive,tuna_end_fail)
+end
+
+tuna.arrive=function()
+	tuna.cmd()
+	busytest(tuna_end_ok)
+end
+tuna.cmd=function(func)
+	tunanum=math.floor(getnum(me.hp.jinqi)*0.8)
+	if tunanum<70 then tunanum=70 end
+	if tunanum>500 then tunanum=500 end
+	run("tuna "..tostring(tunanum))
+end
+tuna["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(tuna[s])
+	end
+	tuna["ok"]=nil
+	tuna["fail"]=nil
+end
+
+tuna_end_ok=function()
+	tuna["end"]("ok")
+end
+
+tuna_end_fail=function()
+	tuna["end"]("fail")
+end
+

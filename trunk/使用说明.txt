@@ -88,7 +88,7 @@ xue,yanjiu
 8.weapon 使用的武器
 9.weapon2 要磨的武器
 10.fightcuff kill后的用的空手技能，比如yun suck。
-
+11.jinlimin:最低精力
 遥控：
 把遥控者的id设为can_tell
 

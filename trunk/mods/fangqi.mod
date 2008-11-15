@@ -40,8 +40,9 @@ fangqi.fangqicmd=function()
 	busytest(fangqi.checkcmd)
 end
 fangqi["end"]=function(s)
+	cha()
 	if ((s~="")and(s~=nil)) then
-		call(fangqi[s])
+		infoend(fangqi[s])
 	end
 	fangqi["ok"]=nil
 	fangqi["fail"]=nil
@@ -77,7 +78,7 @@ max=function(value1,value2)
 	end
 end
 getskilllv=function(tskill)
-	if tskill==nil then 
+	if tskill==nil then
 		return 0
 	else
 		return tskill.lv
@@ -87,12 +88,12 @@ end
 getexpmin=function()
 	skillmax=max(getskilllv(me.skills.dodge),max(getskilllv(me.skills.force),max(getskilllv(me.skills.parry),max(getskilllv(me.skills.sword),max(getskilllv(me.skills.blade),max(getskilllv(me.skills.staff),max(getskilllv(me.skills.whip),max(getskilllv(me.skills.hammer),max(getskilllv(me.skills.finger),max(getskilllv(me.skills.unarmed),max(getskilllv(me.skills.strike),max(getskilllv(me.skills.hand),getskilllv(me.skills.cuff)))))))))))))-2
 	return skillmax*skillmax*skillmax/10
-end	
+end
 
 checkfangqi=function(check_ok,check_fail)
 	if getnum(me.hp.exp)>(getexpmax()) then
 		do_fangqi(check_ok,check_fail)
-		return true	
+		return true
 	else
 		return false
 	end

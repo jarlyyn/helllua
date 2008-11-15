@@ -50,8 +50,9 @@ end
 
 study["end"]=function(s)
 	setupskill()
+	cha()
 	if ((s~="")and(s~=nil)) then
-		call(study[s])
+		infoend(study[s])
 	end
 	study["ok"]=nil
 	study["fail"]=nil

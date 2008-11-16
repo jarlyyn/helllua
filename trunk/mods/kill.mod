@@ -16,9 +16,9 @@ fightpreper=function()
 	if GetVariable("pfm")=="shot" then
 		run("hand bow")
 	end
-	if me.special["天神降世"] then run("power") end
-	if me.special["如鬼似魅"] then run("agile") end
-	if me.special["杀气"] then run("hatred") end
+	if me.special["天神降世"] then run("special power") end
+	if me.special["如鬼似魅"] then run("special agile") end
+	if me.special["杀气"] then run("special hatred") end
 
 	run("yun recover;yun powerup;yun shield")
 end

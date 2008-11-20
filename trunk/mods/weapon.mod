@@ -1,8 +1,11 @@
 weapon=function(wn)
+	weaponid=GetVariable("weapon2")
+	if weaponid==nil then weaponid="" end
 	if wn==0 then
 		weapon1(false)
 		weapon2(false)
 	elseif wn==2 then
+		if weaponid=="" then return end
 		weapon1(false)
 		weapon2(true)
 	elseif wn==3 then
@@ -11,7 +14,7 @@ weapon=function(wn)
 	else
 		weapon2(false)
 		weapon1(true)
-	end	
+	end
 end
 
 weapon1=function(wield)
@@ -28,9 +31,9 @@ weapon2=function(wield)
 	weaponid=GetVariable("weapon2")
 	if weaponid=="" or weaponid==nil then return end
 	if wield==false then
-		run ("unwield "..weaponid"..;remove "..weaponid)
+		run ("unwield "..weaponid..";remove "..weaponid)
 	else
-		run ("wield "..weaponid"..;wear "..weaponid)
+		run ("wield "..weaponid..";wear "..weaponid)
 	end
 end
 
@@ -102,5 +105,5 @@ checkrepair=function(check_ok,check_fail)
 	end
 	return true
 end
-	
+
 

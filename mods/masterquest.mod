@@ -411,6 +411,7 @@ end
 masterquest_npcfaint=function()
 	masterquest.die=true
 	run("get silver from "..npc.id)
+	weapon(2)
 end
 masterquest_npcdie=function()
 	masterquest.die=true

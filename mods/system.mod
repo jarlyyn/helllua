@@ -3,7 +3,7 @@ eatdrink=function()
 	run("eat "..food..";drink "..drink)
 end
 on_disconnect=function()
-	if (logable)and not(quest.stop) then
+	if ((logable==true)and(not(quest.stop))) then
 		Connect()
 	end
 	DeleteTemporaryTimers()

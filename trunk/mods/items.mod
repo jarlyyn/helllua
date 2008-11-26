@@ -36,8 +36,11 @@ item["go"]=function(itemname,itemnum,item_ok,item_fail)
 		item["end"]("fail")
 		return
 	end
-	go(items[item["item"]]["loc"],item["get"],itemendfail)
+	go(items[item["item"]]["loc"],item["arrive"],itemendfail)
 end
+
+do_item=item["go"]
+
 itemendfail=function()
 	item["end"]("fail")
 end
@@ -52,7 +55,7 @@ item["end"]=function(s)
 	item["fail"]=nil
 end
 
-item["get"]=function()
+item["arrive"]=function()
 	if itemlist[item["item"]]==nil then
 		num=0
 	else
@@ -74,8 +77,14 @@ item["buy"]=function()
 		if num>num2 then num=num2 end
 		run("buy "..tostring(num).." "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"]..";i")
 	end
-	busytest(item["get"])
+	busytest(item["arrive"])
 end
+item["cmd"]=function()
+	run(items[item["item"]]["cmd"])
+	run("i")
+	busytest(item["arrive"])
+end
+
 itemsnum=function(name)
 	return(getnum(itemlist[name]))
 end

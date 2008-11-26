@@ -44,6 +44,14 @@ end
 quest["end"]["liandan"]=function()
 	liandan["end"]()
 end
+loadmod("dutable.mod")
+quest.main["dutable"]=function()
+	do_dutable(dutable.loop,dutable.loop)
+	quest.resume=quest.main["dutable"]
+end
+quest["end"]["dutable"]=function()
+	dutable["end"]()
+end
 loadmod("masterquest.mod")
 quest.main["mq"]=function()
 	mqquests=0

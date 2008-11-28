@@ -50,8 +50,8 @@ beiqisells["Ìú¼×"]={name="Ìú¼×",id="armor"}
 beiqisells["ÆÕÍ¨Ø°Ê×"]={name="ÆÕÍ¨Ø°Ê×",id="dagger"}
 beiqisells["Öñ°ô"]={name="Öñ°ô",id="zhubang"}
 beiqisells["Öñ½£"]={name="Öñ½£",id="zhujian"}
-beiqisells["·É»ÈÊ¯"]={name="·É»ÈÊ¯",id="feihuang shi",sellmax=100}
-beiqisells["ÌúÁ«×Ó"]={name="ÌúÁ«×Ó",id="tie lianzi",sellmax=100}
+--beiqisells["·É»ÈÊ¯"]={name="·É»ÈÊ¯",id="feihuang shi",sellmax=100}
+--beiqisells["ÌúÁ«×Ó"]={name="ÌúÁ«×Ó",id="tie lianzi",sellmax=100}
 beiqisells["Ä¾½£"]={name="Ä¾½£",id="mu jian"}
 beiqisells["Ä¾µ¶"]={name="Ä¾µ¶",id="mu dao"}
 beiqisells["Ä¾¹÷"]={name="Ä¾¹÷",id="mu dao"}
@@ -92,7 +92,7 @@ beiqi_end_fail=function()
 end
 
 beiqi["arrive"]=function()
-	busytest(beiqi["ask"])	
+	busytest(beiqi["ask"])
 end
 
 beiqi["ask"]=function()
@@ -102,7 +102,7 @@ beiqi["ask"]=function()
 	beiqi["item"]=""
 	print("test2")
 	askinfo(beiqi.info.info,beiqi.info.npc.."µÄÊÂ")
-	infoend(beiqi["askend"])	
+	infoend(beiqi["askend"])
 end
 
 beiqi["askend"]=function()
@@ -143,7 +143,7 @@ beiqi["give"]=function()
 end
 
 beiqi.giveend=function()
-	busytest(beiqi_end_ok)	
+	busytest(beiqi_end_ok)
 end
 
 beiqi["main"]=function()

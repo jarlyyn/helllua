@@ -36,3 +36,46 @@ end
 mapper.readroom=function(r,s)
 	mushmapper.readroom(mapper.id,r,s)
 end
+
+getexitroom=function (room,dir)
+
+	local exits={}
+	local i=0
+	local tdir=""
+	local texit=""
+	if room<0 then return -1 end
+	if dir==nil then return room end
+	exits=mapper.getexits(room)
+	while (i<#exits) do
+		i=i+1
+		tdir=dir
+		texit=exits[i][1]
+		if #tdir > #texit then
+			texit=texit.."*"
+		elseif #tdir < #texit then
+			tdir=tdir.."*"
+		end
+		if (tdir==texit) then return exits[i][2] end
+	end
+	return -1
+end
+
+getroomexits=function (room,enterable)
+	local exits={}
+	local i=0
+	local exitcount=0
+	local roomexits={}
+	if room<0 then return nil end
+	exits=mapper.getexits(room)
+	while (i<#exits) do
+		i=i+1
+		if enterable==true then
+			if exits[i][2]==-1 then
+				break
+			end
+		end
+		exitcount=exitcount+1
+		roomexits[exitcount]=exits[i][1]
+	end
+	return roomexits
+end

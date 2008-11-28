@@ -190,12 +190,12 @@ getexits=function(exit)
 end
 
 walk_locate_step=function()
-	local rm={mapper.getroomid(_roomname)}
+	local rm=mapper.getroomid(_roomname)
 	if getnum(_roomid)>-1 then
-		rm[1]=1
-		rm[2]=_roomid
+		rm={}
+		rm[1]=_roomid
 	end
-	if (rm[1]~=1) then
+	if (#rm~=1) then
 		searchfor["next"](getexits(_exits))
 	else
 		EnableTriggerGroup("locate",false)
@@ -203,7 +203,7 @@ walk_locate_step=function()
 		walk["ok"]=searchfor["ok"]
 		walk["fail"]=searchfor["fail"]
 		searchfor["end"]()
-		_roomid=rm[2]
+		_roomid=rm[1]
 		go(walklocateto,walklocateok,walklocatefail)
 	end
 end
@@ -249,47 +249,6 @@ steptrace=function(dir)
 	if (_roomid~=-1) then  _roomid=getexitroom(_roomid,dir) end
 end
 
-getexitroom=function (room,dir)
-	local exits={}
-	local i=0
-	local tdir=""
-	local texit=""
-	if room<0 then return -1 end
-	if dir==nil then return room end
-	exits={mapper.getexits(room)}
-	while (i<exits[1]) do
-		i=i+1
-		tdir=dir
-		texit=exits[i*2]
-		if #tdir > #texit then
-			texit=texit.."*"
-		elseif #tdir < #texit then
-			tdir=tdir.."*"
-		end
-		if (tdir==texit) then return exits[i*2+1] end
-	end
-	return -1
-end
-
-getroomexits=function (room,enterable)
-	local exits={}
-	local i=0
-	local exitcount=0
-	local roomexits={}
-	if room<0 then return nil end
-	exits={mapper.getexits(room)}
-	while (i<exits[1]) do
-		i=i+1
-		if enterable==true then
-			if getexitroom(_roomid,exits[i+i])==-1 then
-				break
-			end
-		end
-		exitcount=exitcount+1
-		roomexits[exitcount]=exits[i+i]
-	end
-	return roomexits
-end
 
 walk_on_flyfail=function (n,w,l)
 	if w[2] =="你已经超过17岁了，无法再使用这个指令回到客店了。" then

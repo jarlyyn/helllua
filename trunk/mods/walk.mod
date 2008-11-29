@@ -178,7 +178,6 @@ walk["flyfail"]=function()
 end
 
 getexits=function(exit)
-
 	exits={}
 	i=0
 	re = rex.new ("(\[A-Za-z\]+)")

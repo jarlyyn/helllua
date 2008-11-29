@@ -72,6 +72,10 @@ getroomexits=function (room,enterable)
 		if enterable==true then
 			if exits[i][2]==-1 then
 				break
+			elseif exitback[exits[i][1]]==nil then
+				break
+			elseif getexitroom(exits[i][2],exitback[exits[i][1]])~=room then
+				break
 			end
 		end
 		exitcount=exitcount+1

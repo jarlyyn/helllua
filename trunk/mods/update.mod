@@ -1,4 +1,4 @@
-version=23
+version=25
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -55,6 +55,7 @@ updateversion=function()
 	addvar("jinlimin","0")
 	addtri("status_onrank","^(> )*你现在的江湖头衔：(.*)","rank","status_onrank")
 	addtri("status_onname","^(> )*rank.*( |」)((..){1,4})\\(\\w+\\)$","charinfo","status_onname")
+	addtri("mqinfosl","^(最近)(.*)(在)(.*)作恶多端，你去把他除了，提头来见。”","mqinfo","mqinfo")
 end
 
 

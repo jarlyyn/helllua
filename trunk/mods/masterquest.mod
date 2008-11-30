@@ -415,6 +415,15 @@ masterquest_npcfaint=function()
 end
 masterquest_npcdie=function()
 	masterquest.die=true
+	meforce=me.skills.force
+	if meforce==nil then
+		meforce=0
+	else
+		meforce=meforce.lv
+	end
+	if meforce>100 then
+		weapon(0)
+	end
 	run("cut head from corpse;get head")
 	mqquests=mqquests+1
 	mqlasttime=os.time()-mqstarttime

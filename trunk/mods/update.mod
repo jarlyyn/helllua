@@ -1,4 +1,4 @@
-version=25
+version=26
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -56,6 +56,8 @@ updateversion=function()
 	addtri("status_onrank","^(> )*你现在的江湖头衔：(.*)","rank","status_onrank")
 	addtri("status_onname","^(> )*rank.*( |」)((..){1,4})\\(\\w+\\)$","charinfo","status_onname")
 	addtri("mqinfosl","^(最近)(.*)(在)(.*)作恶多端，你去把他除了，提头来见。”","mqinfo","mqinfo")
+
+	addtri("systemlogdelay","^你不能在 .* 秒钟之内连续重新连线。","system","logdelay")
 end
 
 

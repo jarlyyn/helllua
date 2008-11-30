@@ -38,6 +38,9 @@ mushclient设置:
 4.一些mud中的设置：
 alias chatroom 你的聊天室名字，比如alias chatroom bao,决定了gift丢在哪里
 set can_tell 你的遥控id的名字，比如set can_tell bao,决定了你的遥控大米
+关于帮助寻找很远的npc:目前是利用party,也就是帮派寻找的，以后会加入league寻找。
+如果需要帮助寻找，请加入一个帮派。推荐明教，人多，没什么副作用。
+
 
 4.设置config.ini文件
 一般来说，只需要设置cmd_limit,根据的网速设置每秒命令数

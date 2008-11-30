@@ -2,11 +2,12 @@ logable=true
 eatdrink=function()
 	run("eat "..food..";drink "..drink)
 end
+logdelaysec=1
 on_disconnect=function()
 	if ((logable==true)and(not(quest.stop))) then
-		Connect()
+		AddTimer("login",0,0,logdelaysec,"",17445,"Connect")
 	end
-	DeleteTemporaryTimers()
+	logdelaysec=1
 end
 idre=rex.new("^.*\\\\(?<id>[^-.]+)(-(?<passwd>[^-.]+)){0,1}")
 getidpass=function()
@@ -35,10 +36,13 @@ system_login=function(name, line, wildcards)
 	getidpass()
 	EnableTriggerGroup("log",true)
 	if (not logable) then return end
-		print("十秒后登陆,请稍等")
-		DoAfterSpecial(11,'login()',12)
+		login()
 end
 
+logdelay=function(n,l,w)
+	print("十秒后登陆,请稍等")
+	logdelaysec=10
+end
 system_logok=function(name,line,wildcards)
 
 	logable=true
@@ -63,6 +67,7 @@ end
 recon=function()
 	DiscardQueue()
 	Disconnect()
+	DeleteTemporaryTimers()
 	on_disconnect()
 end
 
@@ -83,6 +88,7 @@ on_faint1=function(name,line,wildcards)
 end
 
 discon=function()
+	logable=false
 	if posioned then
 		logable=false
 	end

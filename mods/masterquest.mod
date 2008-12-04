@@ -57,7 +57,6 @@ end
 
 masterquest.check=function()
 	if do_check(masterquest["main"],masterquest["main"]) then
-	elseif checkstudy(masterquest["main"],masterquest["main"]) then
 	elseif checkfangqi(masterquest["main"],masterquest["main"]) then
 	elseif checkjiqu(masterquest["main"],masterquest["main"]) then
 	elseif checknuqi(masterquest["main"],masterquest["main"]) then
@@ -117,6 +116,7 @@ masterquest.case=function()
 		else
 			do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
 		end
+	elseif checkstudy(masterquest.case,masterquest["main"]) then
 	else
 		masterquest.askquest()
 	end

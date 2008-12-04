@@ -1,4 +1,4 @@
-version=26
+version=28
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -56,8 +56,11 @@ updateversion=function()
 	addtri("status_onrank","^(> )*你现在的江湖头衔：(.*)","rank","status_onrank")
 	addtri("status_onname","^(> )*rank.*( |」)((..){1,4})\\(\\w+\\)$","charinfo","status_onname")
 	addtri("mqinfosl","^(最近)(.*)(在)(.*)作恶多端，你去把他除了，提头来见。”","mqinfo","mqinfo")
-
 	addtri("systemlogdelay","^你不能在 .* 秒钟之内连续重新连线。","system","logdelay")
+	addtri("npc_killme","^(> )*(.{1,8})(一见到你|和你一碰面|对著你大喝：「可恶|喝道：「你|一眼瞥见你|和你仇人相见分外眼红)","system","npc_killme")
+	addtri("walk_busy","^(> )*(你的动作还没有完成，不能移动|你逃跑失败|你被拦住了去路|你突然发现眼前的景象有些迷乱|你太累了，还是休息一会儿吧|你的内力不够，还是休息一下再说吧|这里没有这样东西可骑|现在白雕正忙着)","system","walk_on_busy")
+
+--	SetTriggerOption(triname,"group",trigroup)
 end
 
 

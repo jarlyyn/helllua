@@ -1,4 +1,4 @@
-version=28
+version=30
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -24,7 +24,7 @@ updateversion=function()
 	addtri("remote","^(> )*[^~].{1,7}\\((.*)\\)告诉你：do (.+)","system","remote_called")
 	addtri("cantell",'^can_tell\\s*"(.+)"',"mudvar","mudvar_teller")
 	addtri("mqletter","^(> )*(突然一位|忽听“嗖”的一声|你转身一看|你一回头|你正欲离开|只见你刚想离开|只听扑倏扑倏几声)(.*)(弟子急急忙忙地跑了上来，拍拍你的肩膀|一件暗器从你背后飞来|竟见到一只灰点信鸽飞至身旁，你赶紧|只见一位同门装束的弟子满头大汗地跑了过来|忽然发现不远处的地上一块石头上刻着些什么|一位同门装束的弟子追了上来|一只白鸽飞了过来，落在你肩头)","masterquest","mqletterattive")
-	addtri("block_onnpc","^(> )*(.*)(喝道：这位.*休走！|上前挡住你，朗声说道：这位|喝道：“威……武……。”|挡住了你：|伸手拦住你白眼一翻说道：千年以来|拦住你|迈步挡在你身前，双手合什说道：|大声喝道：他奶奶的，你要干嘛？|拦住你道：没有王爷的吩咐，谁也不能进去。|挡住你|一把抓住了你，说道：“咱们这里是有规矩的地方，不准带武器进入。”)","system","block_onnpc")
+	addtri("block_onnpc","^(> )*(.*)(喝道：这位.*休走！|上前挡住你，朗声说道：这位|喝道：“威……武……。”|挡住了你：|伸手拦住你白眼一翻说道：千年以来|拦住你|迈步挡在你身前，双手合什说道：|大声喝道：他奶奶的，你要干嘛？|拦住你道：没有王爷的吩咐，谁也不能进去。|挡住你|一把抓住了你，说道：“咱们这里是有规矩的地方，不准带武器进入。”飞身挡住你的去路，脸上一丝表情也没有！|扭身挡住，脸上没有一点笑容！|笑嘻嘻地挡住你的去路：再玩玩才走啦。气得你半死！|一把拦住你：瞎窜什么，过来吧你给我！|一把拦住你：要上楼，先过了我这关！|哈哈一笑：这里还没打过呢，就想上楼|俏眼一瞪：没看见本姑娘在这里吗？|大喝一声：哪里走？滚下来！|冷哼一声：想走？放着十二郎在这你就给我留下来！|大吼一声：我有九条命，你有几条？放马过来！|大吼一声，执鞭拦在楼梯口！|长刀一摆，挡住你的去路，一言不发！)","system","block_onnpc")
 	addtri("mqlettercontent","^(> )*“字谕弟子(.*?)：(得闻恶贼|武林人士|得闻所谓大侠)(.*?)(屡次和我派作对|打家劫舍|所为甚是讨厌)(.*)\\n(.*)出没，正是大好机会将他除去","mqletter","mqlettercontent")
 	SetTriggerOption("mqlettercontent","multi_line","1")
 	SetTriggerOption("mqlettercontent","lines_to_match","2")
@@ -59,6 +59,15 @@ updateversion=function()
 	addtri("systemlogdelay","^你不能在 .* 秒钟之内连续重新连线。","system","logdelay")
 	addtri("npc_killme","^(> )*(.{1,8})(一见到你|和你一碰面|对著你大喝：「可恶|喝道：「你|一眼瞥见你|和你仇人相见分外眼红)","system","npc_killme")
 	addtri("walk_busy","^(> )*(你的动作还没有完成，不能移动|你逃跑失败|你被拦住了去路|你突然发现眼前的景象有些迷乱|你太累了，还是休息一会儿吧|你的内力不够，还是休息一下再说吧|这里没有这样东西可骑|现在白雕正忙着)","system","walk_on_busy")
+	addtri("l_1673","^    这里是六和塔的底层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2298","^    这里是六和塔的二层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2299","^    这里是六和塔的三层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2300","^    这里是六和塔的四层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2301","^    这里是六和塔的五层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2302","^    这里是六和塔的六层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2303","^    这里是六和塔的七层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2304","^    这里是六和塔的八层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
+	addtri("l_2305","^    这里是六和塔的九层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 
 --	SetTriggerOption(triname,"group",trigroup)
 end

@@ -4,7 +4,7 @@ eatdrink=function()
 end
 logdelaysec=1
 on_disconnect=function()
-	if ((logable==true)and(not(quest.stop))) then
+	if ((logable==true)and(not(quest.stop and (quest.name~="mq" or masterquest.die~=false)))) then
 		AddTimer("login",0,0,logdelaysec,"",17445,"Connect")
 	end
 	logdelaysec=1

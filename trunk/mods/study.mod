@@ -83,6 +83,35 @@ study["xuecmd"]=function()
 	end
 end
 
+study["jingxiu"]=function()
+	if me.fam=="武当派" or me.fam=="全真教" then
+		go(familys[me.fam].dazuoloc,study["jingxiucmd"],study_end_fail)
+	else
+		busytest(study_end_fail)
+	end
+end
+
+study["jingxiucmd"]=function()
+	if (me.hp.pot==0)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>3) then
+		study["end"]("ok")
+	else
+		if me.hp.pot==lastpot then
+			lastpotcount=lastpotcount+1
+		else
+			lastpot=me.hp.pot
+			lastpotcount=1
+		end
+		if getnum(me.hp.pot)<100 then
+			pots=me.hp.pot
+		else
+			pots=100
+		end
+		catch("study","jingxiu "..tostring(pots))
+		hp()
+		delay(1,study["jingxiucmd"])
+	end
+end
+
 study["yanjiu"]=function()
 	settags()
 	go(2501,study.yanjiucmd,study.yanjiufail)
@@ -117,7 +146,7 @@ getdefalutstudy=function()
 	if study.skill.npc~=false or study.skill.npcname~=false then
 		return "xue"
 	else
-		if getnum(me.hp.exp)<800000 then
+		if getnum(tonumber(GetVariable("expmax")))<800000 then
 			return "xue"
 		else
 			return "yanjiu"
@@ -148,6 +177,12 @@ setupskill=function()
 	if i==0 then study.skill=nil end
 	study["skill"]=getskill(_skills[math.random(1,i)])
 	if study["skill"]~=nil then
+		if study.skill.skill=="jingxiu" then
+			study.skill.loc=0
+			study.skill.npc=""
+			study.skill.study="jingxiu"
+			return
+		end
 		if study.skill.study==false then study.skill.study=getdefalutstudy() end
 		if study.skill.npc~=false then
 			if npcs[study.skill.npc]==nil then

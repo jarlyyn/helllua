@@ -10,6 +10,8 @@ testneili=function()
 	else
 		neilimin=tonumber(neilimin)
 	end
+	if me.hp==nil then return true end
+	if me.hp.neili==nil then return true end
 	return (me.hp.neili< neilimin)
 end
 

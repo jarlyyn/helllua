@@ -449,7 +449,7 @@ letteraccept=function()
 	elseif giftquest[mqcount] ==true then
 	elseif quest.stop==true then
 	elseif tdelay>-1 and tdelay<=acceptmaxstep then
-	elseif potmax>0 and me.hp.pot>potmax and study.skill.study~="yanjiu" then
+	elseif potmax>0 and me.hp.pot>potmax then
 	else
 		return true
 	end
@@ -529,7 +529,7 @@ end
 
 mqkill.onkillme=function(npcname)
     if npcname~=masterquest.npc then
-        if hashook(hooks.fight())==true then
+        if hashook(hooks.fight)==true then
             mqhelperrecon()
         else
             run("halt")

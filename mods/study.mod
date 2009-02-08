@@ -213,3 +213,7 @@ end
 study_fail=function(n,l,w)
 	lastpotcount=8
 end
+
+study_needweapon=function(n,l,w)
+	weapon(3)
+end

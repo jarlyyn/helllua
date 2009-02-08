@@ -1,4 +1,4 @@
-version=30
+version=31
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -68,7 +68,7 @@ updateversion=function()
 	addtri("l_2303","^    这里是六和塔的七层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 	addtri("l_2304","^    这里是六和塔的八层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 	addtri("l_2305","^    这里是六和塔的九层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
-
+	addtri("study_needweapon","^(> )*你必须先找一把.*才能练.*法。","study","study_needweapon")
 --	SetTriggerOption(triname,"group",trigroup)
 end
 

@@ -15,9 +15,9 @@ testneili=function()
 	return (me.hp.neili< neilimin)
 end
 
-checkrest=function(crest_ok,crest_fail)
+checkrest=function(crest_ok,crest_fail,l)
 	if testneili() then
-		do_rest(crest_ok,crest_fail)
+		do_rest(crest_ok,crest_fail,l)
 		return true
 	elseif me.hp.jinli<getnum(tonumber(GetVariable("jinlimin"))) then
 		do_tuna(crest_ok,crest_fail)
@@ -26,7 +26,7 @@ checkrest=function(crest_ok,crest_fail)
 		return false
 	end
 end
-do_rest=function(rest_ok,rest_fail)
+do_rest=function(rest_ok,rest_fail,l)
 	rest["ok"]=rest_ok
 	rest["fail"]=rest_fail
 	meforce=me.skills.force
@@ -36,7 +36,7 @@ do_rest=function(rest_ok,rest_fail)
 		meforce=meforce.lv
 	end
 	if ((lastsleep+sleepdelay)<os.time())or(meforce<75) then
-		rest.sleep()
+		rest.sleep(l)
 	else
 		rest.dazuo()
 	end
@@ -58,8 +58,9 @@ rest_end_ok=function()
 	rest["end"]("ok")
 end
 
-rest["sleep"]=function()
-	go(2500,rest["sleeparrive"],rest_end_fail)
+rest["sleep"]=function(l)
+	if l==nil then l=2500 end
+	go(l,rest["sleeparrive"],rest_end_fail)
 end
 rest["sleeparrive"]=function()
 	busytest(rest.sleepcmd)

@@ -100,8 +100,10 @@ catch=function(trigrp,command)
 	run(command)
 	trigrpoff(trigrp)
 end
-
-busytest=function(busyhook)
+busytestdelay=1
+busytest=function(busyhook,t)
+	if t==nil then t=1 end
+	busytestdelay=t
 	if hashook(hooks.isbusy) then
 		hook(hooks.isbusy,busyhook)
 	else
@@ -135,7 +137,7 @@ end
 
 system_isbusy=function(name, line, wildcards)
 	if hooks.isbusy~=nil then
-		DoAfterSpecial(1,'run(\"enchase bao\")',12)
+		DoAfterSpecial(busytestdelay,'run(\"enchase bao\")',12)
 	end
 end
 

@@ -55,6 +55,8 @@ start 师门任务
 #fish 钓鱼
 #liandan 炼丹
 #stop 停止任务
+#dutable 读石桌
+#canwu 参悟洗髓经
 
 2.其他命令:
 #to loc 到达某个地点,loc请参考rooms_all.
@@ -77,7 +79,7 @@ dodge(yanjiu) 研究dodge
 
 
 目前支持的学习指令包括:
-xue,yanjiu
+xue,yanjiu,jingxiu,closed
 
 
 

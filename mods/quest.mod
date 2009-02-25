@@ -52,6 +52,13 @@ end
 quest["end"]["dutable"]=function()
 	dutable["end"]()
 end
+quest.main["canwu"]=function()
+	do_canwu(canwu.loop,canwu.loop)
+	quest.resume=quest.main["canwu"]
+end
+quest["end"]["canwu"]=function()
+	canwu["end"]()
+end
 loadmod("masterquest.mod")
 quest.main["mq"]=function()
 	mqquests=0

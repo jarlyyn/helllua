@@ -43,6 +43,9 @@ end
 study_end_fail=function()
 	study["end"]("fail")
 end
+study_end_ok=function()
+	study["end"]("ok")
+end
 
 study["arrive"]=function()
 
@@ -108,9 +111,31 @@ study["jingxiucmd"]=function()
 		end
 		catch("study","jingxiu "..tostring(pots))
 		hp()
-		delay(1,study["jingxiucmd"])
+		busytest(study["jingxiucmd"],4)
 	end
 end
+
+study["closed"]=function()
+	go(2489,study["closedcmd"],study_end_fail)
+end
+
+study["closedcmd"]=function()
+	if (me.hp.pot==0)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>3) then
+		study["end"]("ok")
+	else
+		if me.hp.pot==lastpot then
+			lastpotcount=lastpotcount+1
+		else
+			lastpot=me.hp.pot
+			lastpotcount=1
+		end
+		catch("study","closed")
+		hp()
+		busytest(study_end_ok,30)
+	end
+end
+
+
 
 study["yanjiu"]=function()
 	settags()
@@ -181,6 +206,12 @@ setupskill=function()
 			study.skill.loc=0
 			study.skill.npc=""
 			study.skill.study="jingxiu"
+			return
+		end
+		if study.skill.skill=="closed" then
+			study.skill.loc=0
+			study.skill.npc=""
+			study.skill.study="closed"
 			return
 		end
 		if study.skill.study==false then study.skill.study=getdefalutstudy() end

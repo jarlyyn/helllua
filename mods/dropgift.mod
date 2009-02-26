@@ -1,8 +1,12 @@
+dropongroundlist={}
+dropongroundlist["luosha dan"]=true
+
 dropgift={}
 dropgift["ok"]=nil
 dropgift["fail"]=nil
 dropgift.baoguofull=false
 dropgift.enterchatfail=false
+dropgift.gift=""
 chatroom=nil
 do_dropgift=function(giftid,dropgift_ok,dropgift_fail)
 	dropgift["ok"]=dropgift_ok
@@ -51,6 +55,11 @@ end
 
 dropgift.arrivechat=function()
 	EnableTriggerGroup("enterchatfail",false)
+	if dropongroundlist[dropgift.gift]== true then
+		run("drop "..dropgift.gift)
+		busytest(dropgift_end_ok)
+		return
+	end
 	if itemsnum("baoguo")==0 then
 		if room_obj["baoguo"]~=nil then
 			run("get baoguo")

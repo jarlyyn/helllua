@@ -24,7 +24,6 @@ liandan.pack["Guiling dan"]="guiling dan"
 liandan.pack["Ñª÷èµ¤"]="xueqi dan"
 liandan.pack["Ó³ÔÂµ¤"]="yingyue dan"
 liandan.pack["ĞŞÂŞÎŞ³£µ¤"]="xiuluo dan"
-liandan.pack["ÂŞÉ²ÎŞ³£µ¤"]="luosha dan"
 liandan.pack["»ØÑôÎŞ¼«µ¤"]="huiyang dan"
 liandan.pack["²¹¾«µ¤"]="bujing dan"
 liandan.pack["»¹»êµ¤"]="huanhun dan"
@@ -32,6 +31,8 @@ liandan.pack["ÁúÏÑµ¤"]="longxian dan"
 liandan.pack["ÑûÔÂµ¤"]="yaoyue dan"
 liandan.pack["ĞùÔ¯²¹ĞÄµ¤"]="xuanyuan dan"
 liandan.pack["×ÓÎçÁú¼×µ¤"]="longjia dan"
+liandan.dropgift={}
+liandan.dropgift["Luosha dan"]="luosha dan"
 liandan.eat={}
 liandan.eat["Wanshou dan"]="wanshou dan"
 liandan.eat["Zhuque dan"]="zhuque dan"
@@ -71,6 +72,7 @@ end
 liandan.check=function()
 	if do_check(liandan["main"]) then
 	elseif checkitems(liandan.items,liandan["main"],liandan["main"]) then
+	elseif checkgiftdrop(liandan.dropgift,liandan["main"],liandan.packluosha) then
 	elseif checksell(liandan.sells,liandan["main"],liandan["main"],1291) then
 	elseif checkpack(liandan.pack,"baoguo",liandan["main"],liandan["main"],1291) then
 	elseif check_eatdan(liandan.eat,liandan["main"]) then
@@ -81,7 +83,9 @@ liandan.check=function()
 		busytest(liandan.askyao)
 	end
 end
-
+liandan.packluosha=function()
+	do_pack("luosha dan","baoguo",liandan["main"],liandan["main"])
+end
 liandan.askyao=function()
 	go(1388,liandan.askyaocmd,liandan_end_fail)
 end
@@ -111,7 +115,7 @@ end
 liandan.asktongcmd=function()
 	liandan.tonganswer=0
 	npchere("xiao tong","yun regenerate;ask xiao tong about Ò©²Ä")
-	infoend(liandan.asktongok)	
+	infoend(liandan.asktongok)
 end
 
 liandan.asktongok=function()

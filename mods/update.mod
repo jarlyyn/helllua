@@ -1,4 +1,4 @@
-version=33
+version=36
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -72,6 +72,9 @@ updateversion=function()
 	addtri("l_2305","^    这里是六和塔的九层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 	addtri("jiqu_fail","^(> )*(你的实战经验太浅，还无法领会通过实战获得的心得。|你感觉自己的实战经验还有欠缺，还无法领会更高境界的武学修养。|你现在精神不济，难以抓住实战体会中的秘要！)","system","jiqu_fail")
 	addtri("study_needweapon","^(> )*你必须先找一把.*才能练.*法。","study","study_needweapon")
+	addtri("items_onbagsstart","^(> )*设定环境变数：no_more = \"getbag-(.+)\"$","bagitem","on_bagsstart")
+	addtri("items_onbagsend","^(> )*设定环境变数：no_more = \"getbagend\"$","bagitem","on_bagsend")
+	addtri("items_onbagitems","^    ([^a-z!@#$%\\^&*()\\\\/.,<> ]+)\\((\\w*\\s{0,1}\\w+)\\)$","bagitem","on_bagitems")
 --	SetTriggerOption(triname,"group",trigroup)
 end
 

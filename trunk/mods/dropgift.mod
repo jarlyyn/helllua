@@ -60,6 +60,11 @@ dropgift.arrivechat=function()
 		busytest(dropgift_end_ok)
 		return
 	end
+	if jiuzhuanfull==true and dropgift.gift=="jiuzhuan jindan"  then
+		getbagitems("budai of here")
+		busytest(dropgift.budaiarrive)
+		return
+	end
 	if itemsnum("baoguo")==0 then
 		if room_obj["baoguo"]~=nil then
 			run("get baoguo")
@@ -69,6 +74,41 @@ dropgift.arrivechat=function()
 		end
 	end
 	dropgift.putgift()
+end
+dropgift.budaiarrive=function()
+	if bags["budai of here"]==nil then
+		jiuzhuancount=0
+	else
+		jiuzhuancount=getnum(bags["budai of here"]["jiuzhuan jindan"])
+	end
+	if jiuzhuancount==20 then
+		if itemsnum("baoguo")==0 then
+			if room_obj["baoguo"]~=nil then
+				run("get baoguo")
+			else
+				item["go"]("baoguo",1,dropgift.putgift,dropgift_end_fail)
+				return
+			end
+		end
+		dropgift.putgift()
+		return
+	end
+	if getnum(bagscount["budai of here"])>1 or (getnum(bagscount["budai of here"])==1 and jiuzhuancount==0) or room_obj["budai"]==0 then
+		item["go"]("budai",1,dropgift.budaiok,dropgift_end_fail)
+	else
+		dropgift.putbudai()
+	end
+end
+dropgift.budaiok=function()
+	go(2046,dropgift.dropbudai,dropgift_end_fail)
+end
+dropgift.dropbudai=function()
+	run("drop budai")
+	dropgift.putbudai()
+end
+dropgift.putbudai=function()
+	run("put "..dropgift.gift.." in budai of here")
+	dropgift_end_ok()
 end
 
 dropgift.testbaoguo=function()

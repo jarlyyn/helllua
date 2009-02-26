@@ -101,3 +101,28 @@ checkitems=function(_items,check_ok,check_fail)
 end
 
 loadmod("drop.mod")
+
+tbaglist={}
+_bagname=""
+bags={}
+bagscount={}
+on_bagsstart=function(name, line, wildcards)
+	_bagname=wildcards[2]
+	tbaglist={}
+	EnableTrigger("on_bagitems",true)
+end
+on_bagsend=function(name, line, wildcards)
+	bags[_bagname]=tbaglist
+	EnableTrigger("on_bagitems",false)
+end
+on_bagitems=function(name, line, wildcards)
+	_item,num=getitemnum(wildcards[1])
+	bagscount[_bagname]=bagscount[_bagname]+1
+	tbaglist[_item]=num
+	tbaglist[wildcards[2]]=num
+end
+
+getbagitems=function(bagname)
+	bagscount[bagname]=0
+	catch("bagitem","set no_more getbag-"..bagname..";l "..bagname..";set no_more getbagend")
+end

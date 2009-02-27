@@ -76,7 +76,7 @@ dropgift.arrivechat=function()
 	dropgift.putgift()
 end
 dropgift.budaiarrive=function()
-	if bags["budai of here"]==nil then
+	if bagscount["budai of here"]==0 then
 		jiuzhuancount=0
 	else
 		jiuzhuancount=getnum(bags["budai of here"]["jiuzhuan jindan"])
@@ -93,7 +93,7 @@ dropgift.budaiarrive=function()
 		dropgift.putgift()
 		return
 	end
-	if getnum(bagscount["budai of here"])>1 or (getnum(bagscount["budai of here"])==1 and jiuzhuancount==0) or room_obj["budai"]==0 then
+	if getnum(bagscount["budai of here"])>1 or (getnum(bagscount["budai of here"])==1 and jiuzhuancount==0) or room_obj["budai"]==nil then
 		item["go"]("budai",1,dropgift.budaiok,dropgift_end_fail)
 	else
 		dropgift.putbudai()

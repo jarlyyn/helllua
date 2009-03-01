@@ -74,7 +74,7 @@ end
 walk_on_busy=function(name, line, wildcards)
 	if walking==nil then return end
 	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
-		if wildcards[2]=="突然发现眼前的景象有些迷乱" then
+		if wildcards[2]=="你突然发现眼前的景象有些迷乱" then
 			run(walking["step"])
 		elseif wildcards[2]=="太累了，还是休息一会儿吧" then
 			DoAfterSpecial(1,"run('yun recover;'.."..'"'..walking["step"]..'")',12)

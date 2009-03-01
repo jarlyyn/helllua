@@ -34,8 +34,8 @@ do_heal=function(heal_ok,heal_fail,forceheal)
 	go(heal.loc,heal.arrive,heal_end_fail)
 end
 heal["end"]=function(s)
-	if ((s~="")and(s~=nil)) then 
-		call(heal[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(heal[s])
 	end
 	heal["ok"]=nil
 	heal.fail=nil
@@ -72,7 +72,7 @@ end
 
 heal["test"]=function()
 	hp()
-	infoend(heal.arrive)	
+	infoend(heal.arrive)
 end
 
 heal["yao"]=function()
@@ -90,7 +90,7 @@ posioned=false
 dispel={}
 dispel["ok"]=nil
 dispel["fail"]=nil
-
+dispel.neilifail=false
 do_dispel=function(dispel_ok,dispel_fail)
 	dispel["ok"]=dispel_ok
 	dispel["fail"]=dispel_fail
@@ -100,18 +100,26 @@ dispel.arrive=function()
 	busytest(dispel.cmd)
 end
 dispel.cmd=function()
-	run("yun recover;yun dispel")
+	catch("dispel","yun recover;yun dispel")
+	dispel.neilifail=false
 	busytest(dispel.test)
 end
 
 dispel.test=function()
+	if dispel.neilifail==true then
+		do_eatdan(dispel.arrive,dispel.eatdanfail)
+		return
+	end
 	if posioned then
 		busytest(dispel.cmd)
 	else
 		dispel_end_ok()
-	end	
+	end
 end
 
+dispel.eatdanfail=function()
+	discon()
+end
 dispel["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
 		call(dispel[s])
@@ -131,7 +139,9 @@ end
 dispel_posioned=function()
 	posioned=true
 end
-
+on_dispelneilifail=function()
+	dispel.neilifail=true
+end
 dispel_ok=function()
 	posioned=false
 end
@@ -142,5 +152,107 @@ checkdispel=function(dispel_ok,dispel_fail)
 		return true
 	else
 		return false
+	end
+end
+
+-------------------------------------------------------
+
+eatdan={}
+eatdan["ok"]=nil
+eatdan["fail"]=nil
+eatdan.index=0
+eatdan.list={"luosha dan"}
+eatdan.nlist={"Luosha dan"}
+do_eatdan=function(eatdan_ok,eatdan_fail)
+	eatdan.index=0
+	eatdan["ok"]=eatdan_ok
+	eatdan["fail"]=eatdan_fail
+	if chatroom==nil then
+		getmudvar()
+		infoend(eatdan.main)
+	else
+		busytest(eatdan.main)
+	end
+end
+
+eatdan["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(eatdan[s])
+	end
+	EnableTriggerGroup("enterchatfail",false)
+	EnableTriggerGroup("eatdan",false)
+	eatdan["ok"]=nil
+	eatdan["fail"]=nil
+end
+
+eatdan_end_ok=function()
+	eatdan["end"]("ok")
+end
+
+eatdan_end_fail=function()
+	eatdan["end"]("fail")
+end
+
+eatdan["main"]=function()
+	if canenterchat()==true then
+		EnableTriggerGroup("enterchatfail",true)
+		go(2046,eatdan.arrive,eatdan_end_fail)
+	else
+		eatdan_end_fail()
+	end
+end
+
+eatdan.arrive=function()
+		EnableTriggerGroup("enterchatfail",false)
+		busytest(eatdan.eatdan)
+end
+
+eatdan.eatdan=function()
+	eatdan.index=eatdan.index+1
+	if eatdan.index>#eatdan.list then
+		busytest(eatdan.eatjz)
+		return
+	end
+	if room_obj[eatdan.nlist[eatdan.index]]~=nil then
+		busytest(eatdan.eatdancmd)
+	else
+		busytest(eatdan.eatjz)
+	end
+end
+eatdan.danbusy=false
+eatdan.eatdancmd=function()
+eatdan.danbusy=false
+	catch("eatdan","get 1 "..eatdan.list[eatdan.index]..";eat "..eatdan.list[eatdan.index]..";drop "..eatdan.list[eatdan.index])
+	busytest(eatdan.eatok)
+end
+on_danbusy=function()
+	eatdan.danbusy=true
+end
+eatdan.eatok=function()
+	if eatdan.danbusy==true then
+		buystest(eatdan.eatdan)
+	else
+		eatdan_end_ok()
+	end
+end
+
+eatdan.eatjz=function()
+	if jiuzhuanfull~=true then eatdan_end_fail()
+		return
+	end
+	getbagitems("budai of here")
+	infoend(eatdan.eatjzcmd)
+end
+
+eatdan.eatjzcmd=function()
+	if bags["budai of here"]==nil or mudvar.eatjz~=true then
+		eatdan_end_fail()
+		return
+	end
+	if getnum(bags["budai of here"]["jiuzhuan jindan"]) ~=0 then
+		run("get jiuzhuan jindan from budai;eat jiuzhuan jindan")
+		eatdan_end_ok()
+	else
+		eatdan_end_fail()
 	end
 end

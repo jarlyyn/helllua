@@ -44,7 +44,7 @@ end
 dropgift.gochat=function()
 	if canenterchat()==true then
 		EnableTriggerGroup("enterchatfail",true)
-		go(2046,dropgift.arrive,dropgift_end_fail)
+		go(2046,dropgift.arrive,dropgift.testbaoguo)
 	else
 		busytest(dropgift.testbaoguo)
 	end
@@ -121,8 +121,7 @@ end
 
 dropgift_enterchatfail=function(n,l,w)
 	dropgift.enterchatfail=true
-	walk["end"]()
-	busytest(dropgift.testbaoguo)
+	walk["end"]("fail")
 end
 
 dropgift.putgift=function()

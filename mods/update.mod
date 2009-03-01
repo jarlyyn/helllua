@@ -1,4 +1,4 @@
-version=36
+version=38
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -43,6 +43,7 @@ updateversion=function()
 	addtri("giftbaoguofail","^(> )*包裹里面的东西实在是太多了，你先好好整理整理吧。","giftbaoguofail","giftbaoguofail")
 	addtri("enterchatfail","^(> )*(没有这个聊天室。|人家不欢迎你，你还是别去扫兴了。)","enterchatfail","dropgift_enterchatfail")
 	addtri("mudvar_chatroom","^chatroom\\s*=\\s*(.+)","mudvar","mudvar_chatroom")
+	addtri("mudvar_eatjz","^eat9z\\s*=\\s*(.+)","mudvar","mudvar_eatjz")
 	addtri("mqhelper1","^(> )*bao(大声喝道：“好一个|忽然撮舌吹哨，你听了不禁微微一愣。|一声长啸，声音绵泊不绝，远远的传了开去。)","masterquestkill","mqhelper1")
 	addtri("mqhelper","^(> )*说时迟，那时快！突然转出(.*)个人，一起冲上前来，看来是早有防备！$","mqhelper","mqhelper")
 	addtri("l_2369","^    这是一片空地，四周都是乱石，杂草丛生。北边是一间小屋。南","locate","on_locate")
@@ -75,6 +76,8 @@ updateversion=function()
 	addtri("items_onbagsstart","^(> )*设定环境变数：no_more = \"getbag-(.+)\"$","bagitem","on_bagsstart")
 	addtri("items_onbagsend","^(> )*设定环境变数：no_more = \"getbagend\"$","bagitem","on_bagsend")
 	addtri("items_onbagitems","^    ([^a-z!@#$%\\^&*()\\\\/.,<> ]+)\\((\\w*\\s{0,1}\\w+)\\)$","bagitem","on_bagitems")
+	addtri("heal_danbusy","^(> )*你的内力不足，无法运满一个周天。$","dispel","on_dispelneilifail")
+	addtri("heal_neilifail","^(> )*你刚服用过药，需药性发挥完效用以后才能继续服用。$","eatdan","on_danbusy")
 --	SetTriggerOption(triname,"group",trigroup)
 end
 

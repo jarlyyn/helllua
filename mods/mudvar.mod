@@ -2,6 +2,7 @@ mudvar={}
 initmudvar=function()
 	mudvar.teller=""
 	chatroom=""
+	mudvar.eatjz=false
 end
 
 getmudvar=function()
@@ -17,4 +18,8 @@ end
 mudvar_chatroom=function(n,l,w)
 	print("ÁÄÌìÊÒ£º"..w[1])
 	chatroom=w[1]
+end
+
+mudvar_eatjz=function(n,l,w)
+	mudvar.eatjz=true
 end

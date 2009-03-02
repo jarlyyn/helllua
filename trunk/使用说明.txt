@@ -40,7 +40,7 @@ alias chatroom 你的聊天室名字，比如alias chatroom bao,决定了gift丢在哪里
 set can_tell 你的遥控id的名字，比如set can_tell bao,决定了你的遥控大米
 关于帮助寻找很远的npc:目前是利用party,也就是帮派寻找的，以后会加入league寻找。
 如果需要帮助寻找，请加入一个帮派。推荐明教，人多，没什么副作用。
-
+alias eat9z  是否吃9z 解毒。防止all 20 id吃 9z德设定。随便设为什么都可以。如果不吃9z解毒，unalias eat 9z
 
 4.设置config.ini文件
 一般来说，只需要设置cmd_limit,根据的网速设置每秒命令数
@@ -94,9 +94,20 @@ xue,yanjiu,jingxiu,closed
 9.weapon2 要磨的武器
 10.fightcuff kill后的用的空手技能，比如yun suck。
 11.jinlimin:最低精力
+
 遥控：
 把遥控者的id设为can_tell
 
 命令为do xxxx
 
 比如 tell bao do #fish
+
+
+解毒:
+
+自动吃聊天室地上的丹药解毒.
+以及budai of here里的9z。
+
+正常情况下，用本机器liandan 或者quest得到的gift会自动丢在相应位置。
+
+丹药目前只支持luosha dan

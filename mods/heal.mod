@@ -230,7 +230,7 @@ on_danbusy=function()
 end
 eatdan.eatok=function()
 	if eatdan.danbusy==true then
-		buystest(eatdan.eatdan)
+		busytest(eatdan.eatdan)
 	else
 		eatdan_end_ok()
 	end

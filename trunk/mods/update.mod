@@ -1,4 +1,4 @@
-version=38
+version=43
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -56,6 +56,8 @@ updateversion=function()
 	SetOption("wrap_column",400)
 	addvar("fightcuff","")
 	addvar("jinlimin","0")
+	addvar("killcmd","jiqu")
+	addvar("nuqimin","0")
 	addtri("status_onrank","^(> )*你现在的江湖头衔：(.*)","rank","status_onrank")
 	addtri("status_onname","^(> )*rank.*( |」)((..){1,4})\\(\\w+\\)$","charinfo","status_onname")
 	addtri("mqinfosl","^(最近)(.*)(在)(.*)作恶多端，你去把他除了，提头来见。”","mqinfo","mqinfo")
@@ -78,6 +80,7 @@ updateversion=function()
 	addtri("items_onbagitems","^    ([^a-z!@#$%\\^&*()\\\\/.,<> ]+)\\((\\w*\\s{0,1}\\w+)\\)$","bagitem","on_bagitems")
 	addtri("heal_danbusy","^(> )*你的内力不足，无法运满一个周天。$","dispel","on_dispelneilifail")
 	addtri("heal_neilifail","^(> )*你刚服用过药，需药性发挥完效用以后才能继续服用。$","eatdan","on_danbusy")
+	addtri("status_onhptihui","^(【 平 和 】|【 愤 怒 】)\\s*([^/]*).*【 体 会 】(.*)$","hp","status_onhptihui")
 --	SetTriggerOption(triname,"group",trigroup)
 end
 

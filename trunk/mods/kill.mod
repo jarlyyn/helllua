@@ -51,7 +51,7 @@ kill_end_fail=function()
 end
 kill.cmd=function()
 	run("yun recover;yun regenerate")
-	if (me.score.xingge=="心狠手辣")or(me.score.xingge=="光明磊落")and(tonumber(GetVariable("neilimin"))>1000) then run("burning") end
+	if (me.score.xingge=="心狠手辣")or(me.score.xingge=="光明磊落")and(tonumber(GetVariable("nuqimin"))>2000) then run("burning") end
 	npchere(kill.npc,"kill "..kill.npc)
 	fightcuff()
 	weapon(1)

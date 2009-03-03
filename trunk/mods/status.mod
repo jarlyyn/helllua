@@ -77,6 +77,11 @@ end
 
 status_onhptihui=function(name, line, wildcards)
 	me.hp.nuqi=wildcards[2]
+	if me.hp.nuqi=="Å­»ðÖÐÉÕ" or me.hp.nuqi=="Êú·¢³å¹Ú" then
+		me.hp.nuqi=10000
+	else
+		me.hp.nuqi=tonumber(me.hp.nuqi)
+	end
 	me.hp["tihui"]=tonumber(wildcards[3])
 end
 

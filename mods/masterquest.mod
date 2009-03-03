@@ -165,6 +165,8 @@ mqinfo=function(n,l,w)
 	masterquest["city"]=string.sub(w[4],1,4)
 	EnableTriggerGroup("mqinfo2",true)
 end
+
+
 masterflee=function()
 	masterquest.flee=true
 end
@@ -376,6 +378,7 @@ mqkill.killend=function()
 	if masterquest.die==true then
 		mqkill.questend()
 	else
+	jianuzero()
 		masterquest.flee=true
 		mqkill["end"]()
 		masterquest.main()
@@ -387,6 +390,8 @@ mqkill.questend=function()
 	if letteraccept()==true then
 		if mqletter.arrive==1 then
 			mqlookletter()
+		else
+			killcmd()
 		end
 	else
 		masterquest.givehead()
@@ -408,9 +413,16 @@ mqkill.npckillme=function()
 	npcinpath["end"]()
 end
 
+jianuzero=function()
+	if tonumber(GetVariable("nuqimin")) >0 then
+		run("jianu 0")
+	end
+end
+
 masterquest_npcfaint=function()
 	masterquest.die=true
 	run("get silver from "..npc.id)
+	jianuzero()
 	weapon(2)
 end
 masterquest_npcdie=function()
@@ -458,6 +470,7 @@ end
 mqletterattive=function(n,l,w)
 	mqletter.arrive=1
 	if masterquest.waitletter and letteraccept()==true then
+		run("halt")
 		mqlookletter()
 	end
 end
@@ -502,6 +515,7 @@ end
 mqlettertimeout=function(n,l,w)
 	mqletter.arrive=2
 	if masterquest.waitletter==true then
+		run("halt")
 		busytest(masterquest.givehead)
 	end
 end
@@ -617,3 +631,11 @@ on_partyfind=function(n,l,w)
 end
 
 
+-----------------------
+
+killcmd=function()
+	kill_cmd=GetVariable("killcmd")
+	if kill_cmd~=nil then
+		run(kill_cmd)
+	end
+end

@@ -24,7 +24,7 @@ do_searchnpc=function(searchnpc_ok,searchnpc_fail)
 	EnableTriggerGroup("npc",true)
 	if _roomname~=nil and _roomname~="" then
 		if maze[_roomname]~=nil then
-			search_end_fail()
+			searchnpc_end_fail()
 			return
 		end
 	end

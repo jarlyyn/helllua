@@ -1,4 +1,4 @@
-version=43
+version=45
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -48,6 +48,7 @@ updateversion=function()
 	addtri("mqhelper","^(> )*说时迟，那时快！突然转出(.*)个人，一起冲上前来，看来是早有防备！$","mqhelper","mqhelper")
 	addtri("l_2369","^    这是一片空地，四周都是乱石，杂草丛生。北边是一间小屋。南","locate","on_locate")
 	addtri("l_1733","^    这是一片茂密的青竹林，一走进来，你仿佛迷失了方向。","locate","on_locate")
+	addtri("l_2366","^    这里就是神龙岛了。南边是一望无际的大海；","locate","on_locate")
 	addtri("on_partyhelp","^(> )*【(明教|天地会)】.{2,8}\\[(.*)\\]：helllua-help-(.*)-(.*)","masterquest","on_partyhelp")
 	addtri("on_partyfind","^(> )*【(明教|天地会)】.{2,8}\\[(.*)\\]：helllua.find-(|)-(.*)-(.*)-(.*)","masterquest","on_partyfind")
 	SetTriggerOption("jiqu_fail","group","system")
@@ -80,7 +81,7 @@ updateversion=function()
 	addtri("items_onbagitems","^    ([^a-z!@#$%\\^&*()\\\\/.,<> ]+)\\((\\w*\\s{0,1}\\w+)\\)$","bagitem","on_bagitems")
 	addtri("heal_danbusy","^(> )*你的内力不足，无法运满一个周天。$","dispel","on_dispelneilifail")
 	addtri("heal_neilifail","^(> )*你刚服用过药，需药性发挥完效用以后才能继续服用。$","eatdan","on_danbusy")
-	addtri("status_onhptihui","^(【 平 和 】|【 愤 怒 】)\\s*([^/]*).*【 体 会 】(.*)$","hp","status_onhptihui")
+	addtri("status_onhptihui","^(【 平 和 】|【 愤 怒 】)\\s*([^/ ]*).*【 体 会 】(.*)$","hp","status_onhptihui")
 --	SetTriggerOption(triname,"group",trigroup)
 end
 

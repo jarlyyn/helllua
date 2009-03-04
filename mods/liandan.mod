@@ -50,9 +50,6 @@ do_liandan=function(liandan_ok,liandan_fail)
 	liandan["ok"]=liandan_ok
 	liandan["fail"]=liandan_fail
 	EnableTriggerGroup("liandan",true)
-	if GetVariable("pfm")~=nil and GetVariable("pfm")~="" then
-		hook(hooks.fight,pfm)
-	end
 	busytest(liandan.main)
 end
 liandan.loop=function()
@@ -139,6 +136,9 @@ liandan_tonglian=function()
 end
 
 liandan.caiyao=function()
+	if GetVariable("pfm")~=nil and GetVariable("pfm")~="" then
+		hook(hooks.fight,pfm)
+	end
 	local loc=liandan.loc[math.random(1,#liandan.loc)]
 	weapon(1)
 	go(loc,liandan.caiyaocmd,liandan_end_fail)

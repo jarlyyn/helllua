@@ -56,7 +56,11 @@ searchnpc.test=function()
 	if room_obj[npc.name]~=nil then
 		npc.id=room_obj[npc.name].id
 		testnpcid()
-		_roomid=searchfor["nextroom"]
+		if _roomname~=nil and _roomname~="" then
+			if maze[_roomname]==nil then
+				_roomid=searchfor["nextroom"]
+			end
+		end
 		print(_roomid)
 		searchfor["end"]("ok")
 	else
@@ -110,15 +114,15 @@ npcinpath.testnpc=function()
 		end
 	end
 	if room_obj[npc.name]~=nil then
-		npc.loc=_roomid
-		npc.id=room_obj[npc.name].id
-		testnpcid()
-		print("find"..npc.name.."@"..tostring(_roomid))
 		if _roomname~=nil and _roomname~="" then
 			if maze[_roomname]==nil then
 				_roomid=steppath["nextroom"]
 			end
 		end
+		npc.loc=_roomid
+		npc.id=room_obj[npc.name].id
+		testnpcid()
+		print("find"..npc.name.."@"..tostring(_roomid))
 		steppath["end"]()
 		go(npc.loc,npcinpath["ok"],npcinpath["fail"])
 

@@ -47,7 +47,7 @@ weapondru=function()
 	if weaponid~="" and weaponid~=nil then
 		catch("weapon1dru","look "..weaponid)
 	end
-	if weapon2id~="" and weapon2id~=nil then
+	if weaponid2~="" and weapon2id~=nil then
 		catch("weapon2dru","look "..weapon2id)
 	end
 end

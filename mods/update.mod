@@ -1,4 +1,4 @@
-version=45
+version=46
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -82,6 +82,7 @@ updateversion=function()
 	addtri("heal_danbusy","^(> )*你的内力不足，无法运满一个周天。$","dispel","on_dispelneilifail")
 	addtri("heal_neilifail","^(> )*你刚服用过药，需药性发挥完效用以后才能继续服用。$","eatdan","on_danbusy")
 	addtri("status_onhptihui","^(【 平 和 】|【 愤 怒 】)\\s*([^/ ]*).*【 体 会 】(.*)$","hp","status_onhptihui")
+	addtri("on_getweapon","^(> )*你手腕一麻，手中(.*)不由脱手而出！","system","on_getweapon")
 --	SetTriggerOption(triname,"group",trigroup)
 end
 

@@ -281,3 +281,11 @@ end
 kanbushcmd=function()
 	weapon(1)
 end
+
+on_getweapon=function()
+	_getweaponcmd=""
+	weaponid=GetVariable("weapon2")
+	if weaponid~=nil then _getweaponcmd="get "..weaponid end
+	run (_getweaponcmd)
+	weapon(1)
+end

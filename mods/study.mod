@@ -81,6 +81,7 @@ study["xuecmd"]=function()
 			pots=100
 		end
 		catch("study","xue "..study.skill.npc.." about "..study.skill.skill.." "..tostring(pots))
+		eatdrink()
 		hp()
 		delay(1,study["xuecmd"])
 	end
@@ -110,6 +111,7 @@ study["jingxiucmd"]=function()
 			pots=100
 		end
 		catch("study","jingxiu "..tostring(pots))
+		eatdrink()
 		hp()
 		busytest(study["jingxiucmd"],4)
 	end
@@ -130,6 +132,7 @@ study["closedcmd"]=function()
 			lastpotcount=1
 		end
 		catch("study","closed")
+		eatdrink()
 		hp()
 		busytest(study_end_ok,30)
 	end
@@ -158,6 +161,7 @@ study["yanjiucmd"]=function()
 			pots=100
 		end
 		catch("study","yanjiu "..study.skill.skill.." "..tostring(pots))
+		eatdrink()
 		hp()
 		delay(1,study["yanjiucmd"])
 	end

@@ -74,6 +74,7 @@ liandan.check=function()
 	elseif checkpack(liandan.pack,"baoguo",liandan["main"],liandan["main"],1291) then
 	elseif check_eatdan(liandan.eat,liandan["main"]) then
 	elseif checkstudy(liandan["main"]) then
+	elseif checkfangqi(liandan["main"],liandan["main"]) then
 	elseif itemsnum("cao yao")>0 then
 		busytest(liandan.caiyaogive)
 	else

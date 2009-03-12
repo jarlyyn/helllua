@@ -87,6 +87,28 @@ study["xuecmd"]=function()
 	end
 end
 
+study["ask"]=function()
+	go(study.skill.loc,study["askcmd"],study_end_fail)
+end
+
+study["askcmd"]=function()
+	if (me.hp.pot<100)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>7) then
+		study["end"]("ok")
+	else
+		if me.hp.pot==lastpot then
+			lastpotcount=lastpotcount+1
+		else
+			lastpot=me.hp.pot
+			lastpotcount=1
+		end
+		catch("study","ask "..study.skill.npc.." about "..study.skill.skill)
+		eatdrink()
+		hp()
+		delay(1,study_end_ok)
+	end
+end
+
+
 study["jingxiu"]=function()
 	if me.fam=="武当派" or me.fam=="全真教" then
 		go(familys[me.fam].dazuoloc,study["jingxiucmd"],study_end_fail)
@@ -113,8 +135,18 @@ study["jingxiucmd"]=function()
 		catch("study","jingxiu "..tostring(pots))
 		eatdrink()
 		hp()
-		busytest(study["jingxiucmd"],4)
+		run("i")
+		busytest(study["jingxiutest"],4)
 	end
+end
+
+study["jingxiutest"]=function()
+
+		if checkitems(inv,study["jingxiu"],study_end_fail) then
+			return
+		else
+			study["jingxiucmd"]()
+		end
 end
 
 study["closed"]=function()
@@ -169,6 +201,41 @@ study["yanjiucmd"]=function()
 end
 study["yanjiufail"]=function()
 	go(-2,study.yanjiucmd,study_end_fail)
+end
+
+study["lian"]=function()
+	go(-2,study.liancmd,study_end_fail)
+end
+
+study["liancmd"]=function()
+	if (me.hp.pot<11)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>7) then
+		study["end"]("ok")
+	else
+		if me.hp.pot==lastpot then
+			lastpotcount=lastpotcount+1
+		else
+			lastpot=me.hp.pot
+			lastpotcount=1
+		end
+		if getnum(me.hp.pot)<50 then
+			pots=me.hp.pot
+		else
+			pots=50
+		end
+		catch("study","lian "..study.skill.skill.." "..tostring(pots))
+		eatdrink()
+		hp()
+		run("yun recover;yun regenerate; i")
+		delay(1,study["liantest"])
+	end
+
+end
+study["liantest"]=function()
+		if checkitems(inv,study["lian"],study_end_fail) then
+		elseif checkrest(study["lian"],study_end_fail) then
+		else
+			study["liancmd"]()
+		end
 end
 
 getdefalutstudy=function()

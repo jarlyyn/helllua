@@ -91,7 +91,7 @@ getexpmin=function()
 end
 
 checkfangqi=function(check_ok,check_fail)
-	if getnum(me.hp.exp)>(getexpmax()) then
+	if getnum(me.hp.exp)>(getexpmax()) and getexpmax()~=0 then
 		do_fangqi(check_ok,check_fail)
 		return true
 	else

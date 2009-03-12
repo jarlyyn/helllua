@@ -87,10 +87,15 @@ masterquest.arrive=function()
 end
 masterquest.questgive=function()
 	initmq()
-	run("give head to "..familys[me.fam].masterid..";quest cancel")
-	busytest(masterquest.questcmd)
+	run("give head to "..familys[me.fam].masterid..";quest cancel;mastercmd")
+	busytest(masterquest.testask)
 end
-
+masterquest.testask=function()
+	if checkmasterweapon(masterquest.questcmd,masterquest.questcmd) then
+	else
+		masterquest.questcmd()
+	end
+end
 masterquest.questcmd=function()
 	trigrpon("mqinfo")
 	npchere(familys[me.fam].masterid,"quest "..familys[me.fam].masterid)
@@ -462,6 +467,7 @@ letteraccept=function()
 	elseif quest.stop==true then
 	elseif tdelay>-1 and tdelay<=acceptmaxstep then
 	elseif potmax>0 and me.hp.pot>potmax then
+	elseif needaskmasterweapon() then
 	else
 		return true
 	end

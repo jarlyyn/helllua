@@ -1,5 +1,6 @@
 weapon=function(wn)
 	weaponid=GetVariable("weapon2")
+	weapon1id=GetVariable("weapon")
 	if weaponid==nil then weaponid="" end
 	if wn==0 then
 		weapon1(false)
@@ -14,6 +15,11 @@ weapon=function(wn)
 	else
 		weapon2(false)
 		weapon1(true)
+		if weapon1id~=nil then
+			if masterweapon[weapon1id]~=nil then
+				weapon2(true)
+			end
+		end
 	end
 end
 
@@ -106,4 +112,66 @@ checkrepair=function(check_ok,check_fail)
 	return true
 end
 
+-------------------
 
+askmasterweapon={}
+askmasterweapon["ok"]=nil
+askmasterweapon["fail"]=nil
+askmasterweapon["weapon"]=""
+askmasterweapon["time"]=0
+do_askmasterweapon=function(_weapon,askmasterweapon_ok,askmasterweapon_fail)
+	askmasterweapon["ok"]=askmasterweapon_ok
+	askmasterweapon["fail"]=askmasterweapon_fail
+	if masterweapon[_weapon]==nil then
+		askmasterweapon["end"]()
+		return
+	else
+		askmasterweapon["weapon"]=_weapon
+		busytest(askmasterweapon["main"])
+	end
+end
+
+askmasterweapon["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(askmasterweapon[s])
+	end
+	askmasterweapon["ok"]=nil
+	askmasterweapon["fail"]=nil
+end
+
+askmasterweapon_end_ok=function()
+	askmasterweapon["end"]("ok")
+end
+
+askmasterweapon_end_fail=function()
+	askmasterweapon["end"]("fail")
+end
+
+askmasterweapon["main"]=function()
+	go(npcs[masterweapon[askmasterweapon["weapon"]]["npc"]]["loc"],askmasterweapon.askcmd,askmasterweapon_end_fail)
+end
+
+askmasterweapon.askcmd=function()
+	run("give "..askmasterweapon["weapon"].." to "..masterweapon[askmasterweapon["weapon"]]["npc"]..";ask "..masterweapon[askmasterweapon["weapon"]]["npc"].." about "..masterweapon[askmasterweapon["weapon"]]["name"])
+	askmasterweapon["time"]=os.time()
+	busytest(askmasterweapon_end_ok)
+end
+
+
+checkmasterweapon=function(checkok,checkfail)
+	if needaskmasterweapon() then
+			do_askmasterweapon(GetVariable("weapon"),checkok,checkfail)
+			return true
+	end
+	return false
+end
+
+needaskmasterweapon=function()
+	weapon1id=GetVariable("weapon")
+	if weapon1id~=nil then
+		if masterweapon[weapon1id]~=nil and os.time()>(masterweapondelay+askmasterweapon.time) then
+			return true
+		end
+	end
+	return false
+end

@@ -168,8 +168,13 @@ end
 
 needaskmasterweapon=function()
 	weapon1id=GetVariable("weapon")
+	if masterweapon[weapon1id]~=nil then
+		mwroom=npcs[masterweapon[weapon1id]["npc"]]["loc"]
+	else
+		mwroom=nil
+	end
 	if weapon1id~=nil then
-		if masterweapon[weapon1id]~=nil and os.time()>(masterweapondelay+askmasterweapon.time) then
+		if (masterweapon[weapon1id]~=nil and os.time()>(masterweapondelay+askmasterweapon.time)) or _roomid==mwroom then
 			return true
 		end
 	end

@@ -97,7 +97,8 @@ xue,yanjiu,jingxiu,closed,ask,lian
 9.weapon2 要磨的武器
 10.fightcuff kill后的用的空手技能，比如yun suck。
 11.jinlimin:最低精力
-
+12 killcmd :等信的时候执行的命令
+13 nuqimin 最小怒气,超过3000自动爆发.
 遥控：
 把遥控者的id设为can_tell
 
@@ -113,4 +114,3 @@ xue,yanjiu,jingxiu,closed,ask,lian
 
 正常情况下，用本机器liandan 或者quest得到的gift会自动丢在相应位置。
 
-丹药目前只支持luosha dan

@@ -132,20 +132,19 @@ study["jingxiucmd"]=function()
 		else
 			pots=100
 		end
-		catch("study","jingxiu "..tostring(pots))
 		eatdrink()
-		hp()
 		run("i")
+	catch("study","jingxiu "..tostring(pots))
 		busytest(study["jingxiutest"],4)
 	end
 end
 
 study["jingxiutest"]=function()
-
+		hp()
 		if checkitems(inv,study["jingxiu"],study_end_fail) then
 			return
 		else
-			study["jingxiucmd"]()
+			busytest(study["jingxiucmd"])
 		end
 end
 
@@ -222,19 +221,19 @@ study["liancmd"]=function()
 		else
 			pots=50
 		end
-		catch("study","lian "..study.skill.skill.." "..tostring(pots))
 		eatdrink()
-		hp()
+		catch("study","lian "..study.skill.skill.." "..tostring(pots))
 		run("yun recover;yun regenerate; i")
 		delay(1,study["liantest"])
 	end
 
 end
 study["liantest"]=function()
+		hp()
 		if checkitems(inv,study["lian"],study_end_fail) then
 		elseif checkrest(study["lian"],study_end_fail) then
 		else
-			study["liancmd"]()
+			busytest(study["liancmd"])
 		end
 end
 

@@ -56,11 +56,11 @@ searchnpc.test=function()
 	if room_obj[npc.name]~=nil then
 		npc.id=room_obj[npc.name].id
 		testnpcid()
---		if _roomname~=nil and _roomname~="" then
---			if maze[_roomname]==nil then
---				_roomid=searchfor["nextroom"]
---			end
---		end
+		if _roomname~=nil and _roomname~="" then
+			if maze[_roomname]==nil then
+				_roomid=searchfor["nextroom"]
+			end
+		end
 		print(_roomid)
 		searchfor["end"]("ok")
 	else

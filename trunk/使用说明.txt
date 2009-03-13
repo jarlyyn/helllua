@@ -41,6 +41,9 @@ set can_tell 你的遥控id的名字，比如set can_tell bao,决定了你的遥控大米
 关于帮助寻找很远的npc:目前是利用party,也就是帮派寻找的，以后会加入league寻找。
 如果需要帮助寻找，请加入一个帮派。推荐明教，人多，没什么副作用。
 alias eat9z  是否吃9z 解毒。防止all 20 id吃 9z德设定。随便设为什么都可以。如果不吃9z解毒，unalias eat 9z
+在give head后会自动发送一个mastercmd到mud.如果需要特殊指令，比如alias mastercmd ask miejue about 涅磐决.
+
+
 
 4.设置config.ini文件
 一般来说，只需要设置cmd_limit,根据的网速设置每秒命令数
@@ -79,7 +82,7 @@ dodge(yanjiu) 研究dodge
 
 
 目前支持的学习指令包括:
-xue,yanjiu,jingxiu,closed
+xue,yanjiu,jingxiu,closed,ask,lian
 
 
 
@@ -88,9 +91,9 @@ xue,yanjiu,jingxiu,closed
 3.flylist: miss的列表,格式为:  命令%当成多少步计算:位置, 比如 miss sword%5:26,指miss sword可以到达26,同时这个动作在计算路径时当5步计算. 可以使用多个命令,每个都必须带 , 号.
 4.potmax: 多少pot去学习.0为不学习
 5.qixuemin:多少气血%去治疗
-6.neilinmin:低与多少内力去休息。如果是光明/心狠id,最低内力1000以上时自动爆发
+6.neilinmin:低与多少内力去休息。
 7.tihuimax多少体会去汲取
-8.weapon 使用的武器
+8.weapon 使用的武器 如果是zhenwu jian 之类的特殊门派武器，会自动ask
 9.weapon2 要磨的武器
 10.fightcuff kill后的用的空手技能，比如yun suck。
 11.jinlimin:最低精力

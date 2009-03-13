@@ -103,7 +103,7 @@ dropgift.budaiok=function()
 	go(2046,dropgift.dropbudai,dropgift_end_fail)
 end
 dropgift.dropbudai=function()
-	run("drop budai")
+	run("drop budai;l")
 	dropgift.putbudai()
 end
 dropgift.putbudai=function()

@@ -91,10 +91,13 @@ masterquest.questgive=function()
 	busytest(masterquest.testask)
 end
 masterquest.testask=function()
-	if checkmasterweapon(masterquest.questcmd,masterquest.questcmd) then
+	if checkmasterweapon(masterquest.questgo,masterquest.questgo) then
 	else
 		masterquest.questcmd()
 	end
+end
+masterquest.questgo=function()
+	go(familys[me.fam].masterloc,masterquest.questcmd,masterquest_end_fail)
 end
 masterquest.questcmd=function()
 	trigrpon("mqinfo")

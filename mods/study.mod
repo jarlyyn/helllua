@@ -318,3 +318,14 @@ end
 study_needweapon=function(n,l,w)
 	weapon(3)
 end
+
+study_gold=function(n,l,w)
+	if studygodnpc[w[2]]~=nil then
+		run("give 1 gold to "..studygodnpc[w[2]])
+	end
+end
+
+studygodnpc={}
+studygodnpc["Öììä"]="zhu xi"
+studygodnpc["³øÄï"]="chu niang"
+studygodnpc["Æİ³¤·¢"]="qi changfa"

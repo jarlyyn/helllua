@@ -28,7 +28,7 @@ do_searchnpc=function(searchnpc_ok,searchnpc_fail)
 			return
 		end
 	end
-	do_search(searchnpc.step,searchnpc_end_fail,searchnpc_end_ok,searchnpc_end_fail)
+	do_search(searchnpc.step,searchnpc_end_fail,searchnpc_end_ok,searchnpc_end_fail,npcsearchmax)
 end
 
 searchnpc["end"]=function(s)

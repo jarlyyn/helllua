@@ -1,9 +1,15 @@
 exitback={east="w",e="w",south="n",s="n",west="e",w="e",north="s",n="s",southeast="nw",se="nw",southwest="ne",sw="ne",northeast="sw",ne="sw",northwest="se",nw="se",eastup="wd",eu="wd",eastdown="wu",ed="wu",southup="nd",su="nd",southdown="nu",sd="nu",westup="ed",wu="ed",westdown="eu",wd="eu",northup="sd",nu="sd",northdown="su",nd="su",up="d",u="d",down="u",d="u",enter="out",out="enter",cross="cross"}
 
-_searchdepth=5 --ËÑË÷Éî¶È
 
-do_search=function(fstep,ffail,search_ok,search_fail)
+ defsearchdepth=5
+
+do_search=function(fstep,ffail,search_ok,search_fail,depth)
 	walking=searchfor
+	if depth==nil then
+		_searchdepth=defsearchdepth
+	else
+		_searchdepth=depth
+	end
 	hook(hooks.steptimeout,searchfor["steptimeout"])
 	searchfor["init"]()
 	searchfor["ok"]=search_ok
@@ -15,7 +21,9 @@ do_search=function(fstep,ffail,search_ok,search_fail)
 	run("l")
 end
 
+
 searchfor={}
+_searchdepth=defsearchdepth
 searchfor["nextroom"]=0
 searchfor["steptimeout"]=function()
 	if hashook(hooks.steptimeout) then

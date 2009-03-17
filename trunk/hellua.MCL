@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on ÐÇÆÚ¶þ, Ê®Ò»ÔÂ 04, 2008, 2:16 ÉÏÎç -->
-<!-- MuClient version 4.27 -->
+<!-- Saved on ÐÇÆÚ¶þ, ÈýÔÂ 17, 2009, 1:29 ÏÂÎç -->
+<!-- MuClient version 4.37 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
 <muclient>
 <world
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -32,6 +32,8 @@
 
    arrows_change_history="y"
    auto_pause="y"
+   auto_resize_minimum_lines="1"
+   auto_resize_maximum_lines="20"
    chat_foreground_colour="red"
    chat_background_colour="black"
    chat_port="4050"
@@ -41,6 +43,7 @@
    convert_ga_to_newline="y"
    detect_pueblo="y"
    display_my_input="y"
+   echo_colour="10"
    echo_hyperlink_in_output_window="y"
    edit_script_with_notepad="y"
    enable_aliases="y"
@@ -96,9 +99,9 @@
 <!-- triggers -->
 
 <triggers
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
   <trigger
    group="roomobj"
@@ -790,9 +793,9 @@
 <!-- aliases -->
 
 <aliases
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
   <alias
    name="alias_beiqi"
@@ -904,9 +907,9 @@
 <!-- timers -->
 
 <timers
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
   <timer name="on_steptimeout" script="on_steptimeout" enabled="y" second="4.00" offset_second="0.00" group="timeout" >
 
@@ -916,9 +919,9 @@
 <!-- macros -->
 
 <macros
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
 
   <macro name="up" type="send_now" >
@@ -1010,16 +1013,16 @@
 <!-- variables -->
 
 <variables
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
   <variable name="expmax">149400</variable>
   <variable name="flylist"></variable>
   <variable name="goldmin">5</variable>
   <variable name="neilimin">100</variable>
   <variable name="passwd"></variable>
-  <variable name="pfm">shot</variable>
+  <variable name="pfm"></variable>
   <variable name="potmax">200</variable>
   <variable name="qixuemin">90</variable>
   <variable name="skilllist">force,xiaoyao-xinfa,dodge,feiyan-zoubi</variable>
@@ -1031,9 +1034,9 @@
 <!-- colours -->
 
 <colours
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
 
 <ansi>
@@ -1088,9 +1091,9 @@
 <!-- keypad -->
 
 <keypad
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
 
   <key name="0" >
@@ -1202,9 +1205,9 @@
 <!-- printing -->
 
 <printing
-   muclient_version="4.27"
+   muclient_version="4.37"
    world_file_version="15"
-   date_saved="2008-11-04 02:16:01"
+   date_saved="2009-03-17 13:29:36"
   >
 
 <ansi>

@@ -284,8 +284,14 @@ end
 
 on_getweapon=function()
 	_getweaponcmd=""
-	weaponid=GetVariable("weapon2")
+	weaponid=GetVariable("weapon")
+	weapon2id=GetVariable("weapon2")
 	if weaponid~=nil then _getweaponcmd="get "..weaponid end
+	if masterweapon[weaponid]~=nil then
+		if weapon2id ~=nil then
+			_getweaponcmd=_getweaponcmd..";get "..weapon2id
+		end
+	end
 	run (_getweaponcmd)
 	weapon(1)
 end

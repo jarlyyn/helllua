@@ -116,7 +116,7 @@ npcinpath.testnpc=function()
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
 		if _roomname~=nil and _roomname~="" then
-			if maze[_roomname]==nil then
+			if maze[_roomname]==nil or _roomname~=mazename then
 				_roomid=steppath["nextroom"]
 			end
 		end

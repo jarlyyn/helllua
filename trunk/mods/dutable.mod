@@ -125,7 +125,7 @@ canwu.main=function()
 		return
 	elseif checkrest(canwu.restok,canwu.mian,1924) then
 	else
-		busytest(canwu.cmd)
+		delay(1,canwu.cmd)
 	end
 end
 

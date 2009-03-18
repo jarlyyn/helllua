@@ -118,7 +118,7 @@ study["jingxiu"]=function()
 end
 
 study["jingxiucmd"]=function()
-	if (me.hp.pot==0)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>3) then
+	if (me.hp.pot<10)or((me.hp.neili==0)and(me.hp.neilimax~=0))or(lastpotcount>3) then
 		study["end"]("ok")
 	else
 		if me.hp.pot==lastpot then

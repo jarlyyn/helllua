@@ -191,7 +191,7 @@ masterquest.givehead=function()
 	go(familys[me.fam].masterloc,masterquest.giveheadcmd,masterquest_end_fail)
 end
 masterquest.giveheadcmd=function()
-	run("give head to "..familys[me.fam].masterid..";drop head;quest cancel")
+	run("give head to "..familys[me.fam].masterid..";drop head;quest cancel;mastercmd")
 	busytest(masterquest.main)
 end
 --------------------------------
@@ -339,7 +339,9 @@ mqkill_end_fail=function()
 	mqkill["end"]("fail")
 end
 mqkill.main=function()
-	if mqkill["searchmax"]<mqkill["searchcount"] then
+	if masterquest.die==true then
+		busytest(mqkill.questend)
+	elseif mqkill["searchmax"]<mqkill["searchcount"] then
 		mqkill_end_fail()
 	else
 		mqkill["searchcount"]=mqkill["searchcount"]+1

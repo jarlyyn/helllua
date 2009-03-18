@@ -9,6 +9,16 @@ do_jiqu=function(jiqu_ok,jiqu_fail)
 end
 
 jiqu.arrive=function()
+	if me.fam=="»ªÉ½½£×Ú" then
+		busytest(jiqu.sword)
+	else
+		busytest(jiqu.cmd)
+	end
+end
+
+jiqu.sword=function()
+	weapon(3)
+	run("jiqu sword-cognize")
 	busytest(jiqu.cmd)
 end
 

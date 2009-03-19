@@ -1,11 +1,13 @@
 主页：http://code.google.com/p/helllua/
 mushclient适用版本：4.27
 
+
 文件列表:
 helllia.mcl:mushclient文件,可以放置在任何位置。其他文件必须和hell.lua放在同一目录下
 hell.lua:lua主程序，mushclient中指定为脚本
 mods目录下的.mod文件：模块文件
 config.ini:对于机器的一些设置
+	config-dfcs.ini 东方传说的设置文件，可以覆盖config.ini或者configfile 变量中指定
 configs目录下的.ini文件：机器模块的配置文件
 
 mapper.dll  地图路径程序。可在http://code.google.com/p/mushluamapper/得到最新源代码，用vc toolkit 2003自行编译
@@ -99,6 +101,13 @@ xue,yanjiu,jingxiu,closed,ask,lian
 11.jinlimin:最低精力
 12 killcmd :等信的时候执行的命令
 13 nuqimin 最小怒气,超过3000自动爆发.
+
+
+14.configfile:制定特别的config文件。
+默认是config.ini
+
+可以设成 config-dfcs.ini  东方传说
+
 遥控：
 把遥控者的id设为can_tell
 

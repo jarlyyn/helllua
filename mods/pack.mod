@@ -38,3 +38,16 @@ checkpack=function(_packlist,_container,pack_ok,pack_fail)
 	end
 	return false
 end
+
+checkpacklist=function(_packslist,pack_ok,pack_fail)
+	if _packslist==nil then return false end
+	for pi,_packlist in pairs(_packslist) do
+		for i,v in pairs(_packlist) do
+			if itemsnum(i)>0 then
+				do_pack(v,pi,pack_ok,pack_fail)
+				return true
+			end
+		end
+	end
+	return false
+end

@@ -115,7 +115,11 @@ end
 cha=function()
 	me.skills={}
 	trigrpon("cha")
-	run("cha")
+	if chacmd==nil then
+		run("cha")
+	else
+		run("chacmd")
+	end
 	trigrpoff("cha")
 end
 
@@ -148,7 +152,8 @@ getinfo=function(func)
 end
 getstatus=function(func)
 	eatdrink()
-	run("yun recover;yun regenerate;i")
+	run("yun recover;yun regenerate")
+	getinv()
 	weapondru()
 	hp()
 	busytest(func)
@@ -210,4 +215,11 @@ end
 gettitle=function()
 	me.name=""
 	catch("rank","rank")
+end
+
+getinv=function()
+	run("i;")
+	for i,v in pairs(invbags) do
+		getbagitems(i)
+	end
 end

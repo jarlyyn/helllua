@@ -1,4 +1,4 @@
-version=47
+version=48
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -59,6 +59,7 @@ updateversion=function()
 	addvar("jinlimin","0")
 	addvar("killcmd","jiqu")
 	addvar("nuqimin","0")
+	addvar("configfile","")
 	addtri("status_onrank","^(> )*你现在的江湖头衔：(.*)","rank","status_onrank")
 	addtri("status_onname","^(> )*rank.*( |」)((..){1,4})\\(\\w+\\)$","charinfo","status_onname")
 	addtri("mqinfosl","^(最近)(.*)(在)(.*)作恶多端，你去把他除了，提头来见。”","mqinfo","mqinfo")
@@ -85,6 +86,7 @@ updateversion=function()
 	addtri("on_getweapon","^(> )*你手腕一麻，手中(.*)不由脱手而出！","system","on_getweapon")
 	addtri("study_gold","^(> )*(朱熹|厨娘|戚长发)(说道：您太客气了，这怎么敢当？|笑着说道：您见笑了，我这点雕虫小技怎够资格「指点」您什么？|像是受宠若惊一样，说道：请教？这怎么敢当？)","study","study_gold")
 --	SetTriggerOption(triname,"group",trigroup)
+	call(updatecmd)
 end
 
 

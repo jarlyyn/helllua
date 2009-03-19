@@ -21,7 +21,7 @@ letter["questarrive"]=function()
 	npchere	(familys[me.fam].masterid,"give receipt to "..familys[me.fam].masterid..";quest cancel")
 	busytest(letter["quest"])
 end
-	
+
 letter.quest=function()
 	if npc.nobody==1 then
 		letter_end_fail()
@@ -35,13 +35,13 @@ letter.quest=function()
 end
 
 letter.questok=function()
-	if letter["npc"]=="" or letter.city=="华山" then
+	if letter["npc"]=="" or (letter.city=="华山" and huashanletter~=true)then
 		letter_end_fail()
 		return
 	end
 	npc.name=letter["npc"]
 	letter["searchcount"]=0
-	do_npcinpath(city[letter.city].path,letter.npcfind,letter_end_fail)	
+	do_npcinpath(city[letter.city].path,letter.npcfind,letter_end_fail)
 end
 letter.npcfind=function()
 	npchere(npc.id,"give letter to "..npc.id)

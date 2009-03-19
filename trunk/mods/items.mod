@@ -71,13 +71,14 @@ end
 item["buy"]=function()
 	num=getnum(items[item["item"]]["buymax"])
 	if (num <2) then
-		run("buy "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"]..";i")
+		run("buy "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"])
 	else
 		num2=item["num"]-itemsnum(item["item"])
 		if num>num2 then num=num2 end
-		run("buy "..tostring(num).." "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"]..";i")
+		run("buy "..tostring(num).." "..items[item["item"]]["id"].." from "..items[item["item"]]["npc"])
 	end
-	busytest(item["arrive"])
+	getinv()
+	delay(1,item["arrive"])
 end
 item["cmd"]=function()
 	run(items[item["item"]]["cmd"])
@@ -100,7 +101,10 @@ checkitems=function(_items,check_ok,check_fail)
 	return false
 end
 
+
 loadmod("drop.mod")
+
+----------------------
 
 tbaglist={}
 _bagname=""
@@ -125,4 +129,77 @@ end
 getbagitems=function(bagname)
 	bagscount[bagname]=0
 	catch("bagitem","set no_more getbag-"..bagname..";l "..bagname..";set no_more getbagend")
+end
+checkbagsitem=function(_bags,check_ok,check_fail)
+		for bi,bv in pairs(_bags) do
+		for i,v in pairs(bv) do
+			if getnum(bags[bi][i])<v["min"] then
+				item["go"](items[i]["name"],math.min(getnum(v["max"])-getnum(bags[bi][i]),math.max(1,getnum(items[i]["buymax"]))),check_ok,check_fail)
+				return true
+			end
+		end
+	end
+	return false
+end
+
+----- ³ÔºÈÄ£¿é-----------
+if foodpack==nil or foodpack=="" then
+	_food=food
+else
+	_food=food .. " in "..foodpack
+	if #foodpack>6 then
+		if string.sub(foodpack,#foodpack-5,#foodpack)==" of me" then
+			_food=string.sub(_food,1,#_food-6,#_food)
+		end
+	end
+end
+if drinkpack==nil or drinkpack=="" then
+	_drink=drink
+else
+	_drink=drink .. " in "..drinkpack
+	if #drinkpack>6 then
+		if string.sub(drinkpack,#drinkpack-5,#drinkpack)==" of me" then
+			_drink=string.sub(_drink,1,#_drink-6,#_drink)
+		end
+	end
+end
+
+if foodpack~="" and foodpack~=nil then
+	invbags[foodpack]={}
+	if invpack[foodpack]==nil then
+		invpack[foodpack]={}
+	end
+	invpack[foodpack][food]=food
+	invbags[foodpack][food]={min=foodmin,max=foodmax}
+else
+	inv[food]={max=foodmax,min=foodmin}
+end
+if drinkpack~="" and drinkpack~=nil then
+	if invbags[drinkpack]==nil then
+		invbags[drinkpack]={}
+	end
+	if invpack[drinkpack]==nil then
+		invpack[drinkpack]={}
+	invpack[drinkpack][drink]=drink
+	end
+	invbags[drinkpack][drink]={min=drinkmin,max=drinkmax}
+else
+	inv[drink]={max=drinkmax,min=drinkmin}
+end
+
+eatdrink=function()
+	run("eat ".._food..";drink ".._drink)
+end
+
+
+
+checkfood=function(check_ok,check_fail)
+	if getnum(bagscount[foodpack])>1 then
+		do_drop(foodpack,check_ok,check_fail)
+		return true
+	elseif getnum(bagscount[drinkpack])>1 then
+		do_drop(drinkpack,check_ok,check_fail)
+		return true
+	end
+	return false
 end

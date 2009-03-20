@@ -35,7 +35,7 @@ mushclient设置:
  为了方便起见，账号和密码信息将由文件名决定。
  请你把你的账号改名为 账号-密码.mcl 或者 帐号.mcl
  比如 bao-123456.mcl 或者 bao.mcl
- 如果文件名不含密码，请设置在mcl文件的passwd变量中
+ 如果文件名不含密码，请设置在mcl文件的passwd变量中.id也可设置在id 变量中
 
 4.一些mud中的设置：
 alias chatroom 你的聊天室名字，比如alias chatroom bao,决定了gift丢在哪里
@@ -62,6 +62,7 @@ start 师门任务
 #stop 停止任务
 #dutable 读石桌
 #canwu 参悟洗髓经
+#dazuo 打坐内力
 
 2.其他命令:
 #to loc 到达某个地点,loc请参考rooms_all.

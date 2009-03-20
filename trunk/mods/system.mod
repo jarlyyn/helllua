@@ -7,16 +7,20 @@ on_disconnect=function()
 	end
 	logdelaysec=1
 end
-idre=rex.new("^.*\\\\(?<id>[^-.]+)(-(?<passwd>[^-.]+)){0,1}")
+idre=rex.new("^.*?(?<id>[^-.\\\\]+)(-(?<passwd>[^-.\\\\]+)){0,1}(\\..*){0,1}$")
 getidpass=function()
-	if me.id==nil then
+	if me.id==nil or me.id=="" then
 		s,e,t=idre:match(GetInfo(54))
+		if t==nil then return end
 		me.id=t.id
 		if t.passwd then me.passwd=t.passwd end
 	end
 end
 login=function()
 	_passwd=GetVariable("passwd")
+	if me.id==nil then
+		me.id=GetVariable("id")
+	end
 	if (_passwd==nil)or(_passwd=="") then
 		if me.passwd ~=nil then
 			_passwd=me.passwd

@@ -20,6 +20,15 @@ end
 quest["end"]["beiqi"]=function()
 	beiqi["end"]()
 end
+
+quest.main["dazuoneili"]=function()
+	do_dazuoneili()
+	quest.resume=quest.main["dazuoneili"]
+end
+quest["end"]["dazuoneili"]=function()
+	dazuoneili["end"]()
+end
+
 loadmod("letter.mod")
 quest.main["letter"]=function()
 	do_letter(letter.loop,letter.loop)

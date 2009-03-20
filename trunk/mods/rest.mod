@@ -134,3 +134,52 @@ tuna_end_fail=function()
 	tuna["end"]("fail")
 end
 
+---------------------------
+dazuoneili={}
+dazuoneili.loc=1927
+dazuoneili["ok"]=nil
+dazuoneili["fail"]=nil
+
+do_dazuoneili=function(dazuoneili_ok,dazuoneili_fail)
+	dazuoneili["ok"]=dazuoneili_ok
+	dazuoneili["fail"]=dazuoneili_fail
+	busytest(dazuoneili["main"])
+end
+
+dazuoneili["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(dazuoneili[s])
+	end
+	dazuoneili["ok"]=nil
+	dazuoneili["fail"]=nil
+end
+
+dazuoneili_end_ok=function()
+	dazuoneili["end"]("ok")
+end
+
+dazuoneili_end_fail=function()
+	dazuoneili["end"]("fail")
+end
+
+
+dazuoneili["main"]=function()
+	if quest.stop then
+		dazuoneili["end"]()
+		return
+	end
+	getstatus(dazuoneili.case)
+end
+
+dazuoneili.case=function()
+	if do_check(dazuoneili["main"]) then
+	else
+		go(dazuoneili.loc,dazuoneili.arrive,dazuoneili_end_fail)
+	end
+end
+
+dazuoneili.arrive=function()
+	dazuoneilinum=max(math.min(me.hp.qixue,me.hp.neilimax*2-me.hp.neili),10)
+	run("dazuo "..tostring(dazuoneilinum))
+	busytest(dazuoneili.main)
+end

@@ -35,3 +35,6 @@ loadmod("weapon.mod")
 loadmod("quest.mod")
 loadmod("remote.mod")
 loadmod("update.mod")
+if configcmd~=nil then
+	configcmd()
+end

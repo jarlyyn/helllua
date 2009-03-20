@@ -1,4 +1,4 @@
-version=48
+version=52
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -29,6 +29,7 @@ updateversion=function()
 	SetTriggerOption("mqlettercontent","multi_line","1")
 	SetTriggerOption("mqlettercontent","lines_to_match","2")
 	AddAlias("alias_start","start","",flag_base_enable,"alias_start")
+	AddAlias("alias_dazuoneili","#dazuo","",flag_base_enable,"alias_dazuoneili")
 	AddAlias("alias_dutable","#dutable","",flag_base_enable,"alias_dutable")
 	AddAlias("alias_canwu","#canwu","",flag_base_enable,"alias_canwu")
 	addtri("mqletterquest","^(> )*洪七公吩咐你在(.*)之前割下(.*)的人头，回(.*)交差。\\n据说此人前不久曾经在(.*)出没。","mqletterquest","mqletterquest")
@@ -60,6 +61,7 @@ updateversion=function()
 	addvar("killcmd","jiqu")
 	addvar("nuqimin","0")
 	addvar("configfile","")
+	addvar("id","")
 	addtri("status_onrank","^(> )*你现在的江湖头衔：(.*)","rank","status_onrank")
 	addtri("status_onname","^(> )*rank.*( |」)((..){1,4})\\(\\w+\\)$","charinfo","status_onname")
 	addtri("mqinfosl","^(最近)(.*)(在)(.*)作恶多端，你去把他除了，提头来见。”","mqinfo","mqinfo")

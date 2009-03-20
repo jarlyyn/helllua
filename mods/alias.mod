@@ -41,6 +41,10 @@ end
 alias_start=function(m,l,w)
 	do_quest("mq")
 end
+alias_dazuoneili=function(m,l,w)
+	do_quest("dazuoneili")
+end
+
 alias_stop=function(m,l,w)
 	quest.stop=true
 end

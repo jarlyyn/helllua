@@ -134,13 +134,86 @@ checkbagsitem=function(_bags,check_ok,check_fail)
 		for bi,bv in pairs(_bags) do
 		for i,v in pairs(bv) do
 			if getnum(bags[bi][i])<v["min"] then
-				item["go"](items[i]["name"],math.min(getnum(v["max"])-getnum(bags[bi][i]),math.max(1,getnum(items[i]["buymax"]))),check_ok,check_fail)
+				do_buyinpack(items[i]["name"],bi,v["max"],check_ok,check_fail)
 				return true
 			end
 		end
 	end
 	return false
 end
+----------------------
+
+buyinpack={}
+buyinpack["ok"]=nil
+buyinpack["fail"]=nil
+buyinpack["item"]=""
+buyinpack["pack"]=""
+buyinpack["num"]=0
+
+do_buyinpack=function(_item,_bag,num,buyinpack_ok,buyinpack_fail)
+	buyinpack["ok"]=buyinpack_ok
+	buyinpack["fail"]=buyinpack_fail
+	buyinpack["item"]=_item
+	buyinpack["pack"]=_bag
+	buyinpack["num"]=getnum(num)
+	if items[buyinpack["item"]]==nil then
+		buyinpack["end"]("fail")
+		return
+	end
+	go(items[buyinpack["item"]]["loc"],buyinpack["arrive"],buyinpack_end_fail)
+end
+
+buyinpack["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(buyinpack[s])
+	end
+	buyinpack["ok"]=nil
+	buyinpack["fail"]=nil
+end
+
+buyinpack_end_ok=function()
+	buyinpack["end"]("ok")
+end
+
+buyinpack_end_fail=function()
+	buyinpack["end"]("fail")
+end
+
+buyinpack["main"]=function()
+
+end
+buyinpack["arrive"]=function()
+	if bags[buyinpack["pack"]][buyinpack["item"]]==nil then
+		num=0
+	else
+		num=bags[buyinpack["pack"]][buyinpack["item"]]
+	end
+	if buyinpack["num"]>num then
+		busytest(buyinpack[items[buyinpack["item"]]["type"]])
+	else
+		busytest(buyinpack_end_ok)
+	end
+end
+
+buyinpack["buy"]=function()
+	num=getnum(items[buyinpack["item"]]["buymax"])
+	if (num <2) then
+		run("buy "..items[buyinpack["item"]]["id"].." from "..items[buyinpack["item"]]["npc"])
+	else
+		num2=item["num"]-itemsnum(buyinpack["item"])
+		if num>num2 then num=num2 end
+		run("buy "..tostring(num).." "..items[buyinpack["item"]]["id"].." from "..items[buyinpack["item"]]["npc"])
+	end
+	run("put "..items[buyinpack["item"]]["id"].." in "..buyinpack["pack"])
+	getinv()
+	delay(1,buyinpack["arrive"])
+end
+buyinpack["cmd"]=function()
+	run(items[buyinpack["item"]]["cmd"])
+	run("i")
+	busytest(buyinpack["arrive"])
+end
+
 
 ----- ³ÔºÈÄ£¿é-----------
 if foodpack==nil or foodpack=="" then

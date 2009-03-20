@@ -35,7 +35,7 @@ do_rest=function(rest_ok,rest_fail,l)
 	else
 		meforce=meforce.lv
 	end
-	if ((lastsleep+sleepdelay)<os.time())or(meforce<75) then
+	if ((lastsleep+sleepdelay)<os.time())or(meforce<75)and me.hp.neilimax>getnum(tonumber(GetVariable("neilimin")))  then
 		rest.sleep(l)
 	else
 		rest.dazuo()

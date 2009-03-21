@@ -13,7 +13,7 @@ end
 letter["check"]=function()
 	if do_check(letter["main"],letter["main"]) then
 	elseif checkstudy(letter["main"],letter["main"]) then
-	elseif checkfangqi(masterquest["main"],masterquest["main"]) then
+	elseif checkfangqi(letter["main"],letter["main"]) then
 	else
 		go(familys[me.fam].masterloc,letter["questarrive"],letter_end_fail)
 	end

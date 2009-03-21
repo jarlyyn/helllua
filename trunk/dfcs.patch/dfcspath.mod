@@ -26,3 +26,15 @@ masterquest.case=function()
 		masterquest.askquest()
 	end
 end
+
+check_bow=function(check_ok,check_fail)
+	if me.hp.exp<50000 or me.hp.exp>400000 then return false end
+	if GetVariable("pfm")=="shot" and itemsnum("ÀÇÑÀ¼ý")<10 then
+		item["go"]("ÀÇÑÀ¼ý",30,check_ok,check_fail)
+		return true
+	elseif GetVariable("pfm")=="shot" and itemsnum("µã½ðÅÌÁú¹­")==0 and itemsnum("³¤¹­")==0 and itemsnum("¶Ì¹­")==0 and itemsnum("³àÔ§åó")==0 and itemsnum("åó")==0 then
+		item["go"]("³¤¹­",1,check_ok,check_fail)
+		return true
+	end
+	return false
+end

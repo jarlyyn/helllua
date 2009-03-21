@@ -11,10 +11,7 @@ do_check=function(checkcallback)
 		busytest(c_duihuancoin)
 	elseif itemsnum("Gold")<(tonumber(GetVariable("goldmin"))) then
 		busytest(c_qugold)
-	elseif GetVariable("pfm")=="shot" and itemsnum("ÀÇÑÀ¼ý")<10 then
-		item["go"]("ÀÇÑÀ¼ý",30,checkcallback,checkcallback)
-	elseif GetVariable("pfm")=="shot" and itemsnum("µã½ðÅÌÁú¹­")==0 and itemsnum("³¤¹­")==0 and itemsnum("¶Ì¹­")==0 then
-		item["go"]("³¤¹­",1,checkcallback,checkcallback)
+	elseif checkbow(check["callback"],check["callback"]) then
 	elseif checkrest(check["callback"],check["callback"]) then
 	elseif checkheal(check["callback"],check["callback"]) then
 	elseif checkfood(check["callback"],check["callback"]) then
@@ -28,6 +25,18 @@ do_check=function(checkcallback)
 		return false
 	end
 	return true
+end
+
+checkbow=function(check_ok,check_fail)
+	if me.hp.exp<50000 or me.hp.exp>200000 then return false end
+	if GetVariable("pfm")=="shot" and itemsnum("ÀÇÑÀ¼ý")<10 then
+		item["go"]("ÀÇÑÀ¼ý",30,check_ok,check_fail)
+		return true
+	elseif GetVariable("pfm")=="shot" and itemsnum("µã½ðÅÌÁú¹­")==0 and itemsnum("³¤¹­")==0 and itemsnum("¶Ì¹­")==0 then
+		item["go"]("³¤¹­",1,check_ok,check_fail)
+		return true
+	end
+	return false
 end
 
 c_cungold=function()

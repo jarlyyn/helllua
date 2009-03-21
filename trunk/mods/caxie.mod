@@ -9,11 +9,11 @@ caxie["fail"]=fail
 do_caxie=function(caxie_ok,caxie_fail)
 	caxie["ok"]=caxie_ok
 	caxie["fail"]=caxie_fail
-	caxie["main"]()
+	busytest(caxie["main"])
 end
 caxie["end"]=function(s)
-	if ((s~="")and(s~=nil)) then 
-		call(caxie[s]) 
+	if ((s~="")and(s~=nil)) then
+		call(caxie[s])
 	end
 	caxie["ok"]=nil
 	caxie["fail"]=nil

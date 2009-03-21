@@ -7,7 +7,9 @@ pfm=function()
 	pfm_skill=GetVariable("pfm")
 	if pfm_skill=="" or pfm ==nil then return end
 	if pfm_skill=="shot" then
-		run("shot "..kill.npc.." with arrow")
+		if quest.name~="mq" or masterquest.die~=true then
+			run("shot "..kill.npc.." with arrow")
+		end
 	else
 		run(pfm_skill)
 	end
@@ -19,7 +21,10 @@ fightpreper=function()
 	if me.special["天神降世"] then run("special power") end
 	if me.special["如鬼似魅"] then run("special agile") end
 	if me.special["杀气"] then run("special hatred") end
-
+	run(perperskillcmd)
+	if GetVariable("fight_preper")~=nil then
+		run(GetVariable("fight_preper"))
+	end
 	run("yun recover;yun powerup;yun shield")
 end
 

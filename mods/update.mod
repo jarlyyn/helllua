@@ -1,4 +1,4 @@
-version=52
+version=53
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -61,6 +61,7 @@ updateversion=function()
 	addvar("killcmd","jiqu")
 	addvar("nuqimin","0")
 	addvar("configfile","")
+	addvar("fight_preper","")
 	addvar("id","")
 	addtri("status_onrank","^(> )*你现在的江湖头衔：(.*)","rank","status_onrank")
 	addtri("status_onname","^(> )*rank.*( |」)((..){1,4})\\(\\w+\\)$","charinfo","status_onname")

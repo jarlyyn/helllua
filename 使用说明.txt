@@ -107,6 +107,8 @@ xue,yanjiu,jingxiu,closed,ask,lian
 14.configfile:制定特别的config文件。
 默认是config.ini
 
+15.fight_preper: 战斗准备技能
+
 可以设成 config-dfcs.ini  东方传说
 
 遥控：

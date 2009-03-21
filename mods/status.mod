@@ -118,7 +118,7 @@ cha=function()
 	if chacmd==nil then
 		run("cha")
 	else
-		run("chacmd")
+		run(chacmd)
 	end
 	trigrpoff("cha")
 end
@@ -133,8 +133,15 @@ getjifa=function()
 	catch("jifa","jifa")
 end
 
+preperskillcmd=""
 status_onjifa=function(name, line, wildcards)
+preperskillcmd=""
 	me.jifa[wildcards[2]]={name=wildcards[1],lv=tonumber(wildcards[4]),skillname=wildcards[3]}
+	if preperskill[wildcards[2]]~=nil then
+		if preperskill[wildcards[2]][wildcards[3]]~=nil then
+			preperskillcmd=preperskillcmd..preperskill[wildcards[2]][wildcards[3]]
+		end
+	end
 end
 
 

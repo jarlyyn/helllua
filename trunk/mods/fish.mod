@@ -50,6 +50,7 @@ fish["check"]=function()
 	elseif checkitems(fish.items,fish["main"]) then
 	elseif checkdrop(fish.drops,fish["main"],fish["main"]) then
 	elseif checksell(fish.sells,fish["main"],fish["main"]) then
+	elseif checkfangqi(fish["main"],fish["main"]) then
 	elseif checkstudy(fish["main"]) then
 	else
 		go(39,fish.arrive,fish_end_fail)

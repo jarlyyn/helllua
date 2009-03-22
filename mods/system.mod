@@ -7,7 +7,7 @@ on_disconnect=function()
 	end
 	logdelaysec=1
 end
-idre=rex.new("^.*?(?<id>[^-.\\\\]+)(-(?<passwd>[^-.\\\\]+)){0,1}(\\..*){0,1}$")
+idre=rex.new("^.*\\\\(?<id>[^-.]+)(-(?<passwd>[^-.]+)){0,1}")
 getidpass=function()
 	if me.id==nil or me.id=="" then
 		s,e,t=idre:match(GetInfo(54))

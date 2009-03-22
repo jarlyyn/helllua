@@ -217,9 +217,9 @@ end
 
 ----- ³ÔºÈÄ£¿é-----------
 if foodpack==nil or foodpack=="" then
-	_food=food
+	_food=items[food].id
 else
-	_food=food .. " in "..foodpack
+	_food=items[food].id .. " in "..foodpack
 	if #foodpack>6 then
 		if string.sub(foodpack,#foodpack-5,#foodpack)==" of me" then
 			_food=string.sub(_food,1,#_food-6,#_food)
@@ -227,9 +227,9 @@ else
 	end
 end
 if drinkpack==nil or drinkpack=="" then
-	_drink=drink
+	_drink=items[drink].id
 else
-	_drink=drink .. " in "..drinkpack
+	_drink=items[drink].id .. " in "..drinkpack
 	if #drinkpack>6 then
 		if string.sub(drinkpack,#drinkpack-5,#drinkpack)==" of me" then
 			_drink=string.sub(_drink,1,#_drink-6,#_drink)

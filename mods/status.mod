@@ -170,12 +170,18 @@ stsetting=function()
 	settags()
 	setflylist()
 end
+
+nocross=false
+
 settags=function()
 	tags=""
 	if me.fam~=nil then
 		if familys[me.fam]~=nil then
 			tags=familys[me.fam].family
 		end
+	end
+	if nocross==true then
+		tags=tags.."|nocross"
 	end
 	if housepass[me.name.."ÊÖÚÍ"]~=nil then
 		mypass[housepass[me.name.."ÊÖÚÍ"].name]=true

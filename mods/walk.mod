@@ -77,9 +77,9 @@ walk_on_busy=function(name, line, wildcards)
 		if wildcards[2]=="你突然发现眼前的景象有些迷乱" then
 			run(walking["step"])
 		elseif wildcards[2]=="你太累了，还是休息一会儿吧" then
-			DoAfterSpecial(1,"run('yun recover;'.."..'"'..walking["step"]..'")',12)
+			DoAfterSpecial(1,'run("yun recover;"..walking["step"])',12)
 		else
-			DoAfterSpecial(1,"run("..'"'..walking["step"]..'")',12)
+			DoAfterSpecial(1,'run(walking["step"])',12)
 		end
 	end
 end
@@ -436,4 +436,16 @@ on_locate=function(n,l,w)
 	if rid~= nil then
 		_roomid=rid
 	end
+end
+
+on_taihunocross=function(n,l,w)
+	if (_roomid==980 or _roomid==1748)and walking==walk then
+		nocross=true
+		settags()
+		callhook(hooks.flyfail)
+	end
+end
+
+on_boatout=function(n,l,w)
+	run("halt;out")
 end

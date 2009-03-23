@@ -163,7 +163,7 @@ getstatus=function(func)
 	getinv()
 	weapondru()
 	hp()
-	busytest(func)
+	delay(1,func)
 end
 
 stsetting=function()

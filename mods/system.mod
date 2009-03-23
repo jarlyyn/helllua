@@ -18,7 +18,7 @@ getidpass=function()
 end
 login=function()
 	_passwd=GetVariable("passwd")
-	if me.id==nil then
+	if GetVariable("id")~=nil and GetVariable("id")~=""then
 		me.id=GetVariable("id")
 	end
 	if (_passwd==nil)or(_passwd=="") then

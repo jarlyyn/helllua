@@ -12,6 +12,26 @@ alias_stopto=function(n,l,w)
 	go(w[1]-0)
 end
 
+alias_lian=function(n,l,w)
+	if w[2]==false then
+		print("请输入正确的格式，比如#lian dodge,parry,sword book\n如果带>,比如#lian dodge>start,则在练习完毕后执行指定的指令。\n练习可以用 基本技能.特殊技能 来激发指定的技能练习，比如#lian dodge.feiyan-zoubi,dodge.shenxing-baibian。")
+		return
+	end
+	aliaslianskill=w[2]
+	if w[4]~=false then
+		aliasliancmd=w[4]
+	end
+	do_quest("lian")
+end
+
+liando=function()
+	do_lian(aliaslianskill,liancmd)
+end
+
+liancmd=function()
+	Execute(aliasliancmd)
+end
+
 alias_gonpc=function(n,l,w)
 	walk["npc"](w[1])
 end

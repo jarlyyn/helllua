@@ -4,6 +4,14 @@ quest.stop=true
 quest.resume=nil
 quest["main"]={}
 quest.name=""
+loadmod("lian.mod")
+quest.main["lian"]=function(str,l_ok,l_f)
+	liando()
+	quest.resume=quest.main["lian"]
+end
+quest["end"]["lian"]=function()
+	lian["end"]()
+end
 loadmod("caxie.mod")
 quest.main["caxie"]=function()
 	do_caxie(caxie.main,caxie.main)

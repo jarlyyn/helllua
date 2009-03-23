@@ -1,4 +1,4 @@
-version=56
+version=57
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -29,6 +29,7 @@ updateversion=function()
 	SetTriggerOption("mqlettercontent","multi_line","1")
 	SetTriggerOption("mqlettercontent","lines_to_match","2")
 	AddAlias("alias_start","start","",flag_base_enable,"alias_start")
+	AddAlias("alias_lian","^#lian( ([^>]*)(>(.*)){0,1}){0,1}$","",flag_base_enable+alias_flag.RegularExpression,"alias_lian")
 	AddAlias("alias_dazuoneili","#dazuo","",flag_base_enable,"alias_dazuoneili")
 	AddAlias("alias_dutable","#dutable","",flag_base_enable,"alias_dutable")
 	AddAlias("alias_canwu","#canwu","",flag_base_enable,"alias_canwu")

@@ -136,7 +136,7 @@ end
 
 ---------------------------
 dazuoneili={}
-dazuoneili.loc=1927
+dazuoneili.loc=getnum(safeloc)
 dazuoneili["ok"]=nil
 dazuoneili["fail"]=nil
 

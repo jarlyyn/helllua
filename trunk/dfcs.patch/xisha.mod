@@ -54,7 +54,7 @@ end
 
 quest.main["xisha"]=function()
 	do_xisha()
-	quest.resume=quest.main["letter"]
+	quest.resume=quest.main["xisha"]
 end
 quest["end"]["xisha"]=function()
 	xisha["end"]()

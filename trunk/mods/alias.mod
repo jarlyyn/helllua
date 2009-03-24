@@ -72,6 +72,7 @@ alias_kl=function(m,l,w)
 	if w[2]~=nil then
 		if city[w[2]]~=nil then
 			print("go"..w[2].."kill"..w[1])
+			initmq()
 			masterquest.npc=w[1]
 			do_mqkill(w[2],1)
 		end

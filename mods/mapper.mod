@@ -33,6 +33,9 @@ end
 mapper.newarea=function(i)
 	return mushmapper.newarea(mapper.id,i)
 end
+mapper.clearroom=function(i)
+	return mushmapper.clearroom(mapper.id,i)
+end
 mapper.readroom=function(r,s)
 	mushmapper.readroom(mapper.id,r,s)
 end

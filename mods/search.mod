@@ -61,7 +61,7 @@ searchfor["init"]=function()
 	EnableTriggerGroup("search",true)
 end
 searchfor["nextcmd"]=function(exit)
-	if searchfor["nextroom"]~=-1 then _roomid=searchfor["nextroom"] end
+	if searchfor["nextroom"]~=-1 then _roomid=searchfor["nextroom"] else _roomid=-1 end
 	if (_searchfordata[_searchforlevel]==nil) then
 		_searchfordata[_searchforlevel]={}
 		_searchforindex[_searchforlevel]=0
@@ -79,7 +79,7 @@ searchfor["nextcmd"]=function(exit)
 		if (_searchforlevel==1) then
 			callhook(hooks.searchfrofail)
 			searchfor["end"]("fail")
-			return
+			return false
 		end
 		searchfor["step"]=_searchforback[_searchforlevel]
 		_searchforlevel=_searchforlevel-1
@@ -94,6 +94,7 @@ searchfor["nextcmd"]=function(exit)
 	else
 		searchfor["nextroom"]=-1
 	end
+	return true
 end
 searchfor["next"]=function(exit)
 	if _roomname~=nil and _roomname~="" then
@@ -108,8 +109,9 @@ searchfor["next"]=function(exit)
 		end
 	end
 	initmaze()
-	searchfor["nextcmd"](exit)
-	run(searchfor["step"])
+	if searchfor["nextcmd"](exit)~=false then
+		run(searchfor["step"])
+	end
 end
 searchfor["guarded"]=function()
 	ResetTimer("on_steptimeout")

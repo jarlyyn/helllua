@@ -8,6 +8,7 @@ blocker["摘星子"]={id="zhaixing zi",exp=800000}
 blocker["鳌府侍卫"]={id="ya yi",exp=50000}
 blocker["鳌拜"]={id="ya yi",exp=200000}
 blocker["心砚"]={id="xin yan",exp=790000}
+blocker["周绮"]={id="zhou yi",exp=790000}
 blocker["蒋四根"]={id="jiang sigen",exp=790000}
 blocker["石双英"]={id="shi shuangying",exp=790000}
 blocker["卫春华"]={id="wei chunhua",exp=790000}

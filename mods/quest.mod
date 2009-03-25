@@ -20,6 +20,16 @@ end
 quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
+
+loadmod("pick.mod")
+quest.main["pick"]=function()
+	do_pick(pick.main,pick.main)
+	quest.resume=quest.main["pick"]
+end
+quest["end"]["pick"]=function()
+	pick["end"]()
+end
+
 loadmod("beiqi.mod")
 quest.main["beiqi"]=function()
 	beiqi["main"]()

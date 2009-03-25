@@ -1,7 +1,5 @@
 xisha={}
-xisha.loc=mapper.newarea(1)
-mapper.readroom(xisha.loc,tostring(xisha.loc).."=洗沙|n:1455,")
-mapper.addpath(1455,"s:"..tostring(xisha.loc)..",")
+xisha.loc=xishaloc
 
 print("载入洗沙模块，指令为#xisha")
 

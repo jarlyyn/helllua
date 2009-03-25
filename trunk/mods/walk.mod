@@ -439,7 +439,7 @@ on_locate=function(n,l,w)
 end
 
 on_taihunocross=function(n,l,w)
-	if (_roomid==980 or _roomid==1748)and walking==walk then
+	if (_roomid==980 or _roomid==1748 or _roomid==1977 or _roomid==946)and walking==walk then
 		nocross=true
 		settags()
 		callhook(hooks.flyfail)

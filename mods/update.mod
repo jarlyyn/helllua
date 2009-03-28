@@ -1,4 +1,4 @@
-version=59
+version=61
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -39,6 +39,7 @@ updateversion=function()
 	addtri("mqquestnum","^师长交给你的任务，你已经连续完成了\\s*(\\d*)\\s*个。","mqquestnum","mqquestnum")
 	addtri("mqlettertimeout","^(> )*你(皱了皱眉，道：“我还是不去了，你让师傅|摇了摇头，将信函随手一撕。)","masterquest","mqlettertimeout")
 	addtri("unwield","^(> )*练.*必须空手。","system","on_unwield")
+	addtri("sell_broken","^(> )*唐楠随手一扔，道：(.*)一文不值！","system","sell_broken")
 	addtri("pick_full","^(> )*(.*)对你而言太重了。","pick","pick_full")
 	addtri("walk_boatout","^(> )*(少女说: “到啦，上岸吧。”，随即一点竹篙，把舟泊好。|艄公说“到啦，上岸吧”，随即把一块踏脚板搭上堤岸。)","system","on_boatout")
 	addtri("walk_taihucrossfail","^(> )*(你觉得湖面太宽，没有十足的把握跃过去。|你看着浩瀚的太湖，心里不禁打了个突，没敢乱来。)","system","on_taihunocross")
@@ -73,6 +74,7 @@ updateversion=function()
 	addtri("systemlogdelay","^你不能在 .* 秒钟之内连续重新连线。","system","logdelay")
 	addtri("npc_killme","^(> )*(.{1,8})(一见到你|和你一碰面|对著你大喝：「可恶|喝道：「你|一眼瞥见你|和你仇人相见分外眼红)","system","npc_killme")
 	addtri("walk_busy","^(> )*(你的动作还没有完成，不能移动|你逃跑失败|你被拦住了去路|你突然发现眼前的景象有些迷乱|你太累了，还是休息一会儿吧|你的内力不够，还是休息一下再说吧|这里没有这样东西可骑|现在白雕正忙着|只听得湖面上隐隐传来：“就来了啦……”|只听得湖面上隐隐传来：“别急嘛，这儿正忙着呐……”)","system","walk_on_busy")
+	addtri("l_1136","^    这里是少林寺前的广场，整个广场由大块的青石铺成，极为","locate","on_locate")
 	addtri("l_1673","^    这里是六和塔的底层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 	addtri("l_2298","^    这里是六和塔的二层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 	addtri("l_2299","^    这里是六和塔的三层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")

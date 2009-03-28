@@ -30,7 +30,7 @@ masterquest.case=function()
 end
 
 checkbow=function(check_ok,check_fail)
-	if getnum(me.hp.exp<50000) or getnum(me.hp.exp>400000) then return false end
+	if getnum(me.hp.exp)<50000 or getnum(me.hp.exp)>400000 then return false end
 	if GetVariable("pfm")=="shot" and itemsnum("ÀÇÑÀ¼ý")<10 then
 		item["go"]("ÀÇÑÀ¼ý",30,check_ok,check_fail)
 		return true

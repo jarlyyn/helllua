@@ -187,6 +187,17 @@ steppath["next"]=function()
 	run(steppath["step"])
 end
 
+steppath["getnextroom"]=function()
+	if _roomname~=nil and _roomname~="" then
+		if maze[_roomname]~=nil then
+			if _roomname==mazename then
+				return(_roomid)
+			end
+		end
+	end
+	return steppath["nextroom"]
+end
+
 steppath_fail=function(n,l,w)
 	local nextsameroom=getnextsameroom(_roomid)
 	if nextsameroom>-1 then

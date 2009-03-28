@@ -1,4 +1,5 @@
 quest={}
+quest.savemoney={}
 quest["end"]={}
 quest.stop=true
 quest.resume=nil

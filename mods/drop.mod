@@ -26,7 +26,7 @@ drop_end_fail=function()
 end
 
 drop["arrive"]=function()
-	busytest(drop.dropcmd)	
+	busytest(drop.dropcmd)
 end
 
 drop["dropcmd"]=function()
@@ -77,7 +77,7 @@ sell_end_fail=function()
 end
 
 sell["arrive"]=function()
-	busytest(sell.sellcmd)	
+	busytest(sell.sellcmd)
 end
 
 sell["sellcmd"]=function()
@@ -104,3 +104,19 @@ checksell=function(_selllist,sell_ok,sell_fail,sell_loc)
 		end
 	end
 end
+
+sell_broken=function(n,l,w)
+	if brokenweapon[w[2]]~=nil then
+		run("drop "..brokenweapon[w[2]])
+	end
+end
+
+brokenweapon={}
+brokenweapon["碎掉的钢杖"]="gangzhang"
+brokenweapon["碎掉的长剑"]="long sword"
+brokenweapon["碎掉的钢刀"]="blade"
+brokenweapon["碎掉的银轮"]="yin lun"
+brokenweapon["碎裂的钢杖"]="gangzhang"
+brokenweapon["碎裂的长剑"]="long sword"
+brokenweapon["碎裂的钢刀"]="blade"
+brokenweapon["碎裂的银轮"]="yin lun"

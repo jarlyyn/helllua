@@ -36,6 +36,7 @@ do_masterquest=function(masterquest_ok,masterquest_fail)
 	masterquest["fail"]=masterquest_fail
 	EnableTriggerGroup("masterquest",true)
 	setmqmastertri()
+	hook(hooks.faint,mqfaintrecon)
 	initmq()
 	masterquest.main()
 end
@@ -148,6 +149,7 @@ masterquest["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
 		call(masterquest[s])
 	end
+	hook(hooks.faint,nil)
 	EnableTriggerGroup("masterquestkill",false)
 	EnableTriggerGroup("masterquest",false)
 	masterquest["ok"]=nil
@@ -541,6 +543,15 @@ mqhelperrecon=function()
 	mqhelploc=_roomid
 	hook(hooks.logok,mqhelperlogok)
 	recon()
+end
+
+mqfaintrecon=function()
+	hook(hooks.logok,mqfaintlogok)
+	recon()
+end
+mqfaintlogok=function()
+	unhookall()
+	go(safeloc,resume,resume)
 end
 
 mqhelper1=function(n,l,w)

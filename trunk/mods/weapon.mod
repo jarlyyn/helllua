@@ -51,10 +51,10 @@ weapondru=function()
 	weaponid=GetVariable("weapon")
 	weaponid2=GetVariable("weapon2")
 	if weaponid~="" and weaponid~=nil then
-		catch("weapon1dru","look "..weaponid)
+		catch("weapon1dru","look "..weaponid.." of me")
 	end
 	if weaponid2~="" and weapon2id~=nil then
-		catch("weapon2dru","look "..weapon2id)
+		catch("weapon2dru","look "..weapon2id.." of me")
 	end
 end
 

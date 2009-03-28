@@ -1,3 +1,4 @@
+quest.savemoney["pick"]=true
 pick={}
 pick["inv"]={}
 pick["index"]=1
@@ -7,7 +8,6 @@ pick.full=false
 do_pick=function(pick_ok,pick_fail)
 	pick["ok"]=pick_ok
 	pick["fail"]=pick_fail
-	EnableTriggerGroup("pick",true)
 	busytest(pick["main"])
 end
 pick["end"]=function(s)
@@ -30,12 +30,11 @@ pick["check"]=function()
 	if do_check(pick["main"]) then
 	elseif checksell(picklist,pick["main"]) then
 	else
-		pickbegin(cxpath[caxpathlist[math.random(1,#caxpathlist)]])
+		pickbegin(cxpath[pickpathlist[math.random(1,#pickpathlist)]])
 	end
 end
 
 makepicklist=function()
-	eatdrink()
 	pick["list"]={}
 	for i,v in pairs(room_obj) do
 		if picklist[i]~=nil then
@@ -49,27 +48,31 @@ end
 
 pickbegin=function(_cxpath)
 	pick.full=false
+	EnableTriggerGroup("pick",true)
 	do_steppath(_cxpath,pickstep,pick["fail"],pick["ok"],pick["fail"])
 end
 pickitem=function()
+	if pick.full==true then
+		busytest(pickinvfull)
+		return
+	end
 	pick["index"]=pick["index"]+1
 	if pick["index"]<=(#pick["list"]) then
 		run("get "..picklist[pick["list"][pick["index"]]].id)
 		busytest(pickitem)
 	else
-		if pick.full==true then
-			busytest(pickinvfull)
-		else
 			steppath["next"]()
-		end
 	end
 end
 
 pickinvfull=function()
+	_roomid=steppath["getnextroom"]()
 	steppath["end"]("ok")
 end
 
 pick_full=function(n,l,w)
+	if picklist[pick["list"][pick["index"]]]==nil then return end
+	EnableTriggerGroup("pick",false)
 	if w[2]==picklist[pick["list"][pick["index"]]].cname then
 		pick.full=true
 	end

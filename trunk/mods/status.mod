@@ -183,6 +183,11 @@ settags=function()
 	if nocross==true then
 		tags=tags.."|nocross"
 	end
+	if quest.name~="" and quest.name~=nil then
+		if quest.savemoney[quest.name]==true then
+			tags=tags.."|nocar"
+		end
+	end
 	if housepass[me.name.."ÊÖÚÍ"]~=nil then
 		mypass[housepass[me.name.."ÊÖÚÍ"].name]=true
 	end

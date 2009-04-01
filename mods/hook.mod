@@ -29,7 +29,7 @@ hooks.blocked="blocked"
 hooks.killme="killme"
 ---被npc下kill的hook,函数第一个参数是下kill的npc的名字
 _hooklist={}
-
+_hookarglist={}
 hashook=function(str)
 	if _hooklist[str] ==nil then
 		return false
@@ -38,24 +38,35 @@ hashook=function(str)
 	end
 end
 
-hook=function(str,callback)
+hook=function(str,callback,...)
 	_hooklist[str]=callback
+	if callback==nil then
+		_hookarglist[str]=nil
+	else
+		_hookarglist[str]={...}
+	end
 end
 
 unhookall=function()
 	_hooklist={}
+	_hookarglist={}
 end
 
 callhook=function(str,removehook)
 	thook=_hooklist[str]
+	thookarg=_hookarglist[str]
 	if removehook==true then
-		_hooklist[str]=nil
+		hook(str,nil)
 	end
-	call(thook)
+	if thookarg~=nil then
+		call(thook,unpack(thookarg))
+	else
+		call(thook)
+	end
 end
 
-call=function(func)
-	if (func~=nil) then 
-		func() 
+call=function(func,...)
+	if (func~=nil) then
+		func(...)
 	end
 end

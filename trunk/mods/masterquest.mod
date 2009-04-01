@@ -44,7 +44,7 @@ masterquest.loop=function()
 	busytest(masterquest.loopcmd)
 end
 masterquest.resume=function()
-
+	hook(hooks.faint,mqfaintrecon)
 	EnableTriggerGroup("masterquest",true)
 	busytest(masterquest.main)
 end
@@ -551,6 +551,7 @@ mqfaintrecon=function()
 end
 mqfaintlogok=function()
 	unhookall()
+	print("前往安全场所")
 	go(safeloc,resume,resume)
 end
 

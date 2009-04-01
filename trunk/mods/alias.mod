@@ -5,10 +5,14 @@ alias_to=function(n,l,w)
 end
 
 alias_spwk=function(n,l,w)
-	walk["stop"]()
+	unhookall()
+	inittri()
 end
 
-alias_stopto=function(n,l,w)
+alias_stoptocmd=function(...)
+	testinfo(alias_stoptocmd,...)
+end
+alias_stoptocmd=function(n,l,w)
 	go(w[1]-0)
 end
 
@@ -32,7 +36,10 @@ liancmd=function()
 	Execute(aliasliancmd)
 end
 
-alias_gonpc=function(n,l,w)
+alias_gonpc=function(...)
+	testinfo(alias_gonpccmd,...)
+end
+alias_gonpccmd=function(n,l,w)
 	walk["npc"](w[1])
 end
 

@@ -33,6 +33,14 @@ status_noteacher=function (name, line, wildcards)
 	me.score["teacher"]="none"
 end
 
+testinfo=function(h,w)
+	if me.score.teacher~=nil then
+		h(w)
+	else
+		getinfo(h,w)
+	end
+end
+
 status_onyueli=function(name, line, wildcards)
 	me.score["yueli"]=tonumber(wildcards[1])
 	me.score["weiwang"]=tonumber(wildcards[2])
@@ -130,16 +138,16 @@ end
 getjifa=function()
 	me.jifa={}
 	mejifa=me.jifa
+	preperskillcmd=""
 	catch("jifa","jifa")
 end
 
 preperskillcmd=""
 status_onjifa=function(name, line, wildcards)
-preperskillcmd=""
 	me.jifa[wildcards[2]]={name=wildcards[1],lv=tonumber(wildcards[4]),skillname=wildcards[3]}
 	if preperskill[wildcards[2]]~=nil then
 		if preperskill[wildcards[2]][wildcards[3]]~=nil then
-			preperskillcmd=preperskillcmd..preperskill[wildcards[2]][wildcards[3]]
+			preperskillcmd=preperskillcmd..preperskill[wildcards[2]][wildcards[3]]..";"
 		end
 	end
 end

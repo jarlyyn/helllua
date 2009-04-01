@@ -103,22 +103,22 @@ catch=function(trigrp,command)
 	trigrpoff(trigrp)
 end
 busytestdelay=1
-busytest=function(busyhook,t)
+busytest=function(busyhook,t,...)
 	if t==nil then t=1 end
 	busytestdelay=t
 	if hashook(hooks.isbusy) then
-		hook(hooks.isbusy,busyhook)
+		hook(hooks.isbusy,busyhook,...)
 	else
-		hook(hooks.isbusy,busyhook)
+		hook(hooks.isbusy,busyhook,...)
 		run("enchase bao")
 	end
 end
 
-delay=function(t,busyhook)
+delay=function(t,busyhook,...)
 	if hashook(hooks.isbusy) then
-		hook(hooks.isbusy,busyhook)
+		hook(hooks.isbusy,busyhook,...)
 	else
-		hook(hooks.isbusy,busyhook)
+		hook(hooks.isbusy,busyhook,...)
 		DoAfterSpecial(t,'run(\"enchase bao\")',12)
 	end
 end
@@ -297,3 +297,5 @@ on_getweapon=function()
 	run (_getweaponcmd)
 	weapon(1)
 end
+
+

@@ -1,5 +1,9 @@
 
-alias_to=function(n,l,w)
+alias_to=function(...)
+	testinfo(alias_tocmd,...)
+end
+
+alias_tocmd=function(n,l,w)
 	print("go"..mapper.getroomname(w[1]))
 	go(w[1]-0)
 end
@@ -9,7 +13,7 @@ alias_spwk=function(n,l,w)
 	inittri()
 end
 
-alias_stoptocmd=function(...)
+alias_stopto=function(...)
 	testinfo(alias_stoptocmd,...)
 end
 alias_stoptocmd=function(n,l,w)
@@ -85,3 +89,5 @@ alias_kl=function(m,l,w)
 		end
 	end
 end
+
+

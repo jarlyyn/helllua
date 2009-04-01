@@ -33,11 +33,11 @@ status_noteacher=function (name, line, wildcards)
 	me.score["teacher"]="none"
 end
 
-testinfo=function(h,w)
+testinfo=function(h,...)
 	if me.score.teacher~=nil then
-		h(w)
+		call(h,...)
 	else
-		getinfo(h,w)
+		getinfo(h,...)
 	end
 end
 
@@ -153,7 +153,7 @@ status_onjifa=function(name, line, wildcards)
 end
 
 
-getinfo=function(func)
+getinfo=function(func,...)
 	gettitle()
 	score()
 	getjifa()
@@ -163,7 +163,7 @@ getinfo=function(func)
 	getfam()
 	getmudvar()
 	infoend(stsetting)
-	busytest(func)
+	busytest(func,nil,...)
 end
 getstatus=function(func)
 	eatdrink()

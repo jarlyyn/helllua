@@ -120,6 +120,6 @@ resume=function()
 		unhookall()
 		_roomid=-1
 		inittri()
-		getinfo(quest["resume"])
+		delay(getinfo,quest["resume"])
 	end
 end

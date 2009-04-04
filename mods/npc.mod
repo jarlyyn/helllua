@@ -1,3 +1,5 @@
+if stepmaxstep==nil then stepmaxstep=getnum(maxstep) end
+
 npc={name="",id="",loc=-1,nobody=0}
 
 npchere=function(npcid,str)
@@ -71,12 +73,14 @@ end
 npcinpath={}
 npcinpath["ok"]=nil
 npcinpath["fail"]=nil
+npcinpath["loc"]=-1
 
 do_npcinpath=function(_path,npcinpath_ok,npcinpath_fail)
 	npcinpath["ok"]=npcinpath_ok
 	npcinpath["fail"]=npcinpath_fail
+	npcinpath["loc"]=-1
 	EnableTriggerGroup("npc",true)
-	do_steppath(_path,npcinpath.step,npcinpath_end_fail,npcinpath_end_fail,npcinpath_end_fail)
+	do_steppath(_path,npcinpath.step,npcinpath_end_fail,npcinpath_end_fail,npcinpath_end_fail,stepmaxstep,npcinpath["maxstep"])
 end
 
 npcinpath["end"]=function(s)
@@ -115,6 +119,7 @@ npcinpath.testnpc=function()
 	end
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
+		npcinpath["loc"]=_roomid
 		if _roomname~=nil and _roomname~="" then
 			if maze[_roomname]==nil or _roomname~=mazename then
 				_roomid=steppath["nextroom"]
@@ -123,13 +128,24 @@ npcinpath.testnpc=function()
 		npc.id=room_obj[npc.name].id
 		testnpcid()
 		print("find"..npc.name.."@"..tostring(_roomid))
-		steppath["end"]()
-		go(npc.loc,npcinpath["ok"],npcinpath["fail"])
-
-		npcinpath["end"]()
+		if stepmaxstep<2 then
+			steppath["end"]()
+			go(npc.loc,npcinpath["ok"],npcinpath["fail"])
+			npcinpath["end"]()
+		end
+		steppath["next"]()
 	else
 		steppath["next"]()
 	end
+end
+npcinpath["maxstep"]=function()
+	if npcinpath["loc"] >-1 then
+		steppath["end"]()
+		go(npcinpath["loc"],npcinpath["ok"],npcinpath["fail"])
+		npcinpath["end"]()
+		return
+	end
+	steppath["nextmaxstep"]()
 end
 
 

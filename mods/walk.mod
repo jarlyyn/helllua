@@ -253,7 +253,7 @@ walk_on_step=function()
 	if maxstep<2 then
 		run(walk["step"])
 	elseif walk["steptype"]==2 then
-		walk_on_maxstep()
+		run(walkmaxstepmcmd)
 	end
 
 end
@@ -497,10 +497,12 @@ end
 getmaxsteps=function(pathlist,index,ms)
 	local steps=""
 	local stepcount=0
+	local pathstep=""
 	ms=ms-1
 	if index>#pathlist then  return "",2 end
 	for i=index,#pathlist,1 do
 		pathstep=pathlist[i]
+		stepcount=stepcount+1
 		if pathstep~="" and pathstep~=nil then
 			if  maxstepfilter[pathstep]==nil then
 				if steps=="" then
@@ -509,11 +511,38 @@ getmaxsteps=function(pathlist,index,ms)
 				end
 				return steps,1
 			end
+			steps=steps..pathstep..";"
+			if stepcount>ms then
+				return steps,1
+			end
 		end
-		stepcount=stepcount+1
-		steps=steps..pathstep..";"
-		if stepcount>ms then
-			return steps,1
+	end
+	return steps,1
+end
+
+getmaxstepsinpath=function(pathlist,index,ms)
+	local steps=""
+	local stepcount=0
+	local pathstep=""
+	ms=ms-1
+	if index>#pathlist then  return "",2 end
+	for i=index,#pathlist,1 do
+		if pathlist[i]~=nil then
+			pathstep=pathlist[i]["step"]
+			stepcount=stepcount+1
+			if pathstep~="" and pathstep~=nil then
+				if  maxstepfilter[pathstep]==nil then
+					if steps=="" then
+						steps=steps..pathstep..";"
+						return steps,2
+					end
+					return steps,1
+				end
+				steps=steps..pathstep..";"
+				if stepcount>ms then
+					return steps,1
+				end
+			end
 		end
 	end
 	return steps,1
@@ -521,4 +550,11 @@ end
 
 walk_maxstep=function(n,l,w)
 	callhook(hooks.maxstep)
+end
+
+dogpfm=function()
+	local p=GetVariable("pfm")
+	if p~="shot" and p~="" and p~=nil then
+		hook(hooks.fight,pfm)
+	end
 end

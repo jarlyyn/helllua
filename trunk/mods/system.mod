@@ -103,6 +103,7 @@ catch=function(trigrp,command)
 	trigrpoff(trigrp)
 end
 busytestdelay=1
+busytestcmd="enchase bao"
 busytest=function(busyhook,t,...)
 	if t==nil then t=1 end
 	busytestdelay=t

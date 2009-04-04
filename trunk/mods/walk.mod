@@ -1,3 +1,5 @@
+maxstepfilter={east=true,e=true,south=true,s=true,west=true,w=true,north=true,n=true,southeast=true,se=true,southwest=true,sw=true,northeast=true,ne=true,northwest=true,nw=true,eastup=true,eu=true,eastdown=true,ed=true,southup=true,su=true,southdown=true,sd=true,westup=true,wu=true,westdown=true,wd=true,northup=true,nu=true,northdown=true,nd=true,up=true,u=true,down=true,d=true,enter=true,out=true}
+
 loadmod("blocker.mod")
 walkend=nil
 walking=nil
@@ -11,12 +13,14 @@ walk["path"]=""
 walk["data"]={}
 walk["index"]=0
 walk["step"]=0
+walk["steptype"]=0 -- 0单，1多,2多步的单步特殊命令
 
 walk["end"]=function(s)
 	walking=nil
 	hook(hooks.stepfail,nil)
 	hook(hooks.step,nil)
 	hook(hooks.flyfail,nil)
+	hook(hooks.maxstep,nil)
 	if ((s~="")and(s~=nil)) then
 		call(walk[s])
 	end
@@ -146,6 +150,7 @@ do_walk=function (to,walk_ok,walk_fail)
 	hook(hooks.stepfail,walk.stepfail)
 	hook(hooks.flyfail,walk["flyfail"])
 	hook(hooks.steptimeout,nil)
+	hook(hooks.maxstep,walk_on_maxstep)
 	walk["path"]=mapper.getpath(_roomid,to,1)
 	if (walk["path"]=="") then
 		walk["end"]("fail")
@@ -156,7 +161,12 @@ do_walk=function (to,walk_ok,walk_fail)
 	walk["data"]=convpath(walk["path"])
 	walk["step"]=nil
 	hook(hooks.stepfail,walk["stepfail"])
+	walk["steptype"]=0
 	walk_on_step()
+	if maxstep>1 then
+		walk["steptype"]=1
+		busytest(walkrunmaxstep)
+	end
 end
 
 walk["stepfail"]=function()
@@ -226,21 +236,52 @@ walk_on_step=function()
 	end
 	walk["index"]=walk["index"]+1
 	if mazestep~="" and mazestep~=nil then
-		steptrace(mazestep)
+		steptrace(walk["step"])
 	else
 		steptrace(walk["step"])
 	end
 	initmaze()
-	if (walk["data"][walk["index"]]==nil) then
+	walk["step"]=walk["data"][walk["index"]]
+	if (walk["step"]==nil) then
 		walk["end"]("ok")
 		return
 	end
-	if string.sub(walk["data"][walk["index"]],1,4)=="#loc" then
+	if string.sub(walk["step"],1,4)=="#loc" then
 			walk["end"]("ok")
 			return
 	end
-	walk["step"]=walk["data"][walk["index"]]
-	run(walk["step"])
+	if maxstep<2 then
+		run(walk["step"])
+	elseif walk["steptype"]==2 then
+		walk_on_maxstep()
+	end
+
+end
+walkmaxstepmcmd="set no_more maxstep"
+walk_on_maxstep=function()
+	if walking~=walk or maxstep<2 then return end
+	if _roomid==-1 then
+			do_walk(walk["to"],walk["ok"],walk["fail"])
+		return
+	end
+	if (walk["step"]==nil) then
+		walk["end"]("ok")
+		return
+	end
+	if string.sub(walk["step"],1,4)=="#loc" then
+			walk["end"]("ok")
+			return
+	end
+	busytest(walkrunmaxstep)
+end
+
+walkrunmaxstep=function()
+	local steps,steptype=getmaxsteps(walk["data"],walk["index"],maxstep)
+	walk["steptype"]=steptype
+	if steptype==1 then
+		steps=steps..walkmaxstepmcmd
+	end
+	run(steps)
 end
 
 steptrace=function(dir)
@@ -448,4 +489,36 @@ end
 
 on_boatout=function(n,l,w)
 	run("halt;out")
+end
+
+
+-------------------------
+
+getmaxsteps=function(pathlist,index,ms)
+	local steps=""
+	local stepcount=0
+	ms=ms-1
+	if index>#pathlist then  return "",2 end
+	for i=index,#pathlist,1 do
+		pathstep=pathlist[i]
+		if pathstep~="" and pathstep~=nil then
+			if  maxstepfilter[pathstep]==nil then
+				if steps=="" then
+					steps=steps..pathstep..";"
+					return steps,2
+				end
+				return steps,1
+			end
+		end
+		stepcount=stepcount+1
+		steps=steps..pathstep..";"
+		if stepcount>ms then
+			return steps,1
+		end
+	end
+	return steps,1
+end
+
+walk_maxstep=function(n,l,w)
+	callhook(hooks.maxstep)
 end

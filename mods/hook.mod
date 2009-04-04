@@ -25,6 +25,8 @@ hooks.steptimeout="steptimeout"
 --发送上一个指令4秒后触发。一般用于search之类的step超时
 hooks.blocked="blocked"
 --step 被拦住的hook
+hooks.maxstep="maxstep"
+--多步行走
 
 hooks.killme="killme"
 ---被npc下kill的hook,函数第一个参数是下kill的npc的名字

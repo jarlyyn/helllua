@@ -1,4 +1,4 @@
-version=61
+version=62
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -88,6 +88,10 @@ updateversion=function()
 	addtri("study_needweapon","^(> )*你必须先找一把.*才能练.*法。","study","study_needweapon")
 	addtri("items_onbagsstart","^(> )*设定环境变数：no_more = \"getbag-(.+)\"$","bagitem","on_bagsstart")
 	addtri("items_onbagsend","^(> )*设定环境变数：no_more = \"getbagend\"$","bagitem","on_bagsend")
+	addtri("walk_maxstep","^(> )*设定环境变数：no_more = \"maxstep\"$","system","walk_maxstep")
+	SetTriggerOption("walk_maxstep","omit_from_output","1")
+	SetTriggerOption("items_onbagsstart","omit_from_output","1")
+	SetTriggerOption("items_onbagsend","omit_from_output","1")
 	addtri("items_onbagitems","^    ([^a-z!@#$%\\^&*()\\\\/.,<> ]+)\\((\\w*\\s{0,1}\\w+)\\)$","bagitem","on_bagitems")
 	addtri("heal_danbusy","^(> )*你的内力不足，无法运满一个周天。$","dispel","on_dispelneilifail")
 	addtri("heal_neilifail","^(> )*你刚服用过药，需药性发挥完效用以后才能继续服用。$","eatdan","on_danbusy")

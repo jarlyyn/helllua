@@ -125,8 +125,14 @@ xiaoerguard=function(name, line, wildcards)
 	searchfor["guarded"]()
 end
 
+
+
+--------------------------------
+
+
 steppath={}
-do_steppath=function(path,pstep,pfail,path_ok,path_fail)
+steppath["maxstep"]=0
+do_steppath=function(path,pstep,pfail,path_ok,path_fail,path_maxstep,path_onmaxstep)
 	walking=steppath
 	steppath["path"]=path
 	steppath["ok"]=path_ok
@@ -134,6 +140,9 @@ do_steppath=function(path,pstep,pfail,path_ok,path_fail)
 	walkend=steppath["end"]
 	steppath["pstep"]=pstep
 	steppath["pfail"]=pfail
+	steppath["maxstep"]=getnum(path_maxstep)
+	steppath["steptype"]=0
+	steppath["onmaxstep"]=path_onmaxstep
 	EnableTriggerGroup("steppath",true)
 	do_walk(path[1]["loc"],steppath["arrive"],path_fail)
 end
@@ -141,14 +150,24 @@ steppath["arrive"]=function()
 	walking=steppath
 	hook(hooks.steptimeout,steppath_fail)
 	hook(hooks.step,steppath["pstep"])
+	hook(hooks.maxstep,steppath["onmaxstep"])
 	hook(hooks.searchfrofail,steppath["pfail"])
 	steppath["index"]=0
 	steppath["step"]=nil
+	steppath["steppath"]=0
 	steppath["nextroom"]=_roomid
 	steppath["next"]()
+	if steppath["maxstep"]>1 then
+		steppath["steppath"]=1
+		busytest(steppath["runmaxstep"])
+	end
+
 end
 steppath["end"]=function(s)
 	hook(hooks.steptimeout,nil)
+	hook(hooks.step,nil)
+	hook(hooks.maxstep,nil)
+	hook(hooks.searchfrofail,nil)
 	walking=nil
 	EnableTriggerGroup("steppath",false)
 	if ((s~="")and(s~=nil)) then
@@ -156,8 +175,28 @@ steppath["end"]=function(s)
 	end
 	steppath["ok"]=nil
 	steppath["fail"]=nil
-	hook(hooks.step,nil)
-	hook(hooks.searchfrofail,nil)
+
+end
+steppath["nextmaxstep"]=function()
+	if steppath["maxstep"]<2 or walking~=steppath then return end
+	if _roomid==-1 then
+		do_walk(path[1]["loc"],steppath["arrive"],path_fail)
+		return
+	end
+	if (steppath["index"]>#steppath["path"]) then
+		steppath["end"]("ok")
+		return
+	end
+	busytest(steppath["runmaxstep"])
+end
+
+steppath["runmaxstep"]=function()
+	local steps,steptype=getmaxstepsinpath(steppath["path"],steppath["index"],steppath["maxstep"])
+	steppath["steptype"]=steptype
+	if steptype==1 then
+		steps=steps..walkmaxstepmcmd
+	end
+	run(steps)
 end
 
 steppath["next"]=function()
@@ -184,7 +223,11 @@ steppath["next"]=function()
 	end
 	steppath["step"]=steppath["path"][steppath["index"]]["step"]
 	steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
-	run(steppath["step"])
+	if steppath["maxstep"]<2 then
+		run(steppath["step"])
+	elseif  steppath["steptype"]==2 then
+		run(walkmaxstepmcmd)
+	end
 end
 
 steppath["getnextroom"]=function()

@@ -650,6 +650,7 @@ on_partyfind=function(n,l,w)
 	masterquest.flee=false
 	mqkill.city=w[7]
 	mqkill["searchcount"]=1
+	print("接到线报。")
 	go(loc,mqkill.npcfind,masterquest.main)
 end
 

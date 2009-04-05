@@ -126,12 +126,13 @@ npcinpath.testnpc=function()
 		if _roomname~=nil and _roomname~="" then
 			if maze[_roomname]==nil or _roomname~=mazename then
 				_roomid=steppath["nextroom"]
-			elseif maxstep<2 then
+			elseif stepmaxstep>1 then
 				npcinpathgokillnpc()
 				return
 			end
 		end
 		if stepmaxstep<2 then
+			npcinpathgokillnpc()
 			return
 		end
 		steppath["next"]()

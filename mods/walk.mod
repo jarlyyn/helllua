@@ -41,14 +41,18 @@ walk["stop"]=function(thook)
 	walkstopthook=thook
 	walk["ok"]=nil
 	walk["fail"]=nil
-	hook(hooks.step,walk_stop_hook)
+	if maxstep<2 then
+		hook(hooks.step,walk_stop_hook)
+	else
+		hook(hooks.maxstep,walk_stop_hook)
+	end
 	if hashook(hooks.steptimeout) then
 		hook(hooks.steptimeout,walkstopthook)
 	end
 end
 
 walk_stop_hook=function()
-	if walkstopstep~=nil then
+	if walkstopstep~=nil and maxstep<2 then
 		steptrace(walkstopstep)
 	end
 	call(walkstopthook)
@@ -171,7 +175,9 @@ do_walk=function (to,walk_ok,walk_fail)
 end
 
 walk["stepfail"]=function()
-	do_walk(walk["to"],walk["ok"],walk["fail"])
+	if maxstep<2 then
+		do_walk(walk["to"],walk["ok"],walk["fail"])
+	end
 end
 
 walk["flyfail"]=function()

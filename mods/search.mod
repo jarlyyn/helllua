@@ -180,7 +180,7 @@ end
 steppath["nextmaxstep"]=function()
 	if steppath["maxstep"]<2 or walking~=steppath then return end
 	if _roomid==-1 then
-		do_walk(path[1]["loc"],steppath["arrive"],path_fail)
+		do_walk(steppath["path"][1]["loc"],steppath["arrive"],path_fail)
 		return
 	end
 	if (steppath["index"]>#steppath["path"]) then

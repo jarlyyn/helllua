@@ -41,7 +41,7 @@ walk["stop"]=function(thook)
 	walkstopthook=thook
 	walk["ok"]=nil
 	walk["fail"]=nil
-	if maxstep<2 then
+	if getnum(walking["maxstep"])<2 then
 		hook(hooks.step,walk_stop_hook)
 	else
 		hook(hooks.maxstep,walk_stop_hook)
@@ -52,9 +52,15 @@ walk["stop"]=function(thook)
 end
 
 walk_stop_hook=function()
-	if walkstopstep~=nil and maxstep<2 then
+	if walkstopstep~=nil and getnum(walking["maxstep"])<2 then
 		steptrace(walkstopstep)
 	end
+	if getnum(walking["maxstep"])<2 then
+		hook(hooks.step,nil)
+	else
+		hook(hooks.maxstep,nil)
+	end
+	call(walking["end"])
 	call(walkstopthook)
 end
 
@@ -132,6 +138,7 @@ do_walk=function (to,walk_ok,walk_fail)
 	walk["ok"]=walk_ok
 	walk["fail"]=walk_fail
 	walkend=walk["end"]
+	walk["maxstep"]=getnum(maxstep)
 	if (_roomid==-1) then
 		run("unset brief")
 		walklocateto=to
@@ -248,12 +255,12 @@ walk_on_step=function()
 		steptrace(walk["step"])
 	end
 	initmaze()
-	walk["step"]=walk["data"][walk["index"]]
-	if (walk["step"]==nil) then
-		walk["end"]("ok")
-		return
-	end
 	if maxstep<2 then
+	walk["step"]=walk["data"][walk["index"]]
+		if (walk["step"]==nil) then
+			walk["end"]("ok")
+			return
+		end
 		if string.sub(walk["step"],1,4)=="#loc" then
 			walk["end"]("ok")
 			return

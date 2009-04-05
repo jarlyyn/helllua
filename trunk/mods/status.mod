@@ -163,7 +163,7 @@ getinfo=function(func,...)
 	getfam()
 	getmudvar()
 	infoend(stsetting)
-	delay(1,func,nil,...)
+	delay(1,func,...)
 end
 getstatus=function(func)
 	eatdrink()

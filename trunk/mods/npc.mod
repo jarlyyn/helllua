@@ -120,21 +120,18 @@ npcinpath.testnpc=function()
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
 		npcinpath["loc"]=_roomid
-		if _roomname~=nil and _roomname~="" then
-			if maze[_roomname]==nil or _roomname~=mazename then
-				_roomid=steppath["nextroom"]
-			else
-				npc.loc=_roomid
-				npcinpath["loc"]=_roomid
-			end
-		end
 		npc.id=room_obj[npc.name].id
 		testnpcid()
 		print("find"..npc.name.."@"..tostring(_roomid))
+		if _roomname~=nil and _roomname~="" then
+			if maze[_roomname]==nil or _roomname~=mazename then
+				_roomid=steppath["nextroom"]
+			elseif maxstep<2 then
+				npcinpathgokillnpc()
+				return
+			end
+		end
 		if stepmaxstep<2 then
-			steppath["end"]()
-			go(npc.loc,npcinpath["ok"],npcinpath["fail"])
-			npcinpath["end"]()
 			return
 		end
 		steppath["next"]()
@@ -142,11 +139,14 @@ npcinpath.testnpc=function()
 		steppath["next"]()
 	end
 end
+npcinpathgokillnpc=function()
+			steppath["end"]()
+			go(npc.loc,npcinpath["ok"],npcinpath["fail"])
+			npcinpath["end"]()
+end
 npcinpath["maxstep"]=function()
 	if npcinpath["loc"] >-1 then
-		steppath["end"]()
-		go(npcinpath["loc"],npcinpath["ok"],npcinpath["fail"])
-		npcinpath["end"]()
+		npcinpathgokillnpc()
 		return
 	end
 	steppath["nextmaxstep"]()

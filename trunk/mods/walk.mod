@@ -1,4 +1,5 @@
 maxstepfilter={east=true,e=true,south=true,s=true,west=true,w=true,north=true,n=true,southeast=true,se=true,southwest=true,sw=true,northeast=true,ne=true,northwest=true,nw=true,eastup=true,eu=true,eastdown=true,ed=true,southup=true,su=true,southdown=true,sd=true,westup=true,wu=true,westdown=true,wd=true,northup=true,nu=true,northdown=true,nd=true,up=true,u=true,down=true,d=true,enter=true,out=true}
+maxstepfilter["#loc"]=true
 
 loadmod("blocker.mod")
 walkend=nil
@@ -246,11 +247,11 @@ walk_on_step=function()
 		walk["end"]("ok")
 		return
 	end
-	if string.sub(walk["step"],1,4)=="#loc" then
+	if maxstep<2 then
+		if string.sub(walk["step"],1,4)=="#loc" then
 			walk["end"]("ok")
 			return
-	end
-	if maxstep<2 then
+		end
 		run(walk["step"])
 	elseif walk["steptype"]==2 then
 		run(walkmaxstepmcmd)
@@ -285,7 +286,7 @@ walkrunmaxstep=function()
 end
 
 steptrace=function(dir)
-	if ((dir=="")or(dir==nil)) then return end
+	if ((dir=="")or(dir==nil)or(dir=="l")) then return end
 	if (_roomid~=-1) then  _roomid=getexitroom(_roomid,dir) end
 end
 
@@ -499,6 +500,7 @@ getmaxsteps=function(pathlist,index,ms)
 	local stepcount=0
 	local pathstep=""
 	ms=ms-1
+	if pathlist==nil then return "",2 end
 	if index>#pathlist then  return "",2 end
 	for i=index,#pathlist,1 do
 		pathstep=pathlist[i]
@@ -525,6 +527,7 @@ getmaxstepsinpath=function(pathlist,index,ms)
 	local stepcount=0
 	local pathstep=""
 	ms=ms-1
+	if pathlist==nil then return "",2 end
 	if index>#pathlist then  return "",2 end
 	for i=index,#pathlist,1 do
 		if pathlist[i]~=nil then
@@ -535,6 +538,9 @@ getmaxstepsinpath=function(pathlist,index,ms)
 					if steps=="" then
 						steps=steps..pathstep..";"
 						return steps,2
+					end
+					if string.sub(pathstep,1,4)=="#loc" then
+						return "l",2
 					end
 					return steps,1
 				end

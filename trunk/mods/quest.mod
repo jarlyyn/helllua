@@ -22,6 +22,16 @@ quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
 
+loadmod("draw.mod")
+quest.main["drawmap"]=function()
+	do_drawmap()
+	quest.resume=quest.main["drawmap"]
+end
+quest["end"]["caxie"]=function()
+	drawmap["end"]()
+end
+
+
 loadmod("pick.mod")
 quest.main["pick"]=function()
 	do_pick(pick.main,pick.main)

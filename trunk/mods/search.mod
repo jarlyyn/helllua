@@ -217,12 +217,14 @@ steppath["next"]=function()
 	initmaze()
 	steppath["index"]=steppath["index"]+1
 	_roomid=steppath["nextroom"]
-	if (steppath["index"]>#steppath["path"]) and steppath["maxstep"]<2 then
-		steppath["end"]("ok")
+	if (steppath["index"]>#steppath["path"])then
+		if steppath["maxstep"]<2 then
+			steppath["end"]("ok")
+		end
 		return
 	end
-	steppath["step"]=steppath["path"][steppath["index"]]["step"]
-	steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
+		steppath["step"]=steppath["path"][steppath["index"]]["step"]
+		steppath["nextroom"]=getexitroom(_roomid,steppath["step"])
 	if steppath["maxstep"]<2 then
 		run(steppath["step"])
 	elseif  steppath["steptype"]==2 then

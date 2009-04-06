@@ -60,7 +60,7 @@ walk_stop_hook=function()
 	else
 		hook(hooks.maxstep,nil)
 	end
-	call(walking["end"])
+	print(_roomid)
 	call(walkstopthook)
 end
 
@@ -255,8 +255,8 @@ walk_on_step=function()
 		steptrace(walk["step"])
 	end
 	initmaze()
-	if maxstep<2 then
 	walk["step"]=walk["data"][walk["index"]]
+	if maxstep<2 then
 		if (walk["step"]==nil) then
 			walk["end"]("ok")
 			return

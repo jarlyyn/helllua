@@ -29,10 +29,10 @@ liandan.pack["²¹¾«µ¤"]="bujing dan"
 liandan.pack["»¹»êµ¤"]="huanhun dan"
 liandan.pack["ÁúÏÑµ¤"]="longxian dan"
 liandan.pack["ÑûÔÂµ¤"]="yaoyue dan"
-liandan.pack["ĞùÔ¯²¹ĞÄµ¤"]="xuanyuan dan"
 liandan.pack["×ÓÎçÁú¼×µ¤"]="longjia dan"
 liandan.dropgift={}
 liandan.dropgift["Luosha dan"]="luosha dan"
+liandan.dropgift["ĞùÔ¯²¹ĞÄµ¤"]="xuanyuan dan"
 liandan.eat={}
 liandan.eat["Wanshou dan"]="wanshou dan"
 liandan.eat["Zhuque dan"]="zhuque dan"
@@ -82,7 +82,7 @@ liandan.check=function()
 	end
 end
 liandan.packluosha=function()
-	do_pack("luosha dan","baoguo",liandan["main"],liandan["main"])
+	do_pack("dan","baoguo",liandan["main"],liandan["main"])
 end
 liandan.askyao=function()
 	go(1388,liandan.askyaocmd,liandan_end_fail)

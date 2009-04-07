@@ -182,7 +182,7 @@ do_walk=function (to,walk_ok,walk_fail)
 end
 
 walk["stepfail"]=function()
-	if maxstep<2 then
+	if walk["steptype"]~=1 then
 		do_walk(walk["to"],walk["ok"],walk["fail"])
 	end
 end

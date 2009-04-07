@@ -65,7 +65,7 @@
    keypad_enable="y"
    line_information="y"
    log_output="y"
-   max_output_lines="40000"
+   max_output_lines="4000"
    mud_can_change_link_colour="y"
    mud_can_change_options="y"
    note_text_colour="#040000"

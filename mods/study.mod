@@ -299,7 +299,9 @@ setupskill=function()
 		if study.skill.npc==false then
 			if me.fam~=nil then
 				if me.score.teacher~="none" and me.score.teacher~=nil then
-					study.skill.npc=npcs[me.score.teacher].id
+					if npcs[me.score.teacher]~=nil then
+						study.skill.npc=npcs[me.score.teacher].id
+					end
 				end
 			end
 		end

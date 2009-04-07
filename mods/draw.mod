@@ -28,7 +28,7 @@ drawmap_end_fail=function()
 end
 
 drawmap["step"]=function()
-	run("map here")
+	run("yun regenerate;map here")
 	busytest(steppath["next"])
 end
 

@@ -1,6 +1,6 @@
 dropongroundlist={}
 dropongroundlist["luosha dan"]=true
-dropongroundlist["ÐùÔ¯²¹ÐÄµ¤"]=true
+dropongroundlist["xuanyuan dan"]=true
 
 dropgift={}
 dropgift["ok"]=nil

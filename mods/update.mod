@@ -10,6 +10,10 @@ addtri=function(triname,trimatch,trigroup,triscript)
 	SetTriggerOption(triname,"group",trigroup)
 end
 
+deltri=function(triname)
+	DeleteTrigger(triname)
+end
+
 flag_base=1064
 flag_base_enable=1065
 

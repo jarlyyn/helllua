@@ -9,6 +9,7 @@ loadconfig=function()
 	else
 		include(GetVariable("configfile"))
 	end
+	loadconfigfile("locs.ini")
 	loadconfigfile("npcs.ini")
 	loadconfigfile("items.ini")
 	include("house.ini")

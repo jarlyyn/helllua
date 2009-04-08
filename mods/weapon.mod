@@ -73,7 +73,7 @@ do_repair=function(w,repair_ok,repair_fail)
 	repair["weapon"]=w
 	repair["ok"]=repair_ok
 	repair["fail"]=repair_fail
-	go(66,repair.arrive,repair_end_fail)
+	go(repairloc,repair.arrive,repair_end_fail)
 end
 
 repair["arrive"]=function()

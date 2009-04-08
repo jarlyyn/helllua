@@ -85,7 +85,7 @@ liandan.packluosha=function()
 	do_pack("dan","baoguo",liandan["main"],liandan["main"])
 end
 liandan.askyao=function()
-	go(1388,liandan.askyaocmd,liandan_end_fail)
+	go(liandanyaoloc,liandan.askyaocmd,liandan_end_fail)
 end
 
 liandan.askyaocmd=function()
@@ -108,7 +108,7 @@ liandan.askyaook=function()
 end
 
 liandan.asktong=function()
-	go(1387,liandan.asktongcmd,liandan_end_fail)
+	go(liandanxiaoerloc,liandan.asktongcmd,liandan_end_fail)
 end
 liandan.asktongcmd=function()
 	liandan.tonganswer=0
@@ -163,7 +163,7 @@ liandan.caiyaotest=function()
 	end
 end
 liandan.caiyaogive=function()
-	go(1387,liandan.caiyaogivecmd,liandan_end_fail)
+	go(liandanxiaoerloc,liandan.caiyaogivecmd,liandan_end_fail)
 end
 
 liandan.caiyaogivecmd=function()
@@ -171,7 +171,7 @@ liandan.caiyaogivecmd=function()
 	busytest(liandan.liandan)
 end
 liandan.liandan=function()
-	go(1389,liandan.liandancmd,liandan_end_fail)
+	go(liandanloc,liandan.liandancmd,liandan_end_fail)
 end
 
 liandan.liandancmd=function()

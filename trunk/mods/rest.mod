@@ -59,7 +59,7 @@ rest_end_ok=function()
 end
 
 rest["sleep"]=function(l)
-	if l==nil then l=2500 end
+	if l==nil then l=sleeploc end
 	go(l,rest["sleeparrive"],rest_end_fail)
 end
 rest["sleeparrive"]=function()

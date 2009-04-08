@@ -45,7 +45,7 @@ end
 dropgift.gochat=function()
 	if canenterchat()==true then
 		EnableTriggerGroup("enterchatfail",true)
-		go(2046,dropgift.arrive,dropgift.testbaoguo)
+		go(chatroomloc,dropgift.arrive,dropgift.testbaoguo)
 	else
 		busytest(dropgift.testbaoguo)
 	end
@@ -101,7 +101,7 @@ dropgift.budaiarrive=function()
 	end
 end
 dropgift.budaiok=function()
-	go(2046,dropgift.dropbudai,dropgift_end_fail)
+	go(chatroomloc,dropgift.dropbudai,dropgift_end_fail)
 end
 dropgift.dropbudai=function()
 	run("drop budai;l")
@@ -149,7 +149,7 @@ dropgift.buybaoguo=function()
 end
 
 dropgift.putbaoguo=function()
-	go(2046,dropgift.putbaoguocmd,dropgfit_end_fail)
+	go(chatroomloc,dropgift.putbaoguocmd,dropgfit_end_fail)
 end
 
 dropgift.putbaoguocmd=function()
@@ -159,7 +159,7 @@ end
 
 dropgift.testdropbaoguo=function()
 	if canenterchat()==true then
-		go(2046,dropgift.dropbaoguo,dropgfit_end_fail)
+		go(chatroomloc,dropgift.dropbaoguo,dropgfit_end_fail)
 	else
 		busytest(dropgift_end_ok)
 	end

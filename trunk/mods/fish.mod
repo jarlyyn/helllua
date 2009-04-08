@@ -53,7 +53,7 @@ fish["check"]=function()
 	elseif checkfangqi(fish["main"],fish["main"]) then
 	elseif checkstudy(fish["main"]) then
 	else
-		go(39,fish.arrive,fish_end_fail)
+		go(fishloc,fish.arrive,fish_end_fail)
 	end
 end
 

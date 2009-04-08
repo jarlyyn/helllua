@@ -29,3 +29,7 @@ end
 	addtri("status_onname",'^ 【\\S*】(\\S*) ((..){1,4})\(\w+\)$',"charinfo","status_onname")
 	addtri("status_onyueli",'^  江湖阅历：\\s*(\\d+)\\s*江湖威望：\\s*(\\d+)\\s*$',"charinfo","status_onyueli")
 	addtri("status_teacher",'^  你.*，天性(.*)，师父是(.*)。',"charinfo","status_on_teacher")
+--- 修正items
+deltri("on_itemsstart")
+deltri("on_itemsend")
+

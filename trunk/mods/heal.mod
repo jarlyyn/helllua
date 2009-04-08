@@ -196,7 +196,7 @@ end
 eatdan["main"]=function()
 	if canenterchat()==true then
 		EnableTriggerGroup("enterchatfail",true)
-		go(2046,eatdan.arrive,eatdan_end_fail)
+		go(chatroomloc,eatdan.arrive,eatdan_end_fail)
 	else
 		eatdan_end_fail()
 	end

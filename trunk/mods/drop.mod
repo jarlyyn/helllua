@@ -6,7 +6,7 @@ do_drop=function(dropitem,drop_ok,drop_fail)
 	drop["ok"]=drop_ok
 	drop["fail"]=drop_fail
 	drop.item=dropitem
-	go(26,drop.arrive,drop_end_fail)
+	go(droploc,drop.arrive,drop_end_fail)
 end
 
 drop["end"]=function(s)
@@ -47,7 +47,7 @@ sell={}
 sell["ok"]=nil
 sell["fail"]=nil
 sell.item=""
-sell.loc=48
+sell.loc=sellloc
 do_sell=function(sellitem,sell_ok,sell_fail,sell_loc)
 	sell["ok"]=sell_ok
 	sell["fail"]=sell_fail
@@ -55,7 +55,7 @@ do_sell=function(sellitem,sell_ok,sell_fail,sell_loc)
 	if sell_loc~=nil then
 		sell.loc=sell_loc
 	else
-		sell.loc=48
+		sell.loc=sellloc
 	end
 	go(sell.loc,sell.arrive,sell_end_fail)
 end
@@ -95,7 +95,7 @@ end
 
 checksell=function(_selllist,sell_ok,sell_fail,sell_loc)
 	if sell_loc==nil then
-		sell_loc=48
+		sell_loc=sellloc
 	end
 	for i,v in pairs(_selllist) do
 		if itemsnum(i)>0 then

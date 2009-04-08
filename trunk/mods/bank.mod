@@ -5,7 +5,7 @@ do_bank=function(action,num,type,bank_ok,bank_fail)
 	bank["num"]=num
 	bank["ok"]=bank_ok
 	bank["fail"]=bank_fail
-	go(23,bank["arrive"],bankendfail)
+	go(bankloc,bank["arrive"],bankendfail)
 end
 bankendfail=function()
 	bank["end"]("fail")

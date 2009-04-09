@@ -86,6 +86,7 @@ walk["npc"]=function(npc,walk_ok,walk_fail)
 	end
 	go(npcs[npc]["loc"],walk_ok,walk_fail)
 end
+
 walk_on_busy=function(name, line, wildcards)
 	if walking==nil then return end
 	if ((walking["step"]~=nil)and(hooks.step~=nil)) then
@@ -513,26 +514,29 @@ getmaxsteps=function(pathlist,index,ms)
 	local stepcount=0
 	local pathstep=""
 	ms=ms-1
-	if pathlist==nil then return "",2 end
-	if index>#pathlist then  return "",2 end
+	if pathlist==nil then return "",2,0 end
+	if index>#pathlist then  return "",2,0 end
 	for i=index,#pathlist,1 do
 		pathstep=pathlist[i]
 		stepcount=stepcount+1
 		if pathstep~="" and pathstep~=nil then
 			if  maxstepfilter[pathstep]==nil then
 				if steps=="" then
+					if string.sub(pathstep,1,4)=="#loc" then
+						return "l",2,stepcount
+					end
 					steps=steps..pathstep..";"
-					return steps,2
+					return steps,2,stepcount
 				end
-				return steps,1
+				return steps,1,stepcount
 			end
 			steps=steps..pathstep..";"
 			if stepcount>ms then
-				return steps,1
+				return steps,1,stepcount
 			end
 		end
 	end
-	return steps,1
+	return steps,1,stepcount
 end
 
 getmaxstepsinpath=function(pathlist,index,ms)
@@ -540,8 +544,8 @@ getmaxstepsinpath=function(pathlist,index,ms)
 	local stepcount=0
 	local pathstep=""
 	ms=ms-1
-	if pathlist==nil then return "",2 end
-	if index>#pathlist then  return "",2 end
+	if pathlist==nil then return "",2,0 end
+	if index>#pathlist then  return "",2,0 end
 	for i=index,#pathlist,1 do
 		if pathlist[i]~=nil then
 			pathstep=pathlist[i]["step"]
@@ -550,21 +554,18 @@ getmaxstepsinpath=function(pathlist,index,ms)
 				if  maxstepfilter[pathstep]==nil then
 					if steps=="" then
 						steps=steps..pathstep..";"
-						return steps,2
+						return steps,2,stepcount
 					end
-					if string.sub(pathstep,1,4)=="#loc" then
-						return "l",2
-					end
-					return steps,1
+					return steps,1,stepcount
 				end
 				steps=steps..pathstep..";"
 				if stepcount>ms then
-					return steps,1
+					return steps,1,stepcount
 				end
 			end
 		end
 	end
-	return steps,1
+	return steps,1,stepcount
 end
 
 walk_maxstep=function(n,l,w)

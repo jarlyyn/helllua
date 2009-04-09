@@ -1,6 +1,14 @@
 dropongroundlist={}
 dropongroundlist["luosha dan"]=true
-dropongroundlist["xuanyuan dan"]=true
+dropinbudailist={}
+dropinbudailist["xuanyuan dan"]=true
+dropinbudailist["Xuanyuan dan"]=true
+dropinbudailist["ÐùÔ¯²¹ÐÄµ¤"]=true
+if jiuzhuanfull==true then
+	dropinbudailist["jiuzhuan jindan"]=true
+	dropinbudailist["¾Å×ª½ðµ¤"]=true
+end
+
 
 dropgift={}
 dropgift["ok"]=nil
@@ -13,6 +21,10 @@ do_dropgift=function(giftid,dropgift_ok,dropgift_fail)
 	dropgift["ok"]=dropgift_ok
 	dropgift["fail"]=dropgift_fail
 	dropgift.gift=giftid
+	if dropgift.gift==nil or dropgift.gift=="" then
+		dropgift_end_fail()
+		return
+	end
 	dropgift.enterchatfail=false
 	if chatroom==nil then
 		getmudvar()
@@ -61,7 +73,7 @@ dropgift.arrivechat=function()
 		busytest(dropgift_end_ok)
 		return
 	end
-	if jiuzhuanfull==true and dropgift.gift=="jiuzhuan jindan"  then
+	if dropinbudailist[dropgift.gift]==true  then
 		getbagitems("budai of here")
 		busytest(dropgift.budaiarrive)
 		return
@@ -82,7 +94,7 @@ dropgift.budaiarrive=function()
 	else
 		jiuzhuancount=getnum(bags["budai of here"]["jiuzhuan jindan"])
 	end
-	if jiuzhuancount==20 then
+	if jiuzhuancount>17 then
 		if itemsnum("baoguo")==0 then
 			if room_obj["baoguo"]~=nil then
 				run("get baoguo")
@@ -94,7 +106,18 @@ dropgift.budaiarrive=function()
 		dropgift.putgift()
 		return
 	end
-	if getnum(bagscount["budai of here"])>1 or (getnum(bagscount["budai of here"])==1 and jiuzhuancount==0) or room_obj["budai"]==nil then
+	_dgneedbudai=false
+	if bags["budai of here"]~=nil then
+	for i,v in pairs(bags["budai of here"]) do
+		if dropinbudailist[i]~= true then
+		_dgneedbudai=true
+		break;
+		end
+	end
+	else
+		_dgneedbudai=true
+	end
+	if _dgneedbudai==true or room_obj["budai"]==nil then
 		item["go"]("budai",1,dropgift.budaiok,dropgift_end_fail)
 	else
 		dropgift.putbudai()

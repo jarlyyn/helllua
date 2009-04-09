@@ -16,7 +16,7 @@ initmqletter=function()
 end
 initmq=function()
 	masterquest["npc"]=""
-	masterquest["npcid"]=""
+	masterquest["npcid"]=nil
 	masterquest["city"]=""
 	masterquest.far=false
 	masterquest.flee=false
@@ -135,7 +135,17 @@ masterquest.maincmd=function()
 end
 
 masterquest.asknpc=function()
-	do_mqask(masterquest.maincmd,masterquest.findfar)
+	do_mqask(masterquest.maincmd,masterquest.askyou)
+end
+masterquest.askyou=function()
+	if masterquest["npcid"]==nil then
+		masterquest["npcid"]=getcnname(npc.name)
+	end
+	if masterquest["npcid"]==nil then
+		masterquest.findfar()
+		return
+	end
+	do_askyou(masterquest["npcid"],masterquest.findfar,masterquest.givehead)
 end
 masterquest.killnpc=function()
 	do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
@@ -190,6 +200,7 @@ setmqmastertri=function()
 end
 masterquest.givehead=function()
 	masterquest.waitletter=false
+	masterquest.die=true
 	go(familys[me.fam].masterloc,masterquest.giveheadcmd,masterquest_end_fail)
 end
 masterquest.giveheadcmd=function()
@@ -367,6 +378,7 @@ mqkill.npcfind=function()
 	masterquest.city=mqkill["city"]
 	masterquest.far=false
 	EnableTriggerGroup("masterquestkill",true)
+	masterquest["npcid"]=npc.id
 	if npc.id==nil then npc.id=masterquest.npc end
 	do_kill(npc.id,mqkill.heal,mqkill.search2)
 end

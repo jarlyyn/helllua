@@ -670,7 +670,7 @@ getcnname=function(str)
 		xinglength=4
 		xingstr=cnxing[string.sub(str,1,xinglength)]
 		if xingstr==nil then
-			return str
+			return nil
 		end
 	end
 	local minglength=#str-xinglength
@@ -679,7 +679,7 @@ getcnname=function(str)
 	for i=1,minglength,2 do
 		tname=cnname[string.sub(str,i+xinglength,i+xinglength+1)]
 		if tname==nil then
-			return str
+			return nil
 		else
 			mingstr=mingstr..tname
 		end

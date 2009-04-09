@@ -161,7 +161,5 @@ npc_killme=function(n,l,w)
 end
 
 testnpcid=function(obj)
-	if npc.id==nil then
-		npc.id=getcnname(npc.name)
-	end
+
 end

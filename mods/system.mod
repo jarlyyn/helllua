@@ -3,10 +3,19 @@ logable=true
 logdelaysec=1
 on_disconnect=function()
 	if ((logable==true)and(not(quest.stop and (quest.name~="mq" or masterquest.die~=false)))) then
-		AddTimer("login",0,0,logdelaysec,"",17445,"Connect")
+		AddTimer("login",0,0,logdelaysec,"",17441,"onconnect")
 	end
 	logdelaysec=1
 end
+
+onconnect=function()
+	if IsConnected() then
+		EnableTimer("login",false)
+	else
+		Connect()
+	end
+end
+
 idre=rex.new("^.*\\\\(?<id>[^-.]+)(-(?<passwd>[^-.]+)){0,1}")
 getidpass=function()
 	if me.id==nil or me.id=="" then

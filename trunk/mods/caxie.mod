@@ -81,3 +81,4 @@ caxie.blacklist["Yufeng zhen"]=true
 caxie.blacklist["Tie lianzi"]=true
 caxie.blacklist["iron blade"]=true
 caxie.blacklist["long sword"]=true
+caxie.blacklist["yin lun"]=true

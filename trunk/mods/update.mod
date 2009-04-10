@@ -1,4 +1,4 @@
-version=64
+version=65
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -46,7 +46,7 @@ updateversion=function()
 	addtri("sell_broken","^(> )*唐楠随手一扔，道：(.*)一文不值！","system","sell_broken")
 	addtri("pick_full","^(> )*(.*)对你而言太重了。","pick","pick_full")
 	addtri("walk_boatout","^(> )*(少女说: “到啦，上岸吧。”，随即一点竹篙，把舟泊好。|艄公说“到啦，上岸吧”，随即把一块踏脚板搭上堤岸。)","system","on_boatout")
-	addtri("walk_taihucrossfail","^(> )*(你觉得湖面太宽，没有十足的把握跃过去。|你看着浩瀚的太湖，心里不禁打了个突，没敢乱来。)","system","on_taihunocross")
+	addtri("walk_taihucrossfail","^(> )*(你觉得湖面太宽，没有十足的把握跃过去。|你看着浩瀚的太湖，心里不禁打了个突，没敢乱来。|你使劲儿一蹦，离瀑布顶还有数丈远就掉了下来，摔的鼻青)","system","on_taihunocross")
 	addtri("kanbush","^(> )*不用武器恐怕不行吧","system","kanbush")
 	addtri("walk_gwriver","^(> )*(你看着奔腾不息的白河，心里有点紧张，不敢乱来。|船厂里走出一个船夫，瞪着眼看着你|船夫在旁边拿眼瞪着你看)","system","gwriver")
 	addtri("mqletterflee","^(不好了，(.*)在|你刚想离开，突然(.*)喊道)","mqletterquest","letterflee")

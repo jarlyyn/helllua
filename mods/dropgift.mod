@@ -1,5 +1,3 @@
-dropongroundlist={}
-dropongroundlist["luosha dan"]=true
 dropinbudailist={}
 dropinbudailist["xuanyuan dan"]=true
 dropinbudailist["Xuanyuan dan"]=true
@@ -188,7 +186,7 @@ dropgift.testdropbaoguo=function()
 	end
 end
 dropgift.dropbaoguo=function()
-	run("drop baoguo")
+	run("drop baoguo;l")
 	busytest(dropgift_end_ok)
 end
 canenterchat=function()

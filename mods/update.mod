@@ -1,4 +1,4 @@
-version=63
+version=64
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -103,6 +103,9 @@ updateversion=function()
 	addtri("on_getweapon","^(> )*你手腕一麻，手中(.*)不由脱手而出！","system","on_getweapon")
 	addtri("study_gold","^(> )*(朱熹|厨娘|戚长发)(说道：您太客气了，这怎么敢当？|笑着说道：您见笑了，我这点雕虫小技怎够资格「指点」您什么？|像是受宠若惊一样，说道：请教？这怎么敢当？)","study","study_gold")
 	addtri("askyouok","^(> )*游讯嘿嘿奸笑两声，对你小声道：“没有问题，不过得要50两黄金，不二价！”","askyou","askyouok")
+	addtri("makeyao_buy","^(> )*你点了点药材，发现(.*)的分量还不够。","makeyao","makeyao_buy")
+	addtri("makeyao_fail","^(> )*你还不会配这种药啊！","makeyao","makeyao_fail")
+	addtri("makeyao_ok","^(> )*你把「%%%」成功的制好了！","makeyao","makeyao_ok")
 --	SetTriggerOption(triname,"group",trigroup)
 	call(updatecmd)
 end

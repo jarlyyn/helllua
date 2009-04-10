@@ -227,7 +227,7 @@ end
 eatdan.danbusy=false
 eatdan.eatdancmd=function()
 	eatdan.danbusy=false
-	catch("eatdan","get 1 "..eatdan.list[eatdan.index]..";eat "..eatdan.list[eatdan.index]..";drop "..eatdan.list[eatdan.index])
+	run("get 1 "..eatdan.list[eatdan.index]..";eat "..eatdan.list[eatdan.index]..";drop "..eatdan.list[eatdan.index])
 	busytest(eatdan.eatok)
 end
 eatdan.eatbudai=function()
@@ -243,7 +243,7 @@ eatdan.eatbudai=function()
 	if bags["budai of here"][eatdan.budainlist[eatdan.budaiindex]]~=nil then
 		busytest(eatdan.eatbudaicmd)
 	else
-		busytest(eatdan.eatjz)
+		busytest(eatdan.eatbudai)
 	end
 end
 eatdan.eatbudaicmd=function()

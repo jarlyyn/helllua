@@ -200,6 +200,10 @@ walk["flyfail"]=function()
 	walk["step"]=nil
 	hook(hooks.stepfail,walk["stepfail"])
 	walk_on_step()
+	if maxstep>1 then
+		walk["steptype"]=1
+		busytest(walkrunmaxstep)
+	end
 end
 
 getexits=function(exit)
@@ -495,7 +499,7 @@ on_locate=function(n,l,w)
 end
 
 on_taihunocross=function(n,l,w)
-	if (_roomid==980 or _roomid==1748 or _roomid==1977 or _roomid==946)and walking==walk then
+	if (nocrossloc[_roomid]==true)and walking==walk then
 		nocross=true
 		settags()
 		callhook(hooks.flyfail)

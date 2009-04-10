@@ -17,7 +17,7 @@ beiqiinfo["bjtj"]["西厂"]=1381
 beiqiinfo["bjdc"]={info="51",npc="城门督察",npcid="du cha"}
 beiqiinfo["bjdc"]["西城门"]=1356
 beiqiinfo["rzwj"]={info="29",npc="武将",npcid="wu jiang"}
-beiqiinfo["rzwj"]["汝州城"]=1356
+beiqiinfo["rzwj"]["汝州城"]=1070
 beiqiinfo["cdmwd"]={info="39",npc="马武德",npcid="ma wude"}
 beiqiinfo["cdmwd"]["金牛武馆"]=690
 beiqiinfo["cdth"]={info="39",npc="唐槐",npcid="tang huai"}

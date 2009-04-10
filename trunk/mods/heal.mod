@@ -161,10 +161,14 @@ eatdan={}
 eatdan["ok"]=nil
 eatdan["fail"]=nil
 eatdan.index=0
-eatdan.list={"luosha dan","xiongshe wan","jiuhua wan","baoming dan","shengsheng dan","baola dan"}
-eatdan.nlist={"Luosha dan","Xiongshe wan","jiuhua wan","baoming dan","Shengsheng dan","Baola dan"}
+eatdan.list={"luosha dan","baola dan","xiongshe wan","jiuhua wan","baoming dan","shengsheng dan"}
+eatdan.nlist={"Luosha dan","Baola dan","Xiongshe wan","jiuhua wan","baoming dan","Shengsheng dan"}
+eatdan.budaiindex=0
+eatdan.budailist={"xuanyuan dan"}
+eatdan.budainlist={"Xuanyuan dan"}
 do_eatdan=function(eatdan_ok,eatdan_fail)
 	eatdan.index=0
+	eatdan.budaiindex=0
 	eatdan["ok"]=eatdan_ok
 	eatdan["fail"]=eatdan_fail
 	if chatroom==nil then
@@ -204,26 +208,55 @@ end
 
 eatdan.arrive=function()
 		EnableTriggerGroup("enterchatfail",false)
+		getbagitems("budai of here")
 		busytest(eatdan.eatdan)
 end
 
 eatdan.eatdan=function()
 	eatdan.index=eatdan.index+1
 	if eatdan.index>#eatdan.list then
-		busytest(eatdan.eatjz)
+		busytest(eatdan.eatbudai)
 		return
 	end
 	if room_obj[eatdan.nlist[eatdan.index]]~=nil then
 		busytest(eatdan.eatdancmd)
 	else
-		busytest(eatdan.eatjz)
+		busytest(eatdan.eatdan)
 	end
 end
 eatdan.danbusy=false
 eatdan.eatdancmd=function()
-eatdan.danbusy=false
+	eatdan.danbusy=false
 	catch("eatdan","get 1 "..eatdan.list[eatdan.index]..";eat "..eatdan.list[eatdan.index]..";drop "..eatdan.list[eatdan.index])
 	busytest(eatdan.eatok)
+end
+eatdan.eatbudai=function()
+	eatdan.budaiindex=eatdan.budaiindex+1
+	if eatdan.budaiindex>#eatdan.budailist then
+		busytest(eatdan.eatjz)
+		return
+	end
+	if bags["budai of here"]==nil then
+		busytest(eatdan.eatjz)
+		return
+	end
+	if bags["budai of here"][eatdan.budainlist[eatdan.budaiindex]]~=nil then
+		busytest(eatdan.eatbudaicmd)
+	else
+		busytest(eatdan.eatjz)
+	end
+end
+eatdan.eatbudaicmd=function()
+	eatdan.danbusy=false
+	catch("eatdan","get 1 "..eatdan.budailist[eatdan.budaiindex].." from budai of here;eat "..eatdan.budailist[eatdan.budaiindex]..";put "..eatdan.budailist[eatdan.budaiindex].." in budai of here")
+	busytest(eatdan.eatbudaiok)
+end
+eatdan.eatbudaiok=function()
+	if eatdan.danbusy==true then
+		busytest(eatdan.eatbudai)
+	else
+		eatdan_end_ok()
+	end
 end
 on_danbusy=function()
 	eatdan.danbusy=true
@@ -236,6 +269,7 @@ eatdan.eatok=function()
 	end
 end
 
+
 eatdan.eatjz=function()
 	if jiuzhuanfull~=true then eatdan_end_fail()
 		return
@@ -243,6 +277,7 @@ eatdan.eatjz=function()
 	getbagitems("budai of here")
 	infoend(eatdan.eatjzcmd)
 end
+
 
 eatdan.eatjzcmd=function()
 	if bags["budai of here"]==nil or mudvar.eatjz~=true then

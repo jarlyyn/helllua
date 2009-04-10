@@ -27,10 +27,18 @@ quest.main["drawmap"]=function()
 	do_drawmap()
 	quest.resume=quest.main["drawmap"]
 end
-quest["end"]["caxie"]=function()
+quest["end"]["draw"]=function()
 	drawmap["end"]()
 end
 
+loadmod("makeyao.mod")
+quest.main["makeyao"]=function(str,num)
+	do_makeyao(str,num)
+	quest.resume=quest.main["makeyao"]
+end
+quest["end"]["makeyao"]=function()
+	makeyao["end"]()
+end
 
 loadmod("pick.mod")
 quest.main["pick"]=function()
@@ -107,18 +115,18 @@ end
 quest["end"]["mq"]=function()
 	masterquest["end"]()
 end
-do_quest=function(name)
+do_quest=function(name,...)
 	quest.name=name
 	initmud()
 	if quest.main[name]~=nil then
 		unhookall()
 		quest.stop=false
-		getinfo(quest_begin)
+		getinfo(quest_begin,...)
 	end
 end
-quest_begin=function()
+quest_begin=function(...)
 	setupskill()
-	quest["main"][quest.name]()
+	quest["main"][quest.name](...)
 end
 initmud=function()
 	run(mudsettings)

@@ -138,7 +138,7 @@ masterquest.asknpc=function()
 	do_mqask(masterquest.maincmd,masterquest.askyou)
 end
 masterquest.askyou=function()
-	if masterquest["npcid"]==nil then
+	if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
 		masterquest["npcid"]=getcnname(npc.name)
 	end
 	if masterquest["npcid"]==nil then

@@ -45,6 +45,10 @@ letter.questok=function()
 	do_npcinpath(city[letter.city].path,letter.npcfind,letter_end_fail)
 end
 letter.npcfind=function()
+	if npc.id==nil or npc.id=="" then
+		npc.id=getcnname(npc.name)
+	end
+	if npc.id==nil then npc.id ="" end
 	npchere(npc.id,"give letter to "..npc.id)
 	busytest(letter.npcgiven)
 end

@@ -148,3 +148,55 @@ canwu.checkyxl=function()
 	if me.fam=="…Ÿ¡÷≈…" then return false end
 	return checkitems(dutable.yxl,canwu["main"],canwu["main"])
 end
+
+
+
+-------------------
+
+
+
+thinkwall={}
+thinkwall["ok"]=nil
+thinkwall["fail"]=nil
+
+do_thinkwall=function(thinkwall_ok,thinkwall_fail)
+	thinkwall["ok"]=thinkwall_ok
+	thinkwall["fail"]=thinkwall_fail
+	busytest(thinkwall.main)
+end
+
+thinkwall["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(thinkwall[s])
+	end
+	thinkwall["ok"]=nil
+	thinkwall["fail"]=nil
+end
+
+thinkwall_end_ok=function()
+	thinkwall["end"]("ok")
+end
+
+thinkwall_end_fail=function()
+	thinkwall["end"]("fail")
+end
+
+thinkwall.main=function()
+	if quest.stop then
+		thinkwall["end"]()
+		return
+	end
+	getstatus(thinkwall.check)
+end
+
+thinkwall.check=function()
+	if do_check(thinkwall["main"]) then
+	else
+		go(2571,thinkwall.arrive,thinkwall_end_fail)
+	end
+end
+
+thinkwall.arrive=function()
+	run("think wall")
+	busytest(thinkwall.main)
+end

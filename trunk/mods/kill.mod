@@ -57,9 +57,12 @@ end
 kill.cmd=function()
 	run("yun recover;yun regenerate")
 	if (me.score.xingge=="心狠手辣")or(me.score.xingge=="光明磊落")and(tonumber(GetVariable("nuqimin"))>2000) then run("burning") end
+	cmd=GetVariable("fightcuff")
+	if cmd==nil or cmd=="" then
+		weapon(1)
+	end
 	npchere(kill.npc,"kill "..kill.npc)
 	fightcuff()
-	weapon(1)
 	pfm()
 	busytest(kill.test)
 end
@@ -77,5 +80,6 @@ fightcuff=function()
 	if cmd~=nil and cmd~="" then
 		weapon(0)
 		run(cmd)
+		weapon(1)
 	end
 end

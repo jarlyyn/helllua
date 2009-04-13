@@ -381,7 +381,10 @@ mqkill.npcfind=function()
 	if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
 		masterquest["npcid"]=npc.id
 	end
-	if masterquest["npcid"]==nil then masterquest["npcid"]=masterquest.npc end
+	if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
+		masterquest["npcid"]=getcnname(npc.name)
+	end
+	if masterquest["npcid"]==nil then masterquest["npcid"]="" end
 	do_kill(masterquest["npcid"],mqkill.heal,mqkill.search2)
 end
 
@@ -447,7 +450,7 @@ end
 
 masterquest_npcfaint=function()
 	masterquest.die=true
-	run("get silver from "..npc.id)
+	run("get silver from "..masterquest["npcid"])
 	jianuzero()
 	weapon(2)
 end
@@ -598,7 +601,7 @@ mqkill.reconkill=function()
 	mqkill["searchcount"]=1
 	masterquest.city=mqkill["city"]
 	EnableTriggerGroup("masterquestkill",true)
-	do_kill(npc.id,mqkill.heal,masterquest.main)
+	do_kill(masterquest["npcid"],mqkill.heal,masterquest.main)
 end
 
 ---------------------

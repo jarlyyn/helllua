@@ -22,6 +22,14 @@ quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
 
+quest.main["thinkwall"]=function()
+	do_thinkwall()
+	quest.resume=quest.main["thinkwall"]
+end
+quest["end"]["thinkwall"]=function()
+	thinkwall["end"]()
+end
+
 loadmod("draw.mod")
 quest.main["drawmap"]=function()
 	do_drawmap()

@@ -378,9 +378,11 @@ mqkill.npcfind=function()
 	masterquest.city=mqkill["city"]
 	masterquest.far=false
 	EnableTriggerGroup("masterquestkill",true)
-	masterquest["npcid"]=npc.id
-	if npc.id==nil then npc.id=masterquest.npc end
-	do_kill(npc.id,mqkill.heal,mqkill.search2)
+	if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
+		masterquest["npcid"]=npc.id
+	end
+	if masterquest["npcid"]==nil then masterquest["npcid"]=masterquest.npc end
+	do_kill(masterquest["npcid"],mqkill.heal,mqkill.search2)
 end
 
 

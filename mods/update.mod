@@ -1,4 +1,4 @@
-version=65
+version=66
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -106,6 +106,7 @@ updateversion=function()
 	addtri("makeyao_buy","^(> )*你点了点药材，发现(.*)的分量还不够。","makeyao","makeyao_buy")
 	addtri("makeyao_fail","^(> )*你还不会配这种药啊！","makeyao","makeyao_fail")
 	addtri("makeyao_ok","^(> )*你把「%%%」成功的制好了！","makeyao","makeyao_ok")
+	addtri("walk_onnoweapon","^(> )*(张翠山道：“各色人等，到解剑岩都需解剑，千百年来概无例外！”你慑于武当山规，|王五上前挡住你，朗声说道：这位)","system","walk_onnoweapon")
 --	SetTriggerOption(triname,"group",trigroup)
 	call(updatecmd)
 end

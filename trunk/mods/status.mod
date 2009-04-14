@@ -208,7 +208,7 @@ end
 setflylist=function()
 	flist=""
 	if me.score.age~=nil then
-		if me.score.age<18 then
+		if me.score.age<18 and recallback==true then
 			flist="recall back:26,"
 		end
 	end

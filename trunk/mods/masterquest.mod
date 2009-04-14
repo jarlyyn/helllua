@@ -14,6 +14,17 @@ initmqletter=function()
 	mqletter.npc=""
 	mqletter.arrive=0
 end
+masterquest.normal=0
+masterquest.assistor=1
+masterquest.assister=2
+assist={}
+assist["er"]=""
+assist["erid"]=""
+assist["or"]=""
+assist["orid"]=""
+assist["loc"]=0
+masterquest.type=masterquest.normal
+
 initmq=function()
 	masterquest["npc"]=""
 	masterquest["npcid"]=nil
@@ -21,6 +32,8 @@ initmq=function()
 	masterquest.far=false
 	masterquest.flee=false
 	masterquest.die=false
+	masterquest.assistwait=(masterquest.type==masterquest.assister)
+	masterquest.assistneedreport=false
 	mqfar.index=1
 	masterquest.waitletter=false
 	mqfar.max=0
@@ -36,6 +49,13 @@ do_masterquest=function(masterquest_ok,masterquest_fail)
 	masterquest["fail"]=masterquest_fail
 	EnableTriggerGroup("masterquest",true)
 	setmqmastertri()
+	if masterquest.type==masterquest.assister then
+		EnableTrigger("mqassistnpc",true)
+		EnableTriggerGroup("mqassist",true)
+	elseif masterquest.type==masterquest.assistor then
+		EnableTrigger("mqassistok",true)
+		EnableTriggerGroup("mqassist",true)
+	end
 	hook(hooks.faint,mqfaintrecon)
 	initmq()
 	masterquest.main()
@@ -81,7 +101,11 @@ end
 mq=masterquest.go
 
 masterquest.askquest=function()
-	go(familys[me.fam].masterloc,masterquest.arrive,masterquest_end_fail)
+	if	masterquest.type~=masterquest.assister then
+		go(familys[me.fam].masterloc,masterquest.arrive,masterquest_end_fail)
+	else
+		go(kdloc,mqassistgivecmd,mqassistgivecmd)
+	end
 end
 masterquest.arrive=function()
 	busytest(masterquest.questgive)
@@ -117,7 +141,7 @@ masterquest.questok=function()
 	end
 end
 masterquest.case=function()
-	if masterquest.die==false and masterquest.npc~="" then
+	if masterquest.die==false and masterquest.npc~="" and masterquest.assistwait==false then
 		if masterquest.far==true then
 			busytest(mqfar.main)
 		elseif masterquest.flee==true then
@@ -126,6 +150,15 @@ masterquest.case=function()
 			do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
 		end
 	elseif checkstudy(masterquest["main"],masterquest["main"]) then
+	elseif masterquest.assistneedreport==true then
+		if masterquest.type==masterquest.assistor then
+			mqassistorreport()
+		else
+			mqassisterreport()
+		end
+		delay(1,masterquest["main"])
+	elseif masterquest.assistwait==true then
+		go(kdloc,mqassistwait,mqassistwait)
 	else
 		masterquest.askquest()
 	end
@@ -162,8 +195,12 @@ masterquest["end"]=function(s)
 	hook(hooks.faint,nil)
 	EnableTriggerGroup("masterquestkill",false)
 	EnableTriggerGroup("masterquest",false)
+	EnableTriggerGroup("mqassist",false)
+	EnableTrigger("mqassistnpc",true)
+	EnableTrigger("mqassistok",true)
 	masterquest["ok"]=nil
 	masterquest["fail"]=nil
+	EnableTimer("keepidle",false)
 end
 
 
@@ -201,7 +238,11 @@ end
 masterquest.givehead=function()
 	masterquest.waitletter=false
 	masterquest.die=true
-	go(familys[me.fam].masterloc,masterquest.giveheadcmd,masterquest_end_fail)
+	if	masterquest.type~=masterquest.assister then
+		go(familys[me.fam].masterloc,masterquest.giveheadcmd,masterquest_end_fail)
+	else
+		go(kdloc,mqassistgivecmd,mqassistgivecmd)
+	end
 end
 masterquest.giveheadcmd=function()
 	run("give head to "..familys[me.fam].masterid..";drop head;quest cancel;mastercmd")
@@ -229,6 +270,8 @@ mqfar.new=function()
 	end
 	mqfar.index=1
 end
+mqfar.askyoucity={}
+mqfar.askyoucity["西域"]=true
 mqfar.main=function()
 	if mqfar.index>mqfar.max then
 		initmq()
@@ -236,9 +279,25 @@ mqfar.main=function()
 	else
 		print("全图通缉----"..farlist[mqfar.index])
 		masterquest.city=farlist[mqfar.index]
-		do_mqkill(farlist[mqfar.index],3,mqfar.ok,mqfar.searchend)
+		if mqfar.askyoucity[masterquest.city]==true then
+			if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
+				masterquest["npcid"]=getcnname(npc.name)
+			end
+			if masterquest["npcid"]==nil then
+				mqfar.searchcmd()
+				return
+			end
+			do_askyou(masterquest["npcid"],mqfar.searchcmd,masterquest.givehead)
+		else
+			mqfar.searchcmd()
+		end
 	end
 end
+
+mqfar.searchcmd=function()
+		do_mqkill(farlist[mqfar.index],3,mqfar.ok,mqfar.searchend)
+end
+
 mqfar.searchend=function()
 	print(farlist[mqfar.index].."搜索完毕，去下一个城市")
 	mqfar.index=mqfar.index+1
@@ -339,6 +398,7 @@ mqkill["end"]=function(s)
 	end
 	hook(hooks.killme,nil)
 	EnableTriggerGroup("masterquestkill",false)
+	EnableTriggerGroup("mqassistor",false)
 	mqkill["ok"]=nil
 	mqkill["fail"]=nil
 end
@@ -386,9 +446,26 @@ mqkill.npcfind=function()
 	end
 	if masterquest["npcid"]==nil then masterquest["npcid"]="" end
 	do_kill(masterquest["npcid"],mqkill.heal,mqkill.search2)
+	assist["loc"]=npc.loc
+	if masterquest.type==masterquest.assistor then
+		SetTriggerOption ("mqassistkill", "match", "^(> )*你对著"..masterquest.npc.."喝道：")
+		EnableTriggerGroup("mqassistkill",true)
+	end
 end
 
 
+mqassistkill=function()
+	masterquest.assistwait=true
+	EnableTriggerGroup("mqassistkill",false)
+	masterquest.assistneedreport=true
+	hook(hooks.logok,mqassistlogok)
+	recon()
+end
+
+mqassistlogok=function()
+	mqassistorreport()
+	go(safeloc,masterquest.resume,masterquest.resume)
+end
 
 mqkill.heal=function()
 	EnableTriggerGroup("mqhelper",false)
@@ -407,7 +484,7 @@ mqkill.killend=function()
 	if masterquest.die==true then
 		mqkill.questend()
 	else
-	jianuzero()
+		jianuzero()
 		masterquest.flee=true
 		mqkill["end"]()
 		masterquest.main()
@@ -657,6 +734,7 @@ on_partyfind=function(n,l,w)
 		w[7]=decrypt(w[7],helpfindpassword)
 	end
 	if w[5]~=masterquest.npc or masterquest.far==false then return end
+	if masterquest.type==masterquest.assistor then return end
 	if city[w[7]]==nil then return end
 	if city[w[7]]==masterquest.city then return end
 	local loc=tonumber(w[6])
@@ -678,5 +756,116 @@ killcmd=function()
 	kill_cmd=GetVariable("killcmd")
 	if kill_cmd~=nil then
 		run(kill_cmd)
+	end
+end
+
+------------------
+mqassistorcmd=function()
+	EnableTrigger("mqassister",true)
+	masterquest.type=masterquest.assistor
+end
+
+mqassistercmd=function(str)
+	masterquest.type=masterquest.assister
+	EnableTrigger("mqassistor",true)
+	assist["orid"]=str
+	run("assist none;assist "..str)
+	initmq()
+end
+
+mqassister=function(n,l,w)
+	if mudvar.canaccept~=nil then
+		if mudvar.canaccept[w[4]]~=nil then
+			assist["er"]=w[2]
+			assist["erid"]=w[4]
+			run("right "..w[4]..";team dismiss")
+			EnableTrigger("mqassister",false)
+			EnableTrigger("mqassistok",true)
+			SetTriggerOption("mqassistok","match","^(> )*"..assist["er"].."\\("..string.upper(string.sub(assist["erid"],1,1))..string.sub(assist["erid"],2,#assist["erid"]).."\\)告诉你：npckillok")
+			SetTriggerOption("mqassistreport","match","^(> )*你告诉"..assist["er"].."\\("..string.upper(string.sub(assist["erid"],1,1))..string.sub(assist["erid"],2,#assist["erid"]).."\\)")
+			initmq()
+			do_masterquest(masterquest.loop,masterquest.loop)
+		return
+		end
+	end
+	print("不支持的协助者，请把协助者设置在can_accpet里，比如set can_accept bao")
+end
+mqassistor=function(n,l,w)
+	assist["or"]=w[2]
+	SetTriggerOption("mqassistnpc","match","^(> )*"..assist["or"].."\\("..string.upper(string.sub(assist["orid"],1,1))..string.sub(assist["orid"],2,#assist["orid"]).."\\)告诉你：npckill\\.(.*)\\.(.*)\\.(.*)")
+	SetTriggerOption("mqassistreport","match","^(> )*你告诉"..assist["or"].."\\("..string.upper(string.sub(assist["orid"],1,1))..string.sub(assist["orid"],2,#assist["orid"]).."\\)")
+	do_masterquest(masterquest.loop,masterquest.loop)
+end
+
+mqassistnpc=function(n,l,w)
+	print(w[2])
+	print(w[3])
+	print(w[4])
+	initmq()
+	masterquest.assistneedreport=false
+	npc.name=w[2]
+	masterquest.npc=w[2]
+	mqkill["city"]=w[4]
+	masterquest.city=w[4]
+	local _loc=tonumber(w[3])
+	if _loc==nil then _loc=-1 end
+	mqkill["searchmax"]=3
+	mqkill["searchcount"]=1
+	hook(hooks.killme,mqkill.onkillme)
+	setmqkilltri()
+	EnableTimer("keepidle",false)
+	if masterquest.assistwait==true then
+		masterquest.assistwait=false
+	if _loc<0 then
+		masterquest.main()
+	else
+		go(_loc,mqkill.npcfind,masterquest.main)
+	end
+	end
+end
+
+mqassistok=function(n,l,w)
+	masterquest.assistneedreport=false
+	masterquest.assistwait=false
+	EnableTimer("keepidle",false)
+	masterquest.die=true
+	masterquest.flee=false
+	masterquest.far=false
+	busytest(masterquest.main)
+end
+
+mqassistreport=function(n,l,w)
+	masterquest.assistneedreport=false
+end
+
+mqassistorreport=function()
+	run("tell "..assist["erid"].." npckill."..masterquest.npc.."."..tostring(assist.loc).."."..masterquest["city"])
+end
+
+mqassisterreport=function()
+	run("tell "..assist["orid"].." npckillok")
+end
+
+keepidle=function()
+	run("keepidle")
+end
+
+mqassistwait=function()
+		AddTimer("keepidle",0,2,0,"",17441,"keepidle")
+end
+
+mqassistgivecmd=function()
+	npchere(assist["orid"],"give head to "..assist["orid"])
+	busytest(mqassisttestgive)
+end
+
+mqassisttestgive=function()
+	if npc.nobody>0 then
+		delay(1,masterquest.main)
+	else
+		masterquest.assistneedreport=true
+		initmq()
+		mqassisterreport()
+		masterquest.main()
 	end
 end

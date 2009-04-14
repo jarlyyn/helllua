@@ -32,6 +32,15 @@ alias_lian=function(n,l,w)
 	do_quest("lian")
 end
 
+alias_assist=function(n,l,w)
+	if w[1]==false then
+		print("进入被协助状态。如要协助他人，请输入#assist 对方id")
+		do_quest("assistor")
+	else
+		print("进入协助状态。如要被他人协助，请输入#assist")
+		do_quest("assister",w[2])
+	end
+end
 liando=function()
 	do_lian(aliaslianskill,liancmd)
 end

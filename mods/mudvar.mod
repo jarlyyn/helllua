@@ -3,7 +3,9 @@ initmudvar=function()
 	mudvar.teller=""
 	chatroom=""
 	mudvar.eatjz=false
+	mudvar.canaccept={}
 end
+mudlistre=rex.new("([^,]+)")
 
 getmudvar=function()
 	initmudvar()
@@ -22,4 +24,9 @@ end
 
 mudvar_eatjz=function(n,l,w)
 	mudvar.eatjz=true
+end
+mudvar_canaccept=function(n,l,w)
+	n=mudlistre:gmatch(w[1],function (m, t)
+		mudvar.canaccept[m]=true
+	end)
 end

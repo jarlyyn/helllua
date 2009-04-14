@@ -22,6 +22,27 @@ quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
 
+
+quest.main["assistor"]=function()
+	mqquests=0
+	mqstarttime=os.time()
+	mqassistorcmd()
+	quest.resume=masterquest["main"]
+end
+quest["end"]["assistor"]=function()
+	masterquest["end"]()
+end
+quest.main["assister"]=function(...)
+	mqquests=0
+	mqstarttime=os.time()
+	mqassistercmd(...)
+	quest.resume=masterquest["main"]
+end
+quest["end"]["assister"]=function()
+	masterquest["end"]()
+end
+
+
 quest.main["thinkwall"]=function()
 	do_thinkwall()
 	quest.resume=quest.main["thinkwall"]
@@ -117,6 +138,7 @@ loadmod("masterquest.mod")
 quest.main["mq"]=function()
 	mqquests=0
 	mqstarttime=os.time()
+	masterquest.type=masterquest.normal
 	do_masterquest(masterquest.loop,masterquest.loop)
 	quest.resume=masterquest.resume
 end

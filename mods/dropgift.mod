@@ -92,7 +92,7 @@ dropgift.budaiarrive=function()
 	else
 		jiuzhuancount=getnum(bags["budai of here"]["jiuzhuan jindan"])
 	end
-	if jiuzhuancount>17 then
+	if jiuzhuancount>17 and dropgift.gift=="jiuzhuan jindan" then
 		if itemsnum("baoguo")==0 then
 			if room_obj["baoguo"]~=nil then
 				run("get baoguo")

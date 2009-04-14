@@ -2,6 +2,10 @@ logable=true
 
 logdelaysec=1
 on_disconnect=function()
+	if walking~=nil then
+		--call(walking["end"])
+	end
+	hook(hooks.isbusy,nil)
 	if ((logable==true)and(not(quest.stop and (quest.name~="mq" or masterquest.die~=false)))) then
 		AddTimer("login",0,0,logdelaysec,"",17441,"onconnect")
 	end

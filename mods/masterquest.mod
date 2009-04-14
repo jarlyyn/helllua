@@ -563,7 +563,8 @@ end
 letteraccept=function()
 	tpath,tdelay=mapper.getpath(_roomid,familys[me.fam].masterloc,1)
 	local potmax=getnum(tonumber(GetVariable("potmax")))
-	if mqletter.arrive ==2 then
+	if masterquest.type~=masterquest.normal then
+	elseif mqletter.arrive ==2 then
 	elseif giftquest[mqcount] ==true then
 	elseif quest.stop==true then
 	elseif tdelay>-1 and tdelay<=acceptmaxstep then

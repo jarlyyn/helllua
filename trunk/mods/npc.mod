@@ -56,11 +56,11 @@ end
 
 searchnpc.test=function()
 	if room_obj[npc.name]~=nil then
-		if room_obj[npc.name].id~=nil then
+		--if room_obj[npc.name].id~=nil then
 			npc.id=room_obj[npc.name].id
-		else
-			npc.id=""
-		end
+		--else
+			--npc.id=""
+		--end
 		if _roomname~=nil and _roomname~="" then
 			if maze[_roomname]==nil then
 				_roomid=searchfor["nextroom"]

@@ -27,7 +27,7 @@ quest.main["assistor"]=function()
 	mqquests=0
 	mqstarttime=os.time()
 	mqassistorcmd()
-	quest.resume=masterquest["main"]
+	quest.resume=masterquest.resume
 end
 quest["end"]["assistor"]=function()
 	masterquest["end"]()
@@ -36,7 +36,7 @@ quest.main["assister"]=function(...)
 	mqquests=0
 	mqstarttime=os.time()
 	mqassistercmd(...)
-	quest.resume=masterquest["main"]
+	quest.resume=masterquest.resume
 end
 quest["end"]["assister"]=function()
 	masterquest["end"]()

@@ -32,7 +32,7 @@ initmq=function()
 	masterquest.far=false
 	masterquest.flee=false
 	masterquest.die=false
-	masterquest.assistwait=(masterquest.type==masterquest.assister)
+	masterquest.assistwait=false
 	masterquest.assistneedreport=false
 	mqfar.index=1
 	masterquest.waitletter=false
@@ -144,8 +144,7 @@ masterquest.questok=function()
 	end
 end
 masterquest.case=function()
-	if masterquest.die==false and masterquest.npc~="" and (masterquest.assistwait==false or masterquest.type==masterquest.assister)then
-		masterquest.assistwait=false
+	if masterquest.die==false and masterquest.npc~="" and masterquest.assistwait==false then
 		if masterquest.far==true then
 			busytest(mqfar.main)
 		elseif masterquest.flee==true then
@@ -163,6 +162,9 @@ masterquest.case=function()
 		delay(1,masterquest["main"])
 	elseif masterquest.assistwait==true then
 		go(kdloc,mqassistwait,mqassistwait)
+	elseif masterquest.type==masterquest.assister and masterquest.die==false then
+			masterquest.assistwait=true
+			busytest(masterquest.main)
 	else
 		masterquest.askquest()
 	end
@@ -200,8 +202,8 @@ masterquest["end"]=function(s)
 	EnableTriggerGroup("masterquestkill",false)
 	EnableTriggerGroup("masterquest",false)
 	EnableTriggerGroup("mqassist",false)
-	EnableTrigger("mqassistnpc",true)
-	EnableTrigger("mqassistok",true)
+	EnableTrigger("mqassistnpc",false)
+	EnableTrigger("mqassistok",false)
 	masterquest["ok"]=nil
 	masterquest["fail"]=nil
 	EnableTimer("keepidle",false)
@@ -442,7 +444,7 @@ mqkill.npcfind=function()
 	masterquest.city=mqkill["city"]
 	masterquest.far=false
 	EnableTriggerGroup("masterquestkill",true)
-	if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
+	if npc.id~=nil then
 		masterquest["npcid"]=npc.id
 	end
 	if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
@@ -450,7 +452,7 @@ mqkill.npcfind=function()
 	end
 	if masterquest["npcid"]==nil then masterquest["npcid"]="" end
 	do_kill(masterquest["npcid"],mqkill.heal,mqkill.search2)
-	assist["loc"]=npc.loc
+	assist["loc"]=_roomid
 	if masterquest.type==masterquest.assistor then
 		SetTriggerOption ("mqassistkill", "match", "^(> )*Äã¶ÔÖø"..masterquest.npc.."ºÈµÀ£º")
 		EnableTriggerGroup("mqassistkill",true)
@@ -682,7 +684,7 @@ end
 mqkill.reconkill=function()
 	mqkill["searchcount"]=1
 	masterquest.city=mqkill["city"]
-	EnableTriggerGroup("masterquestkill",true)
+	masterquest.setuptri()
 	do_kill(masterquest["npcid"],mqkill.heal,masterquest.main)
 end
 
@@ -797,7 +799,7 @@ mqassister=function(n,l,w)
 end
 mqassistor=function(n,l,w)
 	assist["or"]=w[2]
-	SetTriggerOption("mqassistnpc","match","^(> )*"..assist["or"].."\\("..string.upper(string.sub(assist["orid"],1,1))..string.sub(assist["orid"],2,#assist["orid"]).."\\)¸æËßÄã£ºnpckill\\.(.*)\\.(.*)\\.(.*)")
+	SetTriggerOption("mqassistnpc","match","^(> )*"..assist["or"].."\\("..string.upper(string.sub(assist["orid"],1,1))..string.sub(assist["orid"],2,#assist["orid"]).."\\)¸æËßÄã£ºnpckill\\.(.*)\\.(.*)\\.(.*)\\.(.*)")
 	SetTriggerOption("mqassistreport","match","^(> )*Äã¸æËß"..assist["or"].."\\("..string.upper(string.sub(assist["orid"],1,1))..string.sub(assist["orid"],2,#assist["orid"]).."\\)")
 	do_masterquest(masterquest.loop,masterquest.loop)
 end
@@ -806,13 +808,15 @@ mqassistnpc=function(n,l,w)
 	print(w[2])
 	print(w[3])
 	print(w[4])
-	initmq()
+	print(w[5])
 	masterquest.assistneedreport=false
 	npc.name=w[2]
 	masterquest.npc=w[2]
-	mqkill["city"]=w[4]
-	masterquest.city=w[4]
-	local _loc=tonumber(w[3])
+	masterquest.npcid=w[3]
+	npc.id=w[3]
+	mqkill["city"]=w[5]
+	masterquest.city=w[5]
+	local _loc=tonumber(w[4])
 	if _loc==nil then _loc=-1 end
 	mqkill["searchmax"]=3
 	mqkill["searchcount"]=1
@@ -820,6 +824,7 @@ mqassistnpc=function(n,l,w)
 	setmqkilltri()
 	EnableTimer("keepidle",false)
 	if masterquest.assistwait==true then
+		print("123")
 		masterquest.assistwait=false
 		if _loc<0 then
 			masterquest.main()
@@ -844,7 +849,7 @@ mqassistreport=function(n,l,w)
 end
 
 mqassistorreport=function()
-	run("tell "..assist["erid"].." npckill."..masterquest.npc.."."..tostring(assist.loc).."."..masterquest["city"])
+	run("tell "..assist["erid"].." npckill."..masterquest.npc.."."..masterquest.npcid.."."..tostring(assist.loc).."."..masterquest["city"])
 end
 
 mqassisterreport=function()

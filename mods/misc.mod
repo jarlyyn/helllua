@@ -138,7 +138,7 @@ cnxing["诸葛"]="zhuge"
 cnxing["上官"]="shangguan"
 cnxing["夏候"]="xiahou"
 cnxing["闻人"]="wenren"
-cnxing["皇甫"]="huangpu"
+cnxing["皇甫"]="huangfu"
 cnxing["澹台"]="tantai"
 cnxing["公治"]="gongzhi"
 cnxing["淳于"]="chunyu"
@@ -663,11 +663,11 @@ cnname["琳"]="lin"
 
 getcnname=function(str)
 	if #str%2~=0 then return str end
-	local xinglength=2
+	local xinglength=4
 	local xingstr=""
 	xingstr=cnxing[string.sub(str,1,xinglength)]
 	if xingstr==nil then
-		xinglength=4
+		xinglength=2
 		xingstr=cnxing[string.sub(str,1,xinglength)]
 		if xingstr==nil then
 			return nil

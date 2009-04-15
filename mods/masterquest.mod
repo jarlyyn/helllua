@@ -44,11 +44,8 @@ initmq=function()
 	initmqletter()
 end
 initmq()
-do_masterquest=function(masterquest_ok,masterquest_fail)
-	masterquest["ok"]=masterquest_ok
-	masterquest["fail"]=masterquest_fail
+masterquest.setuptri=function()
 	EnableTriggerGroup("masterquest",true)
-	setmqmastertri()
 	if masterquest.type==masterquest.assister then
 		EnableTrigger("mqassistnpc",true)
 		EnableTriggerGroup("mqassist",true)
@@ -56,6 +53,12 @@ do_masterquest=function(masterquest_ok,masterquest_fail)
 		EnableTrigger("mqassistok",true)
 		EnableTriggerGroup("mqassist",true)
 	end
+end
+do_masterquest=function(masterquest_ok,masterquest_fail)
+	masterquest["ok"]=masterquest_ok
+	masterquest["fail"]=masterquest_fail
+	setmqmastertri()
+	masterquest.setuptri()
 	hook(hooks.faint,mqfaintrecon)
 	initmq()
 	masterquest.main()
@@ -65,7 +68,7 @@ masterquest.loop=function()
 end
 masterquest.resume=function()
 	hook(hooks.faint,mqfaintrecon)
-	EnableTriggerGroup("masterquest",true)
+	masterquest.setuptri()
 	busytest(masterquest.main)
 end
 masterquest.loopcmd=function()
@@ -141,7 +144,8 @@ masterquest.questok=function()
 	end
 end
 masterquest.case=function()
-	if masterquest.die==false and masterquest.npc~="" and masterquest.assistwait==false then
+	if masterquest.die==false and masterquest.npc~="" and (masterquest.assistwait==false or masterquest.type==masterquest.assister)then
+		masterquest.assistwait=false
 		if masterquest.far==true then
 			busytest(mqfar.main)
 		elseif masterquest.flee==true then
@@ -817,11 +821,11 @@ mqassistnpc=function(n,l,w)
 	EnableTimer("keepidle",false)
 	if masterquest.assistwait==true then
 		masterquest.assistwait=false
-	if _loc<0 then
-		masterquest.main()
-	else
-		go(_loc,mqkill.npcfind,masterquest.main)
-	end
+		if _loc<0 then
+			masterquest.main()
+		else
+			go(_loc,mqkill.npcfind,masterquest.main)
+		end
 	end
 end
 

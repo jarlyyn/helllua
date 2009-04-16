@@ -227,7 +227,7 @@ end
 eatdan.danbusy=false
 eatdan.eatdancmd=function()
 	eatdan.danbusy=false
-	run("get 1 "..eatdan.list[eatdan.index]..";eat "..eatdan.list[eatdan.index]..";drop "..eatdan.list[eatdan.index])
+	catch("eatdan","get 1 "..eatdan.list[eatdan.index]..";eat "..eatdan.list[eatdan.index]..";drop "..eatdan.list[eatdan.index])
 	busytest(eatdan.eatok)
 end
 eatdan.eatbudai=function()

@@ -1,4 +1,4 @@
-version=74
+version=75
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -115,6 +115,8 @@ updateversion=function()
 	addtri("mqassistnpc","^(> )*ssss\\(Ddddd\\)告诉你：npckill\\.(.*)\\.(.*)\\.(.*)","mqassistnpc","mqassistnpc")
 	addtri("mqassistok","^(> )*ssss\\(Ddddd\\)告诉你：npckillok","mqassistok","mqassistok")
 	addtri("walk_onnoweapon","^(> )*(张翠山道：“各色人等，到解剑岩都需解剑，千百年来概无例外！”你慑于武当山规，|王五上前挡住你，朗声说道：这位)","system","walk_onnoweapon")
+	addtri("item_needfill","^(> )*你从.*那里买下了(一|二|三|四|五|六|七|八|九|十|百)+..牛皮水袋。","system","item_needfill")
+
 --	SetTriggerOption(triname,"group",trigroup)
 	call(updatecmd)
 end

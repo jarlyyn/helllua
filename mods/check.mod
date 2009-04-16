@@ -16,6 +16,7 @@ do_check=function(checkcallback)
 	elseif checkheal(check["callback"],check["callback"]) then
 	elseif checkfood(check["callback"],check["callback"]) then
 	elseif checkitems(inv,check["callback"],check["callback"]) then
+	elseif checkfill(check["callback"],check["callback"])then
 	elseif checkpacklist(invpack,check["callback"],check["callback"]) then
 	elseif checkbagsitem(invbags,check["callback"],check["callback"]) then
 	elseif checkrepair(check["callback"],check["callback"]) then

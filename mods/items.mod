@@ -86,8 +86,16 @@ item["cmd"]=function()
 	busytest(item["arrive"])
 end
 
-itemsnum=function(name)
-	return(getnum(itemlist[name]))
+itemsnum=function(name,pack)
+	if pack=="" or pack==nil or pack=="me" then
+		return(getnum(itemlist[name]))
+	else
+		if bags[pack]==nil then
+			return 0
+		else
+			return(getnum(bags[pack][name]))
+		end
+	end
 end
 
 checkitems=function(_items,check_ok,check_fail)
@@ -216,6 +224,7 @@ end
 
 
 ----- 吃喝模块-----------
+tofill=0
 if foodpack==nil or foodpack=="" then
 	_food=items[food].id
 else
@@ -226,16 +235,34 @@ else
 		end
 	end
 end
+
+	_drink=items[drink].id.." "
 if drinkpack==nil or drinkpack=="" then
-	_drink=items[drink].id
+	_drinkpack=""
 else
-	_drink=items[drink].id .. " in "..drinkpack
+	_drinkpack=" in "..drinkpack
 	if #drinkpack>6 then
 		if string.sub(drinkpack,#drinkpack-5,#drinkpack)==" of me" then
-			_drink=string.sub(_drink,1,#_drink-6,#_drink)
+			_drinkpack=string.sub(_drink,1,#_drink-6,#_drink)
 		end
 	end
 end
+if drinkpack==nil then drinkpack="" end
+
+if items[_drink]~=nil then
+	drinkcname=items[_drink].name
+else
+	drinkcname=""
+end
+
+if  drinkcname==nil then drinkcname="" end
+
+SetTriggerOption("item_needfill","match","^(> )*你从.*那里买下了(一|二|三|四|五|六|七|八|九|十|百)+.."..drinkcname.."牛皮水袋。")
+
+item_needfill=function(n,l,w)
+	tofill=tofill+1
+end
+
 
 if foodpack~="" and foodpack~=nil then
 	invbags[foodpack]={}
@@ -261,7 +288,7 @@ else
 end
 
 eatdrink=function()
-	run("eat ".._food..";drink ".._drink)
+	run("eat ".._food..";drink ".._drink..tostring(tofill+1).._drinkpack)
 end
 
 
@@ -272,6 +299,58 @@ checkfood=function(check_ok,check_fail)
 		return true
 	elseif getnum(bagscount[drinkpack])>1 then
 		do_drop(drinkpack,check_ok,check_fail)
+		return true
+	end
+	return false
+end
+
+-----------------------
+
+fill={}
+fill["ok"]=nil
+fill["fail"]=nil
+
+do_fill=function(fill_ok,fill_fail)
+	fill["ok"]=fill_ok
+	fill["fail"]=fill_fail
+	fill["max"]=tostring(math.min(tofill+1,itemsnum(drink,drinkpack)))
+	go(fillloc,fill.cmd,fill_fail)
+end
+
+fill["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(fill[s])
+	end
+	fill["ok"]=nil
+	fill["fail"]=nil
+end
+
+fill_end_ok=function()
+	fill["end"]("ok")
+end
+
+fill_end_fail=function()
+	fill["end"]("fail")
+end
+
+fill.cmd=function()
+	if tofill<0 then
+		tofill=0
+		fill_end_ok()
+		return
+	end
+	if drinkpack=="" then
+		run("fill ".._drink..tostring(tofill+1))
+	else
+		run("get ".._drink..fill.max.." from "..drinkpack..";fill ".._drink..";put ".._drink.."in "..drinkpack)
+	end
+	tofill=tofill-1
+	busytest(fill.cmd)
+end
+
+checkfill=function(check_ok,check_fail)
+	if tofill+drinkmin>=itemsnum(drink,drinkpack) and tofill>0 then
+		do_fill(check_ok,check_fail)
 		return true
 	end
 	return false

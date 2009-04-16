@@ -54,7 +54,8 @@ alias eat9z  是否吃9z 解毒。防止all 20 id吃 9z德设定。随便设为什么都可以。如果不
 
 1.任务命令:
 start 师门任务
-#assist 协助任务机器人了。
+
+#assist 协助任务机器人。
 关于协助任务，help quest
 两个id停在同一个地方
 低exp的id,把高exp的id设置在can_accept,比如set can_accept bao,然后#assist

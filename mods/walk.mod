@@ -25,6 +25,8 @@ walk["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
 		call(walk[s])
 	end
+	walk.resume=nil
+	dogunhook()
 	walk["ok"]=nil
 	walk["fail"]=nil
 end
@@ -125,6 +127,7 @@ end
 
 walk_on_room1=function(name, line, wildcards)
 	_exits=wildcards[2]
+	dogtype=0
 	callhook(hooks.step)
 	room_obj={}
 	EnableTriggerGroup("roomobj",true)
@@ -178,6 +181,8 @@ do_walk=function (to,walk_ok,walk_fail)
 	walk_on_step()
 	if maxstep>1 then
 		walk["steptype"]=1
+		walk.resume=walkrunmaxstep
+		doghook()
 		busytest(walkrunmaxstep)
 	end
 end
@@ -576,9 +581,56 @@ walk_maxstep=function(n,l,w)
 	callhook(hooks.maxstep)
 end
 
-dogpfm=function()
-	local p=GetVariable("pfm")
-	if p~="shot" and p~="" and p~=nil then
-		hook(hooks.fight,pfm)
+
+----------------------------
+
+dogtype=0
+
+doglist={}
+
+doglist["´óÀÇ¹·"]=100000
+doglist["Ð«×Ó"]=100000
+doglist["¶¾Éß"]=100000
+
+doghook=function()
+	if not(hashook(hooks.fight)) then
+		hook(hooks.fight,dogtest)
 	end
 end
+dogunhook=function()
+	if _hooklist[hooks.fight]==dogtest then
+		hook(hooks.fight,nil)
+	end
+end
+dogkill=function(n,l,w)
+	if dogtype==0 and doglist[w[2]]~=nil then
+			if getnum(me.hp.exp)>doglist[w[2]] then
+				dogtype=1
+			else
+				dogtype=2
+			end
+		return
+	end
+	if doglist[w[2]]==nil then
+		dogtype=2
+	end
+end
+
+
+dogtest=function()
+	if dogtype==1 then
+		--pfm()
+		return
+	end
+	if walking~=nil then
+		if walking.resume~=nil then
+			dogrecon()
+		end
+	end
+	recon()
+end
+dogrecon=function()
+	hook(hooks.logok,walking.resume)
+	recon()
+end
+

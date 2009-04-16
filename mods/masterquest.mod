@@ -469,6 +469,7 @@ mqassistkill=function()
 end
 
 mqassistlogok=function()
+	unhookall()
 	mqassistorreport()
 	go(safeloc,masterquest.resume,masterquest.resume)
 end

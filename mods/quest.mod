@@ -164,8 +164,8 @@ end
 
 resume=function()
 	if quest.stop==false then
-		walk["stop"]()
 		unhookall()
+		walk["stop"]()
 		_roomid=-1
 		inittri()
 		delay(1,getinfo,quest["resume"])

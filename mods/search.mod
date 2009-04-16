@@ -159,6 +159,8 @@ steppath["arrive"]=function()
 	steppath["next"]()
 	if steppath["maxstep"]>1 then
 		steppath["steppath"]=1
+		steppath.resume=steppath["runmaxstep"]
+		doghook()
 		busytest(steppath["runmaxstep"])
 	end
 
@@ -173,6 +175,8 @@ steppath["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
 		call(steppath[s])
 	end
+	steppath.resume=nil
+	dogunhook()
 	steppath["ok"]=nil
 	steppath["fail"]=nil
 

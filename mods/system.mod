@@ -5,11 +5,8 @@ on_disconnect=function()
 	if walking~=nil then
 		--call(walking["end"])
 	end
-	local reloghook=_hooklist[hooks.logok]
-	local reloghookarg=_hookarglist[hooks.logok]
-	unhookall()
-	hook(hooks.logok,reloghook,reloghookarg)
 	EnableTimer("keepidle",false)
+	hook(hooks.isbusy,nil)
 	if ((logable==true)and(not(quest.stop and (quest.name~="mq" or masterquest.die~=false)))) then
 		AddTimer("login",0,0,logdelaysec,"",17441,"onconnect")
 	end

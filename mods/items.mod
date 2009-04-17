@@ -241,23 +241,23 @@ if drinkpack==nil or drinkpack=="" then
 	_drinkpack=""
 else
 	_drinkpack=" in "..drinkpack
-	if #drinkpack>6 then
-		if string.sub(drinkpack,#drinkpack-5,#drinkpack)==" of me" then
-			_drinkpack=string.sub(_drink,1,#_drink-6,#_drink)
+	if #_drinkpack>6 then
+		if string.sub(_drinkpack,#_drinkpack-5,#_drinkpack)==" of me" then
+			_drinkpack=string.sub(_drinkpack,1,#_drinkpack-6,#_drinkpack)
 		end
 	end
 end
 if drinkpack==nil then drinkpack="" end
 
-if items[_drink]~=nil then
-	drinkcname=items[_drink].name
+if items[drink]~=nil then
+	drinkcname=items[drink].name
 else
 	drinkcname=""
 end
 
 if  drinkcname==nil then drinkcname="" end
 
-SetTriggerOption("item_needfill","match","^(> )*你从.*那里买下了(一|二|三|四|五|六|七|八|九|十|百)+.."..drinkcname.."牛皮水袋。")
+SetTriggerOption("item_needfill","match","^(> )*你从.*那里买下了(一|二|三|四|五|六|七|八|九|十|百)+.."..drinkcname)
 
 item_needfill=function(n,l,w)
 	tofill=tofill+1

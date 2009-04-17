@@ -1,4 +1,4 @@
-version=76
+version=77
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -117,6 +117,7 @@ updateversion=function()
 	addtri("walk_onnoweapon","^(> )*(张翠山道：“各色人等，到解剑岩都需解剑，千百年来概无例外！”你慑于武当山规，|王五上前挡住你，朗声说道：这位)","system","walk_onnoweapon")
 	addtri("item_needfill","^(> )*你从.*那里买下了(一|二|三|四|五|六|七|八|九|十|百)+..牛皮水袋。","system","item_needfill")
 	addtri("walkdogkill","^(> )*看起来(.*)想杀死你！","system","dogkill")
+	addtri("system_login",'目前共有 \\d* 位巫师、\\d* 位玩家在线上，以及 \\d* 位使用者尝试连线中。',"system","system_login")
 --	SetTriggerOption(triname,"group",trigroup)
 	call(updatecmd)
 end

@@ -107,7 +107,11 @@ end
 
 dispel.test=function()
 	if dispel.neilifail==true then
-		do_eatdan(dispel.arrive,dispel.eatdanfail)
+		if cantouch()==true then
+			do_do_touchneili(dispel.arrive,dispeal.eatdan)
+		else
+			dispel.eatdan()
+		end
 		return
 	end
 	if posioned then
@@ -116,7 +120,9 @@ dispel.test=function()
 		dispel_end_ok()
 	end
 end
-
+dispel.eatdan=function()
+	do_eatdan(dispel.arrive,dispel.eatdanfail)
+end
 dispel.eatdanfail=function()
 	discon()
 end

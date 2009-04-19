@@ -30,6 +30,10 @@ do_rest=function(rest_ok,rest_fail,l)
 	rest["ok"]=rest_ok
 	rest["fail"]=rest_fail
 	meforce=me.skills.force
+	if cantouch()==true then
+		do_touchneili(rest_end_ok,rest_end_fail)
+		return
+	end
 	if meforce==nil then
 		meforce=0
 	else
@@ -182,4 +186,56 @@ dazuoneili.arrive=function()
 	dazuoneilinum=max(math.min(me.hp.qixue,me.hp.neilimax*2-me.hp.neili),10)
 	run("dazuo "..tostring(dazuoneilinum))
 	busytest(dazuoneili.main)
+end
+
+
+----------------------------------------
+
+touchneili={}
+touchneili["ok"]=nil
+touchneili["fail"]=nil
+
+do_touchneili=function(touchneili_ok,touchneili_fail)
+	touchneili["ok"]=touchneili_ok
+	touchneili["fail"]=touchneili_fail
+	if cantouch==false then
+		touchneili_end_fail()
+		return
+	end
+	if ultraweapon==true then
+		go(-2,touchneili.touch,touchneili_end_fail)
+	else
+		go(miss10lvloc,touchneili.miss,touchneili_end_fail)
+	end
+end
+
+touchneili.touch=function()
+	run("touch "..GetVariable("weapon"))
+	touchneili_end_ok()
+end
+
+touchneili.miss=function()
+	run("touch "..miss10lv)
+	touchneili_end_ok()
+end
+
+
+touchneili["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(touchneili[s])
+	end
+	touchneili["ok"]=nil
+	touchneili["fail"]=nil
+end
+
+touchneili_end_ok=function()
+	touchneili["end"]("ok")
+end
+
+touchneili_end_fail=function()
+	touchneili["end"]("fail")
+end
+
+cantouch=function()
+	return (miss10lv~=nil and miss10lv~="" and miss10lvloc>0)or ultraweapon==true
 end

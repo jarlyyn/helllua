@@ -313,4 +313,16 @@ on_getweapon=function()
 	weapon(1)
 end
 
+miss10lv=""
+miss10lvloc=-1
 
+missok=function()
+	if walking~=walk or (_roomid==-1) then return end
+	if #walk[step]<5 then return end
+	local missto=getexitroom(_roomid,dir)
+	if missto==-1 then return end
+	if string.sub(walk["step"],1,5)=="miss " then
+		miss10lvloc=missto
+		miss10lv=string.sub(walk["step"],6,#walk["step"])
+	end
+end

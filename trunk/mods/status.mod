@@ -162,6 +162,7 @@ getinfo=function(func,...)
 	hp()
 	getfam()
 	getmudvar()
+	gettouch()
 	infoend(stsetting)
 	delay(1,func,...)
 end
@@ -249,3 +250,19 @@ getinv=function()
 		getbagitems(i)
 	end
 end
+ultraweapon=false
+
+
+testtouch=function()
+	ultraweapon=true
+end
+
+
+gettouch=function()
+	local weapon=GetVariable("weapon")
+	if weapon==nil then return end
+	if ultraweapon==false then
+		catch("testtouch","touch "..weapon)
+	end
+end
+

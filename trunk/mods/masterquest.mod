@@ -742,7 +742,7 @@ on_partyfind=function(n,l,w)
 		w[7]=decrypt(w[7],helpfindpassword)
 	end
 	if w[5]~=masterquest.npc or masterquest.far==false then return end
-	if masterquest.type==masterquest.assistor then return end
+	if masterquest.assistwait==true then return end
 	if city[w[7]]==nil then return end
 	if city[w[7]]==masterquest.city then return end
 	local loc=tonumber(w[6])

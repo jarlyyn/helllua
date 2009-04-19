@@ -591,6 +591,7 @@ doglist={}
 doglist["大狼狗"]=100000
 doglist["蝎子"]=100000
 doglist["毒蛇"]=100000
+doglist["五步蛇"]=100000
 
 doghook=function()
 	if not(hashook(hooks.fight)) then

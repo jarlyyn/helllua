@@ -248,11 +248,10 @@ ctonum=function(str)
 	end
 	return result
 end
-
+	itemnumre=rex.new("(((零|一|二|三|四|五|六|七|八|九|十|百|千|万)*)(位|支|颗|个|把|只|粒|张|枚|件|柄|根|块|文|两|碗|滴)){0,1}(.*)")
 getitemnum=function(str)
 	num=1
-	re=rex.new("(((零|一|二|三|四|五|六|七|八|九|十|百|千|万)*)(位|支|颗|个|把|只|粒|张|枚|件|柄|根|块|文|两|碗)){0,1}(.*)")
-	a,b,matchs=re:match(str)
+	a,b,matchs=itemnumre:match(str)
 	if matchs~=nil then
 		if matchs[2]~=false then
 			num=ctonum(matchs[2])
@@ -318,8 +317,9 @@ miss10lvloc=-1
 
 missok=function()
 	if walking~=walk or (_roomid==-1) then return end
-	if #walk[step]<5 then return end
-	local missto=getexitroom(_roomid,dir)
+	if walk["step"]==nil then return end
+	if #walk["step"]<5 then return end
+	local missto=getexitroom(_roomid,walk["step"])
 	if missto==-1 then return end
 	if string.sub(walk["step"],1,5)=="miss " then
 		miss10lvloc=missto

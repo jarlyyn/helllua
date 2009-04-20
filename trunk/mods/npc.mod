@@ -61,6 +61,11 @@ searchnpc.test=function()
 		--else
 			--npc.id=""
 		--end
+		if room_obj[npc.name].id~=nil then
+			if string.find(room_obj[npc.name].id,"%s")==nil then
+				return
+			end
+		end
 		if _roomname~=nil and _roomname~="" then
 			if maze[_roomname]==nil then
 				_roomid=searchfor["nextroom"]
@@ -116,7 +121,11 @@ npcinpath.testnpc=function()
 	if quest.name=="mq" then
 		for i,v in pairs(helpfindnpc) do
 			if room_obj[v.name]~=nil then
-				helpfindnpcfound(i,_roomid,masterquest.city)
+				if room_obj[v.name].id~=nil then
+					if string.find(room_obj[npc.name].id,"%s")~=nil then
+						helpfindnpcfound(i,_roomid,masterquest.city)
+					end
+				end
 			end
 		end
 	end

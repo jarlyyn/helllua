@@ -13,7 +13,7 @@ walk["to"]=-1
 walk["path"]=""
 walk["data"]={}
 walk["index"]=0
-walk["step"]=0
+walk["step"]=nil
 walk["steptype"]=0 -- 0单，1多,2多步的单步特殊命令
 
 walk["end"]=function(s)

@@ -1,4 +1,4 @@
-version=77
+version=81
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -119,8 +119,10 @@ updateversion=function()
 	addtri("walkdogkill","^(> )*看起来(.*)想杀死你！","system","dogkill")
 	addtri("system_login",'目前共有 \\d* 位巫师、\\d* 位玩家在线上，以及 \\d* 位使用者尝试连线中。',"system","system_login")
 	addtri("status_testtouch","^(> )*你轻轻一弹.*，长吟道：“别来无恙乎？|你轻轻抚过.*，感慨良深，作古风一首，.*铃铃作响，似以和之。|你抓着.*，沉思良久。","testtouch","testtouch")
-	addtri("missok","^(> )*你追寻到了.*，落下遁光。","system","missok")
+	addtri("missok","^(> )*你口中念念有词，转瞬天际一道长虹划过，你驾彩虹而走。","system","missok")
 	addtri("walkdogkill","^(> )*看起来(.*)想杀死你！","system","dogkill")
+	addtri("flyfail","^(> )*^(> )*(你已经超过17岁了，无法再使用这个指令回到客店了。|你身上带著密函，不能施展。|你要召唤什么物品？|你不知道如何召唤这个物品|你已经在扬州客店了。|你摸着.*，发了半天的呆。|你觉得.*的感觉相当飘忽，看来精力不济，难以感应。|你瞪着.*，看啥？|你摸着.*，发了半天的呆。)","system","walk_on_flyfail")
+	addtri("lianrest","^(> )*(你的内力不够练.*。|你现在太累了，结果一行也没有看下去。)$","lian","lianrest")
 --	SetTriggerOption(triname,"group",trigroup)
 	call(updatecmd)
 end

@@ -6,6 +6,7 @@ lian.index=0
 lian.count=0
 lian.max=6
 lian.loc=getnum(safeloc)
+lian.needrest=false
 baseskill={}
 baseskill["force"]=true
 baseskill["dodge"]=true
@@ -34,10 +35,15 @@ do_lian=function(lianlist,lian_ok,lian_fail)
 	lian.count=0
 	lian.index=1
 	lian.list={}
+	lian.needrest=false
 	lian.getskill(lianlist)
 	getstatus(lian.status)
 end
 
+
+lianrest=function()
+	lian.needrest=true
+end
 lian.getskill=function(str)
 	n=lianskillre:gmatch(str,function (m, t)
 		lian.count=lian.count+1
@@ -80,6 +86,9 @@ end
 
 lian["check"]=function()
 	if do_check(lian.getstatus) then
+	elseif 	lian.needrest==true then
+		lian.needrest=false
+		do_rest(lian["main"],lian["mian"])
 	else
 		go(lian.loc,lian.arrive,lian_end_fail)
 	end
@@ -97,7 +106,8 @@ lian.arrive=function()
 	lian.jingbeforce=getnum(me.hp.jing)
 	if lian.times<lian.max then
 		print("Á·Ï°Ö¸Áî£º"..lian.list[lian.index])
-		run(lian.list[lian.index])
+		lian.needrest=false
+		catch("lian",lian.list[lian.index])
 		delay(1,lian.main)
 		return
 	else

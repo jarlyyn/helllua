@@ -237,5 +237,5 @@ touchneili_end_fail=function()
 end
 
 cantouch=function()
-	return (miss10lv~=nil and miss10lv~="" and miss10lvloc>0)or ultraweapon==true
+	return (miss10lv~=nil and miss10lv~="" and miss10lvloc>-1)or ultraweapon==true
 end

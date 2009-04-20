@@ -28,6 +28,8 @@ alias_lian=function(n,l,w)
 	aliaslianskill=w[2]
 	if w[4]~=false then
 		aliasliancmd=w[4]
+	else
+		aliasliancmd=""
 	end
 	do_quest("lian")
 end

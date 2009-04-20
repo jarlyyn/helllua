@@ -5,7 +5,7 @@ lian["list"]={}
 lian.index=0
 lian.count=0
 lian.max=6
-lian.loc=getnum(safeloc)
+
 lian.needrest=false
 baseskill={}
 baseskill["force"]=true
@@ -85,6 +85,11 @@ lian["main"]=function()
 end
 
 lian["check"]=function()
+	if miss10lv=="" or miss10lvloc<0 then
+		lian.loc=getnum(safeloc)
+	else
+		lian.loc=miss10lvloc
+	end
 	if do_check(lian.getstatus) then
 	elseif 	lian.needrest==true then
 		lian.needrest=false

@@ -63,11 +63,15 @@ getexitroom=function (room,dir)
 	return -1
 end
 
-getroomexits=function (room,enterable)
+defdisableroomlist={}
+getroomexits=function (room,enterable,disableroomlist)
 	local exits={}
 	local i=0
 	local exitcount=0
 	local roomexits={}
+	if disableroomlist==nil then
+		disableroomlist=defdisableroomlist
+	end
 	if room<0 then return nil end
 	exits=mapper.getexits(room)
 	while (i<#exits) do
@@ -81,6 +85,7 @@ getroomexits=function (room,enterable)
 				break
 			end
 		end
+		if disableroomlist[exits[i][2]]==true then break end
 		exitcount=exitcount+1
 		roomexits[exitcount]=exits[i][1]
 	end

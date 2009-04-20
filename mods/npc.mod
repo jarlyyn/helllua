@@ -18,11 +18,12 @@ end
 searchnpc={}
 searchnpc["ok"]=nil
 searchnpc["fail"]=nil
-
+searchnpc.roomlist={}
 do_searchnpc=function(searchnpc_ok,searchnpc_fail)
 	npc.loc=-1
 	searchnpc["ok"]=searchnpc_ok
 	searchnpc["fail"]=searchnpc_fail
+	searchnpc.roomlist={}
 	EnableTriggerGroup("npc",true)
 	if _roomname~=nil and _roomname~="" then
 		if maze[_roomname]~=nil then
@@ -37,6 +38,7 @@ searchnpc["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
 		call(searchnpc[s])
 	end
+	searchnpc.roomlist={}
 	EnableTriggerGroup("npc",false)
 	searchnpc["ok"]=nil
 	searchnpc["fail"]=nil
@@ -74,7 +76,8 @@ searchnpc.test=function()
 		print(_roomid)
 		searchfor["end"]("ok")
 	else
-		searchfor["next"](getroomexits(searchfor["nextroom"],true))
+		searchnpc.roomlist[_roomid]=true
+		searchfor["next"](getroomexits(searchfor["nextroom"],true,searchnpc.roomlist))
 	end
 end
 
@@ -122,7 +125,7 @@ npcinpath.testnpc=function()
 		for i,v in pairs(helpfindnpc) do
 			if room_obj[v.name]~=nil then
 				if room_obj[v.name].id~=nil then
-					if string.find(room_obj[npc.name].id,"%s")~=nil then
+					if string.find(room_obj[v.name].id,"%s")~=nil then
 						helpfindnpcfound(i,_roomid,masterquest.city)
 					end
 				end

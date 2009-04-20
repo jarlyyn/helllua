@@ -108,7 +108,7 @@ end
 dispel.test=function()
 	if dispel.neilifail==true then
 		if cantouch()==true then
-			do_do_touchneili(dispel.arrive,dispeal.eatdan)
+			do_touchneili(dispel.arrive,dispel.eatdan)
 		else
 			dispel.eatdan()
 		end

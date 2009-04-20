@@ -588,10 +588,10 @@ dogtype=0
 
 doglist={}
 
-doglist["大狼狗"]=100000
-doglist["蝎子"]=100000
-doglist["毒蛇"]=100000
-doglist["五步蛇"]=100000
+doglist["大狼狗"]=200000
+doglist["蝎子"]=200000
+doglist["毒蛇"]=200000
+doglist["五步蛇"]=200000
 
 doghook=function()
 	if not(hashook(hooks.fight)) then

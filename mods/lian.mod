@@ -88,7 +88,7 @@ lian["check"]=function()
 	if do_check(lian.getstatus) then
 	elseif 	lian.needrest==true then
 		lian.needrest=false
-		do_rest(lian["main"],lian["mian"])
+		do_rest(lian.getstatus,lian.getstatus)
 	else
 		go(lian.loc,lian.arrive,lian_end_fail)
 	end
@@ -96,7 +96,7 @@ end
 
 
 lian.arrive=function()
-	if lian.neilibeforce<getnum(me.hp.neili) then
+	if lian.neilibeforce>getnum(me.hp.neili) then
 		lian.times=0
 	else
 		lian.times=lian.times+1

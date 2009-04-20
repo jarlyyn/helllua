@@ -1,4 +1,6 @@
-
+dfcspatch=function(n,l,w)
+	Simulate("\n"..w[4].."\n")
+end
 
 masterquest.questgive=function()
 	initmq()

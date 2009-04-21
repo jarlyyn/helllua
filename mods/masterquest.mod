@@ -42,6 +42,12 @@ initmq=function()
 	mqkill["city"]=""
 	mqkill["searchmax"]=1
 	initmqletter()
+	if masterquest.type~=masterquest.assister then
+		masterquest.firstsearch=true
+	else
+		masterquest.firstsearch=false
+	end
+	masterquest.fleesearch=false
 end
 initmq()
 masterquest.setuptri=function()
@@ -350,6 +356,7 @@ mq_asktest=function(n,l,w)
 		masterquest["city"]=mqask.info
 		masterquest.flee=false
 		if masterquest["city"]~="∫‹‘∂" then
+			masterquest.fleesearch=true
 			askinfolist_end_ok()
 		else
 			askinfolist["end"]()
@@ -430,6 +437,20 @@ mqkill.main=function()
 	end
 end
 mqkill.search=function()
+		if masterquest.fleesearch==true then
+			masterquest.fleesearch=false
+			masterquest.firstsearch=false
+			if city[mqkill["city"]].path2~=nil then
+				do_npcinpath(city[mqkill["city"]].path2,mqkill.npcfind,mqkill.main)
+				return
+			end
+		elseif masterquest.firstsearch==true then
+			masterquest.firstsearch=false
+			if city[mqkill["city"]].path1~=nil then
+				do_npcinpath(city[mqkill["city"]].path1,mqkill.npcfind,mqkill.main)
+				return
+			end
+		end
 		do_npcinpath(city[mqkill["city"]].path,mqkill.npcfind,mqkill.main)
 end
 mqkill.search2=function()

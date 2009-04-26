@@ -12,6 +12,7 @@ do_check=function(checkcallback)
 	elseif itemsnum("Gold")<(tonumber(GetVariable("goldmin"))) then
 		busytest(c_qugold)
 	elseif checkbow(check["callback"],check["callback"]) then
+	elseif checkdrunk(check["callback"],check["callback"]) then
 	elseif checkrest(check["callback"],check["callback"]) then
 	elseif checkheal(check["callback"],check["callback"]) then
 	elseif checkfood(check["callback"],check["callback"]) then
@@ -28,6 +29,18 @@ do_check=function(checkcallback)
 	return true
 end
 
+checkdrunk=function(check_ok,check_fail)
+	if mudvar.powerup~=nopowerup.drunk then return false end
+	if itemsnum("jiudai")==0 and itemsnum("tihu xiang")==0 then
+		item["go"]("jiudai",1,check_ok,check_fail)
+		return true
+	end
+	if itemsnum("mu gun")==0 then
+		item["go"]("mu gun",1,check_ok,check_fail)
+		return true
+	end
+	return false
+end
 checkbow=function(check_ok,check_fail)
 	if getnum(me.hp.exp)<50000 or getnum(me.hp.exp)>200000 then return false end
 	if GetVariable("pfm")=="shot" and itemsnum("ÀÇÑÀ¼ý")<10 then

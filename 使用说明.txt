@@ -44,7 +44,7 @@ set can_tell 你的遥控id的名字，比如set can_tell bao,决定了你的遥控大米
 如果需要帮助寻找，请加入一个帮派。推荐明教，人多，没什么副作用。
 alias eat9z  是否吃9z 解毒。防止all 20 id吃 9z德设定。随便设为什么都可以。如果不吃9z解毒，unalias eat 9z
 在give head后会自动发送一个mastercmd到mud.如果需要特殊指令，比如alias mastercmd ask miejue about 涅磐决.
-
+alias nopowerup 不自动使用powerup。有些技能和powerup冲突。如果设为drunk则自动使用醉棍的 zuida
 
 
 4.设置config.ini文件

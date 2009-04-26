@@ -25,7 +25,7 @@ baseskill["cooking"]=true
 baseskill["chuixiao-jiyi"]=true
 baseskill["finger"]=true
 baseskill["claw"]=true
-
+baseskill["strike"]=true
 
 lianskillre=rex.new("([^;,]+)")
 lianjifare=rex.new("^(?<base>.*?)(\\.(?<jifa>.+)){0,1}$")

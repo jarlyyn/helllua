@@ -26,6 +26,7 @@ assist["loc"]=0
 masterquest.type=masterquest.normal
 
 initmq=function()
+	DeleteTimer("lettertimeout")
 	masterquest["npc"]=""
 	masterquest["npcid"]=nil
 	masterquest["city"]=""
@@ -210,6 +211,7 @@ masterquest["end"]=function(s)
 	EnableTriggerGroup("mqassist",false)
 	EnableTrigger("mqassistnpc",false)
 	EnableTrigger("mqassistok",false)
+	DeleteTimer("lettertimeout")
 	masterquest["ok"]=nil
 	masterquest["fail"]=nil
 	EnableTimer("keepidle",false)
@@ -570,6 +572,7 @@ masterquest_npcdie=function()
 	if meforce>100 then
 		weapon(0)
 	end
+	AddTimer("lettertimeout",0,0,30,"",17445,"mqlettertimeout")
 	run("cut head from corpse;get head")
 	mqquests=mqquests+1
 	mqlasttime=os.time()-mqstarttime
@@ -604,6 +607,7 @@ letteraccept=function()
 	return false
 end
 mqletterattive=function(n,l,w)
+	DeleteTimer("lettertimeout")
 	mqletter.arrive=1
 	if masterquest.waitletter and letteraccept()==true then
 		run("halt")
@@ -649,6 +653,7 @@ mqquestnum=function(n,l,w)
 end
 
 mqlettertimeout=function(n,l,w)
+	DeleteTimer("lettertimeout")
 	mqletter.arrive=2
 	if masterquest.waitletter==true then
 		run("halt")
@@ -707,6 +712,13 @@ mqkill.reconkill=function()
 	mqkill["searchcount"]=1
 	masterquest.city=mqkill["city"]
 	masterquest.setuptri()
+	if npc.id~=nil then
+		masterquest["npcid"]=npc.id
+	end
+	if masterquest["npcid"]==nil or masterquest["npcid"]=="" then
+		masterquest["npcid"]=getcnname(npc.name)
+	end
+	if masterquest["npcid"]==nil then masterquest["npcid"]="" end
 	do_kill(masterquest["npcid"],mqkill.heal,masterquest.main)
 end
 

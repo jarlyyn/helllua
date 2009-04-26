@@ -326,3 +326,13 @@ missok=function()
 		miss10lv=string.sub(walk["step"],6,#walk["step"])
 	end
 end
+drunk=0
+lastdrunk=os.time()
+on_drunk=function(n,l,w)
+	drunk=1
+	lastdrunk=os.time()
+end
+on_drunk2=function(n,l,w)
+	drunk=2
+	lastdrunk=os.time()
+end

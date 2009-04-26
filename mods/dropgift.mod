@@ -35,7 +35,7 @@ dropgift.main=function()
 	busytest(dropgift.gochat)
 end
 dropgift["end"]=function(s)
-	EnableTriggerGroup("enterchatfail",failse)
+	EnableTriggerGroup("enterchatfail",false)
 	if ((s~="")and(s~=nil)) then
 		call(dropgift[s])
 	end

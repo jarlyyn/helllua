@@ -288,7 +288,16 @@ else
 end
 
 eatdrink=function()
-	run("eat ".._food..";drink ".._drink..tostring(tofill+1).._drinkpack)
+	run("eat ".._food)
+	if os.time()-lastdrunk>30 then drunk=0 end
+	if drunk==0 and mudvar.powerup==nopowerup.drunk then
+		if itemsnum("tihu xiang")==0 then
+			run("drink jiudai")
+		else
+			run("smell tihu xiang")
+		end
+	end
+	run("drink ".._drink..tostring(tofill+1).._drinkpack)
 end
 
 

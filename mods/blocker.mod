@@ -1,6 +1,8 @@
 blocker={}
 blocker["虚通"]={id="xu tong",exp=50000}
 blocker["虚明"]={id="xu ming",exp=50000}
+blocker["虚通伸手"]={id="xu tong",exp=50000}
+blocker["虚通伸手"]={id="xu ming",exp=50000}
 blocker["校尉"]={id="xiao wei",exp=50000}
 blocker["采花子"]={id="caihua zi",exp=50000}
 blocker["衙役"]={id="ya yi",exp=50000}

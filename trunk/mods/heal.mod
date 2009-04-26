@@ -150,6 +150,7 @@ on_dispelneilifail=function()
 end
 dispel_ok=function()
 	posioned=false
+	drunk=0
 end
 
 checkdispel=function(dispel_ok,dispel_fail)

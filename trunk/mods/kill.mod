@@ -25,7 +25,10 @@ fightpreper=function()
 	if GetVariable("fight_preper")~=nil then
 		run(GetVariable("fight_preper"))
 	end
-	run("yun recover;yun powerup;yun shield")
+	if mudvar.powerup==nopowerup.powerup or mudvar.powerup==nil then
+		run("yun powerup")
+	end
+	run("yun recover;yun shield")
 end
 
 do_kill=function(npc,kill_ok,kill_fail)
@@ -76,10 +79,15 @@ kill.test=function()
 end
 
 fightcuff=function()
+	if mudvar.powerup==nopowerup.drunk or (cmd~=nil and cmd~="") then
+		weapon(0)
+	if mudvar.powerup==nopowerup.drunk then
+		run("wield mu gun;yong club.zuida;unwield mu gun")
+	end
 	cmd=GetVariable("fightcuff")
 	if cmd~=nil and cmd~="" then
-		weapon(0)
 		run(cmd)
+	end
 		weapon(1)
 	end
 end

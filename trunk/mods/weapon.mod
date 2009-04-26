@@ -5,6 +5,9 @@ weapon=function(wn)
 	if wn==0 then
 		weapon1(false)
 		weapon2(false)
+		if mudvar.powerup==nopowerup.drunk then
+			run("unwield mu gun")
+		end
 	elseif wn==2 then
 		if weaponid=="" then return end
 		weapon1(false)
@@ -119,6 +122,8 @@ askmasterweapon["ok"]=nil
 askmasterweapon["fail"]=nil
 askmasterweapon["weapon"]=""
 askmasterweapon["time"]=0
+askmasterweapon["givenpc"]=""
+askmasterweapon["giveloc"]=0
 do_askmasterweapon=function(_weapon,askmasterweapon_ok,askmasterweapon_fail)
 	askmasterweapon["ok"]=askmasterweapon_ok
 	askmasterweapon["fail"]=askmasterweapon_fail
@@ -127,6 +132,13 @@ do_askmasterweapon=function(_weapon,askmasterweapon_ok,askmasterweapon_fail)
 		return
 	else
 		askmasterweapon["weapon"]=_weapon
+		if masterweapon[_weapon].giveqi==true then
+			askmasterweapon["givenpc"]="qi changfa"
+			askmasterweapon["giveloc"]=kdloc
+		else
+			askmasterweapon["givenpc"]=masterweapon[askmasterweapon["weapon"]]["npc"]
+			askmasterweapon["giveloc"]=npcs[masterweapon[askmasterweapon["weapon"]]["npc"]]["loc"]
+		end
 		busytest(askmasterweapon["main"])
 	end
 end
@@ -148,12 +160,21 @@ askmasterweapon_end_fail=function()
 end
 
 askmasterweapon["main"]=function()
-	go(npcs[masterweapon[askmasterweapon["weapon"]]["npc"]]["loc"],askmasterweapon.askcmd,askmasterweapon_end_fail)
+	go(askmasterweapon["giveloc"],askmasterweapon.askcmd,askmasterweapon_end_fail)
 end
 
 askmasterweapon.askcmd=function()
-	run("give "..askmasterweapon["weapon"].." to "..masterweapon[askmasterweapon["weapon"]]["npc"]..";ask "..masterweapon[askmasterweapon["weapon"]]["npc"].." about "..masterweapon[askmasterweapon["weapon"]]["name"])
+	run("give "..askmasterweapon["weapon"].." to "..askmasterweapon["givenpc"])
 	askmasterweapon["time"]=os.time()
+	busytest(askmasterweapon.goask)
+end
+
+askmasterweapon.goask=function()
+	go(npcs[masterweapon[askmasterweapon["weapon"]]["npc"]]["loc"],askmasterweapon.askcmd2,askmasterweapon_end_fail)
+end
+askmasterweapon.askcmd2=function()
+	print("123")
+	run("ask "..masterweapon[askmasterweapon["weapon"]]["npc"].." about "..masterweapon[askmasterweapon["weapon"]]["name"])
 	busytest(askmasterweapon_end_ok)
 end
 

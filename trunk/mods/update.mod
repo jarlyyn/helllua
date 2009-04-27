@@ -1,4 +1,4 @@
-version=85
+version=86
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -91,7 +91,7 @@ updateversion=function()
 	addtri("l_2303","^    这里是六和塔的七层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 	addtri("l_2304","^    这里是六和塔的八层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
 	addtri("l_2305","^    这里是六和塔的九层。窗\\(window\\)外是浓妆淡抹的西子湖","locate","on_locate")
-	addtri("l_54","^        这是南城门，城墙被当成了广告牌，贴满了花花绿绿各行各业的广告，","locate","on_locate")
+	addtri("l_54","^    这是南城门，城墙被当成了广告牌，贴满了花花绿绿各行各业的广告，","locate","on_locate")
 	addtri("jiqu_fail","^(> )*(你的实战经验太浅，还无法领会通过实战获得的心得。|你感觉自己的实战经验还有欠缺，还无法领会更高境界的武学修养。|你现在精神不济，难以抓住实战体会中的秘要！)","system","jiqu_fail")
 	addtri("study_needweapon","^(> )*你必须先找一把.*才能练.*法。","study","study_needweapon")
 	addtri("items_onbagsstart","^(> )*设定环境变数：no_more = \"getbag-(.+)\"$","bagitem","on_bagsstart")

@@ -287,10 +287,13 @@ else
 	inv[drink]={max=drinkmax,min=drinkmin}
 end
 
+lastdrink=os.time()
 eatdrink=function()
 	run("eat ".._food)
-	if os.time()-lastdrunk>30 then drunk=0 end
-	if drunk==0 and mudvar.powerup==nopowerup.drunk then
+	local time=os.time()
+	if time-lastdrunk>30 then drunk=0 end
+	if drunk==0 and mudvar.powerup==nopowerup.drunk and time-lastdrink>3 then
+		lastdrink=time
 		if itemsnum("tihu xiang")==0 then
 			run("drink jiudai")
 		else

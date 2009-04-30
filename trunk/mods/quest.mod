@@ -8,14 +8,14 @@ quest.name=""
 loadmod("lian.mod")
 quest.main["lian"]=function(str,l_ok,l_f)
 	liando()
-	quest.resume=quest.main["lian"]
+	quest.resume=lian.resume()
 end
 quest["end"]["lian"]=function()
 	lian["end"]()
 end
 loadmod("caxie.mod")
-quest.main["caxie"]=function()
-	do_caxie(caxie.main,caxie.main)
+quest.main["caxie"]=function(expmax)
+	do_caxie(caxie.main,caxie.main,expmax)
 	quest.resume=quest.main["caxie"]
 end
 quest["end"]["caxie"]=function()
@@ -79,33 +79,33 @@ quest["end"]["pick"]=function()
 end
 
 loadmod("beiqi.mod")
-quest.main["beiqi"]=function()
-	beiqi["main"]()
-	quest.resume=quest.main["beiqi"]
+quest.main["beiqi"]=function(yuelimax)
+	do_beiqi(aliasaftercmd,aliasaftercmd,yuelimax)
+	quest.resume=beiqi["main"]
 end
 quest["end"]["beiqi"]=function()
 	beiqi["end"]()
 end
 
-quest.main["dazuoneili"]=function()
-	do_dazuoneili()
-	quest.resume=quest.main["dazuoneili"]
+quest.main["dazuoneili"]=function(neilimax)
+	do_dazuoneili(aliasaftercmd,aliasaftercmd,neilimax)
+	quest.resume=dazuoneili.resume()
 end
 quest["end"]["dazuoneili"]=function()
 	dazuoneili["end"]()
 end
 
 loadmod("letter.mod")
-quest.main["letter"]=function()
-	do_letter(letter.loop,letter.loop)
+quest.main["letter"]=function(yuelimax)
+	do_letter(letter.loop,letter.loop,yuelimax)
 	quest.resume=quest.main["letter"]
 end
 quest["end"]["caxie"]=function()
 	caxie["end"]()
 end
 loadmod("fish.mod")
-quest.main["fish"]=function()
-	do_fish(fish.loop,fish.loop)
+quest.main["fish"]=function(expmax)
+	do_fish(fish.loop,fish.loop,expmax)
 	quest.resume=quest.main["fish"]
 end
 quest["end"]["fish"]=function()

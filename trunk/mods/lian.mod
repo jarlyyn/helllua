@@ -44,6 +44,14 @@ do_lian=function(lianlist,lian_ok,lian_fail)
 	getstatus(lian.status)
 end
 
+lian.resume=function()
+	getstatus(lian.status)
+end
+
+
+lianwield=function()
+	weapon(3)
+end
 
 lianrest=function()
 	lian.needrest=true

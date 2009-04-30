@@ -92,11 +92,13 @@ alias_gonpccmd=function(n,l,w)
 end
 
 alias_caxie=function(m,l,w)
-	do_quest("caxie")
+	w[1]=getaftercmd(w[1])
+	do_quest("caxie",tonumber(w[1]))
 end
 
 alias_beiqi=function(m,l,w)
-	do_quest("beiqi")
+	w[1]=getaftercmd(w[1])
+	do_quest("beiqi",w[1])
 end
 alias_canwu=function(m,l,w)
 	do_quest("canwu")
@@ -105,10 +107,12 @@ alias_dutable=function(m,l,w)
 	do_quest("dutable")
 end
 alias_letter=function(m,l,w)
-	do_quest("letter")
+	w[1]=getaftercmd(w[1])
+	do_quest("letter",tonumber(w[1]))
 end
 alias_fish=function(m,l,w)
-	do_quest("fish")
+	w[1]=getaftercmd(w[1])
+	do_quest("fish",tonumber(w[1]))
 end
 alias_liandan=function(m,l,w)
 	do_quest("liandan")
@@ -117,7 +121,8 @@ alias_start=function(m,l,w)
 	do_quest("mq")
 end
 alias_dazuoneili=function(m,l,w)
-	do_quest("dazuoneili")
+	w[1]=getaftercmd(w[1])
+	do_quest("dazuoneili",tonumber(w[1]))
 end
 
 alias_stop=function(m,l,w)

@@ -4,12 +4,17 @@ letter["fail"]=nil
 letter["npc"]=""
 letter["city"]=""
 letter["searchcount"]=0
-do_letter=function(letter_ok,letter_fail)
+letter.yuelimax=0
+do_letter=function(letter_ok,letter_fail,yuelimax)
 	letter["ok"]=letter_ok
 	letter["fail"]=letter_fail
+	letter.yuelimax=getnum(tonumber(yuelimax))
 	setlettertri()
 	letter.main()
 end
+
+
+
 letter["check"]=function()
 	if do_check(letter["main"],letter["main"]) then
 	elseif checkstudy(letter["main"],letter["main"]) then
@@ -63,10 +68,17 @@ end
 
 letter.receipt=function()
 	run("give receipt to "..familys[me.fam].masterid..";drop receipt")
+	if letter.yuelimax~=0 then score() end
 	busytest(letter_end_ok)
 end
 letter.loop=function()
-	busytest(letter.loopcmd)
+	if letter.yuelimax==0 or letter.yuelimax>getnum(me.score.yueli) then
+		busytest(letter.loopcmd)
+		return
+	end
+	run("drop letter;drop receipt")
+	letter["end"]()
+	busytest(aliasaftercmd)
 end
 letter.loopcmd=function()
 	do_letter(letter.loop,letter.loop)

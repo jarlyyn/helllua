@@ -6,9 +6,11 @@ caxie["index"]=1
 caxie["finished"]={}
 caxie["ok"]=nil
 caxie["fail"]=fail
-do_caxie=function(caxie_ok,caxie_fail)
+caxie["expmax"]=0
+do_caxie=function(caxie_ok,caxie_fail,expmax)
 	caxie["ok"]=caxie_ok
 	caxie["fail"]=caxie_fail
+	caxie.expmax=getnum(expmax)
 	busytest(caxie["main"])
 end
 caxie["end"]=function(s)
@@ -26,8 +28,19 @@ caxie["main"]=function()
 	getstatus(caxie["check"])
 end
 
+checkcaxie=function()
+	if caxie.expmax==0 or caxie.expmax>getnum(me.hp.exp) then
+		return false
+	end
+	quest.stop=true
+	run("drop brush;drop shoeshine;drop shoeshine;drop shoeshine")
+	caxie["end"]()
+	busytest(aliasaftercmd)
+	return true
+end
 caxie["check"]=function()
 	if do_check(caxie["main"]) then
+	elseif checkcaxie() then
 	elseif checkitems(caxie["inv"],caxie["main"]) then
 	elseif checkstudy(caxie["main"]) then
 	else

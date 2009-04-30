@@ -14,10 +14,12 @@ fish.sells["caoyu"]={name="caoyu",id="caoyu"}
 fish.sells["ji yu"]={name="ji yu",id="ji yu"}
 fish.sells["liyu"]={name="liyu",id="liyu"}
 
-do_fish=function(fish_ok,fish_fail)
+fish.expmax=0
+do_fish=function(fish_ok,fish_fail,expmax)
 	fish["ok"]=fish_ok
 	fish["fail"]=fish_fail
 	busytest(fish.main)
+	fish.expmax=getnum(expmax)
 end
 
 fish["end"]=function(s)
@@ -45,6 +47,16 @@ fish["main"]=function()
 	getstatus(fish["check"])
 end
 
+checkfish=function()
+	if fish.expmax~=0 or fish.expmax>getnum(me.hp.exp) then
+		return false
+	end
+	run("drop diao gan")
+	busytest(fish_end_ok)
+	quest.stop=true
+	return true
+end
+
 fish["check"]=function()
 	if do_check(fish["main"]) then
 	elseif checkitems(fish.items,fish["main"]) then
@@ -67,7 +79,9 @@ fish_ondraw=function(n,l,w)
 end
 
 fish.loop=function()
+	if not checkfish() then
 	busytest(fish.loopcmd)
+	end
 end
 
 fish.loopcmd=function()

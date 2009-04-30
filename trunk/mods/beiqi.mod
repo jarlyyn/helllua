@@ -54,7 +54,7 @@ beiqisells["Öñ½£"]={name="Öñ½£",id="zhujian"}
 --beiqisells["ÌúÁ«×Ó"]={name="ÌúÁ«×Ó",id="tie lianzi",sellmax=100}
 beiqisells["Ä¾½£"]={name="Ä¾½£",id="mu jian"}
 beiqisells["Ä¾µ¶"]={name="Ä¾µ¶",id="mu dao"}
-beiqisells["Ä¾¹÷"]={name="Ä¾¹÷",id="mu dao"}
+beiqisells["Ä¾¹÷"]={name="Ä¾¹÷",id="mu gun"}
 
 
 
@@ -67,10 +67,13 @@ beiqi["info"]={}
 beiqi["npc"]=""
 beiqi["loc"]=""
 beiqi["item"]=""
-do_beiqi=function(beiqi_ok,beiqi_fail)
+beiqi["yuelimax"]=0
+do_beiqi=function(beiqi_ok,beiqi_fail,yuelimax)
 	beiqi["ok"]=beiqi_ok
 	beiqi["fail"]=beiqi_fail
 	beiqi["info"]=beiqiinfo[beiqiinfo["list"][math.random(1,#beiqiinfo["list"])]]
+	beiqi["yuelimax"]=getnum(tonumber(yuelimax))
+	if beiqi["yuelimax"]~=0 then score() end
 	go(infolist[beiqi.info.info].loc,beiqi.arrive,beiqi_end_fail)
 end
 
@@ -115,7 +118,7 @@ beiqi["askend"]=function()
 		busytest(beiqi.ask)
 		return
 	elseif info.answer==info.fail or info.answer==3 then
-		busytest(beiqi_end_fail)
+		busytest(beiqi.main)
 		return
 	end
 end
@@ -143,7 +146,7 @@ beiqi["give"]=function()
 end
 
 beiqi.giveend=function()
-	busytest(beiqi_end_ok)
+	busytest(beiqi.main)
 end
 
 beiqi["main"]=function()
@@ -151,6 +154,7 @@ beiqi["main"]=function()
 		beiqi["end"]()
 		return
 	end
+	if beiqi["yuelimax"]~=0 then score() end
 	busytest(beiqi["checkcmd"])
 end
 
@@ -161,8 +165,17 @@ beiqi.check=function()
 	if do_check(beiqi["main"]) then
 	elseif checksell(beiqisells,beiqi["main"],beiqi["main"]) then
 	elseif checkstudy(beiqi["main"]) then
+	elseif checkbeiqi() then
 	else
 		do_beiqi(beiqi["main"],beiqi["main"])
 	end
 end
 
+checkbeiqi=function()
+	if beiqi["yuelimax"]>getnum(me.score.yueli) or beiqi["yuelimax"]==0 then
+		return false
+	end
+	busytest(beiqi_end_ok)
+	quest.stop=true
+	return true
+end

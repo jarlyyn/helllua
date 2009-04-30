@@ -33,11 +33,26 @@ checkcaxie=function()
 		return false
 	end
 	quest.stop=true
-	run("drop brush;drop shoeshine;drop shoeshine;drop shoeshine")
-	caxie["end"]()
-	busytest(aliasaftercmd)
+	caxie.fstatus()
 	return true
 end
+
+caxie.fstatus=function()
+	getstatus(caxie.finish)
+end
+
+caxie.sell={}
+caxie.sell["brush"]={name="brush",id="brush"}
+caxie.sell["shoeshine"]={name="shoeshine",id="shoeshine"}
+caxie.finish=function()
+	if do_check(caxie.fstatus) then
+	elseif checksell(caxie.sell,caxie.fstatus) then
+	else
+		caxie["end"]()
+		busytest(aliasaftercmd)
+	end
+end
+
 caxie["check"]=function()
 	if do_check(caxie["main"]) then
 	elseif checkcaxie() then

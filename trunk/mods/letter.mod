@@ -81,7 +81,7 @@ letter.loop=function()
 	busytest(aliasaftercmd)
 end
 letter.loopcmd=function()
-	do_letter(letter.loop,letter.loop)
+	do_letter(letter.loop,letter.loop,letter.yuelimax)
 end
 letter["main"]=function()
 	EnableTriggerGroup("letter",true)

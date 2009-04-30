@@ -1,4 +1,4 @@
-skilllistre=rex.new("^(?<skill>.+?)(\\((?<study>[[:alpha:]]+){0,1}?(-{0,1}(?<npc>[[:alpha:]]+\\s+[[:alpha:]]+)){0,1}(-{0,1}(?<npcname>[^a-zA-Z1-9 ]+)){0,1}(-{0,1}(?<loc>\\d+)){0,1}\\)){0,1}$")
+skilllistre=rex.new("^(?<skill>[^<]+?)(<(?<levelmax>.*)){0,1}(\\((?<study>[[:alpha:]]+){0,1}?(-{0,1}(?<npc>[[:alpha:]]+\\s+[[:alpha:]]+)){0,1}(-{0,1}(?<npcname>[^a-zA-Z1-9 ]+)){0,1}(-{0,1}(?<loc>\\d+)){0,1}\\)){0,1}$")
 study={}
 study["skill"]=nil
 study["ok"]=nil
@@ -33,7 +33,9 @@ do_study=function(study_ok,study_fail)
 	end
 	lastpot=0
 	lastpotcount=0
-	if study[study.skill.study]~=nil then
+	local levelmax=getnum(study.skill.levelmax)
+	print(study.skill.skill)
+	if study[study.skill.study]~=nil and ((levelmax==0)or(queryskilllv(study.skill.skill)<levelmax))then
 		study[study.skill.study]()
 	else
 		study["end"]("fail")
@@ -272,6 +274,11 @@ setupskill=function()
 	if i==0 then study.skill=nil end
 	study["skill"]=getskill(_skills[math.random(1,i)])
 	if study["skill"]~=nil then
+		if study.skill.levelmax==false then
+			study.skill.levelmax=nil
+		else
+			study.skill.levelmax=tonumber(study.skill.levelmax)
+		end
 		if study.skill.skill=="jingxiu" then
 			study.skill.loc=0
 			study.skill.npc=""

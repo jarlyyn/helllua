@@ -131,8 +131,16 @@ cha=function()
 	trigrpoff("cha")
 end
 
+
+
 status_oncha=function(name, line, wildcards)
 	me.skills[wildcards[3]]={name=wildcards[2],lv=tonumber(wildcards[4]),per=tonumber(wildcards[5])}
+end
+
+queryskilllv=function(str)
+	if me.skills==nil or str==nil or str=="" then return -1 end
+	if me.skills[str]==nil then return 0 end
+	return me.skills[str].lv
 end
 
 getjifa=function()

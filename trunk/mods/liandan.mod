@@ -157,6 +157,7 @@ liandan.caiyaook=function()
 end
 liandan.caiyaotest=function()
 	if itemsnum("cao yao")>0 then
+		killcmd()
 		busytest(liandan.caiyaogive)
 	else
 		busytest(liandan.caiyaocmd)

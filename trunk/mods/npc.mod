@@ -25,6 +25,7 @@ do_searchnpc=function(searchnpc_ok,searchnpc_fail)
 	searchnpc["fail"]=searchnpc_fail
 	searchnpc.roomlist={}
 	EnableTriggerGroup("npc",true)
+	doghook()
 	if _roomname~=nil and _roomname~="" then
 		if maze[_roomname]~=nil then
 			searchnpc_end_fail()
@@ -38,6 +39,7 @@ searchnpc["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
 		call(searchnpc[s])
 	end
+	dogunhook()
 	searchnpc.roomlist={}
 	EnableTriggerGroup("npc",false)
 	searchnpc["ok"]=nil

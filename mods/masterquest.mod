@@ -17,6 +17,7 @@ end
 masterquest.normal=0
 masterquest.assistor=1
 masterquest.assister=2
+masterquest.levelmax=0
 assist={}
 assist["er"]=""
 assist["erid"]=""
@@ -61,9 +62,10 @@ masterquest.setuptri=function()
 		EnableTriggerGroup("mqassist",true)
 	end
 end
-do_masterquest=function(masterquest_ok,masterquest_fail)
+do_masterquest=function(masterquest_ok,masterquest_fail,levelmax)
 	masterquest["ok"]=masterquest_ok
 	masterquest["fail"]=masterquest_fail
+	masterquest.levelmax=getnum(levelmax)
 	setmqmastertri()
 	masterquest.setuptri()
 	hook(hooks.faint,mqfaintrecon)
@@ -71,7 +73,13 @@ do_masterquest=function(masterquest_ok,masterquest_fail)
 	masterquest.main()
 end
 masterquest.loop=function()
-	busytest(masterquest.loopcmd)
+	if _skilllist~=nil then
+		busytest(masterquest.loopcmd)
+	else
+		quest.stop=true
+		masterquest["end"]()
+		busytest(aliasaftercmd)
+	end
 end
 masterquest.resume=function()
 	hook(hooks.faint,mqfaintrecon)
@@ -79,7 +87,7 @@ masterquest.resume=function()
 	busytest(masterquest.main)
 end
 masterquest.loopcmd=function()
-	do_masterquest(masterquest.loop,masterquest.loop)
+	do_masterquest(masterquest.loop,masterquest.loop,masterquest.levelmax)
 end
 
 masterquest.main=function()
@@ -87,7 +95,7 @@ masterquest.main=function()
 end
 
 masterquest.check=function()
-	if do_check(masterquest["main"],masterquest["main"]) then
+	if do_check(masterquest["main"],masterquest.loop) then
 	elseif checkfangqi(masterquest["main"],masterquest["main"]) then
 	elseif checkjiqu(masterquest["main"],masterquest["main"]) then
 	elseif checknuqi(masterquest["main"],masterquest["main"]) then
@@ -159,7 +167,7 @@ masterquest.case=function()
 		else
 			do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
 		end
-	elseif checkstudy(masterquest["main"],masterquest["main"]) then
+	elseif checkstudy(masterquest["main"],masterquest.loop,masterquest.levelmax) then
 	elseif masterquest.assistneedreport==true then
 		if masterquest.type==masterquest.assistor then
 			mqassistorreport()
@@ -601,6 +609,7 @@ letteraccept=function()
 	elseif tdelay>-1 and tdelay<=acceptmaxstep then
 	elseif potmax>0 and me.hp.pot>potmax then
 	elseif needaskmasterweapon() then
+	elseif _skilllist==nil then
 	else
 		return true
 	end

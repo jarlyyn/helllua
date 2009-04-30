@@ -6,8 +6,8 @@ quest.resume=nil
 quest["main"]={}
 quest.name=""
 loadmod("lian.mod")
-quest.main["lian"]=function(str,l_ok,l_f)
-	liando()
+quest.main["lian"]=function(slist)
+	do_lian(slist,aliasaftercmd,aliasaftercmd)
 	quest.resume=lian.resume()
 end
 quest["end"]["lian"]=function()
@@ -135,11 +135,12 @@ quest["end"]["canwu"]=function()
 	canwu["end"]()
 end
 loadmod("masterquest.mod")
-quest.main["mq"]=function()
+quest.main["mq"]=function(levelmax)
 	mqquests=0
 	mqstarttime=os.time()
 	masterquest.type=masterquest.normal
-	do_masterquest(masterquest.loop,masterquest.loop)
+	setupskill(levelmax)
+	do_masterquest(masterquest.loop,masterquest.loop,levelmax)
 	quest.resume=masterquest.resume
 end
 quest["end"]["mq"]=function()

@@ -3,9 +3,9 @@ study={}
 study["skill"]=nil
 study["ok"]=nil
 study["fail"]=nil
-checkstudy=function(checkok)
+checkstudy=function(checkok,checkfail,levelmax)
 	if needstudy() then
-		do_study(checkok,checkok)
+		do_study(checkok,checkfail,levelmax)
 		return true
 	else
 		return false
@@ -24,9 +24,11 @@ needstudy=function()
 		return false
 	end
 end
-do_study=function(study_ok,study_fail)
+study.levelmax=0
+do_study=function(study_ok,study_fail,levelmax)
 	study["ok"]=study_ok
 	study["fail"]=study_fail
+	study.levelmax=getnum(tonumber(levelmax))
 	if study.skill==nil then
 		study_end_fail()
 		return
@@ -53,14 +55,19 @@ study["arrive"]=function()
 
 end
 
-study["end"]=function(s)
-	setupskill()
+study["end2"]=function(s)
+	setupskill(study.levelmax)
+	study.levelmax=0
 	cha()
 	if ((s~="")and(s~=nil)) then
 		infoend(study[s])
 	end
 	study["ok"]=nil
 	study["fail"]=nil
+end
+
+study["end"]=function(s)
+	infoend(study["end2"],s)
 end
 
 study["xue"]=function()
@@ -261,62 +268,72 @@ getskill=function(str)
 	return t
 end
 splitre=rex.new("([^;,|]+)")
-setupskill=function()
+setupskill=function(levelmax)
+	if levelmax==nil then
+		levelmax=study.levelmax
+	end
 	skilllist=GetVariable("skilllist")
 	if skilllist==nil then skilllist="" end
 	study["skill"]={}
-	local _skills={}
+	_skilllist={}
 	local i=0
 	n=splitre:gmatch(skilllist,function (m, t)
-		i=i+1
-		_skills[i]=m
-	end)
-	if i==0 then study.skill=nil end
-	study["skill"]=getskill(_skills[math.random(1,i)])
-	if study["skill"]~=nil then
-		if study.skill.levelmax==false then
-			study.skill.levelmax=nil
-		else
-			study.skill.levelmax=tonumber(study.skill.levelmax)
-		end
-		if study.skill.skill=="jingxiu" then
-			study.skill.loc=0
-			study.skill.npc=""
-			study.skill.study="jingxiu"
-			return
-		end
-		if study.skill.skill=="closed" then
-			study.skill.loc=0
-			study.skill.npc=""
-			study.skill.study="closed"
-			return
-		end
-		if study.skill.study==false then study.skill.study=getdefalutstudy() end
-		if study.skill.npc~=false then
-			if npcs[study.skill.npc]==nil then
-				study.skill.npc=false
+	study["skill"]=getskill(m)
+		if study["skill"]~=nil then
+			if study.skill.levelmax==false then
+				study.skill.levelmax=levelmax
+			else
+				study.skill.levelmax=getnum(tonumber(study.skill.levelmax))
 			end
-		end
-		if study.skill.loc==false then study.skill.loc=0 end
-		if study.skill.npc==false then
-			if npcs[study.skill.npcname]~=nil then
-				study.skill.npc=npcs[study.skill.npcname].id
+			if study.skill.skill=="jingxiu" then
+				study.skill.loc=0
+				study.skill.npc=""
+				study.skill.study="jingxiu"
+				return
 			end
-		end
-		if study.skill.npc==false then
-			if me.fam~=nil then
-				if me.score.teacher~="none" and me.score.teacher~=nil then
-					if npcs[me.score.teacher]~=nil then
-						study.skill.npc=npcs[me.score.teacher].id
+			if study.skill.skill=="closed" then
+				study.skill.loc=0
+				study.skill.npc=""
+				study.skill.study="closed"
+				return
+			end
+			if study.skill.study==false then study.skill.study=getdefalutstudy() end
+			if study.skill.npc~=false then
+				if npcs[study.skill.npc]==nil then
+					study.skill.npc=false
+				end
+			end
+			if study.skill.loc==false then study.skill.loc=0 end
+			if study.skill.npc==false then
+				if npcs[study.skill.npcname]~=nil then
+					study.skill.npc=npcs[study.skill.npcname].id
+				end
+			end
+			if study.skill.npc==false then
+				if me.fam~=nil then
+					if me.score.teacher~="none" and me.score.teacher~=nil then
+						if npcs[me.score.teacher]~=nil then
+							study.skill.npc=npcs[me.score.teacher].id
+						end
 					end
 				end
 			end
+			if study.skill.npc==false then
+				study.skill.npc=""
+			else
+				study.skill.loc=npcs[study.skill.npc]["loc"]
+			end
 		end
-		if study.skill.npc==false then
-			study.skill.npc=""
-		else
-			study.skill.loc=npcs[study.skill.npc]["loc"]
+		if (study.skill.levelmax==0)or(queryskilllv(study.skill.skill)<study.skill.levelmax) then
+			i=i+1
+			_skilllist[i]=study.skill
 		end
+	end)
+	if i==0 then
+		study.skill=nil
+		_skilllist=nil
+	else
+		study.skill=_skilllist[math.random(1,i)]
 	end
 end
 

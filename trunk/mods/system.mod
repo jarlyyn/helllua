@@ -177,8 +177,8 @@ system_infoend=function(name, line, wildcards)
 	callhook(hooks.infoend,true)
 end
 
-infoend=function(func)
-	hook(hooks.infoend,func)
+infoend=function(func,...)
+	hook(hooks.infoend,func,...)
 	run("set no_more infoend")
 end
 

@@ -106,7 +106,7 @@ end
 loadmod("fish.mod")
 quest.main["fish"]=function(expmax)
 	do_fish(fish.loop,fish.loop,expmax)
-	quest.resume=quest.main["fish"]
+	quest.resume=fish.loop
 end
 quest["end"]["fish"]=function()
 	fish["end"]()

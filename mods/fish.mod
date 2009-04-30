@@ -48,13 +48,32 @@ fish["main"]=function()
 end
 
 checkfish=function()
-	if fish.expmax~=0 or fish.expmax>getnum(me.hp.exp) then
+	if fish.expmax==0 or fish.expmax>getnum(me.hp.exp) then
 		return false
 	end
-	run("drop diao gan")
-	busytest(fish_end_ok)
-	quest.stop=true
+	fish.fstatus()
 	return true
+end
+
+fish.fstatus=function()
+	getstatus(fish.finish)
+end
+
+fish.finishsell={}
+fish.finishsell["diao gan"]={name="diao gan",id="diao gan"}
+fish.finishdrop={}
+fish.finishdrop["yu er"]="yu er"
+
+fish.finish=function()
+	if	do_check(fish.fstatus) then
+	elseif checksell(fish.finishsell,fish.fstatus) then
+	elseif checkdrop(fish.finishdrop,fish.fstatus) then
+	elseif checkdrop(fish.drops,fish.fstatus,fish.fstatus) then
+	elseif checksell(fish.sells,fish.fstatus,fish.fstatus) then
+	else
+		busytest(aliasaftercmd)
+		quest.stop=true
+	end
 end
 
 fish["check"]=function()
@@ -85,5 +104,5 @@ fish.loop=function()
 end
 
 fish.loopcmd=function()
-	do_fish(fish.loop,fish.loop)
+	do_fish(fish.loop,fish.loop,fish.expmax)
 end

@@ -143,11 +143,35 @@ dazuoneili={}
 dazuoneili.loc=getnum(safeloc)
 dazuoneili["ok"]=nil
 dazuoneili["fail"]=nil
+dazuoneili.neilimax=0
+dazuoneili.full=false
 
-do_dazuoneili=function(dazuoneili_ok,dazuoneili_fail)
+do_dazuoneili=function(dazuoneili_ok,dazuoneili_fail,neilimax)
 	dazuoneili["ok"]=dazuoneili_ok
 	dazuoneili["fail"]=dazuoneili_fail
+	dazuoneili.loc=getnum(safeloc)
+	dazuoneili.neilimax=getnum(neilimax)
+	dazuoneili.full=false
+	EnableTriggerGroup("dazuoneili",true)
 	busytest(dazuoneili["main"])
+
+end
+
+dazuoneili.resume=function()
+	EnableTriggerGroup("dazuoneili",true)
+	busytest(dazuoneili["main"])
+end
+
+checkdazuook=function()
+	if dazuoneili.full~=true and (dazuoneili.neilimax==0 or getnum(me.hp.neilimax)<dazuoneili.neilimax) then return false end
+	busytest(dazuoneili_end_ok)
+	quest.stop=true
+	return true
+end
+
+dazuofull=function()
+	dazuoneili.full=true
+	print("ÄÚÁ¦ÒÑÂú")
 end
 
 dazuoneili["end"]=function(s)
@@ -156,6 +180,7 @@ dazuoneili["end"]=function(s)
 	end
 	dazuoneili["ok"]=nil
 	dazuoneili["fail"]=nil
+	EnableTriggerGroup("dazuoneili",false)
 end
 
 dazuoneili_end_ok=function()
@@ -176,7 +201,8 @@ dazuoneili["main"]=function()
 end
 
 dazuoneili.case=function()
-	if do_check(dazuoneili["main"]) then
+	if checkdazuook() then
+	elseif do_check(dazuoneili["main"]) then
 	else
 		go(dazuoneili.loc,dazuoneili.arrive,dazuoneili_end_fail)
 	end

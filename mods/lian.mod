@@ -2,6 +2,7 @@ lian={}
 lian["ok"]=nil
 lian["fail"]=nil
 lian["list"]={}
+lian.levelmax={}
 lian.index=0
 lian.count=0
 lian.max=6
@@ -28,15 +29,18 @@ baseskill["claw"]=true
 baseskill["strike"]=true
 
 lianskillre=rex.new("([^;,]+)")
-lianjifare=rex.new("^(?<base>.*?)(\\.(?<jifa>.+)){0,1}$")
+lianjifare=rex.new("^(?<base>.*?)(\\.(?<jifa>[^<]+)){0,1}(<(?<levelmax>.*)){0,1}$")
 do_lian=function(lianlist,lian_ok,lian_fail)
 	lian["ok"]=lian_ok
 	lian["fail"]=lian_fail
 	lian.count=0
 	lian.index=1
 	lian.list={}
+	lian.levelmax={}
+	lian.subskill={}
 	lian.needrest=false
 	lian.getskill(lianlist)
+	cha()
 	getstatus(lian.status)
 end
 
@@ -52,6 +56,7 @@ lian.getskill=function(str)
 		if baseskill[t.base] then
 			if t.jifa~=false then
 				m="jifa "..t.base.." "..t.jifa..";"
+				lian.subskill[lian.count]=t.jifa
 			end
 			m=m.."lian "..t.base.." 50"
 		else
@@ -60,6 +65,11 @@ lian.getskill=function(str)
 		if m~=nil and m~="" then
 			print("加入练功列表 "..tostring(lian.count)..":"..m)
 			lian.list[lian.count]=m
+			if t.levelmax==false then
+				lian.levelmax[lian.count]=0
+			else
+				lian.levelmax[lian.count]=getnum(tonumber(t.levelmax))
+			end
 		end
 	end)
 end
@@ -109,13 +119,14 @@ lian.arrive=function()
 	lian.qixuebeforce=getnum(me.hp.qixue)
 	lian.neilibeforce=getnum(me.hp.neili)
 	lian.jingbeforce=getnum(me.hp.jing)
-	if lian.times<lian.max then
+	if lian.times<lian.max and(queryskilllv(lian.subskill[lian.index])==-1 or (queryskilllv(lian.subskill[lian.index])<getnum(lian.levelmax[lian.index])or(getnum(lian.levelmax[lian.index])==0)))then
 		print("练习指令："..lian.list[lian.index])
 		lian.needrest=false
 		catch("lian",lian.list[lian.index])
+		if lian.levelmax[lian.index]~=0 and lian.subskill[lian.index]~=nil then cha() end
 		delay(1,lian.main)
 		return
-	else
+	end
 		lian.index=lian.index+1
 		if lian.index>lian.count then
 			busytest(lian_end_ok)
@@ -124,7 +135,6 @@ lian.arrive=function()
 			getstatus(lian.status)
 			return
 		end
-	end
 end
 
 lian["end"]=function(s)

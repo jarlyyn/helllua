@@ -1,11 +1,44 @@
+_aftercmd=""
+getaftercmd=function(str)
+local l=string.find(str,">")
+	if l== nil then
+		_aftercmd=""
+		return str
+	else
+		_aftercmd=string.sub(str,l+1,#str)
+		return string.sub(str,1,l-1)
+	end
+end
+
+aliasaftercmd=function()
+	if _aftercmd=="" then return end
+	print ("执行结束后命令：".._aftercmd.."。")
+	Execute(_aftercmd)
+end
+
+alias_do=function(n,l,w)
+	print(w[1])
+	w[1]=getaftercmd(w[1])
+	Execute(w[1])
+	busytest(aliasaftercmd)
+end
 
 alias_to=function(...)
 	testinfo(alias_tocmd,...)
 end
 
 alias_tocmd=function(n,l,w)
-	print("go"..mapper.getroomname(w[1]))
-	go(w[1]-0)
+	w[1]=getaftercmd(w[1])
+	if tonumber(w[1])~=nil then
+		w[1]=tonumber(w[1])
+		print("go"..mapper.getroomname(w[1]))
+		go(w[1]-0,aliasaftercmd,aliasaftercmd)
+		return
+	elseif w[1]~=nil and w[1]~="" then
+		walk["npc"](w[1],aliasaftercmd,aliasaftercmd)
+		return
+	end
+	print("请输入正确格式\n#to loc或者#to npc。\n支持>指定到达位置或者失败后的下一步动作\n比如#to 26>start")
 end
 
 alias_spwk=function(n,l,w)

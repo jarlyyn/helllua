@@ -1,4 +1,4 @@
-version=87
+version=88
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -38,6 +38,8 @@ updateversion=function()
 	AddAlias("alias_assist","^#assist( (.+)){0,1}$","",flag_base_enable+alias_flag.RegularExpression,"alias_assist")
 	AddAlias("alias_dazuoneili","#dazuo","",flag_base_enable,"alias_dazuoneili")
 	AddAlias("alias_dutable","#dutable","",flag_base_enable,"alias_dutable")
+	AddAlias("alias_to","^#to (.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_to")
+	AddAlias("alias_do","^##(.+)$","",flag_base_enable+alias_flag.RegularExpression,"alias_do")
 	AddAlias("alias_canwu","#canwu","",flag_base_enable,"alias_canwu")
 	addtri("mqletterquest","^(> )*洪七公吩咐你在(.*)之前割下(.*)的人头，回(.*)交差。\\n据说此人前不久曾经在(.*)出没。","mqletterquest","mqletterquest")
 	SetTriggerOption("mqletterquest","multi_line","1")

@@ -301,6 +301,7 @@ eatdrink=function()
 		end
 	end
 	run("drink ".._drink..tostring(tofill+1).._drinkpack)
+	run("drink ".._drink..tostring(tofill+2).._drinkpack)
 end
 
 

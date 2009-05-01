@@ -289,39 +289,38 @@ setupskill=function(levelmax)
 				study.skill.loc=0
 				study.skill.npc=""
 				study.skill.study="jingxiu"
-				return
-			end
-			if study.skill.skill=="closed" then
+				study.skill.skill="taoism"
+			elseif study.skill.skill=="closed" then
 				study.skill.loc=0
 				study.skill.npc=""
 				study.skill.study="closed"
-				return
-			end
-			if study.skill.study==false then study.skill.study=getdefalutstudy() end
-			if study.skill.npc~=false then
-				if npcs[study.skill.npc]==nil then
-					study.skill.npc=false
+			else
+				if study.skill.study==false then study.skill.study=getdefalutstudy() end
+				if study.skill.npc~=false then
+					if npcs[study.skill.npc]==nil then
+						study.skill.npc=false
+					end
 				end
-			end
-			if study.skill.loc==false then study.skill.loc=0 end
-			if study.skill.npc==false then
-				if npcs[study.skill.npcname]~=nil then
-					study.skill.npc=npcs[study.skill.npcname].id
+				if study.skill.loc==false then study.skill.loc=0 end
+				if study.skill.npc==false then
+					if npcs[study.skill.npcname]~=nil then
+						study.skill.npc=npcs[study.skill.npcname].id
+					end
 				end
-			end
-			if study.skill.npc==false then
-				if me.fam~=nil then
-					if me.score.teacher~="none" and me.score.teacher~=nil then
-						if npcs[me.score.teacher]~=nil then
-							study.skill.npc=npcs[me.score.teacher].id
+				if study.skill.npc==false then
+					if me.fam~=nil then
+						if me.score.teacher~="none" and me.score.teacher~=nil then
+							if npcs[me.score.teacher]~=nil then
+								study.skill.npc=npcs[me.score.teacher].id
+							end
 						end
 					end
 				end
-			end
-			if study.skill.npc==false then
-				study.skill.npc=""
-			else
-				study.skill.loc=npcs[study.skill.npc]["loc"]
+				if study.skill.npc==false then
+					study.skill.npc=""
+				else
+					study.skill.loc=npcs[study.skill.npc]["loc"]
+				end
 			end
 		end
 		if (study.skill.levelmax==0)or(queryskilllv(study.skill.skill)<study.skill.levelmax) then

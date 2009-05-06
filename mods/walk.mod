@@ -477,9 +477,17 @@ maze["戈壁滩"]=function()
 end
 gwriver=function(n,l,w)
 	if walking==walk then
-		run("give 1 silver to chuan fu")
-		walk["index"]=walk["index"]+1
-		steptrace(walk["step"])
+		if w[2]=="你觉得河面太宽，没有十足的把握跃过去。" or w[2]=="你看着奔腾不息的白河，心里有点紧张，不敢乱来。" then
+			if itemsnum("Silver")~=0 then
+				run("give 1 silver to chuan fu")
+			else
+				run("give 1 gold to chuan fu")
+			end
+			walk["index"]=walk["index"]+1
+			steptrace(walk["step"])
+		else
+			run("cross")
+		end
 	else
 		if walking==steppath then
 			steppath["index"]=steppath["index"]+1

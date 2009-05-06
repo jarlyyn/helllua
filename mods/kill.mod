@@ -91,3 +91,53 @@ fightcuff=function()
 		weapon(1)
 	end
 end
+
+
+
+
+
+-------------------------
+
+killnpc={}
+killnpc["ok"]=nil
+killnpc["fail"]=nil
+killnpc["id"]=""
+killnpc["loc"]=nil
+
+do_killnpc=function(npcid,loc,killnpc_ok,killnpc_fail)
+	killnpc["ok"]=killnpc_ok
+	killnpc["fail"]=killnpc_fail
+	killnpc["id"]=npcid
+	killnpc["loc"]=loc
+	killnpc.resume()
+end
+
+killnpc.resume=function()
+	if killnpc["loc"]==nil then
+		busytest(killnpc.cmd)
+	else
+		go(killnpc["loc"],killnpc.cmd,killnpc.cmd)
+	end
+end
+
+killnpc.cmd=function()
+	fightpreper()
+	do_kill(killnpc["id"],killnpc_end_ok,killnpc_end_ok)
+end
+
+killnpc["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(killnpc[s])
+	end
+	killnpc["ok"]=nil
+	killnpc["fail"]=nil
+end
+
+killnpc_end_ok=function()
+	killnpc["end"]("ok")
+end
+
+killnpc_end_fail=function()
+	killnpc["end"]("fail")
+end
+

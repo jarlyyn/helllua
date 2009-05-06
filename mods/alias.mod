@@ -14,7 +14,6 @@ getaftercmd=function(str,str2)
 			_nowcmd=str2
 			quest.stop=false
 			quest.resume=aliasaftercmdresume
-
 		end
 		_aftercmd=string.sub(str,l+1,#str)
 		return string.sub(str,1,l-1)
@@ -29,7 +28,10 @@ end
 
 aliasaftercmd=function()
 	if _aftercmd=="" then
-		quest.stop=true
+		if _nowmcmd~="" then
+			quest.stop=true
+			_nowmcmd=""
+		end
 		return
 	end
 	print ("÷¥––Ω· ¯∫Û√¸¡Ó£∫".._aftercmd.."°£")
@@ -175,6 +177,21 @@ alias_dazuoneili=function(m,l,w)
 	do_quest("dazuoneili",tonumber(w[1]))
 end
 
+
+npclocre=rex.new("(?<id>[^@]*)(@(?<loc>.*)){0,1}")
+alias_kill=function(m,l,w)
+	w[1]=getaftercmd(w[1],w[0])
+	s,e,t=npclocre:match(w[1])
+	print(t.id)
+	print(t.loc)
+	if t.id==nil or t.id==false or t.id=="" then
+		busytest(aliasaftercmd)
+		return
+	end
+	do_killnpc(t.id,tonumber(t.loc),aliasaftercmd,aliasaftercmd)
+end
+
+
 alias_stop=function(m,l,w)
 	quest.stop=true
 	alias_re_cmd=""
@@ -190,4 +207,6 @@ alias_kl=function(m,l,w)
 	end
 end
 
-
+alias_pick=function(n,l,w)
+	do_quest("pick")
+end

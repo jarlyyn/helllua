@@ -73,7 +73,7 @@ end
 pick_full=function(n,l,w)
 	if picklist[pick["list"][pick["index"]]]==nil then return end
 	EnableTriggerGroup("pick",false)
-	if w[2]==picklist[pick["list"][pick["index"]]].cname then
+	if w[3]==picklist[pick["list"][pick["index"]]].cname or w[2]=="你身上的东西实在是太多了，没法再拿东西了。" then
 		pick.full=true
 	end
 end

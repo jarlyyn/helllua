@@ -74,11 +74,11 @@ start 师门任务
 	格式如下:
 	#lian dodge,parry,sword book 练习dodge,parry,读sword book
 	#lian dodge>start 练习满dodge后执行start
-	#lian dodge.feiyan-zoubi,dodge.shenxing-baibian 分别激活feiyan-zoubi和shenxing-baibian练习dodge
+	#lian dodge.feiyan-zoubi,dodge.shenxing-baibian<100 分别激活feiyan-zoubi和shenxing-baibian练习dodge,shenxing-baibian不超过100lv
 	#lian dodge.feiyan-zoubi,parry book>#to 2046
 2.其他命令:
 #to loc 到达某个地点,loc请参考rooms_all.
-#npc (.*) 到达某个npc处.支持npc 中文名/id.具体信息储存在npcs.ini
+#to npc 到达某个npc处.支持npc 中文名/id.具体信息储存在npcs.ini
 spwk 强制停止.
 #kl npc名 城市名 在xx城市杀xx npc
 

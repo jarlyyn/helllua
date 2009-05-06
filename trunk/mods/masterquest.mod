@@ -786,10 +786,12 @@ on_partyfind=function(n,l,w)
 	if w[5]~=masterquest.npc or masterquest.far==false then return end
 	if masterquest.assistwait==true then return end
 	if city[w[7]]==nil then return end
-	if city[w[7]]==masterquest.city then return end
+--	if city[w[7]]==masterquest.city then return end
 	local loc=tonumber(w[6])
 	if loc==nil then return end
 	if loc<0 then return end
+	masterquest.fleesearch=false
+	masterquest.firstsearch=false
 	masterquest.city=w[7]
 	masterquest.far=false
 	masterquest.flee=false

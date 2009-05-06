@@ -134,6 +134,7 @@ end
 quest["end"]["canwu"]=function()
 	canwu["end"]()
 end
+
 loadmod("masterquest.mod")
 quest.main["mq"]=function(levelmax)
 	mqquests=0

@@ -3,7 +3,7 @@ initmudvar=function()
 	mudvar.teller=""
 	chatroom=""
 	mudvar.eatjz=false
-	mudvar.powerup=nopowerup.powerup	
+	mudvar.powerup=nopowerup.powerup
 	mudvar.canaccept={}
 end
 mudlistre=rex.new("([^,]+)")
@@ -36,7 +36,7 @@ mudvar_nopowerup=function(n,l,w)
 	if w[1]=="drunk" then
 	mudvar.powerup=nopowerup.drunk
 	else
-	mudavr.powerup=nopowerup.nopowerup
+	mudvar.powerup=nopowerup.nopowerup
 	end
 end
 mudvar_canaccept=function(n,l,w)

@@ -12,6 +12,7 @@ dropgift={}
 dropgift["ok"]=nil
 dropgift["fail"]=nil
 dropgift.baoguofull=false
+dropgift.baoguoheavy=false
 dropgift.enterchatfail=false
 dropgift.gift=""
 chatroom=nil
@@ -148,6 +149,7 @@ end
 
 dropgift.putgift=function()
 	dropgift.baoguofull=false
+	dropgift.baoguoheavy=false
 	catch("giftbaoguofail","put "..dropgift.gift.." in baoguo")
 	infoend(dropgift.putgiftok)
 end
@@ -156,9 +158,16 @@ giftbaoguofail=function(n,l,w)
 	dropgift.baoguofull=true
 end
 
+giftbaoguoheavy=function(n,l,w)
+	dropgift.baoguoheavy=true
+end
+
 dropgift.putgiftok=function()
 	if dropgift.baoguofull==true then
 		busytest(dropgift.buybaoguo)
+	elseif dropgift.baoguoheavy==true then
+		run("drop baoguo")
+		item["go"]("baoguo",1,dropgift.putgift,dropgift_end_fail)
 	else
 		busytest(dropgift.testdropbaoguo)
 	end

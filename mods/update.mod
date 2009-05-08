@@ -1,4 +1,4 @@
-version=96
+version=97
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -63,7 +63,8 @@ updateversion=function()
 	addtri("kanbush","^(> )*不用武器恐怕不行吧|要刺墙不用家伙恐怕不行吧！","system","kanbush")
 	addtri("walk_gwriver","^(> )*(你觉得河面太宽，没有十足的把握跃过去。|你看着奔腾不息的白河，心里有点紧张，不敢乱来。|船厂里走出一个船夫，瞪着眼看着你|船夫在旁边拿眼瞪着你看)","system","gwriver")
 	addtri("mqletterflee","^(不好了，(.*)在|你刚想离开，突然(.*)喊道)","mqletterquest","letterflee")
-	addtri("giftbaoguofail","^(> )*包裹里面的东西实在是太多了，你先好好整理整理吧。","giftbaoguofail","giftbaoguofail")
+	addtri("giftbaoguofail","^(> )*(包裹|布袋)里面的东西实在是太多了，你先好好整理整理吧。","giftbaoguofail","giftbaoguofail")
+	addtri("giftbaoguoheavy","^(> )*([^`].(..){1,7})对包裹而言太重了。","giftbaoguofail","giftbaoguoheavy")
 	addtri("enterchatfail","^(> )*(没有这个聊天室。|人家不欢迎你，你还是别去扫兴了。)","enterchatfail","dropgift_enterchatfail")
 	addtri("mudvar_chatroom","^chatroom\\s*=\\s*(.+)","mudvar","mudvar_chatroom")
 	addtri("mudvar_eatjz","^eat9z\\s*=\\s*(.+)","mudvar","mudvar_eatjz")

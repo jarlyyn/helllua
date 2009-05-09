@@ -62,7 +62,7 @@ end
 
 loadmod("makeyao.mod")
 quest.main["makeyao"]=function(str,num)
-	do_makeyao(str,num)
+	do_makeyao(str,num,aliasaftercmd,aliasaftercmd)
 	quest.resume=quest.main["makeyao"]
 end
 quest["end"]["makeyao"]=function()

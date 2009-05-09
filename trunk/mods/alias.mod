@@ -184,11 +184,33 @@ alias_kill=function(m,l,w)
 	s,e,t=npclocre:match(w[1])
 	print(t.id)
 	print(t.loc)
+	if t==nil then
+		busytest(aliasaftercmd)
+		return
+	end
+
 	if t.id==nil or t.id==false or t.id=="" then
 		busytest(aliasaftercmd)
 		return
 	end
 	do_killnpc(t.id,tonumber(t.loc),aliasaftercmd,aliasaftercmd)
+end
+
+makere=rex.new("(?<name>\\S+)(\\s(?<num>\\d+)){0,1}")
+alias_make=function(m,l,w)
+	w[1]=getaftercmd(w[1],w[0])
+	s,e,t=makere:match(w[1])
+	if t==nil then
+		busytest(aliasaftercmd)
+		return
+	end
+	print(t.name)
+	print(t.num)
+	if t.name==nil or t.name==false or t.name=="" then
+		busytest(aliasaftercmd)
+		return
+	end
+	do_quest("makeyao",t.name,tonumber(t.num))
 end
 
 

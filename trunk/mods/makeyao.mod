@@ -17,8 +17,10 @@ do_makeyao=function(yaoname,yao_max,makeyao_ok,makeyao_fail)
 	makeyao.yaoname=yaoname
 	makeyao.count=0
 	makeyao.max=yao_max
+	if makeyao.max==nil then makeyao.max=1 end
 	busytest(makeyao.main)
 	SetTriggerOption ("makeyao_ok", "match", "^(> )*你把「"..makeyao.yaoname.."」成功的制好了！")
+
 end
 makeyao_ok=function()
 	makeyao.count=makeyao.count+1
@@ -78,7 +80,7 @@ makeyao.makearrive=function()
 end
 makeyao.cmd=function()
 	makeyao.buyitem=nil
-	catch("makeyao","hand yanbo;make "..makeyao.yaoname)
+	run("hand yanbo;make "..makeyao.yaoname)
 	busytest(makeyao.main)
 end
 
@@ -87,7 +89,7 @@ makeyao_buy=function(n,l,w)
 end
 makeyao.buy=function()
 	if makeyao.buyitem~=nil then
-		run("buy "..makeyao.buyitem .." from ping yizhi")
+		run("buy "..tostring(math.max(math.min(makeyao.max-makeyao.count,10)),1).." "..makeyao.buyitem .." from ping yizhi")
 	end
 	go(-2,makeyao.makearrive,makeyao_end_fail)
 end

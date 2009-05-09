@@ -27,6 +27,7 @@ baseskill["chuixiao-jiyi"]=true
 baseskill["finger"]=true
 baseskill["claw"]=true
 baseskill["strike"]=true
+baseskill["club"]=true
 
 lianskillre=rex.new("([^;,]+)")
 lianjifare=rex.new("^(?<base>.*?)(\\.(?<jifa>[^<]+)){0,1}(<(?<levelmax>.*)){0,1}$")

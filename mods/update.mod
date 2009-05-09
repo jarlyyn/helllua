@@ -1,4 +1,4 @@
-version=97
+version=101
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -35,6 +35,7 @@ updateversion=function()
 	SetTriggerOption("mqlettercontent","lines_to_match","2")
 	AddAlias("alias_start","^start\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_start")
 	AddAlias("alias_kill","^#kill\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_kill")
+	AddAlias("alias_make","^#make\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_make")
 	AddAlias("alias_re","^#re(\\s(.*)){0,1}$","",flag_base_enable+alias_flag.RegularExpression,"alias_re")
 	AddAlias("alias_pick","^#pick$","",flag_base_enable+alias_flag.RegularExpression,"alias_pick")
 	AddAlias("alias_setvalue","^#set(\\s{0,1}(\\S*)){0,1}\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_setvalue")
@@ -143,6 +144,12 @@ updateversion=function()
 	addtri("on_drunk","^(> )*你觉得一阵酒意上冲，眼皮有些沉重了。$","system","on_drunk")
 	addtri("dazuofull","^(> )*你的内力修为似乎已经达到了瓶颈。$","dazuoneili","dazuofull")
 	addtri("lianwield","^(> )*你使用的武器不对。$","lian","lianwield")
+	addtri("event_acceptrecon","^(> )*你还是把眼前的敌人放倒再说吧！$","accept","event_acceptrecon")
+	addtri("event_acceptretry","^(> )*你现在正忙，等有空了再说吧！|你等会儿，在大宗师面前抢什么茬儿？$","accept","event_acceptretry")
+	addtri("event_accepting","^(> )*你正在应战呢！$","accept","event_accepting")
+	addtri("event_acceptname","^(> )*【东拉西扯】%1\[%2\]：(.*)少要猖狂，我来了！$","accept","event_acceptname")
+	addtri("event_acceptwin","^(> )*%1身子一退，掉下(.*)！$","accept","event_acceptwin")
+	addtri("on_accept","^(> )*(黄裳|南海神尼|独孤求败|葵花太监)告诉你：你何不出手应战\\(accept\\)？扬我中华武林威风！$","system","on_accept")
 --	SetTriggerOption(triname,"group",trigroup)
 	call(updatecmd)
 end

@@ -76,6 +76,12 @@ start 师门任务
 	#lian dodge>start 练习满dodge后执行start
 	#lian dodge.feiyan-zoubi,dodge.shenxing-baibian<100 分别激活feiyan-zoubi和shenxing-baibian练习dodge,shenxing-baibian不超过100lv
 	#lian dodge.feiyan-zoubi,parry book>#to 2046
+#kill 杀npc
+	格式:#kill xxx或者 #kill xxx@123
+
+#make 做药
+	格式:#make xxx 20
+
 2.其他命令:
 #to loc 到达某个地点,loc请参考rooms_all.
 #to npc 到达某个npc处.支持npc 中文名/id.具体信息储存在npcs.ini

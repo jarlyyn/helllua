@@ -71,6 +71,9 @@ do_masterquest=function(masterquest_ok,masterquest_fail,levelmax)
 	hook(hooks.faint,mqfaintrecon)
 	initmq()
 	masterquest.main()
+	if masterquest.type==masterquest.normal then
+		hook(hooks.accept,masterquest.acceptcheck)
+	end
 end
 masterquest.loop=function()
 	if _skilllist~=nil then
@@ -923,4 +926,28 @@ mqassisttestgive=function()
 		mqassisterreport()
 		masterquest.main()
 	end
+end
+--------------------------
+masterquest.stopable=function()
+	if study.skill~=nil then
+		if study.skillstudy.study=="closed" then
+			return false
+		end
+	end
+	return true
+end
+
+masterquest.acceptcheck=function()
+	if masterquest.stopable==true and posioned==false then
+		quest.resume=accept.resume
+		stopall()
+		run("halt")
+		do_accept(masterquest.restore,masterquest.restore)
+	end
+end
+
+masterquest.restore=function()
+	quest.resume=masterquest.resume
+	stopall()
+	masterquest.resume()
 end

@@ -1,4 +1,5 @@
 me={}
+getidpass()
 me.score={}
 me.hp={}
 me.fam={"None"}

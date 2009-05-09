@@ -33,8 +33,10 @@ loadmod("fangqi.mod")
 loadmod("dropgift.mod")
 loadmod("weapon.mod")
 loadmod("askyou.mod")
+loadmod("event.mod")
 loadmod("quest.mod")
 loadmod("remote.mod")
+
 if configcmd~=nil then
 	configcmd()
 end

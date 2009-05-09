@@ -336,3 +336,14 @@ on_drunk2=function(n,l,w)
 	drunk=2
 	lastdrunk=os.time()
 end
+--------------
+stopall=function()
+	if walking~=nil then walking["end"]() end
+	inittri()
+	unhookall()
+end
+---------
+
+on_accept=function()
+	callhook(hooks.accept)
+end

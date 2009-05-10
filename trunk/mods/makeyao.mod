@@ -52,12 +52,8 @@ makeyao.main=function()
 		makeyao_end_fail()
 		return
 	end
-	if makeyao.count>=makeyao.max then
-		makeyao_end_ok()
-		return
-	end
 	EnableTriggerGroup("makeyao",true)
-	run("get all from bo")
+	run("get all from bo;get all from mo")
 	getstatus(makeyao["check"])
 end
 makeyao.chechdanbo=function(check_ok,check_fail)
@@ -71,6 +67,9 @@ makeyao.check=function()
 	if do_check(makeyao["main"]) then
 	elseif makeyao.chechdanbo(makeyao["main"],makeyao["main"]) then
 	elseif makeyao.chechbuy() then
+	elseif makeyao.count>=makeyao.max then
+		makeyao_end_ok()
+		return
 	else
 		go(-2,makeyao.makearrive,makeyao_end_fail)
 	end

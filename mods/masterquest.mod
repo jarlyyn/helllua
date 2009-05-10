@@ -61,6 +61,9 @@ masterquest.setuptri=function()
 		EnableTrigger("mqassistok",true)
 		EnableTriggerGroup("mqassist",true)
 	end
+	if masterquest.type==masterquest.normal then
+		hook(hooks.accept,masterquest.acceptcheck)
+	end
 end
 do_masterquest=function(masterquest_ok,masterquest_fail,levelmax)
 	masterquest["ok"]=masterquest_ok
@@ -71,9 +74,6 @@ do_masterquest=function(masterquest_ok,masterquest_fail,levelmax)
 	hook(hooks.faint,mqfaintrecon)
 	initmq()
 	masterquest.main()
-	if masterquest.type==masterquest.normal then
-		hook(hooks.accept,masterquest.acceptcheck)
-	end
 end
 masterquest.loop=function()
 	if _skilllist~=nil then

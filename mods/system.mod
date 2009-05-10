@@ -341,6 +341,7 @@ stopall=function()
 	if walking~=nil then walking["end"]() end
 	inittri()
 	unhookall()
+	DiscardQueue()
 end
 ---------
 

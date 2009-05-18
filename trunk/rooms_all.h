@@ -1974,7 +1974,7 @@
 1973=小树林|nd:1974,sw:1972,
 1974=小树林|e:-1,n:1975,su:1973,w:-1,
 1975=小树林|e:-1,n:768,s:1974,w:-1,
-1976=密室|ci brick\zhan brick\d:1955,u:1970,
+1976=密室|gm<ci brick\zhan brick\d:1955,u:1970,
 1977=码头|nocross<cross:946,n:1978,nocross>yell boat\enter:2540,
 1978=大门|enter:1979,s:1977,
 1979=前院|n:1980,out:1978,th>ride diao*:1986,

@@ -930,7 +930,7 @@ end
 --------------------------
 masterquest.stopable=function()
 	if study.skill~=nil then
-		if study.skillstudy.study=="closed" then
+		if study.skill.study=="closed" then
 			return false
 		end
 	end
@@ -938,7 +938,8 @@ masterquest.stopable=function()
 end
 
 masterquest.acceptcheck=function()
-	if masterquest.stopable==true and posioned==false then
+	print("123")
+	if masterquest.stopable()==true and posioned==false then
 		quest.resume=accept.resume
 		stopall()
 		run("halt")

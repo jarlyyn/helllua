@@ -18,7 +18,7 @@ liandan.sells["Ğ¡½ğµ¤"]={name="Ğ¡½ğµ¤",id="gold dan"}
 liandan.sells["Ğ¡ÔÆµ¤"]={name="Ğ¡ÔÆµ¤",id="xiaoyun dan"}
 liandan.sells["Ğî¾«µ¤"]={name="Ğî¾«µ¤",id="xujing dan"}
 liandan.sells["±ÌÈªµ¤"]={name="±ÌÈªµ¤",id="biquan dan"}
-liandan.sells["»ÃÁéµ¤"]={name="»ÃÁéµ¤",id="huanling dan"}
+--liandan.sells["»ÃÁéµ¤"]={name="»ÃÁéµ¤",id="huanling dan"}
 liandan.pack={}
 liandan.pack["Guiling dan"]="guiling dan"
 liandan.pack["Ñª÷èµ¤"]="xueqi dan"
@@ -30,6 +30,7 @@ liandan.pack["»¹»êµ¤"]="huanhun dan"
 liandan.pack["ÁúÏÑµ¤"]="longxian dan"
 liandan.pack["ÑûÔÂµ¤"]="yaoyue dan"
 liandan.pack["×ÓÎçÁú¼×µ¤"]="longjia dan"
+liandan.sells["»ÃÁéµ¤"]="huanling dan"
 liandan.dropgift={}
 liandan.dropgift["Luosha dan"]="luosha dan"
 liandan.dropgift["ĞùÔ¯²¹ĞÄµ¤"]="xuanyuan dan"
@@ -40,6 +41,7 @@ liandan.eat["Baihu dan"]="baihu dan"
 liandan.eat["Qinglong dan"]="qinglong dan"
 liandan.eat["Xuanwu dan"]="xuanwu dan"
 liandan.eat["Yinyang dan"]="yinyang dan"
+liandan.eat["Change dan"]="change dan"
 liandan.eat["Longwang dan"]="longwang dan"
 liandan.yaoanswer=0
 liandan.tonganswer=0

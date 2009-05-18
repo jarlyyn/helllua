@@ -8,6 +8,7 @@ getaftercmd=function(str,str2)
 	local l=string.find(str,">")
 	if l== nil then
 		_aftercmd=""
+		_nowcmd=""
 		return str
 	else
 		if str2~=nil then

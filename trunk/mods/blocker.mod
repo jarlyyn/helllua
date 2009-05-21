@@ -40,7 +40,7 @@ block_onnpc=function(n,l,w)
 	end
 	if GetVariable("pfm")==nil or GetVariable("pfm")=="" then return end
 	fightpreper()
-	do_kill(blocker[w[2]].id,block_step,_hooklist[hooks.steptimeout])
+	do_kill(blocker[w[2]].id,block_step,block_step)
 end
 block_step=function()
 	run(walking.step)

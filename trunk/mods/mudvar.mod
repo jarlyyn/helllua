@@ -3,6 +3,7 @@ initmudvar=function()
 	mudvar.teller=""
 	chatroom=""
 	mudvar.eatjz=false
+	mudvar.dragon=""
 	mudvar.powerup=nopowerup.powerup
 	mudvar.canaccept={}
 end
@@ -39,6 +40,11 @@ mudvar_nopowerup=function(n,l,w)
 	mudvar.powerup=nopowerup.nopowerup
 	end
 end
+
+mudvar_dragon=function(n,l,w)
+	mudvar.dragon=w[1]
+end
+
 mudvar_canaccept=function(n,l,w)
 	n=mudlistre:gmatch(w[1],function (m, t)
 		mudvar.canaccept[m]=true

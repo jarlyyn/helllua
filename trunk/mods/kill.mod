@@ -13,6 +13,11 @@ pfm=function()
 	else
 		run(pfm_skill)
 	end
+	if kill.npc~=nil and dragongiftcmd~=nil then
+		if dragongiftcmd[kill.npc]~=nil then
+			run(dragongiftcmd[kill.npc])
+		end
+	end
 end
 fightpreper=function()
 	if GetVariable("pfm")=="shot" then

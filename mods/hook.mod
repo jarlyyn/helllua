@@ -29,6 +29,8 @@ hooks.maxstep="maxstep"
 --多步行走
 hooks.accept="accept"
 --挑战
+hooks.dragon="dragon"
+--龙出没
 
 hooks.killme="killme"
 ---被npc下kill的hook,函数第一个参数是下kill的npc的名字

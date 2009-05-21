@@ -43,9 +43,9 @@ login=function()
 			return
 		end
 	end
-	run(me.id)
-	run(_passwd)
-	run("y")
+	Send(me.id)
+	Send(_passwd)
+	Send("y")
 end
 
 system_login=function(name, line, wildcards)

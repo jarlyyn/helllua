@@ -88,10 +88,11 @@ npcinpath["ok"]=nil
 npcinpath["fail"]=nil
 npcinpath["loc"]=-1
 
-do_npcinpath=function(_path,npcinpath_ok,npcinpath_fail)
+do_npcinpath=function(_path,npcinpath_ok,npcinpath_fail,reportonly)
 	npcinpath["ok"]=npcinpath_ok
 	npcinpath["fail"]=npcinpath_fail
 	npcinpath["loc"]=-1
+	npcinpath.reportonly=reportonly
 	EnableTriggerGroup("npc",true)
 	do_steppath(_path,npcinpath.step,npcinpath_end_fail,npcinpath_end_fail,npcinpath_end_fail,stepmaxstep,npcinpath["maxstep"])
 end
@@ -133,6 +134,11 @@ npcinpath.testnpc=function()
 				end
 			end
 		end
+		for i,v in pairs(dragons) do
+			if room_obj[v]~= nil then
+				dragonfound(v,_roomid)
+			end
+		end
 	end
 	if room_obj[npc.name]~=nil then
 		npc.loc=_roomid
@@ -164,8 +170,12 @@ npcinpath.testnpc=function()
 end
 npcinpathgokillnpc=function()
 			steppath["end"]()
-			go(npc.loc,npcinpath["ok"],npcinpath["fail"])
-			npcinpath["end"]()
+			if npcinpath.reportonly==true then
+				go(npc.loc,npcinpath["ok"],npcinpath["fail"])
+				npcinpath["end"]()
+			else
+				npcinpath_end_ok()
+			end
 end
 npcinpath["maxstep"]=function()
 	if npcinpath["loc"] >-1 then

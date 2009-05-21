@@ -64,6 +64,9 @@ masterquest.setuptri=function()
 	if masterquest.type==masterquest.normal then
 		hook(hooks.accept,masterquest.acceptcheck)
 	end
+	if mudvar.dragon=="kill" or mudvar.dragon=="find" then
+		hook(hooks.dragon,masterquest.dragoncheck)
+	end
 end
 do_masterquest=function(masterquest_ok,masterquest_fail,levelmax)
 	masterquest["ok"]=masterquest_ok
@@ -569,6 +572,7 @@ end
 masterquest_npcfaint=function()
 	masterquest.die=true
 	run("get silver from "..masterquest["npcid"])
+	run("faintcmd "..masterquest.npcid)
 	jianuzero()
 	weapon(2)
 end
@@ -584,6 +588,7 @@ masterquest_npcdie=function()
 		weapon(0)
 	end
 	AddTimer("lettertimeout",0,0,30,"",17445,"mqlettertimeout")
+	run("cutheadcmd "..masterquest.npcid)
 	run("cut head from corpse;get head")
 	mqquests=mqquests+1
 	mqlasttime=os.time()-mqstarttime
@@ -938,12 +943,19 @@ masterquest.stopable=function()
 end
 
 masterquest.acceptcheck=function()
-	print("123")
 	if masterquest.stopable()==true and posioned==false then
 		quest.resume=accept.resume
 		stopall()
 		run("halt")
 		do_accept(masterquest.restore,masterquest.restore)
+	end
+end
+masterquest.dragoncheck=function(name)
+	if masterquest.stopable()==true then
+		quest.resume=dragon.resume
+		stopall()
+		run("halt")
+		do_dragon(name,masterquest.restore,masterquest.restore)
 	end
 end
 

@@ -1,4 +1,5 @@
-healyao="jinchuang yao"
+healyao1="jinchuang yao"
+healyao2="yangjing dan"
 heal={}
 heal["ok"]=nil
 heal["loc"]=0
@@ -15,6 +16,9 @@ checkheal=function(cheal_ok,cheal_fail,forceheal)
 	if me.hp["qixue%"]<getvbquemin() then
 		do_heal(cheal_ok,cheal_fail,forceheal)
 		return true
+	elseif me.hp["jinqi%"]<getvbquemin() then
+		do_heal(cheal_ok,cheal_fail,"inspire")
+		return true
 	else
 		return false
 	end
@@ -25,13 +29,22 @@ do_heal=function(heal_ok,heal_fail,forceheal)
 	heal.fail=heal_fail
 	heal.loc=-2
 	heal.cmd="yun heal"
+	heal.hp=0
 	if familys[me.fam]~=nil and forceheal~=true then
 		if familys[me.fam].healcmd~=nil then
 			heal.loc=familys[me.fam].dazuoloc
 			heal.cmd=familys[me.fam].healcmd
 		end
 	end
-	go(heal.loc,heal.arrive,heal_end_fail)
+	if forceheal=="inspire" then
+		heal.loc=-2
+		heal.cmd="yun inspire"
+		healyao=healyao2
+		go(heal.loc,heal.arrive2,heal_end_fail)
+	else
+		healyao=healyao1
+		go(heal.loc,heal.arrive,heal_end_fail)
+	end
 end
 heal["end"]=function(s)
 	if ((s~="")and(s~=nil)) then
@@ -65,6 +78,23 @@ heal["arrive"]=function()
 	end
 end
 
+heal["arrive2"]=function()
+	if me.hp["jinqi%"]>=getvbquemin() then
+		heal["end"]("ok")
+		return
+	end
+	if me.hp["jinqi%"]==heal["hp"] then
+		if getnum(itemlist[healyao])>0 then
+			heal["yao"]()
+		else
+			item["go"](healyao,1,heal["yao"],heal_end_fail)
+		end
+	else
+		heal.hp=me.hp["jinqi%"]
+		busytest(heal.go)
+	end
+end
+
 heal["go"]=function()
 	run(heal.cmd)
 	busytest(heal.test)
@@ -72,7 +102,12 @@ end
 
 heal["test"]=function()
 	hp()
-	infoend(heal.arrive)
+	if heal.cmd=="yun inspire" then
+		print(healcmd)
+		infoend(heal.arrive2)
+	else
+		infoend(heal.arrive)
+	end
 end
 
 heal["yao"]=function()
@@ -83,6 +118,13 @@ heal["eatyao"]=function()
 	run("eat "..healyao)
 	busytest(heal_end_ok)
 end
+
+
+
+
+
+
+
 posioned=false
 
 -------------------------------------------------------

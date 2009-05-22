@@ -7,6 +7,8 @@ blocker["校尉"]={id="xiao wei",exp=50000}
 blocker["采花子"]={id="caihua zi",exp=0}
 blocker["衙役"]={id="ya yi",exp=50000}
 blocker["摘星子"]={id="zhaixing zi",exp=800000}
+blocker["出尘子伸手"]={id="wuchen zi",exp=-1}
+blocker["劳德诺"]={id="lao denuo",exp=-1}
 blocker["鳌府侍卫"]={id="shi wei",exp=50000}
 blocker["鳌拜"]={id="ao bai",exp=200000}
 blocker["心砚"]={id="xin yan",exp=790000}
@@ -32,7 +34,7 @@ block_onnpc=function(n,l,w)
 --	if not(hashook(hooks.steptimeout)) then return end
 	if not(hashook(hooks.step)) then return end
 	if blocker[w[2]]==nil then return end
-	if blocker[w[2]].exp>getnum(me.hp.exp) then
+	if blocker[w[2]].exp>getnum(me.hp.exp) or blocker[w[2]].exp==-1 then
 		if not hashook(hooks.steptimeout) then
 			delay(1,walkagain)
 		end

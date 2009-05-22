@@ -170,7 +170,7 @@ npcinpath.testnpc=function()
 end
 npcinpathgokillnpc=function()
 			steppath["end"]()
-			if npcinpath.reportonly==true then
+			if npcinpath.reportonly~=true then
 				go(npc.loc,npcinpath["ok"],npcinpath["fail"])
 				npcinpath["end"]()
 			else

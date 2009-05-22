@@ -342,6 +342,7 @@ stopall=function()
 	inittri()
 	unhookall()
 	DiscardQueue()
+	DeleteTemporaryTimers()
 end
 ---------
 

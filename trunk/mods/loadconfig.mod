@@ -3,12 +3,14 @@ loadconfigfile=function(str)
 	include("configs\\"..str)
 end
 
+
 loadconfig=function()
 	if GetVariable("configfile")==nil or GetVariable("configfile")=="" then
 		include("config.ini")
 	else
 		include(GetVariable("configfile"))
 	end
+	loadmclfile("config.ini")
 	loadconfigfile("locs.ini")
 	loadconfigfile("npcs.ini")
 	loadconfigfile("items.ini")

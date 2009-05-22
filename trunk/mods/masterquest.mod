@@ -747,10 +747,12 @@ helpfindnpc={}
 
 partyhelp=function(name)
 	if helpfindid==nil then helpfindid="" end
-	if helpfindid~="" then
+	if helpfindid~="" and helpfindpassword~="" then
 		name=encrypt(name,helpfindpassword)
+		run("party helllua-help-"..helpfindid.."-"..name)
+	else
+		run("party helllua-help--"..name)
 	end
-	run("party helllua-help-"..helpfindid.."-"..name)
 end
 
 on_partyhelp=function(n,l,w)
@@ -789,6 +791,7 @@ end
 
 on_partyfind=function(n,l,w)
 	if w[4]~="" then
+		if w[4]~=helpfindid then return end
 		w[5]=decrypt(w[5],helpfindpassword)
 		w[6]=decrypt(w[6],helpfindpassword)
 		w[7]=decrypt(w[7],helpfindpassword)

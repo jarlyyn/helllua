@@ -120,6 +120,7 @@ event_accepting=function(n,l,w)
 end
 
 event_acceptname=function(n,l,w)
+	accept.accepttype=4
 	accept.name=w[2]
 	setaccepttriii(w[2])
 	_roomid=yzgcloc

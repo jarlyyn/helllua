@@ -18,7 +18,7 @@ needstudy=function()
 	else
 		potmax=tonumber(potmax)
 	end
-	if (potmax>0) and me.hp.pot>potmax then
+	if (potmax>0) and getnum(me.hp.pot)>potmax then
 		return true
 	else
 		return false

@@ -164,6 +164,7 @@ askmasterweapon["main"]=function()
 end
 
 askmasterweapon.askcmd=function()
+	weapon(0)
 	run("give "..askmasterweapon["weapon"].." to "..askmasterweapon["givenpc"])
 	askmasterweapon["time"]=os.time()
 	busytest(askmasterweapon.goask)

@@ -210,7 +210,9 @@ end
 masterquest.killnpc=function()
 	do_mqkill(masterquest["city"],3,masterquest_end_ok,masterquest.asknpc)
 end
+
 masterquest.findfar=function()
+	partyhelp(masterquest.npc)
 	print("未得到npc信息，开始全地图通缉")
 	mqfar.new()
 	do_mqfar(masterquest.main,masterquest.main)
@@ -378,7 +380,6 @@ mq_asktest=function(n,l,w)
 			askinfolist["end"]()
 			mqask["end"]()
 			busytest(masterquest.findfar)
-			partyhelp(masterquest.npc)
 		end
 	else
 		askinfolist.askcmd()
@@ -673,6 +674,7 @@ mqlettertimeout=function(n,l,w)
 	DeleteTimer("lettertimeout")
 	mqletter.arrive=2
 	if masterquest.waitletter==true then
+		print("等信超时")
 		run("halt")
 		busytest(masterquest.givehead)
 	end

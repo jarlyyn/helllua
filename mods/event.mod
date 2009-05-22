@@ -198,12 +198,8 @@ dragon.check=function()
 	elseif dragon.flee==true then
 		dragon_end_ok()
 		return
-	elseif dragon.loc>-1 then
-		if mudvar.dragon=="kill" then
-			go(dragon.loc,dragon.find,dragon.searchfail)
-		else
-			dragon_end_ok()
-		end
+	elseif dragon.loc>-1 and mudvar.dragon=="kill" then
+		go(dragon.loc,dragon.find,dragon.searchfail)
 		return
 	elseif dragon.count>4 then
 		dragon.askyou()
@@ -278,10 +274,11 @@ dragonfound=function(name,loc)
 	loc=tostring(loc)
 	local id=""
 	if helpfindid==nil then helpfindid="" end
-	if helpfindid~="" then
-		loc=encrypt(loc,helpfindpassword)
+	if helpfindid~="" and dragonpassword~="" then
+		name=encrypt(name,dragonpassword)
+		loc=encrypt(loc,dragonpassword)
 	end
-	run("party helllua.dragon-"..id.."-"..name.."-"..loc)
+	run("party helllua.dragon-"..helpfindid.."-"..name.."-"..loc)
 end
 dragongiftcmd={}
 dragongiftcmd["Å£Í·¹Ö"]="get chipped agate"
@@ -316,10 +313,11 @@ end
 
 event_dragonfind=function(n,l,w)
 	if w[4]~="" then
-		w[5]=decrypt(w[5],helpfindpassword)
-		w[6]=decrypt(w[6],helpfindpassword)
+		if w[4]~=helpfindid then return end
+		w[5]=decrypt(w[5],dragonpassword)
+		w[6]=decrypt(w[6],dragonpassword)
 	end
-	if w[5]~=dragon.name or dragon.loc>-1 then return end
+	if (w[5]~=dragon.name and n=="event_dragonfind") or dragon.loc>-1 then return end
 	local loc=tonumber(w[6])
 	if loc==nil then return end
 	if loc<0 then return end

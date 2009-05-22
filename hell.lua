@@ -1,9 +1,15 @@
 luapath=string.match(GetInfo(35),"^.*\\")
+mclpath=string.match(GetInfo(54),"^.*\\")
 include=function(str)
 	dofile(luapath..str)
 end
 loadmod=function(str)
 	include("mods\\"..str)
+end
+
+loadmclfile=function(str)
+		local f=(loadfile(mclpath..str))
+		if f~=nil then f() end
 end
 print("‘ÿ»Î÷–")
 loadmod("encrypt.mod")
@@ -36,7 +42,6 @@ loadmod("askyou.mod")
 loadmod("event.mod")
 loadmod("quest.mod")
 loadmod("remote.mod")
-
 if configcmd~=nil then
 	configcmd()
 end

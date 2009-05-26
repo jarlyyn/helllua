@@ -294,7 +294,7 @@ dragongiftcmd["monster dragon"]="get chipped crystal"
 dragonflee=function(n,l,w)
 	w[3]=string.lower(w[3])
 	if dragongiftcmd[w[3]]~=nil then
-		run(dragongiftcmd[w[3]])
+		Send(dragongiftcmd[w[3]])
 	end
 	dragon.flee=true
 end

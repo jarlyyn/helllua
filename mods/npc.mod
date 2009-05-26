@@ -87,14 +87,15 @@ npcinpath={}
 npcinpath["ok"]=nil
 npcinpath["fail"]=nil
 npcinpath["loc"]=-1
-
+npcinpath.path=nil
 do_npcinpath=function(_path,npcinpath_ok,npcinpath_fail,reportonly)
 	npcinpath["ok"]=npcinpath_ok
 	npcinpath["fail"]=npcinpath_fail
 	npcinpath["loc"]=-1
 	npcinpath.reportonly=reportonly
 	EnableTriggerGroup("npc",true)
-	do_steppath(_path,npcinpath.step,npcinpath_end_fail,npcinpath_end_fail,npcinpath_end_fail,stepmaxstep,npcinpath["maxstep"])
+	npcinpath.path=_path
+	do_steppath(npcinpath.path,npcinpath.step,npcinpath_end_fail,npcinpath_end_fail,npcinpath_end_fail,stepmaxstep,npcinpath["maxstep"])
 end
 
 npcinpath["end"]=function(s)
@@ -170,9 +171,16 @@ npcinpath.testnpc=function()
 end
 npcinpathgokillnpc=function()
 			steppath["end"]()
+			if _roomid<0 or npc.loc<0 then
+				npc.loc=-1
+				do_steppath(npcinpath.path,npcinpath.step,npcinpath_end_fail,npcinpath_end_fail,npcinpath_end_fail,stepmaxstep,npcinpath["maxstep"])
+				return
+			end
 			if npcinpath.reportonly~=true then
-				go(npc.loc,npcinpath["ok"],npcinpath["fail"])
-				npcinpath["end"]()
+				p=mapper.getpath(_roomid,npc.loc,0)
+				run(p)
+				_roomid=npc.loc
+				npcinpath_end_ok()
 			else
 				npcinpath_end_ok()
 			end

@@ -96,7 +96,7 @@ end
 
 
 lian["main"]=function()
-	if quest.stop then
+	if quest.stop==true then
 		lian["end"]()
 		return
 	end

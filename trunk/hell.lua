@@ -1,5 +1,5 @@
 luapath=string.match(GetInfo(35),"^.*\\")
-mclpath=string.match(GetInfo(54),"^.*\\")
+mclpath=GetInfo(67)
 include=function(str)
 	dofile(luapath..str)
 end

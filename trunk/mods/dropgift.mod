@@ -67,8 +67,8 @@ end
 
 dropgift.arrivechat=function()
 	EnableTriggerGroup("enterchatfail",false)
-	if dropongroundlist[dropgift.gift]~=nil then
-		run("drop "..dropongroundlist[dropgift.gift])
+	if dropongroundlist[dropgift.gift]==true then
+		run("drop "..dropgift.gift)
 		busytest(dropgift_end_ok)
 		return
 	end

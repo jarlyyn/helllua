@@ -201,7 +201,8 @@ run=function(str)
 				cmd="enter "..chatroom
 			end
 		end
-		Queue(cmd,walkecho)
+		Queue(cmd,false)
+		if walkecho==true then Note(cmd) end
 	end
 end
 

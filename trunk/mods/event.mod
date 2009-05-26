@@ -225,7 +225,7 @@ end
 
 dragon.find=function()
 	if mudvar.dragon~="kill" then
-		go(safeloc,dragon_end_ok,dragon_end_ok)
+		dragon_end_ok()
 		return
 	end
 	fightpreper()

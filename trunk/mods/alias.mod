@@ -225,6 +225,8 @@ alias_kl=function(m,l,w)
 			print("go"..w[2].."kill"..w[1])
 			initmq()
 			masterquest.npc=w[1]
+			masterquest.fleesearch=false
+			masterquest.firstsearch=false
 			do_mqkill(w[2],1)
 		end
 	end

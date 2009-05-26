@@ -142,12 +142,12 @@ npcinpath.testnpc=function()
 		end
 	end
 	if room_obj[npc.name]~=nil then
-		npc.loc=_roomid
 		if room_obj[npc.name].id~=nil then
 			if string.find(room_obj[npc.name].id,"%s")==nil then
 				return
 			end
 		end
+		npc.loc=_roomid
 		npcinpath["loc"]=_roomid
 		npc.id=room_obj[npc.name].id
 		testnpcid()

@@ -1,13 +1,15 @@
-version=105
+version=106
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
 	mclversion=0
 end
 
-addtri=function(triname,trimatch,trigroup,triscript)
-	AddTriggerEx(triname, trimatch, "", flag_base, -1, 0, "",  triscript, 0, 100)
+addtri=function(triname,trimatch,trigroup,triscript,triflag)
+	if triflag==nil then triflag=flag_base end
+	trirerurnvalue=AddTriggerEx(triname, trimatch, "", triflag, -1, 0, "",  triscript, 0, 100)
 	SetTriggerOption(triname,"group",trigroup)
+	return trirerurnvalue
 end
 
 deltri=function(triname)
@@ -16,6 +18,7 @@ end
 
 flag_base=1064
 flag_base_enable=1065
+flag_base_temp=1065+trigger_flag.Temporary
 
 addvar=function(varname,def_value)
 	if GetVariable(varname)==nil then
@@ -35,6 +38,7 @@ updateversion=function()
 	SetTriggerOption("mqlettercontent","lines_to_match","2")
 	AddAlias("alias_start","^start\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_start")
 	AddAlias("alias_kill","^#kill\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_kill")
+	AddAlias("alias_fq","^#fq\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_fq")
 	AddAlias("alias_make","^#make\\s{0,1}(.*)$","",flag_base_enable+alias_flag.RegularExpression,"alias_make")
 	AddAlias("alias_re","^#re(\\s(.*)){0,1}$","",flag_base_enable+alias_flag.RegularExpression,"alias_re")
 	AddAlias("alias_pick","^#pick$","",flag_base_enable+alias_flag.RegularExpression,"alias_pick")

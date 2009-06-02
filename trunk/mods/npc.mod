@@ -177,8 +177,10 @@ npcinpathgokillnpc=function()
 				return
 			end
 			if npcinpath.reportonly~=true then
-				p=mapper.getpath(_roomid,npc.loc,0)
-				run(p)
+				if _roomid~=npc.loc then
+					p=mapper.getpath(_roomid,npc.loc,0)
+					run(p)
+				end
 				_roomid=npc.loc
 				npcinpath_end_ok()
 			else
@@ -203,3 +205,80 @@ end
 testnpcid=function(obj)
 
 end
+
+getnpcid=function(tid)
+	if npc.id~=nil then
+		tid=npc.id
+	end
+	if tid==nil or tid=="" then
+		tid=getcnname(npc.name)
+	end
+	if tid==nil then tid="" end
+	return tid
+end
+
+
+
+-----------------
+
+killnpcinpath={}
+killnpcinpath["ok"]=nil
+killnpcinpath["fail"]=nil
+
+do_killnpcinpath=function(name,path,killnpcinpath_ok,killnpcinpath_fail,times)
+	killnpcinpath.name=name
+	killnpcinpath.path=path
+	killnpcinpath.id=""
+	if times==nil then times=1 end
+	killnpcinpath.times=times
+	killnpcinpath.count=1
+	killnpcinpath["ok"]=killnpcinpath_ok
+	killnpcinpath["fail"]=killnpcinpath_fail
+	npc.name=name
+	busytest(killnpcinpath.main)
+end
+
+killnpcinpath["main"]=function()
+	if killnpcinpath.times<killnpcinpath.count then
+		killnpcinpath_end_fail()
+	else
+		killnpcinpath.count=killnpcinpath.count+1
+		fightpreper()
+		eatdrink()
+		busytest(killnpcinpath.search)
+	end
+end
+
+killnpcinpath.search=function()
+	do_npcinpath(killnpcinpath.path,killnpcinpath.npcfind,killnpcinpath.main)
+end
+
+killnpcinpath.npcfind=function()
+	killnpcinpath.id=getnpcid(killnpcinpath.id)
+	do_kill(killnpcinpath.id,killnpcinpath_end_ok,killnpcinpath.search2)
+end
+
+killnpcinpath.search2=function()
+	do_searchnpc(killnpcinpath.npcfind,killnpcinpath.search2fail)
+end
+
+killnpcinpath.search2fail=function()
+	busytest(killnpcinpath.search)
+end
+
+killnpcinpath["end"]=function(s)
+	if ((s~="")and(s~=nil)) then
+		call(killnpcinpath[s])
+	end
+	killnpcinpath["ok"]=nil
+	killnpcinpath["fail"]=nil
+end
+
+killnpcinpath_end_ok=function()
+	killnpcinpath["end"]("ok")
+end
+
+killnpcinpath_end_fail=function()
+	killnpcinpath["end"]("fail")
+end
+

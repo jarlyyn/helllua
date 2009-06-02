@@ -2,12 +2,19 @@ info={}
 info.fail=2
 info.retry=1
 info.answer=3
-askinfo=function(npc,content)
-	info.answer=3
+askinfo=function(npc,content,times)
+	if times==nil then times=1 end
+	info.answer=0
 	if infolist[npc]~=nil then
 		setinfoname(infolist[npc]["name"])
 		trigrpon("info")
-		npchere(infolist[npc]["id"],"yun regenerate;ask "..infolist[npc]["id"].." about "..content)
+		content1="ask "..infolist[npc]["id"].." about "..content
+		content=content1
+		for i=2,times,1 do
+			content=content..";"..content1
+		end
+		content=[[yun regenerate;]]..content
+		npchere(infolist[npc]["id"],content)
 		trigrpoff("info")
 	end
 end
@@ -22,7 +29,9 @@ info_fail=function()
 end
 
 info_retry=function()
-	info.answer=info.retry
+	if info.answer<info.retry then
+		info.answer=info.retry
+	end
 end
 
 -------------------------------
@@ -49,7 +58,7 @@ do_askinfolist=function(content,aillist,ailsettri,ailtest,askinfolist_ok,askinfo
 		i=i+1
 		askinfolist["list"][i]=m
 	end)
-	busytest(askinfolist.main)	
+	busytest(askinfolist.main)
 end
 
 askinfolist.main=function()
@@ -73,7 +82,7 @@ askinfolist.askcmd=function()
 	print("Ñ¯ÎÊ"..askinfolist["list"][askinfolist["index"]].."ºÅÎÔµ×")
 	if askinfolist.ailsettri~=nil then
 		askinfolist.ailsettri(infolist[askinfolist["list"][askinfolist["index"]]].name)
-	end	
+	end
 	askinfo(askinfolist["list"][askinfolist["index"]],askinfolist["content"])
 	infoend(askinfolist.asktest)
 end
@@ -81,7 +90,7 @@ end
 askinfolist.asktest=function()
 	if npc.nobody==1 or info.answer==2 then
 		 askinfolist.main()
-	elseif info.answer==1 then 
+	elseif info.answer==1 then
 		askinfolist.arrive()
 	else
 		call(askinfolist.hook)

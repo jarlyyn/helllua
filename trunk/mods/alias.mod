@@ -214,6 +214,25 @@ alias_make=function(m,l,w)
 	do_quest("makeyao",t.name,tonumber(t.num))
 end
 
+fqre=rex.new("([^; ,]+)")
+alias_fq=function(m,l,w)
+	w[1]=getaftercmd(w[1],w[0])
+	freequest.questlist={}
+	i=0
+	n=fqre:gmatch(w[1],function (m, t)
+		i=i+1
+		freequest.questlist[m]=true
+	end)
+	if (i==0) then
+		freequest.questlist=utils.multilistbox("需要激活的freequest：","选择",freequest.questlistnameall)
+	end
+	if freequest.questlist~=nil then
+		do_quest("fq")
+	else
+		busytest(aliasaftercmd)
+	end
+end
+
 
 alias_stop=function(m,l,w)
 	quest.stop=true
@@ -223,11 +242,7 @@ alias_kl=function(m,l,w)
 	if w[2]~=nil then
 		if city[w[2]]~=nil then
 			print("go"..w[2].."kill"..w[1])
-			initmq()
-			masterquest.npc=w[1]
-			masterquest.fleesearch=false
-			masterquest.firstsearch=false
-			do_mqkill(w[2],1)
+			do_killnpcinpath(w[1],city[w[2]].path)
 		end
 	end
 end

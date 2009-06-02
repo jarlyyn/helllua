@@ -249,7 +249,7 @@ ctonum=function(str)
 	end
 	return result
 end
-	itemnumre=rex.new("(((零|一|二|三|四|五|六|七|八|九|十|百|千|万)*)(位|支|颗|个|把|只|粒|张|枚|件|柄|根|块|文|两|碗|滴)){0,1}(.*)")
+	itemnumre=rex.new("(((零|一|二|三|四|五|六|七|八|九|十|百|千|万)*)(支|顶|块|朵|面|匹|位|支|颗|个|把|只|粒|张|枚|件|柄|根|块|文|两|碗|滴)){0,1}(.*)")
 getitemnum=function(str)
 	num=1
 	a,b,matchs=itemnumre:match(str)

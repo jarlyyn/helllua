@@ -7,8 +7,8 @@ quest["main"]={}
 quest.name=""
 loadmod("lian.mod")
 quest.main["lian"]=function(slist)
+	quest.resume=lian.resume
 	do_lian(slist,aliasaftercmd,aliasaftercmd)
-	quest.resume=lian.resume()
 end
 quest["end"]["lian"]=function()
 	lian["end"]()
@@ -146,6 +146,14 @@ quest.main["mq"]=function(levelmax)
 end
 quest["end"]["mq"]=function()
 	masterquest["end"]()
+end
+loadmod("freequest.mod")
+quest.main["fq"]=function()
+	quest.resume=freequest.resume
+	do_freequest()
+end
+quest["end"]["canwu"]=function()
+	freequest["end"]()
 end
 do_quest=function(name,...)
 	quest.name=name

@@ -57,7 +57,7 @@ fangqi_end_fail=function()
 end
 
 getfangqinum=function()
-	return 2000
+	return 0
 end
 getexpmax=function()
 	expmax=GetVariable("expmax")

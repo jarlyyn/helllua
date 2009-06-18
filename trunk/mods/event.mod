@@ -294,7 +294,7 @@ dragongiftcmd["monster dragon"]="get chipped crystal"
 dragonflee=function(n,l,w)
 	w[3]=string.lower(w[3])
 	if dragongiftcmd[w[3]]~=nil then
-		Send(dragongiftcmd[w[3]])
+		SendImmediate(dragongiftcmd[w[3]])
 	end
 	dragon.flee=true
 end
@@ -325,4 +325,20 @@ event_dragonfind=function(n,l,w)
 	dragon.loc=loc
 	if mudvar.dragon~="kill" then return end
 	go(loc,dragon.find,dragon.main)
+end
+
+---------------------
+storygift={}
+storygift["一枚假仙丹"]="get fei dan"
+storygift["一颗闪闪发光的仙丹"]="get jiuzhuan jindan"
+storygift["一枚神力丸"]="get shenli wan"
+storygift["一本书"]="get mengzi"
+storygift["一枚仙丹"]="get xian dan\nget huohong xiandan"
+storygift["一枚黑不溜秋的丹药"]="get xisui dan"
+
+
+event_storygift=function(n,l,w)
+	if storygift[w[2]]~=nil then
+		SendImmediate(storygift[w[2]])
+	end
 end

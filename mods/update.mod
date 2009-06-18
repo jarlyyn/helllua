@@ -1,4 +1,4 @@
-version=106
+version=107
 mclversion=tonumber(GetVariable("version"))
 
 if mclversion==nil then
@@ -160,6 +160,7 @@ updateversion=function()
 	addtri("dragoncome","^(> )*【神话传说】(不及多想|玉帝大怒|噢呦|牛魔王道)","system","dragoncome")
 	addtri("dragonflee","^(> )*【东拉西扯】(北海谪龙|东海三太子|南海恶蛟|牛头怪)\\[(King of dragon|Prince of dragon|Monster dragon|Niutou guai)\\]：(天哪！这年头，看来是没有我立足的地方了！|呀！想不到凡人也有如此厉害的！|啊呀！不好，看来这次出师不利，待我回南海修炼上几年再说！)","dragon","dragonflee")
 	addtri("on_accept","^(> )*(黄裳|南海神尼|独孤求败|葵花太监)告诉你：你何不出手应战\\(accept\\)？扬我中华武林威风！$","system","on_accept")
+	addtri("event_storygift","^(> )*“啪”的一声(.*)掉到你面前。$","system","event_storygift")
 --	SetTriggerOption(triname,"group",trigroup)
 	--SetAlphaOption("on_world_open","on_worldopen")
 	call(updatecmd)

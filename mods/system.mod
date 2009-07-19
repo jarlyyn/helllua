@@ -303,6 +303,8 @@ on_getweapon=function()
 	_getweaponcmd=""
 	weaponid=GetVariable("weapon")
 	weapon2id=GetVariable("weapon2")
+	weapon1wielded=nil
+	weapon2wielded=nil
 	if weaponid~=nil then _getweaponcmd="get "..weaponid end
 	if masterweapon[weaponid]~=nil then
 		if weapon2id ~=nil then
@@ -341,6 +343,7 @@ end
 stopall=function()
 	if walking~=nil then walking["end"]() end
 	inittri()
+	initweapon()
 	unhookall()
 	DiscardQueue()
 	DeleteTemporaryTimers()

@@ -25,14 +25,34 @@ weapon=function(wn)
 		end
 	end
 end
-
+initweapon=function()
+	weapon1wielded=nil
+	weapon2wielded=nil
+end
+initweapon()
+weapon1wieldcmd=""
+weapon1unwieldcmd=""
+weapon2wieldcmd=""
+weapon2unwieldcmd=""
 weapon1=function(wield)
 	weaponid=GetVariable("weapon")
 	if weaponid=="" or weaponid==nil then return end
 	if wield==false then
-		run ("unwield "..weaponid..";remove "..weaponid)
+		if weapon1wielded~=true then return end
+		if weapon1unwieldcmd=="" then
+			run ("unwield "..weaponid..";remove "..weaponid)
+		else
+			run(weapon1unwieldcmd.." "..weaponid)
+		end
+		weapon1wielded=false
 	else
-		run ("wield "..weaponid..";wear "..weaponid)
+		if weapon1wielded~=false then return end
+		if weapon1wieldcmd=="" then
+			run ("wield "..weaponid..";wear "..weaponid)
+		else
+			run(weapon1wieldcmd.." "..weaponid)
+		end
+		weapon1wielded=true
 	end
 end
 
@@ -40,9 +60,21 @@ weapon2=function(wield)
 	weaponid=GetVariable("weapon2")
 	if weaponid=="" or weaponid==nil then return end
 	if wield==false then
-		run ("unwield "..weaponid..";remove "..weaponid)
+		if weapon2wielded~=true then return end
+		if weapon2unwieldcmd=="" then
+			run ("unwield "..weaponid..";remove "..weaponid)
+		else
+			run(weapon2unwieldcmd.." "..weaponid)
+		end
+		weapon2wielded=false
 	else
-		run ("wield "..weaponid..";wear "..weaponid)
+		if weapon2wielded~=false then return end
+		if weapon2wieldcmd=="" then
+			run ("wield "..weaponid..";wear "..weaponid)
+		else
+			run(weapon2wieldcmd.." "..weaponid)
+		end
+		weapon2wielded=true
 	end
 end
 
@@ -201,4 +233,48 @@ needaskmasterweapon=function()
 		end
 	end
 	return false
+end
+
+
+
+----------------------
+
+
+
+
+weapon_wieldtest=function(n,l,w)
+	if weapontested=="1" then
+		weapon1wieldcmd="wear"
+		weapon1unwieldcmd="remove"
+	else
+		weapon2wieldcmd="wear"
+		weapon2unwieldcmd="remove"
+	end
+end
+
+weapon1test=function()
+	weapontested="1"
+	weaponid=GetVariable("weapon")
+	if weaponid==nil or weaponid== "" then return end
+	run("wield "..weaponid..";wear "..weaponid)
+	catch("wieldtest","unwield "..weaponid..";remove "..weaponid)
+	weapon1wielded=false
+	weapon1wieldcmd="wield"
+	weapon1unwieldcmd="unwield"
+end
+
+
+
+
+
+
+weapon2test=function()
+	weapontested="2"
+		weaponid=GetVariable("weapon2")
+	if weaponid==nil or weaponid== "" then return end
+	run("wield "..weaponid..";wear "..weaponid)
+	catch("wieldtest","unwield "..weaponid..";remove "..weaponid)
+	weapon2wielded=false
+	weapon2wieldcmd="wield"
+	weapon2unwieldcmd="unwield"
 end

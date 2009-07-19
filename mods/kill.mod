@@ -34,6 +34,7 @@ fightpreper=function()
 		run("yun powerup")
 	end
 	run("yun recover;yun shield")
+	prewield()
 end
 
 do_kill=function(npc,kill_ok,kill_fail)
@@ -66,9 +67,7 @@ kill.cmd=function()
 	run("yun recover;yun regenerate")
 	if (me.score.xingge=="心狠手辣")or(me.score.xingge=="光明磊落")and(tonumber(GetVariable("nuqimin"))>2000) then run("burning") end
 	cmd=GetVariable("fightcuff")
-	if cmd==nil or cmd=="" then
-		weapon(1)
-	end
+	prewield()
 	npchere(kill.npc,"kill "..kill.npc)
 	fightcuff()
 	pfm()
@@ -85,20 +84,24 @@ end
 
 fightcuff=function()
 	if mudvar.powerup==nopowerup.drunk or (cmd~=nil and cmd~="") then
-		weapon(0)
-	if mudvar.powerup==nopowerup.drunk then
-		run("wield mu gun;yong club.zuida;unwield mu gun")
-	end
-	cmd=GetVariable("fightcuff")
-	if cmd~=nil and cmd~="" then
-		run(cmd)
-	end
+			weapon(0)
+		if mudvar.powerup==nopowerup.drunk then
+			run("wield mu gun;yong club.zuida;unwield mu gun")
+		end
+		cmd=GetVariable("fightcuff")
+		if cmd~=nil and cmd~="" then
+			run(cmd)
+		end
 		weapon(1)
 	end
 end
 
 
-
+prewield=function()
+	if (cmd==nil or cmd=="")and mudvar.powerup~=nopowerup.drunk then
+		weapon(1)
+	end
+end
 
 
 -------------------------

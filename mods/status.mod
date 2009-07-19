@@ -168,14 +168,23 @@ getinfo=function(func,...)
 	getjifa()
 	cha()
 	getspe()
+	infoend(getinfo2,func,...)
+end
+getinfo2=function(func,...)
 	hp()
 	weapon(0)
 	getfam()
 	getmudvar()
 	gettouch()
+	weapon1test()
+	infoend(getinfo3,func,...)
+end
+getinfo3=function(func,...)
+	weapon2test()
 	infoend(stsetting)
 	delay(1,func,...)
 end
+
 getstatus=function(func)
 	eatdrink()
 	run("yun recover;yun regenerate")

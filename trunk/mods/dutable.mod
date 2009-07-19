@@ -28,6 +28,7 @@ dutable.items={}
 dutable.yxl={}
 dutable.items["干粮"]={min=1000,max=1000}
 dutable.items["牛皮水袋"]={min=8,max=8}
+dutable.items={}
 dutable.yxl["yingxiong ling"]={min=1,max=1}
 dutable.checkyxl=function()
 	if me.fam=="少林派" then return false end
